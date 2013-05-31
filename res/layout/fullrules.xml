@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+     xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    >
+    
+    	<com.google.ads.AdView  
+          android:id="@+id/adView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           ads:adUnitId="@string/admob_pub_id_full_rules"
+           android:layout_centerHorizontal="true" 
+           ads:adSize="BANNER"
+           ads:testDevices="TEST_EMULATOR"
+           ads:loadAdOnCreate="true"/>
+<LinearLayout  
+    android:layout_above="@id/adView" 
+    style="@style/LayoutStyle"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical" >
+   
+     <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
+
+   <LinearLayout
+         style="@style/LayoutFormStyle"
+     
+         >
+	<LinearLayout
+		style="@style/FormBackgroundStyle"
+		android:layout_marginBottom="5dp"
+	>
+	<RelativeLayout
+		style="@style/FormHeaderWrapperStyle"
+		android:id="@+id/header"
+	>
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/FormHeaderAreaTextStyle"
+        android:text="@string/full_rules_title" 
+        />
+    </RelativeLayout>
+<LinearLayout 
+            style="@style/ContentAreaTextBottomStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:orientation="vertical"
+        >
+    <ScrollView   
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" 
+    	android:fadingEdge="none"
+    	
+    	 >
+	<LinearLayout 
+	   	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" 
+		android:orientation="vertical"
+	    > 
+	
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/ContentAreaTextStyle"
+        android:text="@string/full_rules_1" 
+       
+        />
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_2" 
+        android:id="@+id/fullRules2"
+        />	
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_3" 
+        />
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_4" 
+        />
+   <!-- the letters -->
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_letters_1" 
+        android:paddingBottom="1dp"
+        />
+      <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextStyle"
+        android:text="@string/full_rules_letters_2" 
+        android:paddingLeft="10dp"
+        android:paddingBottom="1dp"
+        android:paddingTop="1dp"
+        />
+   <TableLayout
+       style="@style/ContentAreaTextAreaStyle" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:stretchColumns="*">
+    <TableRow style="@style/RulesTableRowStyle" >
+
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter1_num"
+      		style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:text="@string/full_rules_letter2_num"
+      		style="@style/LetterValueStyle"       
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter3_num"
+      		style="@style/LetterValueStyle"          
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter4_num"
+      		style="@style/LetterValueStyle"
+        />
+
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter5_num"
+      		style="@style/LetterValueStyle"
+        />
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter6_num"
+            style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter7_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter8_num"
+            style="@style/LetterValueStyle"
+ 
+        />
+     </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter9_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter10_num"
+            style="@style/LetterValueStyle"
+		/>
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter11_num"
+            style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter12_num"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter13_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter14_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:text="@string/full_rules_letter15_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter16_num"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter17_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:text="@string/full_rules_letter18_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:text="@string/full_rules_letter19_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter20_num"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter21_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:text="@string/full_rules_letter22_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter23_num"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter24_num"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		    style="@style/LetterValueStyle"
+            android:text="@string/full_rules_letter25_num"
+         />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter26_num"
+            style="@style/LetterValueStyle"
+        />
+
+    </TableRow>
+ 	</TableLayout>
+ 	<com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextStyle"
+        android:text="@string/full_rules_letters_3" 
+        android:paddingLeft="10dp"
+        android:paddingBottom="5dp"
+
+        />
+  <!-- scoring -->
+ 	
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_scoring_1" 
+        android:paddingBottom="1dp"
+        />
+      <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextStyle"
+        android:text="@string/full_rules_scoring_2" 
+        android:paddingLeft="10dp"
+        android:paddingBottom="1dp"
+        android:paddingTop="1dp"
+        />
+   <TableLayout
+       style="@style/ContentAreaTextAreaStyle" 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:stretchColumns="*">
+    <TableRow style="@style/RulesTableRowStyle" >
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter1_value"
+      		style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter2_value"
+      		style="@style/LetterValueStyle"       
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter3_value"
+      		style="@style/LetterValueStyle"          
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter4_value"
+      		style="@style/LetterValueStyle"
+        />
+
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter5_value"
+      		style="@style/LetterValueStyle"
+        />
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter6_value"
+            style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter7_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter8_value"
+            style="@style/LetterValueStyle"
+ 
+        />
+     </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter9_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter10_value"
+            style="@style/LetterValueStyle"
+		/>
+        <com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter11_value"
+            style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter12_value"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter13_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter14_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter15_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter16_value"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter17_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter18_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter19_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter20_value"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter21_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter22_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter23_value"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter24_value"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		    style="@style/LetterValueStyle"
+            android:text="@string/full_rules_letter25_value"
+         />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:text="@string/full_rules_letter26_value"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+ 	</TableLayout>
+ 	<com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextStyle"
+        android:text="@string/full_rules_scoring_3" 
+        android:paddingLeft="10dp"
+        android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextStyle"
+        android:text="@string/full_rules_scoring_4" 
+        android:paddingLeft="10dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/full_rules_scoring_4"
+        />
+ 		<RelativeLayout
+ 		    android:layout_width="fill_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:background="@color/content_area_background_color"
+ 		 >
+    	<RelativeLayout
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:id="@+id/bonus2l"
+    		android:layout_below="@id/full_rules_scoring_4"
+    	>
+      <ImageView 
+ 		    android:paddingLeft="10dp"
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:src="@drawable/bonus_2l"
+ 		    android:id="@+id/bonus2l_img"
+ 		    android:layout_centerVertical="true"
+ 			/>
+     	<com.riotapps.word.ui.MainFontTextView
+ 		  style="@style/ContentAreaTextStyle"
+ 		   android:id="@+id/bonus2l_text"
+        	android:text="@string/full_rules_scoring_bonus_2l" 
+        	android:paddingLeft="10dp"
+        	android:layout_toRightOf="@id/bonus2l_img"
+        	 android:layout_centerVertical="true"
+        />
+     	</RelativeLayout>
+     	<RelativeLayout
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_below="@id/bonus2l"
+    		android:id="@+id/bonus3l"
+    		android:paddingBottom="1dp"
+    		>
+ 		 <ImageView 
+			android:paddingTop="5dp" 		    
+ 		    android:paddingLeft="10dp"
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:src="@drawable/bonus_3l"
+ 		    android:id="@+id/bonus3l_img"
+ 		    android:layout_centerVertical="true"
+ 			/>
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		  	style="@style/ContentAreaTextStyle"
+ 		  	android:id="@+id/bonus3l_text"
+        	android:text="@string/full_rules_scoring_bonus_3l" 
+        	android:paddingLeft="10dp"
+        	android:layout_toRightOf="@id/bonus3l_img"
+        	android:layout_centerVertical="true"
+        />     
+ 		</RelativeLayout>
+ 		<RelativeLayout
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_below="@id/bonus3l"
+    		android:id="@+id/bonus4l"
+    		>
+ 		 <ImageView 
+			android:paddingTop="5dp" 		    
+ 		    android:paddingLeft="10dp"
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:src="@drawable/bonus_4l"
+ 		    android:id="@+id/bonus4l_img"
+ 		    android:layout_centerVertical="true"
+ 			/>
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		  	style="@style/ContentAreaTextStyle"
+ 		  	android:id="@+id/bonus3l_text"
+        	android:text="@string/full_rules_scoring_bonus_4l" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        	android:layout_toRightOf="@id/bonus4l_img"
+        	 android:layout_centerVertical="true"
+        />     
+ 		</RelativeLayout>
+ 		<RelativeLayout
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_below="@id/bonus4l"
+    		android:id="@+id/bonus2w"
+    		android:paddingBottom="1dp"
+    		>
+ 		 <ImageView 
+			android:paddingTop="5dp" 		    
+ 		    android:paddingLeft="10dp"
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:src="@drawable/bonus_2w"
+ 		    android:id="@+id/bonus2w_img"
+ 		    android:layout_centerVertical="true"
+ 			/>
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		  	style="@style/ContentAreaTextStyle"
+ 		  	android:id="@+id/bonus2w_text"
+        	android:text="@string/full_rules_scoring_bonus_2w" 
+        	android:paddingLeft="10dp"
+        	android:layout_toRightOf="@id/bonus2w_img"
+        	 android:layout_centerVertical="true"
+        />     
+ 		</RelativeLayout>
+ 		<RelativeLayout
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content"
+    		android:layout_below="@id/bonus2w"
+    		android:id="@+id/bonus3w"
+    		android:paddingBottom="1dp"
+    		>
+ 		 <ImageView 
+			android:paddingTop="5dp" 		    
+ 		    android:paddingLeft="10dp"
+ 		    android:layout_width="wrap_content"
+ 		    android:layout_height="wrap_content"
+ 		    android:src="@drawable/bonus_3w"
+ 		    android:id="@+id/bonus3w_img"
+ 		    android:layout_centerVertical="true"
+ 			/>
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		  	style="@style/ContentAreaTextStyle"
+ 		  	android:id="@+id/bonus3w_text"
+        	android:text="@string/full_rules_scoring_bonus_3w" 
+        	android:paddingLeft="10dp"
+        	android:layout_toRightOf="@id/bonus3w_img"
+        	 android:layout_centerVertical="true"
+        />     
+ 		</RelativeLayout>     
+ 		</RelativeLayout>
+ 		
+ 		<com.riotapps.word.ui.MainFontTextView
+	       	style="@style/ContentAreaTextStyle"
+	        android:text="@string/full_rules_scoring_5" 
+	        android:paddingLeft="10dp"
+	        android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+	       	style="@style/ContentAreaTextStyle"
+	        android:text="@string/full_rules_scoring_6" 
+	        android:paddingLeft="10dp"
+	        android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+	       	style="@style/ContentAreaTextStyle"
+	        android:text="@string/full_rules_scoring_7" 
+	        android:paddingLeft="10dp"
+	        android:paddingBottom="1dp"
+        />
+ 		
+ 		<!-- smashers  -->
+ 		<com.riotapps.word.ui.MainFontTextView
+       		style="@style/ContentAreaTextStyle"
+        	android:text="@string/full_rules_scoring_smasher_1" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		    style="@style/ContentAreaTextStyle"
+        	android:text="@string/full_rules_scoring_smasher_2" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        />
+ 		<!-- win lose or draw -->
+ 		<com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_finish_1" 
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+       		style="@style/ContentAreaTextStyle"
+        	android:text="@string/full_rules_finish_2" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+       		style="@style/ContentAreaTextStyle"
+        	android:text="@string/full_rules_finish_3" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+       		style="@style/ContentAreaTextStyle"
+        	android:text="@string/full_rules_finish_4" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+       		style="@style/ContentAreaTextStyle"
+        	android:text="@string/full_rules_finish_5" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="1dp"
+        />
+ 		<!-- dictionary -->
+ 		<com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/full_rules_dictionary_1" 
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+       		style="@style/ContentAreaTextBottomStyle"
+       		android:drawableTop="@null"
+       		android:id="@+id/fullRulesDictionary2"
+        	android:text="@string/full_rules_dictionary_2" 
+        	android:paddingLeft="10dp"
+        	android:paddingBottom="15dp"
+        	
+        />
+ 
+</LinearLayout>
+ </ScrollView> 
+</LinearLayout>
+</LinearLayout> 
+   </LinearLayout> 
+
+</LinearLayout> 
+</RelativeLayout>

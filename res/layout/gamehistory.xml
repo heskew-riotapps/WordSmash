@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+     xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    >
+    
+    	<com.google.ads.AdView  
+          android:id="@+id/adView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           ads:adUnitId="@string/admob_pub_id_game_played_words"
+           android:layout_centerHorizontal="true" 
+           ads:adSize="BANNER"
+           ads:testDevices="TEST_EMULATOR"
+           ads:loadAdOnCreate="true"/>
+<LinearLayout
+ android:layout_above="@id/adView" 
+    style="@style/LayoutStyle" 
+    android:orientation="vertical">
+<include android:id="@+id/topAreaLayout" layout="@layout/scoreboardlayout" />
+<LinearLayout 
+           style="@style/LayoutFormStyle"
+           android:layout_height="fill_parent"
+           > 
+		 <LinearLayout
+				style="@style/FormBackgroundStyle"
+				android:layout_marginTop="5dp"
+				 android:layout_marginBottom="5dp"
+				 android:orientation="vertical"
+				 android:layout_width="fill_parent"
+				 android:layout_height="fill_parent"
+			>
+			<com.riotapps.word.ui.MainFontTextView
+		        style="@style/ContentAreaTextTopStyle"
+		        />
+		    <com.riotapps.word.ui.MainFontTextView
+		 		android:layout_marginTop="-32dp"
+		        android:background="@drawable/form_item_top"
+		        android:textSize="14dp"
+		        android:text="@string/game_history_title" 
+		        android:id="@+id/header"
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/button_text_color"
+	 
+				android:paddingBottom="5dp"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp"
+				android:paddingTop="5dp"
+		        />
+	 			<LinearLayout
+	 			    android:layout_height="fill_parent"
+	 			    android:layout_width="fill_parent"
+	 			    style="@style/ContentAreaTextBottomStyle"
+	 			    android:drawablePadding="0dp"
+	 			    android:paddingLeft="0dp"
+					android:paddingRight="0dp"
+	 			>    
+		    	<ListView
+		     
+		    	    android:fadingEdge="none"
+		    	    android:id="@+id/lvWords"
+		    	    android:layout_below="@id/header"
+		    	  
+		    	    />
+		     </LinearLayout>
+				 
+		    </LinearLayout>
+	</LinearLayout>   
+</LinearLayout>
+</RelativeLayout>

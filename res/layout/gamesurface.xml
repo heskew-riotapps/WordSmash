@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutStyle" >
+<include android:id="@+id/topAreaLayout" layout="@layout/scoreboardlayout" />
+
+	<RelativeLayout
+	    android:layout_below="@id/topAreaLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"  
+	 >
+    	<com.riotapps.word.ui.GameSurfaceView 
+    	    android:layout_below="@id/topAreaLayout"
+        	android:id="@+id/gameSurface"
+        	android:layout_margin="0dp"
+        	android:background="@null"
+        />
+    
+    </RelativeLayout>
+
+	<LinearLayout
+        style="@style/GameBoardButtonAreaStyle">
+	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bPlayedWords"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_played_words_button_text"
+    />
+	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bChat"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:drawableRight="@drawable/chat_alert"
+        android:text="@string/gameboard_chat_button_text"
+    />
+
+	  <com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bRecall"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_recall_button_text"
+    />
+	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bShuffle"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_shuffle_button_text"
+    />
+	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bSwap"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_swap_button_text"
+    />
+	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bPlay"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_play_button_text"
+    />
+	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bSkip"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_skip_button_text"
+    />
+    <com.riotapps.word.ui.ScoreboardButton 
+        style="@style/GameBoardButtonStyle"
+        android:id="@+id/bCancel"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_cancel_button_text"
+    />
+    <com.riotapps.word.ui.ScoreboardButton 
+        style="@style/GameBoardButtonStyle"
+        android:id="@+id/bDecline"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_decline_button_text"
+    />
+   <com.riotapps.word.ui.ScoreboardButton 
+        style="@style/GameBoardButtonStyle"
+        android:id="@+id/bResign"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_resign_button_text"
+    />
+   <com.riotapps.word.ui.ScoreboardButton 
+        style="@style/GameBoardButtonStyle"
+        android:id="@+id/bRematch"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_rematch_button_text"
+    />
+    </LinearLayout>
+   
+</RelativeLayout>

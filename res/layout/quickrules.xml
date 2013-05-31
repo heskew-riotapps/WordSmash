@@ -1,0 +1,89 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    style="@style/LayoutStyle"
+    android:orientation="vertical" >
+ 
+
+	<com.google.ads.AdView  
+          android:id="@+id/adView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+           ads:adUnitId="@string/admob_pub_id_condensed_rules" 
+           ads:adSize="BANNER"
+           ads:testDevices="TEST_EMULATOR"
+           ads:loadAdOnCreate="true"/>
+<LinearLayout 
+    android:layout_above="@id/adView" 
+    style="@style/LayoutStyle"
+    android:orientation="vertical" >
+   
+     <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
+
+   <LinearLayout
+         style="@style/LayoutFormStyle"
+        
+         >
+	<LinearLayout
+		style="@style/FormBackgroundStyle"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+	>
+	<RelativeLayout
+		style="@style/FormHeaderWrapperStyle"
+		android:id="@+id/header"
+	>
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/FormHeaderAreaTextStyle"
+        android:text="@string/quick_rules_title" 
+        />
+    </RelativeLayout>
+    <LinearLayout 
+            style="@style/ContentAreaTextBottomStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:orientation="vertical"
+        >
+    <ScrollView   
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" 
+    	android:fadingEdge="none"
+    	
+    	 >
+	<LinearLayout 
+	   	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" 
+		android:orientation="vertical"
+	    > 
+	
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/ContentAreaTextStyle"
+        android:text="@string/quick_rules_1" 
+        />
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/quick_rules_2" 
+        />	
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/quick_rules_3" 
+        />
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaStyle"
+        android:text="@string/quick_rules_4" 
+        />
+   <com.riotapps.word.ui.MainFontTextView
+       style="@style/ContentAreaTextAreaBottomStyle"
+        android:text="@string/quick_rules_5"
+        android:paddingBottom="15dp" 
+        />
+  </LinearLayout>
+ </ScrollView> 
+</LinearLayout>
+   </LinearLayout>
+   </LinearLayout>
+   
+</LinearLayout>
+</RelativeLayout>

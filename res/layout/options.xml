@@ -1,0 +1,119 @@
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    style="@style/LayoutStyle"
+    android:orientation="vertical" >
+  
+	<com.google.ads.AdView  
+          android:id="@+id/adView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+           ads:adUnitId="@string/admob_pub_id_options" 
+           ads:adSize="BANNER"
+           ads:testDevices="TEST_EMULATOR"
+           ads:loadAdOnCreate="true"/>
+<LinearLayout 
+    android:layout_above="@id/adView" 
+    style="@style/LayoutStyle"
+    android:orientation="vertical" >
+     <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
+
+   <ScrollView
+       android:layout_marginTop="0dp"
+        android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+    	android:fillViewport="true" 
+        >
+
+   <LinearLayout 
+         android:layout_marginTop="0dp"
+       android:orientation="vertical" 
+        android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+        >
+
+   <LinearLayout
+ 		 
+         style="@style/LayoutFormStyle"
+         >
+	<LinearLayout
+		style="@style/FormBackgroundStyle"
+		android:layout_marginTop="5dp"
+	>
+	<RelativeLayout
+		style="@style/FormHeaderWrapperStyle"
+		android:id="@+id/header"
+	>
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/FormHeaderAreaTextStyle"
+        android:text="@string/options_title" 
+        />
+    </RelativeLayout> 
+         <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:orientation="vertical"
+        >
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/TextLineItemCenteredStyle"
+        android:text="@string/account_settings" 
+        android:id="@+id/tvAccountSettings"
+        />
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/TextLineItemCenteredStyle"
+        android:text="@string/options_profile_image" 
+        android:id="@+id/tvGravatar"
+        />
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/TextLineItemCenteredStyle"
+        android:text="@string/fb_account_settings" 
+        android:id="@+id/tvFBAccountSettings"
+        />
+     <com.riotapps.word.ui.MainFontTextView
+        style="@style/TextLineItemCenteredStyle"
+        android:text="@string/quick_rules_title" 
+        android:id="@+id/tvQuickRules"
+        />
+      <com.riotapps.word.ui.MainFontTextView
+        style="@style/TextLineItemCenteredStyle"
+        android:text="@string/full_rules_option" 
+        android:id="@+id/tvFullRules"
+        
+        />
+      <com.riotapps.word.ui.MainFontTextView
+        style="@style/TextLineItemCenteredStyle"
+        android:text="@string/about_option" 
+        android:id="@+id/tvAbout"
+            android:background="@drawable/text_selector_bottom"
+        />
+          </LinearLayout>
+  
+    </LinearLayout>
+    </LinearLayout>
+     <RelativeLayout
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+	 
+	>
+   	  <com.riotapps.word.utils.TypefaceButton 
+		  	    style="@style/MainLandingButtonStyle"
+		  	    android:id="@+id/bLogout" 
+		        android:layout_width="250dp" 
+		         
+		        android:text="@string/logout"
+		        android:layout_marginTop="30dp"
+		        android:textSize="16dp"
+		    
+		    />
+   	    </RelativeLayout>
+     </LinearLayout>
+   
+    </ScrollView>
+    
+    
+</LinearLayout>
+</RelativeLayout>

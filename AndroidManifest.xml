@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.riotapps.word"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <!-- Google cloud messaging required version 8 or above. -->
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="13" />
+ 
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+ 
+	<permission android:name="com.riotapps.word.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="com.riotapps.word.permission.C2D_MESSAGE" /> 
+	
+	<!-- App receives GCM messages. -->
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<!-- GCM connects to Google Services. -->
+ 
+	<!-- GCM requires a Google account. -->
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<!-- Keeps the processor from sleeping when a message is received. -->
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
+    
+    <application  
+         
+        android:name="com.riotapps.word.utils.ApplicationContext" 
+        android:icon="@drawable/icon_launcher"
+        android:label="@string/app_name"  
+        android:theme="@style/MainStyle" >
+           
+	    <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND" >
+		  <intent-filter>
+		    <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+		    <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+		    <category android:name="com.riotapps.word" />
+		  </intent-filter>
+		</receiver>
+
+	    <service android:enabled="true" android:name="com.riotapps.word.services.ProcessBridge"  />
+	    <service android:enabled="true" android:name="com.riotapps.word.services.BackgroundService"  android:process=":bkgdSvc"/>
+        <service android:enabled="true" android:name="com.riotapps.word.services.WordLoaderService" />  
+        <service android:name=".GCMIntentService" />
+        
+       <activity android:name=".Splash" android:label="@string/app_name" android:screenOrientation="portrait">
+ 		    <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+         </activity>   
+		<activity android:name=".FullRules" android:label="@string/app_name" android:screenOrientation="portrait">
+		    <intent-filter>
+    			<category android:name="android.intent.category.DEFAULT" />
+    			<action android:name="android.intent.action.VIEW" />
+    			<data  android:scheme="com.riotapps.word" />  
+			</intent-filter>
+		</activity>
+	
+		<activity android:name=".Badges" android:label="@string/app_name" android:screenOrientation="portrait">
+		   <intent-filter>
+    			<category android:name="android.intent.category.DEFAULT" />
+    			<action android:name="android.intent.action.VIEW" />
+    			<data  android:scheme="com.riotapps.word" />  
+			</intent-filter>
+		</activity> 
+        <activity android:name=".Welcome" android:label="@string/app_name" android:screenOrientation="portrait"/>
+  		<activity android:name=".JoinNative" android:label="@string/app_name" android:screenOrientation="portrait"/>
+  		<activity android:name=".ConnectToFacebook" android:label="@string/app_name" android:screenOrientation="portrait"/>
+ 		<activity android:name=".MainLanding" android:label="@string/app_name" android:screenOrientation="portrait" />
+ 		<activity android:name=".PreviousOpponents" android:label="@string/app_name" android:screenOrientation="portrait" />
+		<activity android:name=".QuickRules" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".AccountSettings" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".Settings" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".TestLanding" android:label="@string/app_name" />
+		<activity android:name=".GamePlay" android:label="@string/app_name" />
+		<activity android:name=".GameSurface" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".FindPlayer" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".FindPlayerResults" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".StartGame" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".Options" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".Gravatar" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".GravatarRefresh" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".AddOpponents" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".ChooseFBFriends" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".FBAccountSettings" android:label="@string/app_name" android:screenOrientation="portrait"/>
+		<activity android:name=".GameChat" android:label="@string/app_name" android:screenOrientation="portrait"  />
+	 	<activity android:name=".GameHistory" android:label="@string/app_name" android:screenOrientation="portrait"/>
+	 	<activity android:name=".GameLookup" android:label="@string/app_name" android:screenOrientation="portrait"/>
+	 	<activity android:name=".About" android:label="@string/app_name" android:screenOrientation="portrait"/>
+	 	<activity android:name=".InterstitialAd" android:label="@string/app_name" android:screenOrientation="portrait"/>
+	 	
+	 	<activity android:name="com.facebook.LoginActivity" android:label="@string/app_name" android:screenOrientation="portrait"/>
+	 	 <activity android:name="com.chartboost.sdk.CBImpressionActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:excludeFromRecents="true" />
+	 	 <activity android:name="com.google.ads.AdActivity"
+              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+	 	<meta-data android:value="@string/app_id" android:name="com.facebook.sdk.ApplicationId"/>
+	 	<activity
+            android:name="com.revmob.ads.fullscreen.FullscreenActivity"
+            android:configChanges="keyboardHidden|orientation" >
+    	</activity>
+    </application>
+
+</manifest>

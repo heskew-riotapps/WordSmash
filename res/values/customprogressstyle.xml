@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style
+    name="CustomProgressStyle" parent="@android:style/Widget.ProgressBar.Small">
+  	<item name="android:background">@drawable/custom_progress</item>
+    <item name="android:textColor">#ffffff</item>   
+    <item name="android:textSize">16dp</item>
+   
+        
+</style>
+</resources>

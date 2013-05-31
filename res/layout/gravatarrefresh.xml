@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/LayoutStyle"
+    android:orientation="vertical" >
+   
+     <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
+   <ScrollView   
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" 
+    	android:fadingEdge="none"
+    	 >
+   <LinearLayout
+         style="@style/LayoutFormStyle"
+        
+         >
+	<LinearLayout
+		style="@style/FormBackgroundStyle"
+		android:layout_marginTop="5dp"
+	>
+	<RelativeLayout
+		style="@style/FormHeaderWrapperStyle"
+		android:id="@+id/header"
+	>
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/FormHeaderAreaTextStyle"
+        android:text="@string/gravatar_title"
+        />
+    </RelativeLayout>
+    <com.riotapps.word.ui.MainFontTextView
+        style="@style/ContentAreaTextStyle"
+        android:text="@string/gravatar_refreshed_text" 
+  	    android:id="@+id/tvRefreshed"
+        />
+
+     <RelativeLayout
+        style="@style/FormButtonAreaStyle"
+        android:layout_below="@+id/inner_form" >
+
+		<com.riotapps.word.utils.TypefaceButton 
+	  	    style="@style/ButtonStyle"
+	  	    android:id="@+id/bOK"
+	        android:layout_width="250dp" 
+	          android:layout_centerHorizontal="true"
+	        android:text="@string/ok"
+	    />
+
+	</RelativeLayout>
+  
+   </LinearLayout>
+   </LinearLayout>
+   </ScrollView>
+</LinearLayout>
