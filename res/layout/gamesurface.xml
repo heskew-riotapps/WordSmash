@@ -26,15 +26,7 @@
         android:layout_weight="1.0"
         android:text="@string/gameboard_played_words_button_text"
     />
-	<com.riotapps.word.ui.ScoreboardButton 
-  	    style="@style/GameBoardButtonStyle"
-  	    android:id="@+id/bChat"
-        android:layout_width="0dp" 
-        android:layout_weight="1.0"
-        android:drawableRight="@drawable/chat_alert"
-        android:text="@string/gameboard_chat_button_text"
-    />
-
+ 
 	  <com.riotapps.word.ui.ScoreboardButton 
   	    style="@style/GameBoardButtonStyle"
   	    android:id="@+id/bRecall"

@@ -590,14 +590,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		this.bPlay = (Button) findViewById(R.id.bPlay);
 		this.bSkip = (Button) findViewById(R.id.bSkip);
 		this.bShuffle = (Button) findViewById(R.id.bShuffle);
-		Button bChat = (Button) findViewById(R.id.bChat);
+		 
 		Button bSwap = (Button) findViewById(R.id.bSwap);
 		Button bPlayedWords = (Button) findViewById(R.id.bPlayedWords);
 		Button bCancel = (Button) findViewById(R.id.bCancel);
 		Button bResign = (Button) findViewById(R.id.bResign);
 		Button bDecline = (Button) findViewById(R.id.bDecline);
 	 	this.bShuffle.setOnClickListener(this);
-	 	bChat.setOnClickListener(this);
+	 	 
 	 
 	 	this.bSkip.setOnClickListener(this);
 	 	bPlayedWords.setOnClickListener(this);
@@ -649,7 +649,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 //	Logger.d(TAG, "setupButtons this.game.getStatus()=" + this.game.getStatus());
 	 	
 	 	
-	 	bChat.setCompoundDrawables(null, null, null, null);
+	 	 
 	 	//set cancel button area mode:
 	 	//if it's the first play of the game by starting player, it should be "CANCEL" mode
 	 	//if it's the first play of the game by a non-starting player, it should be in "DECLINE" mode
@@ -658,18 +658,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	Logger.d(TAG, "setupButtons game status=" + this.game.getStatus());
 	 	
 	 	if (this.game.getStatus() == 1) { //active
-	 		if (GameService.checkGameChatAlert(context, this.game, true)){
-	 			Drawable chatAlert = context.getResources().getDrawable( R.drawable.chat_alert );
-	 			bChat.setCompoundDrawablesWithIntrinsicBounds(null, null, chatAlert, null);
-	 			
-	 			Logger.d(TAG, "setupButtons checkGameChatAlert=true");
-	 		}
-	 		else if (this.game.getChats().size() > 0){
-	 			Drawable chatAlert = context.getResources().getDrawable( R.drawable.chat_exists );
-	 			bChat.setCompoundDrawablesWithIntrinsicBounds(null, null, chatAlert, null);
-	 			
-	 			//Logger.d(TAG, "setupButtons checkGameChatAlert=true");
-	 		}
+	 		 
 	 		
 	 		bRematch.setVisibility(View.GONE);
 	 		
@@ -766,10 +755,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 	
 	 	}
 	 	else if(this.game.isCompleted()){  
-	 		if (this.game.getChats().size() > 0){
-	 			Drawable chatAlert = context.getResources().getDrawable( R.drawable.chat_exists );
-	 			bChat.setCompoundDrawablesWithIntrinsicBounds(null, null, chatAlert, null);
-	 		}
+	 		 
 	 		bRecall.setVisibility(View.GONE);
 	 		bSwap.setVisibility(View.GONE);
 	 		bSkip.setVisibility(View.GONE);
@@ -1203,12 +1189,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	this.gameSurfaceView.shuffleTray();
 			        	this.unfreezeButtons();
 			        	break;
-			        case R.id.bChat:  
-			        	intent = new Intent(this, GameChat.class);
-			        	intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
-						//startActivity(intent);
-						startActivityForResult(intent, 1);
-						break;
+			      
 			        case R.id.bPlayedWords:  
 			        	intent = new Intent(this, GameHistory.class);
 			        	intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());

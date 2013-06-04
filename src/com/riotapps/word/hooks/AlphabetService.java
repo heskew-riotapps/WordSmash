@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 
 import android.content.Context;
 
-import com.facebook.android.R;
+import com.riotapps.word.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.riotapps.word.utils.ApplicationContext;
