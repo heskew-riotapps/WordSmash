@@ -53,8 +53,8 @@ public class Player implements Parcelable{
 	private List<Alert> latestAlerts = new ArrayList(); //the latest communication alert 
 
 
-	@SerializedName("game_")
-	private Game notificationGame = null; //the game associated with notification via gcmIntent
+//	@SerializedName("game_")
+//	private Game notificationGame = null; //the game associated with notification via gcmIntent
 	
 	@SerializedName("o_n_i_a")
 	private boolean noInterstitialAdsOption = false; //a paid upgrade to not display interstitial ads 
@@ -173,12 +173,13 @@ public class Player implements Parcelable{
 		this.latestAlerts = latestAlerts;
 	}
 	
-	public Game getNotificationGame() {
+/*	public Game getNotificationGame() {
 		return notificationGame;
 	}
 	public void setNotificationGame(Game notificationGame) {
 		this.notificationGame = notificationGame;
 	}
+	*/
 	public Date getLastRefreshDate() {
 		if (lastRefreshDate == null){
 			String mytime="20121006102400";

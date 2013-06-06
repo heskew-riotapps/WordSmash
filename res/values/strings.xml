@@ -27,7 +27,7 @@
 	<string name="playtomics_api_key">c77086d28be34cdaa1f3db380fb381</string>
 
     <string name="app_name">WordSmash</string>
-    <string name="anaonymous_you">You</string>
+    <string name="anonymous_player_name">You</string>
     
     <string name="join_via_facebook">connect with facebook</string>
 	<string name="join_via_native">connect with your email address</string>

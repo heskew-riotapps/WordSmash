@@ -1,6 +1,7 @@
 package com.riotapps.word.hooks;
 
 import java.lang.reflect.Type;
+
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +37,9 @@ import com.facebook.model.GraphUser;
 import com.facebook.android.FacebookError;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
- 
+import com.riotapps.word.data.PlayerData;
+
+
 ////make this class static
 @SuppressLint({ "NewApi"})
 public class PlayerService {
@@ -516,35 +519,41 @@ public class PlayerService {
 		player = null;
 	}
 	
+	
+	
 	public static void putPlayerToLocal(Player player){
-		 Gson gson = new Gson(); 
-	     SharedPreferences settings = Storage.getSharedPreferences();
-	     SharedPreferences.Editor editor = settings.edit();
-	     editor.putString(Constants.USER_PREFS_PLAYER_JSON, gson.toJson(player));
-    	// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 } 
-		 ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
-	     appContext.setPlayer(player);
-
-		gson = null;	 	
-			 
+		PlayerData.Save(player);
+		
+		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+	    appContext.setPlayer(player);
+	 
+	}
+	
+	public static boolean isFirstTime(){
+		return PlayerData.Fetch() == null;
 	}
 	
 	public static Player getPlayerFromLocal(){
-		 Gson gson = new Gson(); 
-		 Type type = new TypeToken<Player>() {}.getType();
-	     SharedPreferences settings = Storage.getSharedPreferences();
-	     
-	    // Logger.w(TAG, "getPlayerFromLocal player=" + settings.getString(Constants.USER_PREFS_PLAYER_JSON, Constants.EMPTY_JSON));
-	     Player player = gson.fromJson(settings.getString(Constants.USER_PREFS_PLAYER_JSON, Constants.EMPTY_JSON), type);
-	     return player;
+		 Player player = PlayerData.Fetch();
+		 
+		 //if player has not been created yet, let's create her now
+		 if (player == null){
+			 Context ctx = ApplicationContext.getAppContext();
+			 
+			 player = new Player();
+
+			 player.setNumDraws(0);
+			 player.setNumWins(0);
+			 player.setNumLosses(0);
+			 player.setId(Constants.DEFAULT_PLAYER_ID);
+			 player.setFirstName(Constants.EMPTY_STRING);
+			 player.setLastName(Constants.EMPTY_STRING);
+			 player.setNickname(ctx.getString(R.string.anonymous_player_name));
+			 
+			 PlayerData.Save(player);
+		 }
+		 
+		 return player;
 	}
 	
 	public static Player handleCreatePlayerResponse(String result){// InputStream iStream){
@@ -767,7 +776,7 @@ public class PlayerService {
 			}
 			
 		//	Logger.d(TAG, "loading players getNotificationGame");
-
+/*
 			if (player.getNotificationGame() != null){
 				for (PlayerGame pg : player.getNotificationGame().getPlayerGames()){
 				 	//Logger.d(TAG, "getNotificationGame game=" + player.getNotificationGame().getId() + " pg.getPlayerId()" + pg.getPlayerId());
@@ -775,7 +784,7 @@ public class PlayerService {
 				//	pg.setPlayer(null);
 				}
 			}
-			
+	*/		
 			
 			//Logger.w(TAG, "handlePlayerResponse num active and opponent=" + player.getActiveGamesYourTurn().size() + " " + player.getActiveGamesOpponentTurn().size());
 

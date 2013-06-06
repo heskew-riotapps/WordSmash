@@ -38,6 +38,7 @@ public class Constants {
 	public static final int MAIN_LANDING_THREAD_SLEEP = 500;
 	public static final int REGISTERED_FB_FRIENDS_CACHE_DURATION = 604800000; //a week of milliseconds
 	public static final int SPLASH_ACTIVITY_TIMEOUT = 500;
+	public static final int SPLASH_DELAY_DURATION = 2000;
 	public static final int NETWORK_CONNECTIVITY_CHECK_DURATION = 2000;
 	public static final long GAME_LIST_CHECK_START_IN_MILLISECONDS = 300000;// 300000;
 	public static final long GAME_LIST_CHECK_INTERVAL_IN_MILLISECONDS = 300000;// = 300000;
@@ -277,5 +278,9 @@ public class Constants {
 	public static final String BADGE_3000_3999 = "badge_3000_3999";
 	public static final String BADGE_4000_4999 = "badge_4000_4999";
 	public static final String BADGE_5000 = "badge_5000";
+	
+	
+	public static final String EMPTY_STRING = "";
+	public static final String DEFAULT_PLAYER_ID = "111";
 }//end class Constants
  
