@@ -1,5 +1,9 @@
 package com.riotapps.word.utils;
  
+import java.util.List;
+
+import com.riotapps.word.hooks.Opponent;
+import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.WordService;
@@ -12,6 +16,7 @@ public class ApplicationContext extends Application{
 	private static final String TAG = ApplicationContext.class.getSimpleName();
     private static Context context;
     private WordService wordService;
+    private List<Opponent> opponents = null;
     /*
     private Bitmap bgPlacedTileFull;
 	private Bitmap bgPlacedTileZoomed;
@@ -353,6 +358,20 @@ public class ApplicationContext extends Application{
 		this.bgTrayBackground = bgTrayBackground;
 	}
 */
+
+	public List<Opponent> getOpponents() {
+		if (this.opponents == null){
+			
+			this.opponents = OpponentService.getOpponentsFromLocal();
+		}
+		return opponents;
+	}
+
+	public void setOpponents(List<Opponent> opponents) {
+		this.opponents = opponents;
+	}
+	
+	
  
     
     

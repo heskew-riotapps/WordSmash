@@ -145,12 +145,15 @@ public class Constants {
 	 *=============================================*/
  	public static final String SHARED_PREFERENCE_PREFIX = "com.riotapps.word.utils_";
  	public static final String USER_PREFS = "user_";
+ 	public static final String GAME_PREFS = "game_";
  	public static final String USER_PREFS_USER_ID = "user_uid";
  	public static final String USER_PREFS_AUTH_TOKEN = "user_at";
  	public static final String USER_PREFS_EMAIL = "user_em";
  	public static final String USER_PREFS_PWD = "user_pw";
  	public static final String USER_PREFS_ACTIVE_GAMES = "a_games";
- 	public static final String USER_PREFS_PLAYER_JSON = "player_json";
+ 	public static final String USER_PREFS_OPPONENTS = "_opps";
+	public static final String USER_PREFS_COMPLETED_GAMES = "c_games";
+	public static final String USER_PREFS_PLAYER_JSON = "player_json";
  	public static final String USER_PREFS_GAME_JSON = "game_json_%s";
  	public static final String USER_PREFS_FRIENDS_JSON = "friends_json";
  	public static final String USER_PREFS_FRIENDS_LAST_REGISTERED_CHECK_TIME = "friends_reg_check";
@@ -194,8 +197,8 @@ public class Constants {
 	/**=============================================
 	 * the web 
 	 *==============================================*/  
-	//public static final String REST_URL_SITE = "http://smash.riotapps.com/en/";        
-	public static final String REST_URL_SITE = "http://10.0.2.2:3000/en/";      
+	public static final String REST_URL_SITE = "http://smash.riotapps.com/en/";        
+	//public static final String REST_URL_SITE = "http://10.0.2.2:3000/en/";      
 	public static final String FACEBOOK_API_ID = "314938401925933"; 
 	public static final String REST_CREATE_PLAYER_URL = REST_URL_SITE + "players.json";
 	public static final String REST_GET_PLAYER_URL = REST_URL_SITE + "players/%s.json";

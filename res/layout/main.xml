@@ -1,12 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    style="@style/LayoutStyle"
     android:orientation="vertical" >
+    <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name" />
+	<com.google.ads.AdView  
+          android:id="@+id/adView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+           ads:adUnitId="@string/admob_pub_id_main_landing" 
+           ads:adSize="BANNER"
+           ads:testDevices="TEST_EMULATOR"
+           ads:loadAdOnCreate="true"/>
+   	 <LinearLayout
+   	     android:layout_below="@id/topAreaLayout"
+        style="@style/LayoutFormStyle"
+     
+        android:layout_above="@id/adView" 
+        android:layout_marginBottom="0dp"
+        >
+        <LinearLayout
+ 
+        	android:layout_marginBottom="5dp"
+        	android:id="@+id/llButtons"
+         >
+ 
+           <com.riotapps.word.utils.TypefaceButton 
+	  	    style="@style/MainLandingButtonStyle"
+	  	    android:id="@+id/bOptions" 
+	        android:layout_width="0dp" 
+	        android:layout_weight="1.0"
+	        android:text="@string/options"
+	    />
+		<com.riotapps.word.utils.TypefaceButton 
+	  	    style="@style/MainLandingButtonStyle"
+	  	    android:id="@+id/bBadges" 
+	        android:layout_width="0dp" 
+	        android:layout_weight="1.0"
+	        android:text="@string/badges"
+	    />
+		
+   
+    </LinearLayout>
+    		    
+	  <ScrollView   
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent" 
+    	android:fadingEdge="none"
+ 		
+    	 >
+		<LinearLayout
+		    android:layout_width="fill_parent"
+    		android:layout_height="fill_parent" 
+    		android:orientation="vertical"
+		    > 
+		<LinearLayout
+			style="@style/FormBackgroundStyle"
+			android:layout_marginTop="5dp"
+			android:layout_width="fill_parent"
+			android:id="@+id/llOpponentsWrapper">
 
-</LinearLayout>
+		    <com.riotapps.word.ui.MainFontTextView
+		        style="@style/ContentAreaTextTopStyle"
+		        />
+		    <com.riotapps.word.ui.MainFontTextView
+		 		android:layout_marginTop="-32dp"
+		        android:background="@drawable/form_item_top"
+		        android:textSize="14dp"
+		        android:text="@string/main_landing_your_turn" 
+		      
+		        android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/button_text_color"
+	 
+				android:paddingBottom="5dp"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp"
+				android:paddingTop="5dp"
+		        />
+			<LinearLayout 
+			    android:id="@+id/llOpponents"
+			    android:orientation="vertical"
+			    />	
+	     </LinearLayout>
+	     
+		
+	
+        </LinearLayout> 	    
+  	</ScrollView>
+   </LinearLayout>
+      
+</RelativeLayout>

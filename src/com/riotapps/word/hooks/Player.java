@@ -58,14 +58,8 @@ public class Player implements Parcelable{
 	
 	@SerializedName("o_n_i_a")
 	private boolean noInterstitialAdsOption = false; //a paid upgrade to not display interstitial ads 
-
-	private List<Opponent> opponents = new ArrayList<Opponent>();
-		
-	//used as the transport from server, using separate property just in case..
-	//don't want opponents property to be overridden by accident
-	@SerializedName("opps")
-	private List<Opponent> opponents_ = null; //new ArrayList<Opponent>();
-	
+ 
+	/*
 	@SerializedName("a_games")
 	private List<Game> activeGames= new ArrayList<Game>();
 
@@ -75,9 +69,9 @@ public class Player implements Parcelable{
 	@SerializedName("l_rf_d") 
 	private Date lastRefreshDate = null; //new GregorianCalendar("10/6/2012"); //last time a game status changed that the player was involved in
 	
-	private List<Game> activeGamesYourTurn= new ArrayList<Game>();
-	private List<Game> activeGamesOpponentTurn= new ArrayList<Game>();
-
+	private List<Game> activeGamesYourTurn = null; //new ArrayList<Game>();
+	private List<Game> activeGamesOpponentTurn = null; //new ArrayList<Game>();
+*/
 	//private String badge_drawable = "";
 
 	public void setId(String id) {

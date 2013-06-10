@@ -36,6 +36,7 @@ import com.riotapps.word.ui.RowCol;
 import com.riotapps.word.utils.NetworkConnectivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.riotapps.word.data.GameData;
 import com.riotapps.word.hooks.WordService;
  
  
@@ -132,6 +133,12 @@ public class GameService {
 		return settings.getLong(Constants.USER_PREFS_GAME_LIST_CHECK_TIME, 0);
 	}
 		
+	
+	public static List<Game> getLocalActiveGames(){
+		return GameData.getLocalActiveGames();	
+	}
+	
+	
 	public static String setupStartGame(Game game) throws DesignByContractException{
 		 
 		Logger.d(TAG, "setupStartGame");

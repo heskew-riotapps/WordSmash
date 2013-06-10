@@ -1,8 +1,8 @@
 {
 	Opponents =
          [
-            { id: "1", name: "Diapers", skillLevel: "1", imageFolder: "skill_level_1_a", group: "1" },
-            { id: "2", name: "Noodles", skillLevel: "2", imageFolder: "skill_level_2_a", group: "1" },
-            { id: "3", name: "Einstein", skillLevel: "3", imageFolder: "skill_level_3_a", group: "1" }
+            { id: "1", name: "Diapers", skillLevel: "1", imageFolder: "skill_level_1_a", numWins: "0", numLosses: "0", numDraws: "0" },
+            { id: "2", name: "Noodles", skillLevel: "2", imageFolder: "skill_level_2_a", numWins: "0", numLosses: "0", numDraws: "0" },
+            { id: "3", name: "Einstein", skillLevel: "3", imageFolder: "skill_level_3_a", numWins: "0", numLosses: "0", numDraws: "0" }
         ]
 }

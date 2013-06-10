@@ -57,9 +57,7 @@ public class PlayerGame implements Parcelable{
 
 	@SerializedName("l_r_d")
 	private Date lastReminderDate;
-	
-	@SerializedName("l_c_r_d")
-	private Date lastChatterReceivedDate;
+
 	
 	@SerializedName("w_n")
 	private int winNum = 0;
@@ -114,24 +112,7 @@ public class PlayerGame implements Parcelable{
 		this.status = status;
 	}
 
-	/*
- 
-	public Date getLastTurnDate() {
-		return lastTurnDate;
-	}
-
-	public void setLastTurnDate(Date lastTurnDate) {
-		this.lastTurnDate = lastTurnDate;
-	}
-
-	public Date getLastAlertDate() {
-		return lastAlertDate;
-	}
-
-	public void setLastAlertDate(Date lastAlertDate) {
-		this.lastAlertDate = lastAlertDate;
-	}
-*/
+	
 	public Date getLastReminderDate() {
 		return lastReminderDate;
 	}
@@ -140,13 +121,6 @@ public class PlayerGame implements Parcelable{
 		this.lastReminderDate = lastReminderDate;
 	}
 
-	public Date getLastChatterReceivedDate() {
-		return lastChatterReceivedDate;
-	}
-
-	public void setLastChatterReceivedDate(Date lastChatterReceivedDate) {
-		this.lastChatterReceivedDate = lastChatterReceivedDate;
-	}
 
 	public int getWinNum() {
 		return winNum;
@@ -213,32 +187,7 @@ public class PlayerGame implements Parcelable{
 	public void setPlayerOrder(int playerOrder) {
 		this.playerOrder = playerOrder;
 	}
-	
-/*
-	public int getLastTurn() {
-		return lastTurn;
-	}
 
-	public void setLastTurn(int lastTurn) {
-		this.lastTurn = lastTurn;
-	}
-
-	public int getLastTurnAction() {
-		return lastTurnAction;
-	}
-
-	public void setLastTurnAction(int lastTurnAction) {
-		this.lastTurnAction = lastTurnAction;
-	}
-
-	public int getLastTurnPoints() {
-		return lastTurnPoints;
-	}
-
-	public void setLastTurnPoints(int lastTurnPoints) {
-		this.lastTurnPoints = lastTurnPoints;
-	}
-*/
 	public int getTrayVersion() {
 		return trayVersion;
 	}
@@ -263,7 +212,6 @@ public class PlayerGame implements Parcelable{
 	//	out.writeLong(this.lastTurnDate == null ? 0 : this.lastTurnDate.getTime());
 		out.writeLong(this.lastAlertDate == null ? 0 : this.lastAlertDate.getTime());
 		out.writeLong(this.lastReminderDate == null ? 0 : this.lastReminderDate.getTime());
-		out.writeLong(this.lastChatterReceivedDate == null ? 0 : this.lastChatterReceivedDate.getTime());
 		out.writeInt(this.winNum);
 		out.writeByte((byte) (this.isTurn ? 1 : 0));
 	 
@@ -301,8 +249,6 @@ public class PlayerGame implements Parcelable{
 	 	this.lastAlertDate.setTime(in.readLong()); 	
 	 	this.lastReminderDate = new Date();
 	 	this.lastReminderDate.setTime(in.readLong());
-	 	this.lastChatterReceivedDate = new Date();
-	 	this.lastChatterReceivedDate.setTime(in.readLong()); 
 	  	this.winNum = in.readInt();
 	  	this.isTurn = in.readByte() == 1;
 	 
@@ -317,51 +263,5 @@ public class PlayerGame implements Parcelable{
 	  //  Logger.d(TAG, "parcel in playerOrder=" + this.playerOrder);
 	
 	}
-/*	
-	public enum LastAction{
-		NO_TRANSLATION(0),
-		ONE_LETTER_SWAPPED(1),
-		TWO_LETTERS_SWAPPED(2),
-		THREE_LETTERS_SWAPPED(3),
-		FOUR_LETTERS_SWAPPED(4),
-		FIVE_LETTERS_SWAPPED(5),
-		SIX_LETTERS_SWAPPED(6),
-		SEVEN_LETTERS_SWAPPED(7),
-		STARTED_GAME(8),
-		WORDS_PLAYED(9),
-		TURN_SKIPPED(10),
-		RESIGNED(11),
-		CANCELLED(12);	
-		
-		private final int value;
-		private LastAction(int value) {
-		    this.value = value;
-		 }
-		
-	  public int value() {
-		    return value;
-		  }
-		
-	  private static TreeMap<Integer, LastAction> _map;
-	  static {
-		_map = new TreeMap<Integer, LastAction>();
-	    for (LastAction num: LastAction.values()) {
-	    	_map.put(new Integer(num.value()), num);
-	    }
-	    //no translation
-	    if (_map.size() == 0){
-	    	_map.put(new Integer(0), NO_TRANSLATION);
-	    }
-	  }
-	  
-	  public static LastAction lookup(int value) {
-		  return _map.get(new Integer(value));
-	  	}
-	}
-	
-	public LastAction getLastAction(){
-		return LastAction.lookup(this.lastTurnAction);
-	}
-	
-	*/
+
 }

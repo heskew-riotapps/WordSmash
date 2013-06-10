@@ -1,28 +1,15 @@
 package com.riotapps.word;
 
-import org.apache.http.conn.ConnectTimeoutException;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
-
 import com.google.analytics.tracking.android.EasyTracker;
-import com.google.android.gcm.GCMRegistrar;
-import com.riotapps.word.hooks.Game;
-import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
-import com.riotapps.word.services.BackgroundService;
-import com.riotapps.word.services.ProcessBridge;
 import com.riotapps.word.services.WordLoaderService;
-import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.utils.*;
-import com.riotapps.word.utils.Enums.RequestType;
 
 public class Splash  extends FragmentActivity {
    
@@ -48,10 +35,18 @@ public class Splash  extends FragmentActivity {
       //  Playtomic.Log(//).play();
  	 	
         this.captureTime("handleRouting starting");
+        
+        Player player = PlayerService.getPlayerFromLocal();
+        
+        ApplicationContext appContext = (ApplicationContext)this.getApplicationContext();
+		appContext.setPlayer(player);
+
+        
         this.handleRouting();
        
          
         this.captureTime("onCreate ended");
+        
      }
     
     private void startBackgroundService(){

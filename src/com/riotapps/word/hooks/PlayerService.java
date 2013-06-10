@@ -522,7 +522,7 @@ public class PlayerService {
 	
 	
 	public static void putPlayerToLocal(Player player){
-		PlayerData.Save(player);
+		PlayerData.savePlayer(player);
 		
 		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 	    appContext.setPlayer(player);
@@ -530,11 +530,11 @@ public class PlayerService {
 	}
 	
 	public static boolean isFirstTime(){
-		return PlayerData.Fetch() == null;
+		return PlayerData.getPlayer() == null;
 	}
 	
 	public static Player getPlayerFromLocal(){
-		 Player player = PlayerData.Fetch();
+		 Player player = PlayerData.getPlayer();
 		 
 		 //if player has not been created yet, let's create her now
 		 if (player == null){
@@ -550,7 +550,7 @@ public class PlayerService {
 			 player.setLastName(Constants.EMPTY_STRING);
 			 player.setNickname(ctx.getString(R.string.anonymous_player_name));
 			 
-			 PlayerData.Save(player);
+			 PlayerData.savePlayer(player);
 		 }
 		 
 		 return player;

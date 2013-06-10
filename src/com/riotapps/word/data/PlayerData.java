@@ -13,7 +13,7 @@ import com.riotapps.word.hooks.Player;
 
 public class PlayerData {
 
-	public static Player Fetch(){
+	public static Player getPlayer(){
 		//this might change to sqlLite
 		 Gson gson = new Gson(); 
 		 Type type = new TypeToken<Player>() {}.getType();
@@ -32,7 +32,7 @@ public class PlayerData {
 
 	}
 	
-	public static void Save(Player player){
+	public static void savePlayer(Player player){
 		Gson gson = new Gson(); 
 		SharedPreferences settings = Storage.getSharedPreferences();
         SharedPreferences.Editor editor = settings.edit();
