@@ -1,7 +1,5 @@
 package com.riotapps.word.utils;
 
-import com.riotapps.word.AddOpponents;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;

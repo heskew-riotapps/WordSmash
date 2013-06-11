@@ -136,7 +136,7 @@ public class Settings extends FragmentActivity implements View.OnClickListener{
 
 			                 // Toast t = Toast.makeText(this.context, "Hello " + player.getNickname(), Toast.LENGTH_LONG);  
 			         	    // t.show();
-			         	     Intent intent = new Intent(this.context, com.riotapps.word.MainLanding.class);
+			         	     Intent intent = new Intent(this.context, com.riotapps.word.Main.class);
 			      	      
 			      	      	 this.context.startActivity(intent);
 			                 break;  

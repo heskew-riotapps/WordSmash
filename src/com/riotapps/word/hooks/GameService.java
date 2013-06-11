@@ -426,7 +426,7 @@ public class GameService {
 		if (game.getStatus() == 1){ //if game is still active
 			//update local storage game lists
 			Logger.d(TAG, "handleGamePlayResponse game is active");
-			GameService.moveActiveGameYourTurnToOpponentsTurn(game);
+		//	GameService.moveActiveGameYourTurnToOpponentsTurn(game);
 			GameService.updateLastGameListCheckTime();	
 		}
 		else {
@@ -445,13 +445,8 @@ public class GameService {
 				}
 				else if (pg.isWinner()){
 					isWinner = true;
-					for (Opponent o : player.getOpponents()){
-						if (o.getPlayer().getId().equals(pg.getPlayerId())){
-							if(pg.getWinNum() > o.getPlayer().getNumWins()){
-								o.getPlayer().setNumWins(pg.getWinNum());
-							}
-						}
-					}
+					 
+					//add loss to opponent
 					
 				}
 		     }
@@ -465,18 +460,12 @@ public class GameService {
 		return game;
 	}
 	
-	public static Game handleGameChatResponse(final Context ctx, String result){// InputStream iStream){
-		Game game = handleGameResponse(result); 
-		GameService.updateLastGameListCheckTime();
-		GameService.putGameToLocal(game);
-		
-		return game;
-	}
+ 
 	
 	public static Game handleCreateGameResponse(String result){// InputStream iStream){
 		Game game = handleGameResponse(result);
 		
-		addNewGameToActiveGames(game);
+		//addNewGameToActiveGames(game);
 		//add game new game to active games
 		
 		
@@ -517,6 +506,7 @@ public class GameService {
         	 for (Opponent o : game.getOpponents_()){
         		// Logger.d(TAG,"createGame opponentLoop playerid=" + o.getPlayer().getId());
         		 boolean exists = false;
+        		 /*
         		 for (Opponent oContext : player.getOpponents()){
         			 if (o.getPlayer().getId().equals(oContext.getPlayer().getId())){
         				 //opponent already exists.  don't need to add
@@ -525,6 +515,8 @@ public class GameService {
                 		 break;
         			 }
         		 }
+        		 */
+        		 /*
         		 if (!exists){
         			// Logger.d(TAG,"createGame opponentLoop playerid NOT exists=" + o.getPlayer().getId());
         			 resavePlayer = true;
@@ -543,6 +535,7 @@ public class GameService {
  					opponent.setPlayer(p);
  					player.getOpponents().add(opponent);
         		 }
+        		 */
         	 }
         	 if (resavePlayer){
         		// Logger.d(TAG,"createGame opponentLoop playerid NOT exists PLAYER will be saved locally");
@@ -564,7 +557,7 @@ public class GameService {
          game.getOpponents_().clear();
          
          for (PlayerGame pg : game.getPlayerGames()){
-			pg.setPlayer(PlayerService.getPlayerFromOpponentList(player.getOpponents(), currentPlayer, pg.getPlayerId()));
+			//pg.setPlayer(PlayerService.getPlayerFromOpponentList(player.getOpponents(), currentPlayer, pg.getPlayerId()));
          }
 		 
          
@@ -1578,6 +1571,7 @@ public class GameService {
 		}
 	}
   	
+  	/*
   	private static void addNewGameToActiveGames(Game game){
   		Logger.d(TAG, "addNewGameToActiveGames gameId=" + game.getId());
   		
@@ -1589,7 +1583,8 @@ public class GameService {
 	    PlayerService.putPlayerToLocal(appContext.getPlayer()); 
   		
   	}
-  	
+  	*/
+  	/*
   	private static void moveActiveGameYourTurnToOpponentsTurn(Game game){
   		//in this scenario, player has just played a turn and game is not over, and we and updating the local game lists
   		//by removing the game from the player's turn list and moving it to opponent's turn list
@@ -1618,31 +1613,15 @@ public class GameService {
   		player.getActiveGamesOpponentTurn().add(0, game);
 
   		PlayerService.putPlayerToLocal(player);
-  	/*	Gson gson = new Gson();  
-	        
-        //update player to shared preferences
-	    SharedPreferences settings = Storage.getSharedPreferences();
-	    SharedPreferences.Editor editor = settings.edit();
- 
-	    editor.putString(Constants.USER_PREFS_PLAYER_JSON, gson.toJson(player));
-		// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 } 
-		 */ 
+  	 
 	}
-
+*/
 	private static void moveGameToCompletedList(Game game){
   		//in this scenario, player has just played a turn and game is not over, and we and updating the local game lists
   		//by removing the game from the player's turn list and moving it to opponent's turn list
   		
   		Player player = PlayerService.getPlayerFromLocal();
-  		
+  		/*
   		int numActiveGames = player.getActiveGamesYourTurn().size();
   		for(int i = 0; i < numActiveGames; i++){
   			if (game.getId().equals(player.getActiveGamesYourTurn().get(i).getId())){
@@ -1688,6 +1667,7 @@ public class GameService {
 		     // Call commit()
 		     editor.commit();
 		 } 
+		 */
 	}
   	
 }

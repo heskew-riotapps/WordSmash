@@ -106,13 +106,16 @@ public class Options extends FragmentActivity implements View.OnClickListener{
 			super.onBackPressed();
 			
 			Intent intent;
+			/*
 			 if (this.player.getTotalNumLocalGames() == 0){
 				 intent = new Intent(this.context, com.riotapps.word.StartGame.class);
 			 }
 			 else{
 				 intent = new Intent(this.context, com.riotapps.word.MainLanding.class);
 			 }
+		 
     		 this.startActivity(intent); 
+    		 */
 		}
 
 

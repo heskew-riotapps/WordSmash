@@ -1,5 +1,7 @@
 package com.riotapps.word.hooks;
 
+import com.riotapps.word.utils.Constants;
+
 public class Opponent{
 	
 	private int id;
@@ -7,7 +9,7 @@ public class Opponent{
 	private int numWins;
 	private int numLosses;
 	private int numDraws;
-	private String imageFolder;
+	private String imagePrefix;
 	private int skillLevel;
 	
 	public int getId() {
@@ -40,11 +42,11 @@ public class Opponent{
 	public void setNumDraws(int numDraws) {
 		this.numDraws = numDraws;
 	}
-	public String getImageFolder() {
-		return imageFolder;
+	public String getImagePrefix() {
+		return imagePrefix;
 	}
-	public void setImageFolder(String imageFolder) {
-		this.imageFolder = imageFolder;
+	public void setImagePrefix(String imagePrefix) {
+		this.imagePrefix = imagePrefix;
 	}
 	public int getSkillLevel() {
 		return skillLevel;
@@ -54,8 +56,13 @@ public class Opponent{
 	}
 	
 	
- 
+	public String getBadgeDrawable(){
+		return PlayerService.getBadgeDrawable(this.numWins);
+	}
 
+	public String getDrawableByMode(String mode){
+		return this.imagePrefix + Constants.UNDERSCORE + mode;
+	}
 	
 	
 }

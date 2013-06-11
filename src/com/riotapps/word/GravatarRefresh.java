@@ -37,7 +37,7 @@ public class GravatarRefresh extends FragmentActivity implements View.OnClickLis
 		public void onClick(View v) {
 			switch(v.getId()){  
 	        case R.id.bOK:  
-	        	Intent intent = new Intent(this, MainLanding.class);
+	        	Intent intent = new Intent(this, Main.class);
 	    		startActivity(intent);
 				break;
 			}

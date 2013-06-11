@@ -260,16 +260,16 @@ public class ConnectToFacebook  extends FragmentActivity{
 					}
 					
 					Intent intent;
-					
+					/*
 					 if (player.getTotalNumLocalGames() == 0){
 	            		 intent = new Intent(context, com.riotapps.word.StartGame.class);
 	            	 }
 	            	 else {
-	            		 intent = new Intent(context, com.riotapps.word.MainLanding.class);
+	            		 intent = new Intent(context, com.riotapps.word.Main.class);
 	            		 intent.putExtra(Constants.EXTRA_GAME_LIST_PREFETCHED, true);
 	            	 }
-					
-		     	    context.startActivity(intent);
+					*/
+		     	    //context.startActivity(intent);
 		     	   spinner.dismiss();
 					
 				} catch (FacebookError e) {

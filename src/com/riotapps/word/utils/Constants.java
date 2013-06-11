@@ -20,6 +20,8 @@ public class Constants {
  	public static final String DRAWABLE_LOCATION = "com.riotapps.word:drawable/";
  	public static final String CONTENT_AREA_BACKGROUND_COLOR = "content_area_background_color";
  	public static final String CONTENT_AREA_BACKGROUND_SELECTED_COLOR = "content_area_background_selected_color";
+ 	
+ 	public static final String UNDERSCORE = "_";
 
  	public static final int SMASHER_BONUS_POINTS = 40;
  	public static final String LAYOUT_SCOPE_WORD = "W";
@@ -285,5 +287,10 @@ public class Constants {
 	
 	public static final String EMPTY_STRING = "";
 	public static final String DEFAULT_PLAYER_ID = "111";
+	
+	/**=============================================
+	 * opponent image modes 
+	 *==============================================*/
+	public static final String OPPONENT_IMAGE_MODE_MAIN = "main";
 }//end class Constants
  

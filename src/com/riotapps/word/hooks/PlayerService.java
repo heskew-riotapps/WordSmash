@@ -573,6 +573,10 @@ public class PlayerService {
 	}
 	
 	private static Player handlePlayerResponse(String result){//InputStream iStream){
+		
+		return new Player();
+		
+		/*
     	Gson gson = new Gson(); //wrap json return into a single call that takes a type
 	        
     	 
@@ -776,15 +780,7 @@ public class PlayerService {
 			}
 			
 		//	Logger.d(TAG, "loading players getNotificationGame");
-/*
-			if (player.getNotificationGame() != null){
-				for (PlayerGame pg : player.getNotificationGame().getPlayerGames()){
-				 	//Logger.d(TAG, "getNotificationGame game=" + player.getNotificationGame().getId() + " pg.getPlayerId()" + pg.getPlayerId());
-					pg.setPlayer(getPlayerFromOpponentList(player.getOpponents(), currentPlayer, pg.getPlayerId()));
-				//	pg.setPlayer(null);
-				}
-			}
-	*/		
+ 
 			
 			//Logger.w(TAG, "handlePlayerResponse num active and opponent=" + player.getActiveGamesYourTurn().size() + " " + player.getActiveGamesOpponentTurn().size());
 
@@ -818,10 +814,13 @@ public class PlayerService {
 	        result = null;
 	        
 	        return player;
-
+	*/
 	}
-	
+
 	public static Player handleAuthResponse(String result){//InputStream iStream){
+		return new Player();
+		
+		/*
     	Gson gson = new Gson(); //wrap json return into a single call that takes a type
 	        
           //Logger.w(TAG, "handlePlayerResponse incoming json=" + IOHelper.streamToString(iStream));
@@ -858,7 +857,7 @@ public class PlayerService {
 			storedPlayer.setAuthToken(player.getAuthToken());
 			storedPlayer.setEmail(player.getEmail());
 			storedPlayer.setNoInterstitialAdsOption(player.isNoInterstitialAdsOption());
-			storedPlayer.setLastRefreshDate(player.getLastRefreshDate());
+		//	storedPlayer.setLastRefreshDate(player.getLastRefreshDate());
 			 
 			long now =  Utils.convertNanosecondsToMilliseconds(System.nanoTime());
 			
@@ -882,11 +881,14 @@ public class PlayerService {
 	        result = null;
 	        
 	        return storedPlayer;
-
+*/
 	}
 	
 	public static Player getPlayerFromOpponentList(List<Opponent> opponents, Player player, String opponentId){
 	//	Logger.d(TAG, "getPlayerFromOpponentList opponentId=" + opponentId);
+		return new Player();
+		
+		/*
 		Player opponent = null;
 		if (opponentId.equals(player.getId())){ //because the player has a playerGame record as well
 			opponent = player;
@@ -920,6 +922,8 @@ public class PlayerService {
 			}
 		}
 		return opponent;
+		
+		*/
 	}
 	
 	public static Player updateAuthToken(final Context ctx, String authToken){

@@ -1005,7 +1005,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			// If a Chartboost view exists, close it and return
 			return;
 		else{
-			this.handleBack(com.riotapps.word.MainLanding.class);
+			this.handleBack(com.riotapps.word.Main.class);
 		}
 	}
 	
@@ -2275,29 +2275,18 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		 	if (action != null){
 				    	switch(action){
 			    	 	case CANCEL_GAME:
-				 			if (player.getTotalNumLocalGames() == 0){
-				 				context.handleBack(com.riotapps.word.StartGame.class);	    		            	 					
-				 			}
-				 			else{
+			    	 			//remove game from storage
+			    	 		
 				 				//send player back to main landing 
-				 				context.handleBack(com.riotapps.word.MainLanding.class);
-				 			}
+				 				context.handleBack(com.riotapps.word.Main.class);
+				 		 
 			    	 	
 			    	 		break;
-			    	 	case DECLINE_GAME:
-				 			if (player.getTotalNumLocalGames() == 0){
-				 				context.handleBack(com.riotapps.word.StartGame.class);	    		            	 					
-				 			}
-				 			else{
-				 				//send player back to main landing 
-				 				context.handleBack(com.riotapps.word.MainLanding.class);
-				 			}
-			
-			    	 		break;
+			    	 
 			    	 	case RESIGN:
 			
 				 			//send player back to main landing 
-				 			context.handleBack(com.riotapps.word.MainLanding.class);
+				 			context.handleBack(com.riotapps.word.Main.class);
 				 
 			    	 		break;
 			    	 	case PLAY: //xxxxx

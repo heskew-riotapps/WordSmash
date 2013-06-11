@@ -141,7 +141,7 @@ public class JoinNative extends FragmentActivity implements View.OnClickListener
 			             case 201: {  
 			          
 			            	 Player player = PlayerService.handleCreatePlayerResponse(result.getResult());
-			            	 Intent intent;
+			            /*	 Intent intent;
 			            	 if (player.getTotalNumLocalGames() == 0){
 			            		 intent = new Intent(this.context, com.riotapps.word.StartGame.class);
 			            	 }
@@ -149,10 +149,10 @@ public class JoinNative extends FragmentActivity implements View.OnClickListener
 			            		 intent = new Intent(this.context, com.riotapps.word.MainLanding.class);
 			            		 intent.putExtra(Constants.EXTRA_GAME_LIST_PREFETCHED, true);
 			            	 }
-			         	    // Intent intent = new Intent(this.context, com.riotapps.word.MainLanding.class);
-			         	     //intent.putExtra(Constants.EXTRA_GAME_LIST_PREFETCHED, true);
-			      	      
-			      	      	 this.context.startActivity(intent);
+			            	 
+			            	 */
+			               
+			      	    //  	 this.context.startActivity(intent);
 			                 break;  
 
 			             }//end of case 200 & 201 

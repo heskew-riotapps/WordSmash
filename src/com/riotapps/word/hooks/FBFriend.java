@@ -3,7 +3,6 @@ package com.riotapps.word.hooks;
 import java.util.Comparator;
 
 import com.google.gson.annotations.SerializedName;
-import com.riotapps.word.ChooseFBFriends;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 

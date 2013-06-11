@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-
-import com.riotapps.word.MainLanding;
+ 
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.utils.Enums.RequestType;
 import com.riotapps.word.utils.Enums.ResponseHandlerType;

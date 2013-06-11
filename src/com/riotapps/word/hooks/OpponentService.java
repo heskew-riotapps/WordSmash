@@ -42,5 +42,26 @@ public class OpponentService {
 		OpponentData.saveOpponents(opponents);
 		appContext.setOpponents(opponents);
 	}
+	
+	public static void addWinToOpponentRecord(int id){
+		Opponent opponent = getOpponent(id);
+		opponent.setNumWins(opponent.getNumWins() + 1);
+		saveOpponent(opponent);
+	}
+	
+
+	public static void addLossToOpponentRecord(int id){
+		Opponent opponent = getOpponent(id);
+		opponent.setNumLosses(opponent.getNumLosses() + 1);
+		saveOpponent(opponent);	
+	}
+	
+
+	public static void addDrawToOpponentRecord(int id){
+		Opponent opponent = getOpponent(id);
+		opponent.setNumDraws(opponent.getNumDraws() + 1);
+		saveOpponent(opponent);
+	}
+ 
 
 }

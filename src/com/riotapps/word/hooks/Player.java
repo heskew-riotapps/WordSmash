@@ -167,31 +167,7 @@ public class Player implements Parcelable{
 		this.latestAlerts = latestAlerts;
 	}
 	
-/*	public Game getNotificationGame() {
-		return notificationGame;
-	}
-	public void setNotificationGame(Game notificationGame) {
-		this.notificationGame = notificationGame;
-	}
-	*/
-	public Date getLastRefreshDate() {
-		if (lastRefreshDate == null){
-			String mytime="20121006102400";
-	        SimpleDateFormat dateFormat = new SimpleDateFormat(
-	                "yyyymmddhhmmss");
-
-	        try {
-				lastRefreshDate = dateFormat.parse(mytime);
-			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return lastRefreshDate;
-	}
-	public void setLastRefreshDate(Date lastRefreshDate) {
-		this.lastRefreshDate = lastRefreshDate;
-	}
+ 
 	public boolean isNoInterstitialAdsOption() {
 		return noInterstitialAdsOption;
 	}
@@ -268,123 +244,8 @@ public class Player implements Parcelable{
 		this.numCompletedGames = numCompletedGames;
 	}
 	
-	public List<Game> getActiveGames() {
-		return activeGames;
-	}
-	public void setActiveGames(List<Game> activeGames) {
-		this.activeGames = activeGames;
-		
-	}
-	
-	public List<Game> getCompletedGames() {
-		return completedGames;
-	}
-	
-	public void setCompletedGames(List<Game> completedGames) {
-		this.completedGames = completedGames;
-	}
-	
-	public int getTotalNumLocalGames(){
-		return this.activeGamesYourTurn.size() + this.activeGamesOpponentTurn.size() + this.completedGames.size();
-	}
-	
-	public int getNumActiveGames(){
-		return this.activeGamesYourTurn.size() + this.activeGamesOpponentTurn.size();
-	}
-	
-	public List<Game> getActiveGamesYourTurn() {
-		return activeGamesYourTurn;
-	}
-	
-	public void setActiveGamesYourTurn(List<Game> activeGamesYourTurn) {
-		this.activeGamesYourTurn = activeGamesYourTurn;
-	}
-	
-	public List<Game> getActiveGamesOpponentTurn() {
-		return activeGamesOpponentTurn;
-	}
-	
-	
-	
-	public List<Opponent> getOpponents_() {
-		return opponents_;
-	}
-	public void setOpponents_(List<Opponent> opponents_) {
-		this.opponents_ = opponents_;
-	}
-	public Game getGameFromLists(String gameId){
-		if (this.getActiveGamesYourTurn().size() > 0){
-			for(Game game : this.getActiveGamesYourTurn()){
-				if (game.getId().equals(gameId)){
-					return game;
-				}
-			}
-		}
-		if (this.getActiveGamesOpponentTurn().size() > 0){
-			for(Game game : this.getActiveGamesOpponentTurn()){
-				if (game.getId().equals(gameId)){
-					return game;
-				}
-			}
-		}
-		if (this.getCompletedGames().size() > 0){
-			for(Game game : this.getCompletedGames()){
-				if (game.getId().equals(gameId)){
-					return game;
-				}
-			}
-		}
-		return null;
-	}
-	
-	public long getLastPlayedDateFromGameList(String gameId){
-		if (this.getActiveGamesYourTurn().size() > 0){
-			for(Game game : this.getActiveGamesYourTurn()){
-				if (game.getId().equals(gameId)){
-					return game.getLastTurnDate().getTime();
-				}
-			}
-		}
-		if (this.getActiveGamesOpponentTurn().size() > 0){
-			for(Game game : this.getActiveGamesOpponentTurn()){
-				if (game.getId().equals(gameId)){
-					return game.getLastTurnDate().getTime();
-				}
-			}
-		}
-		if (this.getCompletedGames().size() > 0){
-			for(Game game : this.getCompletedGames()){
-				if (game.getId().equals(gameId)){
-					return game.getLastTurnDate().getTime();
-				}
-			}
-		}
-		return 0;
-	}
-	
-	
-	public void setActiveGamesOpponentTurn(List<Game> activeGamesOpponentTurn) {
-		this.activeGamesOpponentTurn = activeGamesOpponentTurn;
-	}
-	
-	public List<Opponent> getOpponents() {
-		return opponents;
-	}
-	
-	//these are opponents that have at least one completed game with the context player
-	public List<Opponent> getOfficialOpponents() {
-		List<Opponent> opponents = new ArrayList<Opponent>();
-		for (Opponent o : this.getOpponents()){
-			if (o.getStatus() == 2 || o.getStatus() == 1){ //1 will go away soon
-				opponents.add(o);
-			}
-		}
-		return opponents;
-	}
-	
-	public void setOpponents(List<Opponent> opponents) {
-		this.opponents = opponents;
-	}
+	 
+	 
 	
 	public String getBadgeDrawable(){
 		return PlayerService.getBadgeDrawable(this.numWins);

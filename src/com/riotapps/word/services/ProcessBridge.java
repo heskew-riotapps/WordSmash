@@ -56,7 +56,7 @@ public class ProcessBridge extends Service {
 			
 			 Player player = PlayerService.handleAuthByTokenResponse(result);
     		 
-    	   	 Logger.d(TAG, "GameListReceiver onReceive active games=" + player.getActiveGamesYourTurn().size() + " opp games=" + player.getActiveGamesOpponentTurn().size());
+    	  // 	 Logger.d(TAG, "GameListReceiver onReceive active games=" + player.getActiveGamesYourTurn().size() + " opp games=" + player.getActiveGamesOpponentTurn().size());
 
     		 GameService.updateLastGameListCheckTime();
     		 

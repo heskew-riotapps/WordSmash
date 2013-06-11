@@ -94,7 +94,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
         
         Logger.d(TAG, "onCreate called");
            
-	    bStart = (Button) findViewById(R.id.bStart);
+	  //  bStart = (Button) findViewById(R.id.bStart);
 	    bOptions = (Button) findViewById(R.id.bOptions);
 	    bBadges = (Button) findViewById(R.id.bBadges);
 	    
@@ -188,14 +188,6 @@ public class Main extends FragmentActivity implements View.OnClickListener{
   		}
   	}
 
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		loadListTaskFromReceiver = null;
-		loadListTask = null;		
-	}
-
 	
 
     @Override
@@ -283,22 +275,9 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     
     public View getOpponentView(Opponent opponent, boolean firstItem, boolean lastItem ) {
     	
-    //	Logger.d(TAG, "getGameView started");
-    //	ApplicationContext.captureTime(TAG, "getGameView inflate starting");
-  		//View view = LayoutInflater.from(this).inflate(R.layout.gameyourturnlistitem, null);
-  		View view = this.inflater.inflate(R.layout.gameyourturnlistitem, null);
-  		//View view = new View(context);
-  		//view = this.inflatedView;
-    	
-    //	ApplicationContext.captureTime(TAG, "getGameView inflate ended");
-  		//just in case something fluky happened to the game and only one player was saved
-  	 	int numPlayers = game.getPlayerGames().size();
-	 	//Logger.w(TAG, "getGameView numPlayers=" + numPlayers);
-	 	if (numPlayers == 1){
-	 		view.setVisibility(View.GONE);  
-	 		return view;
-	 	}
-	 	
+ 
+  		View view = this.inflater.inflate(R.layout.opponent_item, null);
+  
 	//	Logger.d(TAG, "getGameView 1");
   		// ImageFetcher imageLoader = new ImageFetcher(this, Constants.LARGE_AVATAR_SIZE, Constants.LARGE_AVATAR_SIZE, 0);
          //imageLoader.setImageCache(ImageCache.findOrCreateCache(this, Constants.IMAGE_CACHE_DIR));
@@ -308,189 +287,22 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 	 	
 	 //	ApplicationContext.captureTime(TAG, "getGameView view finds starting");
 	 	
-        ImageView ivOpponentBadge_1 = (ImageView)view.findViewById(R.id.ivOpponentBadge_1);
-	 	ImageView ivOpponentBadge_2 = (ImageView)view.findViewById(R.id.ivOpponentBadge_2);
-	 	ImageView ivOpponentBadge_3 = (ImageView)view.findViewById(R.id.ivOpponentBadge_3);
-	 	RelativeLayout rlPlayer_1 = (RelativeLayout)view.findViewById(R.id.rlPlayer_1);
-	 	RelativeLayout rlPlayer_2 = (RelativeLayout)view.findViewById(R.id.rlPlayer_2);
-	 	LinearLayout rlAvatars = (LinearLayout)view.findViewById(R.id.rlAvatars);
-	 	
-		RelativeLayout.LayoutParams layoutLastAction = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+        ImageView ivOpponentBadge = (ImageView)view.findViewById(R.id.ivOpponentBadge);
+        ImageView ivOpponent = (ImageView)view.findViewById(R.id.ivOpponent);
+	 	TextView tvOpponent = (TextView)view.findViewById(R.id.tvOpponent);
+ 
+	 	tvOpponent.setText(opponent.getName());
 
-        ImageView ivOpponent1 = (ImageView)view.findViewById(R.id.ivOpponent1);
-	 	ImageView ivOpponent2 = (ImageView)view.findViewById(R.id.ivOpponent2);
-	 	ImageView ivOpponent3 = (ImageView)view.findViewById(R.id.ivOpponent3);
-	 	
-	 	TextView tvOpponent_1 = (TextView)view.findViewById(R.id.tvOpponent_1);
-	 	TextView tvOpponent_2 = (TextView)view.findViewById(R.id.tvOpponent_2);
-	 	TextView tvOpponent_3 = (TextView)view.findViewById(R.id.tvOpponent_3);
-	 	
-	 	TextView tvLastAction = (TextView)view.findViewById(R.id.tvLastAction);
-	 	ImageView ivChatAlert = (ImageView)view.findViewById(R.id.ivChatAlert);
-	 	RelativeLayout llLastAction = (RelativeLayout)view.findViewById(R.id.llLastAction);
-	 	
-	 //	ApplicationContext.captureTime(TAG, "getGameView chat check starting");
-	 	if (!GameService.checkGameChatAlert(context, game, false)){
-	 		ivChatAlert.setVisibility(View.GONE);
-	 	}
-	 	
-	 	tvLastAction.setText(game.getLastActionTextForList(context, player.getId()));
-	 
-	 	//first opponent
-	 	List<PlayerGame> opponentGames = game.getOpponentPlayerGames(this.player);
-
-	 	if (opponentGames.size() == 1){
-	 		tvOpponent_1.setText(opponentGames.get(0).getPlayer().getNameWithMaxLength(25));
-	 	}
-	 	else if (opponentGames.size() == 2){
-	 		tvOpponent_1.setText(opponentGames.get(0).getPlayer().getNameWithMaxLength(19));
-	 	}
-	 	else{
-	 		tvOpponent_1.setText(opponentGames.get(0).getPlayer().getNameWithMaxLength(13));
-	 	}
 	 	//Logger.d(TAG, "getGameView 4.1");
 	 	//RelativeLayout rlPlayer_1 = (RelativeLayout)view.findViewById(R.id.rlPlayer_1);
-		int opponentBadgeId_1 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponentGames.get(0).getPlayer().getBadgeDrawable(), null, null);
-		ivOpponentBadge_1.setImageResource(opponentBadgeId_1);
+		int opponentBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getBadgeDrawable(), null, null);
+		ivOpponentBadge.setImageResource(opponentBadgeId);
 
-		imageLoader.loadImage(opponentGames.get(0).getPlayer().getImageUrl(), ivOpponent1);  
-		//Logger.d(TAG, "getGameView 5");
-		//optional 2nd opponent
+		int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
+		ivOpponent.setImageResource(opponentImageId);
 		
-	//	ApplicationContext.captureTime(TAG, "getGameView last item check starting");
-		
-		if (lastItem){
-			RelativeLayout rlLineItem = (RelativeLayout)view.findViewById(R.id.rlLineItem);
-			int bgLineItem = context.getResources().getIdentifier("com.riotapps.word:drawable/text_selector_bottom", null, null);
-			rlLineItem.setBackgroundResource(bgLineItem);
-			LinearLayout llBottomBorder = (LinearLayout)view.findViewById(R.id.llBottomBorder);
-			llBottomBorder.setVisibility(View.INVISIBLE);
-
-		}
-	//	if (firstItem){
-	//		RelativeLayout rlLineItem = (RelativeLayout)view.findViewById(R.id.rlLineItem);
-	//		int bgLineItem = context.getResources().getIdentifier("com.riotapps.word:drawable/text_selector_top", null, null);
-	//		rlLineItem.setBackgroundResource(bgLineItem);
-	//	}
-		//drawable/text_selector_bottom
-		
-	//	ApplicationContext.captureTime(TAG, "getGameView size check (1) starting");
-		if (opponentGames.size() >= 2){
-			if (opponentGames.size() == 2){
-				tvOpponent_2.setText(opponentGames.get(1).getPlayer().getNameWithMaxLength(19));
-		 	}
-		 	else{
-		 		tvOpponent_2.setText(opponentGames.get(1).getPlayer().getNameWithMaxLength(13));
-		 	}
-		  
-			int opponentBadgeId_2 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponentGames.get(1).getPlayer().getBadgeDrawable(), null, null);
-			ivOpponentBadge_2.setImageResource(opponentBadgeId_2);
-			imageLoader.loadImage( opponentGames.get(1).getPlayer().getImageUrl(), ivOpponent2);
-	 	}
-	 	else {
-	 		
-	 		rlPlayer_2.setVisibility(View.GONE);
-	 		//TableRow trOpponent2 = (TableRow)view.findViewById(R.id.trOpponent2);
-	 	//	trOpponent2.setVisibility(View.GONE);
-	 		ivOpponent2.setVisibility(View.GONE);
-	 	}
-		//Logger.d(TAG, "getGameView 6");
-	 	//optional 3rd opponent
-	 	if (opponentGames.size() >= 3){
-		 	
-		 	tvOpponent_3.setText(opponentGames.get(2).getPlayer().getNameWithMaxLength(13));
-			int opponentBadgeId_3 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponentGames.get(2).getPlayer().getBadgeDrawable(), null, null);
-			ivOpponentBadge_3.setImageResource(opponentBadgeId_3);
-			imageLoader.loadImage( opponentGames.get(2).getPlayer().getImageUrl(), ivOpponent3);
-	 	}
-	 	else {
-	 	//	TableRow trOpponent3 = (TableRow)view.findViewById(R.id.trOpponent3);
-	 	//	trOpponent3.setVisibility(View.GONE);
-	 		RelativeLayout rlPlayer_3 = (RelativeLayout)view.findViewById(R.id.rlPlayer_3);
-	 		rlPlayer_3.setVisibility(View.GONE);
-	 		ivOpponent3.setVisibility(View.GONE);
-	 	}
-		///Logger.d(TAG, "getGameView 7");
-	 	
-	 	int badgeSize = Utils.convertDensityPixelsToPixels(context, 11);
-	 	int badgeRightMargin = Utils.convertDensityPixelsToPixels(context, 2);
-	 	int textSize;
-	 	
-	 	int badgeTopMargin;
-	 	
-	// 	ApplicationContext.captureTime(TAG, "getGameView size check (2) starting");
-		if (opponentGames.size() == 1){
-			badgeTopMargin = Utils.convertDensityPixelsToPixels(context, 5);
-			//textSize = Utils.convertDensityPixelsToPixels(context, 14);
-			textSize = this.getResources().getInteger(R.integer.main_landing_1_opponent_text_size);
-			tvOpponent_1.setTextSize(textSize);
-			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(badgeSize, badgeSize);
-		    rlp.setMargins(0, badgeTopMargin, badgeRightMargin, 0); // llp.setMargins(left, top, right, bottom);
-		    ivOpponentBadge_1.setLayoutParams(rlp);
-		    
-			layoutLastAction.addRule(RelativeLayout.RIGHT_OF, rlAvatars.getId());	
-			layoutLastAction.addRule(RelativeLayout.BELOW, rlPlayer_1.getId());
-			layoutLastAction.setMargins(3, 0, 0, 0);
-			//layoutLastAction.setMargins(left, top, right, bottom); 
-			llLastAction.setLayoutParams(layoutLastAction);
-			
-			//RelativeLayout.LayoutParams layoutAvatars = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			//layoutAvatars.setMargins(0, 0, 0, 30);
-			//rlAvatars.setLayoutParams(layoutAvatars);
-
-		}
-		else if (opponentGames.size() == 2){
-		
-			
-			badgeTopMargin = Utils.convertDensityPixelsToPixels(context, 5);
-			//textSize = Utils.convertDensityPixelsToPixels(context, 12);
-			textSize = this.getResources().getInteger(R.integer.main_landing_2_opponents_text_size);
-			tvOpponent_1.setTextSize(textSize);
-			tvOpponent_2.setTextSize(textSize);	
-			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(badgeSize, badgeSize);
-		    rlp.setMargins(0, badgeTopMargin, badgeRightMargin, 0); // llp.setMargins(left, top, right, bottom);
-		    ivOpponentBadge_2.setLayoutParams(rlp);
-		    ivOpponentBadge_1.setLayoutParams(rlp);
-		    
-			layoutLastAction.addRule(RelativeLayout.BELOW, rlAvatars.getId());	
-			llLastAction.setLayoutParams(layoutLastAction);
-			//tvLastAction.setLayoutParams(layoutLastAction);
-			
-			RelativeLayout.LayoutParams layoutOpponent2  = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			layoutOpponent2.setMargins(5, 4, 0, 0);
-			layoutOpponent2.addRule(RelativeLayout.RIGHT_OF, rlAvatars.getId());	
-			layoutOpponent2.addRule(RelativeLayout.BELOW, rlPlayer_1.getId());
-			rlPlayer_2.setLayoutParams(layoutOpponent2);
-
-		}
-		else{
-			
-			badgeTopMargin = Utils.convertDensityPixelsToPixels(context, 2);
-		//	textSize = Utils.convertDensityPixelsToPixels(context, 11);
-			textSize = this.getResources().getInteger(R.integer.main_landing_3_opponents_text_size);
-			tvOpponent_1.setTextSize(textSize);
-			tvOpponent_2.setTextSize(textSize);	
-			tvOpponent_3.setTextSize(textSize);
-			RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(badgeSize, badgeSize);
-		    rlp.setMargins(0, badgeTopMargin, badgeRightMargin, 0); // llp.setMargins(left, top, right, bottom);
-		    ivOpponentBadge_3.setLayoutParams(rlp);
-		    ivOpponentBadge_2.setLayoutParams(rlp);
-		    ivOpponentBadge_1.setLayoutParams(rlp);
-		    
-			//RelativeLayout.LayoutParams layoutOpponent2  = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			//layoutOpponent2.setMargins(0, 4, 0, 0);
-			//layoutOpponent2.addRule(RelativeLayout.RIGHT_OF, rlAvatars.getId());	
-			//layoutOpponent2.addRule(RelativeLayout.BELOW, rlPlayer_1.getId());
-			//rlPlayer_2.setLayoutParams(layoutOpponent2);
-			
-			layoutLastAction.addRule(RelativeLayout.BELOW, rlAvatars.getId());
-			llLastAction.setLayoutParams(layoutLastAction);
-			//tvLastAction.setLayoutParams(layoutLastAction);
-
-		}
-	 	
 		//ApplicationContext.captureTime(TAG, "getGameView almost over starting");
-	 	view.setTag(game.getId());
+	 	view.setTag(opponent.getId());
 	 	view.setOnClickListener(this);
   	    return view;
   	}
@@ -501,15 +313,10 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     	Intent intent;
     	
 		 this.callingIntent = true;
-			    
-    	//stop running task if one is active
-    	if (this.runningTask != null){
-	  		this.runningTask.cancel(true);
-	  		this.runningTask = null;
-	  	} 
-    	
+ 
     	switch(v.getId()){  
-        case R.id.bStart:  
+        /*
+          case R.id.bStart:  
         
         	
         	if (this.player.getNumActiveGames() >= Constants.MAX_ACTIVE_GAMES){
@@ -524,6 +331,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     			startActivity(intent);
         	}
 			break;
+			*/
         case R.id.bBadges:  
         	this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED, Constants.TRACKER_LABEL_BADGES, Constants.TRACKER_DEFAULT_OPTION_VALUE);
         	
@@ -539,7 +347,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
         default:
         	String gameId = (String)v.getTag();
         	//DialogManager.SetupAlert(context, "tapped", gameId);
-        	this.handleGameClick(gameId);
+        //	this.handleGameClick(gameId);
     	}
     	
     }  
