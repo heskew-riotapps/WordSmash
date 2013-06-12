@@ -1,5 +1,8 @@
 package com.riotapps.word.hooks;
 
+import android.content.Context;
+
+import com.riotapps.word.R;
 import com.riotapps.word.utils.Constants;
 
 public class Opponent{
@@ -64,5 +67,15 @@ public class Opponent{
 		return this.imagePrefix + Constants.UNDERSCORE + mode;
 	}
 	
-	
+	public String getSkillLevelText(Context context){	
+		switch (this.skillLevel){
+		case 1:
+			return context.getString(R.string.skill_level_1);
+		case 2:
+			return context.getString(R.string.skill_level_2);
+		case 3:
+			return context.getString(R.string.skill_level_3);
+		}
+		return Constants.EMPTY_STRING;
+	}
 }

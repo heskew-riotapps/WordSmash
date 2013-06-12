@@ -475,32 +475,19 @@ public class PlayerService {
 	}
 	
 	
-	public static void loadPlayerInHeader(final FragmentActivity context){
-		loadPlayerInHeader(context, true);
+	public static void loadPlayerInHeader(final FragmentActivity context, Boolean activateGravatarOnClick){
+		loadPlayerInHeader(context, new Player());
 	}
 	
-	public static void loadPlayerInHeader(final FragmentActivity context, Boolean activateGravatarOnClick){
-		 Player player = PlayerService.getPlayerFromLocal();
-		 int playerImage = context.getResources().getInteger(com.riotapps.word.R.integer.player_image_width);
-		ImageFetcher imageLoader = new ImageFetcher(context, playerImage, playerImage, 0);
-		imageLoader.setImageCache(ImageCache.findOrCreateCache(context, Constants.IMAGE_CACHE_DIR));
-		ImageView ivContextPlayer = (ImageView) context.findViewById(R.id.ivHeaderContextPlayer);
-		//android.util.Logger.i(TAG, "FindPlayerResults: playerImage=" + player.getImageUrl());
-		
-		imageLoader.loadImage(player.getImageUrl(), ivContextPlayer); //default image
-	 
-		if (activateGravatarOnClick == true){
-			if (player.isFacebookUser() == false){
-		    	ivContextPlayer.setOnClickListener(new View.OnClickListener() {
-			 		@Override
-					public void onClick(View v) {
-			 			Intent intent = new Intent(context, com.riotapps.word.Gravatar.class);
-			      	    context.startActivity(intent);
-			 		}
-				});
-			}
-		} 
-		
+	public static void loadPlayerInHeader(final FragmentActivity context){
+		loadPlayerInHeader(context, new Player());
+	}
+	
+	public static void loadPlayerInHeader(final FragmentActivity context, Player player) { //, Boolean activateGravatarOnClick){
+	//	 Player player = PlayerService.getPlayerFromLocal();
+
+	
+		Logger.d(TAG, "player.getBadgeDrawable()=" + player.getBadgeDrawable());
 		ImageView ivContextPlayerBadge = (ImageView) context.findViewById(R.id.ivHeaderContextPlayerBadge);
 		int contextPlayerBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + player.getBadgeDrawable(), null, null);
 		ivContextPlayerBadge.setImageResource(contextPlayerBadgeId);

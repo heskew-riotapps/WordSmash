@@ -64,8 +64,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 	ApplicationContext appContext;
 	LayoutInflater inflater;
 	private boolean isListLoading = false;
- 
-	private View inflatedView;
+  
     private Tracker tracker;
 	
 	public Tracker getTracker() {
@@ -95,19 +94,22 @@ public class Main extends FragmentActivity implements View.OnClickListener{
         Logger.d(TAG, "onCreate called");
            
 	  //  bStart = (Button) findViewById(R.id.bStart);
-	    bOptions = (Button) findViewById(R.id.bOptions);
-	    bBadges = (Button) findViewById(R.id.bBadges);
+	 //   bOptions = (Button) findViewById(R.id.bOptions);
+	 //   bBadges = (Button) findViewById(R.id.bBadges);
 	    
-	    bStart.setOnClickListener(this);
-		bOptions.setOnClickListener(this);
-		bBadges.setOnClickListener(this);
-		this.appContext = (ApplicationContext)this.getApplicationContext();
+	 //   bStart.setOnClickListener(this);
+//		bOptions.setOnClickListener(this);
+//		bBadges.setOnClickListener(this);
+		this.appContext = (ApplicationContext)this.getApplicationContext(); 
 		
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		this.inflatedView = this.inflater.inflate(R.layout.gameyourturnlistitem, null);
-		
+		//this.inflatedView = this.inflater.inflate(R.layout.gameyourturnlistitem, null);
+
+        Logger.d(TAG, "onCreate appContent.getplayer about to be called");
 		this.player = appContext.getPlayer(); //PlayerService.getPlayerFromLocal();
-		PlayerService.loadPlayerInHeader(this);
+		
+        Logger.d(TAG, "player is null =" + (this.player == null)); 
+		PlayerService.loadPlayerInHeader(this, this.player);
 		
 		//SharedPreferences settings = Storage.getSharedPreferences();
 	    //String completedDate = settings.getString(Constants.USER_PREFS_LATEST_COMPLETED_GAME_DATE, Constants.DEFAULT_COMPLETED_GAMES_DATE);
@@ -243,7 +245,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 		ApplicationContext.captureTime(TAG, "loadList starting");
  
     	LinearLayout llOpponents = (LinearLayout)findViewById(R.id.llOpponents);
-    	LinearLayout llOpponentsWrapper = (LinearLayout)findViewById(R.id.llOpponentsWrapper);
+    //	LinearLayout llOpponentsWrapper = (LinearLayout)findViewById(R.id.llOpponentsWrapper);
     	
     	ApplicationContext.captureTime(TAG, "loadList view clears starting");
     	//clear out view
@@ -256,15 +258,33 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     	
     	List<Opponent> opponents = appContext.getOpponents();
     	int i = 1;
+    	int j = 1;
+    	
+    	int horizontalNum = 2;
+    	
     	
     	//if opponents lists is empty, something is screwy
-    	if (opponents.size() > 0){    		
+    	if (opponents.size() > 0){    	
      		
+    		
+    		LinearLayout llHorizontal = new LinearLayout(context);
+    		 
 	        for (Opponent o : opponents){
 	        	//Logger.w(TAG, "loadLists this.player.getActiveGamesYourTurn() game=" +g.getId() );
-
+	        	if (j == 1){
+	        		llHorizontal = new LinearLayout(context);
+	        	  
+	        		
+	        	}
 	        	
-	        	llOpponents.addView(getOpponentView(o, i == 1, opponents.size() == i));
+	        	llHorizontal.addView(getOpponentView(o));
+	         
+	        	if (j == horizontalNum || i == opponents.size()){
+	        		llOpponents.addView(llHorizontal);
+	        		j = 0;
+	        	}
+	        	//llOpponents.addView(getOpponentView(o));
+	        	 j += 1;
 	        	 i += 1;
 			}
     	}
@@ -273,30 +293,35 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     	ApplicationContext.captureTime(TAG, "loadList completed");
     }
     
-    public View getOpponentView(Opponent opponent, boolean firstItem, boolean lastItem ) {
+	
+    public View getOpponentView(Opponent opponent) {
     	
  
   		View view = this.inflater.inflate(R.layout.opponent_item, null);
-  
-	//	Logger.d(TAG, "getGameView 1");
-  		// ImageFetcher imageLoader = new ImageFetcher(this, Constants.LARGE_AVATAR_SIZE, Constants.LARGE_AVATAR_SIZE, 0);
-         //imageLoader.setImageCache(ImageCache.findOrCreateCache(this, Constants.IMAGE_CACHE_DIR));
- 	//	Logger.d(TAG, "getGameView 2");
-  	   // TextView tvPlayerName = (TextView)view.findViewById(R.id.tvOpponent1);
-	 //	tvPlayerName.setText(game.getId()); //temp
-	 	
-	 //	ApplicationContext.captureTime(TAG, "getGameView view finds starting");
-	 	
-        ImageView ivOpponentBadge = (ImageView)view.findViewById(R.id.ivOpponentBadge);
+ 
+  		
+  		//hide record if player has not played opponent
+//        ImageView ivOpponentBadge = (ImageView)view.findViewById(R.id.ivOpponentBadge);
         ImageView ivOpponent = (ImageView)view.findViewById(R.id.ivOpponent);
 	 	TextView tvOpponent = (TextView)view.findViewById(R.id.tvOpponent);
- 
+	 	//TextView tvYourRecordLabel = (TextView)view.findViewById(R.id.tvYourRecordLabel);
+	 	TextView tvYourWins = (TextView)view.findViewById(R.id.tvYourWins);
+	 	TextView tvYourLosses = (TextView)view.findViewById(R.id.tvYourLosses);
+	 	TextView tvYourDraws = (TextView)view.findViewById(R.id.tvYourDraws);
+	 	TextView tvSkillLevel = (TextView)view.findViewById(R.id.tvSkillLevel);
+	 	
 	 	tvOpponent.setText(opponent.getName());
-
+	 	//tvYourRecordLabel.setText(String.format(this.getString(R.string.main_your_record_label), opponent.getName()));
+	 	tvYourWins.setText(String.format(this.getString(R.string.main_wins), opponent.getNumLosses()));
+	 	tvYourLosses.setText(String.format(this.getString(R.string.main_losses), opponent.getNumWins()));
+	 	tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
+	 	tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
+	 	tvSkillLevel.setText(opponent.getSkillLevelText(this));
+	 	
 	 	//Logger.d(TAG, "getGameView 4.1");
 	 	//RelativeLayout rlPlayer_1 = (RelativeLayout)view.findViewById(R.id.rlPlayer_1);
-		int opponentBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getBadgeDrawable(), null, null);
-		ivOpponentBadge.setImageResource(opponentBadgeId);
+	//	int opponentBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getBadgeDrawable(), null, null);
+	//	ivOpponentBadge.setImageResource(opponentBadgeId);
 
 		int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
 		ivOpponent.setImageResource(opponentImageId);
@@ -345,7 +370,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 			startActivity(intent);
 			break;
         default:
-        	String gameId = (String)v.getTag();
+        	String opponentId = (String)v.getTag();
         	//DialogManager.SetupAlert(context, "tapped", gameId);
         //	this.handleGameClick(gameId);
     	}

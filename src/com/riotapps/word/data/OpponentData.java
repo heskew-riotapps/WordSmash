@@ -24,6 +24,7 @@ public class OpponentData {
 		
 		//this might change to sqlLite
 		Gson gson = new Gson(); 
+		 
 		Type type = new TypeToken<List<Opponent>>() {}.getType();
 	    SharedPreferences settings = Storage.getSharedPreferences();
 	
@@ -34,7 +35,7 @@ public class OpponentData {
 	    	//opponents are not stored in active storage, which means its the user's first time through.
 	    	//prime opponents from .dat file
 	    	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
-	    	_opponents = gson.fromJson(FileUtils.ReadRawTextFile(appContext, R.raw.opponents), type);
+	    	_opponents = FileUtils.ReadRawTextFile(appContext, R.raw.opponents);
 	    }
 
 	    //load objects into the lost

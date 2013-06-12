@@ -1,30 +1,19 @@
 package com.riotapps.word;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.http.HttpResponse;
 import org.apache.http.conn.ConnectTimeoutException;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.riotapps.word.hooks.ErrorService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
-import com.riotapps.word.hooks.Error.ErrorType;
 import com.riotapps.word.ui.CustomButtonDialog;
-import com.riotapps.word.ui.CustomDialog;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.AsyncNetworkRequest;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
 import com.riotapps.word.utils.NetworkTaskResult;
 import com.riotapps.word.ui.DialogManager;
-import com.riotapps.word.utils.ServerResponse;
 import com.riotapps.word.utils.Enums.RequestType;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -146,10 +135,7 @@ public class Options extends FragmentActivity implements View.OnClickListener{
 	        	intent = new Intent(this, FBAccountSettings.class);
 				startActivity(intent);
 				break;
-	        case R.id.tvGravatar:  
-	        	intent = new Intent(this, Gravatar.class);
-				startActivity(intent);
-				break;
+	    
 	        case R.id.tvAbout:  
 	        	intent = new Intent(this, About.class);
 				startActivity(intent);

@@ -46,11 +46,12 @@
     <color name="form_header_sub_text_color">#1874CD</color> 
     <color name="form_header_background_color">#e8cca8</color>
     <color name="button_area_background_color">#e8cca8</color>
-    <color name="sub_text_color">#1874CD</color> 
+    <color name="sub_text_color">#fff5ee</color> 
     <color name="progress_background_color">#3366dd</color>
     <color name="button_text_color">#fff5ee</color>
     <color name="field_button_text_color">#454545</color>
 	<color name="player_image_border_color">#000000</color>
 	<color name="player_image_background_color">#d2bfa6</color>
 	<color name="game_surface_fill_color">#eec591</color>
+	<color name="list_text_background">#50000000</color>
 </resources>

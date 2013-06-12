@@ -50,7 +50,7 @@ public class Splash  extends FragmentActivity {
      }
     
     private void startBackgroundService(){
-    	this.startService(new Intent(this, WordLoaderService.class));
+  //  	this.startService(new Intent(this, WordLoaderService.class));
     }
    
     
@@ -86,7 +86,7 @@ public class Splash  extends FragmentActivity {
 		}
     	Intent intent;
 		
-      	intent = new Intent(this, com.riotapps.word.Welcome.class);
+      	intent = new Intent(this, com.riotapps.word.Main.class);
     	intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
     	this.startActivity(intent); 
      }

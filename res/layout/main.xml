@@ -52,44 +52,18 @@
     	android:fadingEdge="none"
  		
     	 >
-		<LinearLayout
-		    android:layout_width="fill_parent"
+	 
+
+		  
+			<LinearLayout 
+			     android:layout_width="fill_parent"
     		android:layout_height="fill_parent" 
     		android:orientation="vertical"
-		    > 
-		<LinearLayout
-			style="@style/FormBackgroundStyle"
-			android:layout_marginTop="5dp"
-			android:layout_width="fill_parent"
-			android:id="@+id/llOpponentsWrapper">
-
-		    <com.riotapps.word.ui.MainFontTextView
-		        style="@style/ContentAreaTextTopStyle"
-		        />
-		    <com.riotapps.word.ui.MainFontTextView
-		 		android:layout_marginTop="-32dp"
-		        android:background="@drawable/form_item_top"
-		        android:textSize="14dp"
-		        android:text="@string/main_landing_your_turn" 
-		      
-		        android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textColor="@color/button_text_color"
-	 
-				android:paddingBottom="5dp"
-				android:paddingLeft="16dp"
-				android:paddingRight="16dp"
-				android:paddingTop="5dp"
-		        />
-			<LinearLayout 
 			    android:id="@+id/llOpponents"
-			    android:orientation="vertical"
 			    />	
-	     </LinearLayout>
+	 
 	     
-		
-	
-        </LinearLayout> 	    
+	 	    
   	</ScrollView>
    </LinearLayout>
       

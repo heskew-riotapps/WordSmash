@@ -560,4 +560,12 @@
 		<string name="about_support">Need support? Have comments? Want to report a bug?</string>	 
 		<string name="about_support_link">http://www.getsatisfaction.com/wordsmash</string>	 
 		
+		<string name="main_your_record_label">Your record vs. %s</string>	 
+		<string name="main_wins">%s wins</string>
+		<string name="main_losses">%s losses</string>
+		<string name="main_draws">%s draws</string>
+		<string name="main_skill_level_Label">Skill Level:</string>		
+		<string name="skill_level_1">Beginner</string>		
+		<string name="skill_level_2">Fancy</string>
+		<string name="skill_level_3">Clever</string>
 </resources>
