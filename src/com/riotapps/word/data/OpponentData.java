@@ -28,18 +28,54 @@ public class OpponentData {
 		Type type = new TypeToken<List<Opponent>>() {}.getType();
 	    SharedPreferences settings = Storage.getSharedPreferences();
 	
-	    		
+	    List<Opponent> opponents;
+	    
 	    String _opponents =  settings.getString(Constants.USER_PREFS_OPPONENTS, Constants.EMPTY_STRING);
+
+    	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+
 	    
 	    if (_opponents == Constants.EMPTY_STRING){
 	    	//opponents are not stored in active storage, which means its the user's first time through.
 	    	//prime opponents from .dat file
-	    	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 	    	_opponents = FileUtils.ReadRawTextFile(appContext, R.raw.opponents);
+	    	
+		    //load objects into the list
+		    opponents = gson.fromJson(_opponents, type);
+
+	    }
+	    else{
+		    //sync the lists if the count is different 
+		    List<Opponent> opponentsFromDat;
+	    	
+		    //load objects into the list
+		    opponentsFromDat = gson.fromJson(FileUtils.ReadRawTextFile(appContext, R.raw.opponents), type);
+		    opponents = gson.fromJson(_opponents, type);
+
+		    if (opponentsFromDat.size() > opponents.size()){
+		    	for (Opponent fromDat : opponentsFromDat){
+		    		boolean add = true;
+		    		for (Opponent fromLocal : opponents){
+			    		if (fromDat.getId() == fromLocal.getId()){
+			    			add = false;
+			    			
+			    			//update opponent's name from dat
+			    			fromLocal.setImagePrefix(fromDat.getImagePrefix());
+			    			fromLocal.setSkillLevel(fromDat.getSkillLevel());
+			    			fromLocal.setName(fromDat.getName());
+			    			
+			    			break;
+			    		}
+			    	}	
+		    		if (add){
+		    			opponents.add(fromDat);
+		    		}
+		    	}
+		    
+		    }
 	    }
 
-	    //load objects into the lost
-	    List<Opponent> opponents = gson.fromJson(_opponents, type);
+	    
 	    
 		gson = null;    
 		return opponents;

@@ -37,6 +37,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -247,14 +248,14 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     	LinearLayout llOpponents = (LinearLayout)findViewById(R.id.llOpponents);
     //	LinearLayout llOpponentsWrapper = (LinearLayout)findViewById(R.id.llOpponentsWrapper);
     	
-    	ApplicationContext.captureTime(TAG, "loadList view clears starting");
+   // 	ApplicationContext.captureTime(TAG, "loadList view clears starting");
     	//clear out view
     	llOpponents.removeAllViews();
 
     	
   //	Logger.w(TAG, "loadLists this.player.getActiveGamesYourTurn() size=" + this.player.getActiveGamesYourTurn().size() );
 
-    	ApplicationContext.captureTime(TAG, "loadList getActiveGamesYourTurn check starting");
+    	ApplicationContext.captureTime(TAG, "loadList opponents fetch starting");
     	
     	List<Opponent> opponents = appContext.getOpponents();
     	int i = 1;
@@ -262,22 +263,30 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     	
     	int horizontalNum = 2;
     	
-    	
+    	DisplayMetrics displaymetrics = new DisplayMetrics();
+	 	this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+	    int screenWidth = displaymetrics.widthPixels;
+	    
+	    int itemWidth = Math.round(screenWidth / 2) - 1;
+	   LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+	  //	int w  = displaymetrics.widthPixels;
     	//if opponents lists is empty, something is screwy
     	if (opponents.size() > 0){    	
      		
     		
-    		LinearLayout llHorizontal = new LinearLayout(context);
+    		LinearLayout llHorizontal = null;
+    		
     		 
 	        for (Opponent o : opponents){
+	        	if (i == 3){break;}
 	        	//Logger.w(TAG, "loadLists this.player.getActiveGamesYourTurn() game=" +g.getId() );
 	        	if (j == 1){
 	        		llHorizontal = new LinearLayout(context);
-	        	  
-	        		
+	        		llHorizontal.setLayoutParams(params);
+	        		llHorizontal.setOrientation(LinearLayout.HORIZONTAL);
 	        	}
 	        	
-	        	llHorizontal.addView(getOpponentView(o));
+	        	llHorizontal.addView(getOpponentView(o, itemWidth, itemWidth));
 	         
 	        	if (j == horizontalNum || i == opponents.size()){
 	        		llOpponents.addView(llHorizontal);
@@ -294,14 +303,16 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     }
     
 	
-    public View getOpponentView(Opponent opponent) {
+    public View getOpponentView(Opponent opponent, int width, int height) {
     	
  
   		View view = this.inflater.inflate(R.layout.opponent_item, null);
  
-  		
+	    LayoutParams params = new LayoutParams(width, height);
+
   		//hide record if player has not played opponent
 //        ImageView ivOpponentBadge = (ImageView)view.findViewById(R.id.ivOpponentBadge);
+  		RelativeLayout rlLineItem = (RelativeLayout)view.findViewById(R.id.rlLineItem);
         ImageView ivOpponent = (ImageView)view.findViewById(R.id.ivOpponent);
 	 	TextView tvOpponent = (TextView)view.findViewById(R.id.tvOpponent);
 	 	//TextView tvYourRecordLabel = (TextView)view.findViewById(R.id.tvYourRecordLabel);
@@ -310,6 +321,9 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 	 	TextView tvYourDraws = (TextView)view.findViewById(R.id.tvYourDraws);
 	 	TextView tvSkillLevel = (TextView)view.findViewById(R.id.tvSkillLevel);
 	 	
+	 	
+	 	rlLineItem.setLayoutParams(params);
+	 Logger.d(TAG, "opponent=" + opponent.getName());
 	 	tvOpponent.setText(opponent.getName());
 	 	//tvYourRecordLabel.setText(String.format(this.getString(R.string.main_your_record_label), opponent.getName()));
 	 	tvYourWins.setText(String.format(this.getString(R.string.main_wins), opponent.getNumLosses()));
@@ -370,7 +384,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 			startActivity(intent);
 			break;
         default:
-        	String opponentId = (String)v.getTag();
+        	//int opponentId = v.getTag();
         	//DialogManager.SetupAlert(context, "tapped", gameId);
         //	this.handleGameClick(gameId);
     	}

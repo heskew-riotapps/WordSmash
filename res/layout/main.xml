@@ -1,7 +1,7 @@
 <RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    style="@style/LayoutStyle"
+    style="@style/LayoutThinStyle"
     android:orientation="vertical" >
     <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
 
@@ -17,8 +17,8 @@
            ads:loadAdOnCreate="true"/>
    	 <LinearLayout
    	     android:layout_below="@id/topAreaLayout"
-        style="@style/LayoutFormStyle"
-     
+         
+        android:orientation="vertical"
         android:layout_above="@id/adView" 
         android:layout_marginBottom="0dp"
         >
@@ -57,7 +57,7 @@
 		  
 			<LinearLayout 
 			     android:layout_width="fill_parent"
-    		android:layout_height="fill_parent" 
+    		android:layout_height="wrap_content" 
     		android:orientation="vertical"
 			    android:id="@+id/llOpponents"
 			    />	
