@@ -12,9 +12,11 @@ import com.google.android.gcm.GCMRegistrar;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Opponent;
+import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerGame;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.ui.CustomButtonDialog;
 import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.AsyncNetworkRequest;
@@ -31,6 +33,7 @@ import com.riotapps.word.utils.Enums.RequestType;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -51,9 +54,7 @@ import android.widget.Toast;
 public class Main extends FragmentActivity implements View.OnClickListener{
 	private static final String TAG = Main.class.getSimpleName();
 	TextView tvStartByNickname;
-	Button bStart;
-	Button bOptions;
-	Button bBadges;
+	
 	ImageView ivContextPlayer;
 	ImageView ivContextPlayerBadge;
 	Context context = this;
@@ -278,7 +279,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     		
     		 
 	        for (Opponent o : opponents){
-	        	if (i == 3){break;}
+	        	//if (i == 3){break;}
 	        	//Logger.w(TAG, "loadLists this.player.getActiveGamesYourTurn() game=" +g.getId() );
 	        	if (j == 1){
 	        		llHorizontal = new LinearLayout(context);
@@ -312,7 +313,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 
   		//hide record if player has not played opponent
 //        ImageView ivOpponentBadge = (ImageView)view.findViewById(R.id.ivOpponentBadge);
-  		RelativeLayout rlLineItem = (RelativeLayout)view.findViewById(R.id.rlLineItem);
+	    LinearLayout llLineItem = (LinearLayout)view.findViewById(R.id.llLineItem);
         ImageView ivOpponent = (ImageView)view.findViewById(R.id.ivOpponent);
 	 	TextView tvOpponent = (TextView)view.findViewById(R.id.tvOpponent);
 	 	//TextView tvYourRecordLabel = (TextView)view.findViewById(R.id.tvYourRecordLabel);
@@ -322,7 +323,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 	 	TextView tvSkillLevel = (TextView)view.findViewById(R.id.tvSkillLevel);
 	 	
 	 	
-	 	rlLineItem.setLayoutParams(params);
+	 	llLineItem.setLayoutParams(params);
 	 Logger.d(TAG, "opponent=" + opponent.getName());
 	 	tvOpponent.setText(opponent.getName());
 	 	//tvYourRecordLabel.setText(String.format(this.getString(R.string.main_your_record_label), opponent.getName()));
@@ -352,49 +353,65 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     	Intent intent;
     	
 		 this.callingIntent = true;
+		 int opponentId = Integer.parseInt(v.getTag().toString());
+		 
+		 //open dialog mgr to confirm that player wants to play this particular opponent
+		 
+		 
+		 
  
-    	switch(v.getId()){  
-        /*
-          case R.id.bStart:  
-        
-        	
-        	if (this.player.getNumActiveGames() >= Constants.MAX_ACTIVE_GAMES){
-        		this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED, Constants.TRACKER_LABEL_START_GAME_MAX_REACHED, this.player.getNumActiveGames());
-        		
-        		DialogManager.SetupAlert(this, this.getString(R.string.oops), this.getString(R.string.validation_max_games_reached));
-        	}
-        	else {
-        		this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED, Constants.TRACKER_LABEL_START_GAME, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-        		
-            	intent = new Intent(getApplicationContext(), StartGame.class);
-    			startActivity(intent);
-        	}
-			break;
-			*/
-        case R.id.bBadges:  
-        	this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED, Constants.TRACKER_LABEL_BADGES, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-        	
-        	intent = new Intent(getApplicationContext(), Badges.class);
-			startActivity(intent);
-			break; 
-        case R.id.bOptions:  
-        	this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED, Constants.TRACKER_LABEL_OPTIONS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-        	
-        	intent = new Intent(getApplicationContext(), Options.class);
-			startActivity(intent);
-			break;
-        default:
-        	//int opponentId = v.getTag();
-        	//DialogManager.SetupAlert(context, "tapped", gameId);
-        //	this.handleGameClick(gameId);
-    	}
-    	
+    	this.handleGameStartPrompt(opponentId);
     }  
  
 
    
 
+    private void handleGameStartPrompt(int opponentId){
+		 Opponent o = OpponentService.getOpponent(opponentId);
+
+    	
+    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
+    			this.getString(R.string.main_game_start_prompt_title), 
+    			String.format(this.getString(R.string.main_game_start_prompt), o.getName()),
+    			this.getString(R.string.yes),
+    			this.getString(R.string.no));
+    	
+    	dialog.setOnOKClickListener(new View.OnClickListener() {
+	 		@Override
+			public void onClick(View v) {
+	 			dialog.dismiss(); 
+	 		//	trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        //			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 		
+	 		}
+		});
+
+    	dialog.setOnDismissListener(new View.OnClickListener() {
+		 		@Override
+				public void onClick(View v) {
+		 			dialog.dismiss(); 
+		 	//		trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		     //   			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			 		}
+			});
+    	
+     	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+	//			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	  //      			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				
+			}
+		});  
+    	dialog.show();	
+    }
+
+    private void handleGameStartOnClick(){
+    	//start game and go to game surface
+    }
     
+ 	
 
     
     

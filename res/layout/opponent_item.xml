@@ -5,6 +5,7 @@
       android:layout_width="0dp"
       android:layout_weight="1"
         android:background="@color/player_image_background_color"
+        android:id="@+id/llLineItem"
      >
 <RelativeLayout
  

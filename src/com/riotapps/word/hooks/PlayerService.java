@@ -486,7 +486,7 @@ public class PlayerService {
 	public static void loadPlayerInHeader(final FragmentActivity context, Player player) { //, Boolean activateGravatarOnClick){
 	//	 Player player = PlayerService.getPlayerFromLocal();
 
-	
+	/*
 		Logger.d(TAG, "player.getBadgeDrawable()=" + player.getBadgeDrawable());
 		ImageView ivContextPlayerBadge = (ImageView) context.findViewById(R.id.ivHeaderContextPlayerBadge);
 		int contextPlayerBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + player.getBadgeDrawable(), null, null);
@@ -502,7 +502,7 @@ public class PlayerService {
 		else { 			
 			tvHeaderContextPlayerWins.setText(String.format(context.getString(R.string.header_num_wins), player.getNumWins())); 
 		}
-		
+		*/
 		player = null;
 	}
 	
