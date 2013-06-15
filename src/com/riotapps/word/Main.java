@@ -42,31 +42,33 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main extends FragmentActivity implements View.OnClickListener{
+public class Main extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
 	private static final String TAG = Main.class.getSimpleName();
-	TextView tvStartByNickname;
-	
-	ImageView ivContextPlayer;
-	ImageView ivContextPlayerBadge;
+ 
 	Context context = this;
 	Player player;
-  
+	 private PopupMenu popupMenu;
+     private final static int ONE = 1;
+     private final static int TWO = 2;
+     private final static int THREE = 3;
 	//Timer timer = null;
 	boolean callingIntent = false;
  
 	ApplicationContext appContext;
 	LayoutInflater inflater;
-	private boolean isListLoading = false;
-  
+ 
     private Tracker tracker;
 	
 	public Tracker getTracker() {
@@ -125,6 +127,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 	 	//}
 		
 	  	this.loadOpponents();
+	  	this.setupMenu();
 	 	ApplicationContext.captureTime(TAG, "loadLists ended");
 	 	/*
 	 	long lastPlayerCheckTime = GameService.getLastGameListCheckTime(this);
@@ -155,11 +158,7 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 		//}
 		//this.setupTimer();
 		
-//	 	this.checkAlert();
-	 	ApplicationContext.captureTime(TAG, "checkAlert ended");
-		
-
-		
+ 	
 		ApplicationContext.captureTime(TAG, "onCreate ended");
 		
 		
@@ -167,17 +166,17 @@ public class Main extends FragmentActivity implements View.OnClickListener{
 	//	this.loadListTask.execute("");
 		
     }
-  /* 
-    private void checkAlert(){
-    	if (this.player != null){
-	    	if (this.player.getLatestAlerts().size() > 0){
-		    	 if (!PlayerService.checkAlertAlreadyShown(this, this.player.getLatestAlerts().get(0).getId(), this.player.getLatestAlerts().get(0).getActivationDateString())) {	
-					 DialogManager.SetupAlert(this, !this.player.getLatestAlerts().get(0).getTitle().equals("") ? this.player.getLatestAlerts().get(0).getTitle() : this.getString(R.string.alert_default_title), this.player.getLatestAlerts().get(0).getText());
-				 }
-	    	}
-    	}
+ 
+    private void setupMenu(){
+    	
+    	  popupMenu = new PopupMenu(this, findViewById(R.id.options));
+          popupMenu.getMenu().add(Menu.NONE, ONE, Menu.NONE, "Item 1");
+          popupMenu.getMenu().add(Menu.NONE, TWO, Menu.NONE, "Item 2");
+          popupMenu.getMenu().add(Menu.NONE, THREE, Menu.NONE, "Item 3");
+          popupMenu.setOnMenuItemClickListener(this);
+          findViewById(R.id.options).setOnClickListener(this);
     }
-    */
+    
     private void trackEvent(String action, String label, int value){
     	this.trackEvent(action, label, (long)value);
     }
@@ -352,19 +351,39 @@ public class Main extends FragmentActivity implements View.OnClickListener{
     public void onClick(View v) {
     	Intent intent;
     	
-		 this.callingIntent = true;
-		 int opponentId = Integer.parseInt(v.getTag().toString());
-		 
+  
 		 //open dialog mgr to confirm that player wants to play this particular opponent
 		 
 		 
-		 
+		 switch (v.getId()){
+		 	case R.id.options:
+		 		popupMenu.show();
+		 		break;
+			default:
+				 int opponentId = Integer.parseInt(v.getTag().toString());
+			   	this.handleGameStartPrompt(opponentId);
+			    		 
+		 }
  
-    	this.handleGameStartPrompt(opponentId);
     }  
  
 
-   
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+       /*    TextView tv = (TextView) findViewById(R.id.selection);
+           switch (item.getItemId()) {
+           case ONE:
+                  tv.setText("ONE");
+                  break;
+           case TWO:
+                  tv.setText("TWO");
+                  break;
+           case THREE:
+                  tv.setText("THREE");
+                  break;
+           } */
+           return false;
+    }
 
     private void handleGameStartPrompt(int opponentId){
 		 Opponent o = OpponentService.getOpponent(opponentId);

@@ -2436,8 +2436,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
      				 this.parent.getGame().getRandomConsonants().get(0),
      				 this.parent.getGame().getRandomConsonants().get(1),
      				 this.parent.getGame().getRandomConsonants().get(2),
-     				 (this.parent.getGame().getRandomConsonants().size() > 3 ? this.parent.getGame().getRandomConsonants().get(3) : this.parent.getGame().getRandomVowels().get(0)),
-     				 this.parent.getGame().getRandomVowels().get(0));
+     				 this.parent.getGame().getRandomConsonants().get(3),
+     				 this.parent.getGame().getRandomVowel());
 
      		 
      		 Paint pRandom = new Paint();

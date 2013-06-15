@@ -1239,11 +1239,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				        			Constants.TRACKER_LABEL_RESIGN_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.handleResign();
 						break;
-			        case R.id.bRematch:  
-			        	 this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-				        			Constants.TRACKER_LABEL_REMATCH_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			        	this.handleRematch();
-						break;
+			      
 		    	}
 	    	}	
 	 }
@@ -1429,73 +1425,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 
 	    	dialog.show();	
 	    }
-	    
-	    private void handleRematch(){
-	    	String rematchText = "";
-	    	String opponent1 = "";
-	    	String opponent2 = "";
-	    	String opponent3 = "";
-	    	List<Player> opponents = this.game.getAllOpponents(this.player);
-	    	for (int i = 0; i < opponents.size(); i++){
-	    		if (i == 0){opponent1 = opponents.get(i).getNameWithMaxLength(40);}
-	    		else if (i == 1){opponent2 = opponents.get(i).getNameWithMaxLength(40);}
-	    		else {opponent3 = opponents.get(i).getNameWithMaxLength(40);}
-	    	}
-	    	
-	    	if (opponents.size() == 3){
-	    		rematchText = String.format(this.getString(R.string.game_surface_rematch_with_3), opponent1, opponent2, opponent3);
-	    	}
-	    	else if (opponents.size() == 2){
-	    		rematchText = String.format(this.getString(R.string.game_surface_rematch_with_2), opponent1, opponent2);
-	    	}
-	    	else {//single opponent
-	    		rematchText = String.format(this.getString(R.string.game_surface_rematch_with_1), opponent1);	    		
-	    	}
-	    	
-	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
-	    			this.getString(R.string.game_surface_rematch_title), 
-	    			rematchText,
-	    			this.getString(R.string.yes),
-	    			this.getString(R.string.no));
-	    	
-	    	dialog.setOnOKClickListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			 trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_REMATCH_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-		 			 
-		 			handleGameRematchOnClick();
-		 		
-		 		}
-			});
-	    	
-	    	dialog.setOnDismissListener(new View.OnClickListener() {
-			 		@Override
-					public void onClick(View v) {
-			 			dialog.dismiss(); 
-			 			 trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-				        			Constants.TRACKER_LABEL_REMATCH_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			 			 
-			 			unfreezeButtons();
-			 		}
-				});
-	    	 
-	    	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					 trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_REMATCH_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-					
-					unfreezeButtons();
-					
-				}
-			});
-			 
-
-	    	dialog.show();	
-	    }
-	    
+  
 	    
 	    private void handleGameCancelOnClick(){
 	    	//stop thread first
@@ -1558,28 +1488,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			}
 	    }
 	    
-	    private void handleGameRematchOnClick(){
-	    	//stop thread first
-	    	this.gameSurfaceView.onStop();
-	    	try { 
-		    	Game newGame = GameService.createGame(this.context, this.player);
-		    	
-		    	List<Player> opponents = this.game.getAllOpponents(this.player);
-		    	for (Player opponent : opponents){
-		    		newGame =  GameService.addPlayerToGame(this, newGame, opponent);
-		    	}
 
-				String json = GameService.setupStartGame(newGame);
-				
-				//kick off thread to start game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_starting_game), GameActionType.REMATCH);
-				runningTask.execute(Constants.REST_CREATE_GAME_URL);
-			} catch (DesignByContractException e) {
-				 
-				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
-			}
-	    }
-	    
 	    
 	    public void handleGamePlayOnClick(PlacedResult placedResult){
 	    	//stop thread first

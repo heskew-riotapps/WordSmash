@@ -8,6 +8,11 @@
 package com.riotapps.word;
 
 public final class R {
+    public static final class array {
+        public static final int alphabet_consonants=0x7f0c0001;
+        public static final int alphabet_spread=0x7f0c0002;
+        public static final int alphabet_vowels=0x7f0c0000;
+    }
     public static final class attr {
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form

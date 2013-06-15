@@ -21,9 +21,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	
 	private String id = "";
 	
-	@SerializedName("a_t") //mainly just for transport via json
-	private String authToken = ""; 
-	
+	 	
 	@SerializedName("played_words")
 	private List<PlayedWord> playedWords = new ArrayList<PlayedWord>();
 	
@@ -35,6 +33,9 @@ public class Game implements Parcelable, Comparable<Game> {
 	
 	@SerializedName("played_tiles")
 	private List<PlayedTile> playedTiles = new ArrayList<PlayedTile>();
+	
+	@SerializedName("played_turns")
+	private List<PlayedTurn> playedTurns = new ArrayList<PlayedTurn>();
 	
 	@SerializedName("l_t_a")
 	private int lastTurnAction;
@@ -52,28 +53,32 @@ public class Game implements Parcelable, Comparable<Game> {
 	private Date lastChatDate;
 	
 	@SerializedName("r_v")
-	private List<String> randomVowels;
+	private String randomVowel;
 
 	@SerializedName("r_c")
 	private List<String> randomConsonants;
 	
+	@SerializedName("hop")
+	private List<String> hopper;
+	
 	private boolean showCompletionAlert;
-	private boolean refreshedFromChat;
-
+ 
+	/*
 	private List<PlayerGame> activePlayerGames = null;
 	private List<PlayerGame> opponentPlayerGames = null;
+	*/ 
 	
 	private Player _lastTurnPlayer;
 	private PlayerGame _contextPlayerGame;
 	
+ 
 	
-	
-	public List<String> getRandomVowels() {
-		return randomVowels;
+	public String getRandomVowel() {
+		return randomVowel;
 	}
 
-	public void setRandomVowels(List<String> randomVowels) {
-		this.randomVowels = randomVowels;
+	public void setRandomVowel(String randomVowel) {
+		this.randomVowel = randomVowel;
 	}
 
 	public List<String> getRandomConsonants() {
@@ -113,19 +118,19 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.opponents_ = opponents_;
 	}
 
-	private Player getLastTurnPlayer(){
+	private Player getLastTurnPlayer(){  //fix this
 		if (this._lastTurnPlayer == null) {
 			for (PlayerGame pg : this.getPlayerGames()){
 				try{
-					Logger.d(TAG, "getLastTurnPlayer pg.name=" + pg.getPlayer().getName());
+				//Logger.d(TAG, "getLastTurnPlayer pg.name=" + pg.getPlayer().getName());
 				}
 				catch (Exception e){
 					Logger.d(TAG, "getLastTurnPlayer e=" + e.toString());
 				}
 			//for (PlayerGame pg : this.getActivePlayerGames()){
-				if (pg.getPlayer().getId().equals(this.lastTurnPlayerId)){
-					this._lastTurnPlayer = pg.getPlayer();
-				}
+			//	if (pg.get.equals(this.lastTurnPlayerId)){
+			//	//	this._lastTurnPlayer = pg.getPlayer();
+			//	}
 			}
 		}
 		return this._lastTurnPlayer;
@@ -148,7 +153,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	public PlayerGame getContextPlayerGame(String contextPlayerId){
 		if (this._contextPlayerGame == null) {
 			for (PlayerGame pg : this.getPlayerGames()){
-				if (pg.getPlayer().getId().equals(contextPlayerId)){
+				if (pg.getPlayerId().equals(contextPlayerId)){
 					this._contextPlayerGame = pg;
 				}
 			}
@@ -160,8 +165,8 @@ public class Game implements Parcelable, Comparable<Game> {
 		Player player = null;
 	 
 		for (PlayerGame pg : this.getPlayerGames()){
-			if (pg.getPlayer().getId().equals(playerId)){
-				player = pg.getPlayer();
+			if (pg.getPlayerId().equals(playerId)){
+				//player = pg.getPlayer();
 				break;
 			}
 		}
@@ -246,7 +251,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	public List<PlayerGame> getPlayerGames() {
 		return playerGames;
 	}
-	
+	/*
 	public List<PlayerGame> getActivePlayerGames() {
 		if (this.activePlayerGames == null){
 			this.activePlayerGames = new ArrayList<PlayerGame>();
@@ -266,7 +271,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 	    return this.activePlayerGames;
 	}
-
+*/
 	public List<PlayedTile> getPlayedTiles() {
 		return playedTiles;
 	}
@@ -291,6 +296,16 @@ public class Game implements Parcelable, Comparable<Game> {
 		    ret[i] = this.getPlayerGames().get(i);}
 		  return ret;
 		}
+	
+	public List<String> getHopper() {
+		return hopper;
+	}
+
+	public void setHopper(List<String> hopper) {
+		this.hopper = hopper;
+	}
+
+	/*
 	
 	public List<PlayerGame> getOpponentPlayerGames(Player contextPlayer){ 
 		//assume the context player is the first playergame
@@ -330,7 +345,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 		return this.opponentPlayerGames;
 	}
-	
+	*/
 	public boolean isContextPlayerStarter(Player contextPlayer){ 
 		if (this.getContextPlayerGame(contextPlayer.getId()).getPlayerOrder() == 1) {
 			return true;
@@ -401,8 +416,8 @@ public class Game implements Parcelable, Comparable<Game> {
 		List<Player> ret = new ArrayList<Player>();
 		
 		 for (PlayerGame pg : this.getPlayerGames()){ 
-         	if (!pg.getPlayer().getId().equals(contextPlayer.getId()) && pg.getStatus() == 1){
-         		ret.add(pg.getPlayer());
+         	if (!pg.getPlayerId().equals(contextPlayer.getId()) && pg.getStatus() == 1){
+         		//ret.add(pg.getPlayer());
          	}
 		}
 		  return ret;
@@ -413,8 +428,8 @@ public class Game implements Parcelable, Comparable<Game> {
 		List<Player> ret = new ArrayList<Player>();
 		
 		 for (PlayerGame pg : this.getPlayerGames()){ 
-         	if (!pg.getPlayer().getId().equals(contextPlayer.getId())){
-         		ret.add(pg.getPlayer());
+         	if (!pg.getPlayerId().equals(contextPlayer.getId())){
+         		//ret.add(pg.getPlayer());
          	}
 		}
 		  return ret;
@@ -457,14 +472,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.turn = turn;
 	}
 
-	public String getAuthToken() {
-		return authToken;
-	}
-
-	public void setAuthToken(String authToken) {
-		this.authToken = authToken;
-	}
-
+ 
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -509,26 +517,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		return this.getPlayerGames().size(); 
 	}
 	
-	public List<Player> getUnregisteredFBPlayers(){
-		List<Player> players = new ArrayList<Player>();
-		
-		for (PlayerGame pg : this.getPlayerGames()){	 
-			if (pg.getPlayerId().length() == 0){		
-				players.add(pg.getPlayer());
-			}
-		}
-		return players;
-	}
-	
-	public String getUnregisteredFBPlayersString(){
-		String invited = "";
-		
-		for (Player player : this.getUnregisteredFBPlayers()){
-		//Logger.d(TAG,"getInvitedFBPlayersString pg=" + pg.getPlayerId().length() + " " + pg.getPlayer().getFB());
-			invited = invited + player.getFB() + ",";
-		}
-		return invited.length() == 0 ? "" : invited.substring(0,invited.length() - 1); //remove trailing comma
-	}
+ 
 	
 	public boolean isCompleted(){
 		return this.status == 3 || this.getStatus() == 4;
@@ -565,7 +554,9 @@ public class Game implements Parcelable, Comparable<Game> {
 	public String getLastActionText(Context context, String contextPlayerId){
 	// LastTurn lastTurn = this.getLastTurn(contextPlayerId);
 		
-	//return "p";
+	 return "p";
+	 
+	 /*
 		boolean isContext = this.isContextPlayerPerformedLastTurn(contextPlayerId);
 		String opponentName = this.getLastTurnPlayer().getAbbreviatedName();
 		PlayerGame contextPlayerGame = this.getContextPlayerGame(contextPlayerId);
@@ -664,67 +655,7 @@ public class Game implements Parcelable, Comparable<Game> {
 							return String.format(context.getString(R.string.game_last_action_2_words_played), this.getLastTurnPoints(), opponentName, 
 									words.get(0).getWord(), words.get(1).getWord());						
 						}
-					/*case 3:
-						if (isContext){
-							return String.format(context.getString(R.string.game_last_action_3_words_played_context), this.getLastTurnPoints(), 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord());
-						}
-						else {
-							return String.format(context.getString(R.string.game_last_action_3_words_played), this.getLastTurnPoints(), opponentName, 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord());						
-						}
-					case 4:
-						if (isContext){
-							return String.format(context.getString(R.string.game_last_action_4_words_played_context), this.getLastTurnPoints(), 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord());
-						}
-						else {
-							return String.format(context.getString(R.string.game_last_action_4_words_played), this.getLastTurnPoints(), opponentName, 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord());						
-						}
-					case 5:
-						if (isContext){
-							return String.format(context.getString(R.string.game_last_action_5_words_played_context), this.getLastTurnPoints(),  
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord(),
-									words.get(4).getWord());
-						}
-						else {
-							return String.format(context.getString(R.string.game_last_action_5_words_played), this.getLastTurnPoints(), opponentName, 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord(),
-									words.get(4).getWord());						
-						}
-					case 6:
-						if (isContext){
-							return String.format(context.getString(R.string.game_last_action_6_words_played_context), this.getLastTurnPoints(),  
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord(),
-									words.get(4).getWord(), words.get(5).getWord());
-						}
-						else {
-							return String.format(context.getString(R.string.game_last_action_6_words_played), this.getLastTurnPoints(), opponentName, 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord(),
-									words.get(4).getWord(), words.get(5).getWord());						
-						}
-					default:
-						if (isContext){
-							return String.format(context.getString(R.string.game_last_action_more_than_6_words_played_context), this.getLastTurnPoints(),
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord(),
-									words.get(4).getWord(), words.get(5).getWord(), (numWordsPlayed - 6));
-						}
-						else {
-							return String.format(context.getString(R.string.game_last_action_more_than_6_words_played), this.getLastTurnPoints(), opponentName, 
-									words.get(0).getWord(), words.get(1).getWord(),
-									words.get(2).getWord(), words.get(3).getWord(),
-									words.get(4).getWord(), words.get(5).getWord(), (numWordsPlayed - 6));						
-						}*/
+					
 					}
 				case TURN_SKIPPED:
 					if (isContext){
@@ -756,15 +687,18 @@ public class Game implements Parcelable, Comparable<Game> {
 					return context.getString(R.string.game_last_action_undetermined);
 					
 			}
+ 
 		}
+		*/
+		
 	
  	}
 	
 	public String getWinnerAlertText(Context context, PlayerGame contextPlayerGame){
 		String message = "";
 		
-		if (this.getNumActiveOpponents() + 1 == 2){
-			PlayerGame singleOpponent = this.getOpponentPlayerGames(contextPlayerGame.getPlayer()).get(0);
+	 
+			PlayerGame singleOpponent = this.getPlayerGames().get(1);
 			 if (contextPlayerGame.isWinner()){
 				 message = String.format(context.getString(R.string.game_alert_game_over_2_player_context),
 						 contextPlayerGame.getScore(),
@@ -780,23 +714,10 @@ public class Game implements Parcelable, Comparable<Game> {
 				 message = String.format(context.getString(R.string.game_alert_game_over_2_player),
 						 singleOpponent.getScore(),
 						 contextPlayerGame.getScore(),
-						 singleOpponent.getPlayer().getName());
+						 singleOpponent.getPlayerName());
 			 }
 			 //handle draw
-		 }
-		 else{
-			 if (contextPlayerGame.isWinner()){
-				 message = String.format(context.getString(R.string.game_alert_game_over_multi_player_context),
-						 contextPlayerGame.getWinNum());
-			 }
-			 else if (contextPlayerGame.isDraw()){ 
-				 message = context.getString(R.string.game_alert_game_over_multi_player_draw);
-			 }
-			 else { 
-				 message = String.format(context.getString(R.string.game_alert_game_over_multi_player),
-					this.getWinner().getPlayer().getName());
-			 }
-		 }
+		 
 		
 		return message;
 	}
@@ -816,9 +737,9 @@ public class Game implements Parcelable, Comparable<Game> {
 	public String getLastActionTextForList(Context context, String contextPlayerId){
 	//	LastTurn lastTurn = this.getLastTurn(contextPlayerId);
 		
-	// return "p";
+	  return "p";
 	//	Logger.d(TAG, "getLastActionTextForList gameId=" + this.id + " status=" + this.getStatus() + " this.getLastAction()=" + this.getLastAction());
-		
+		/*
 		String timeSince = Utils.getTimeSinceString(context, this.getLastTurnDate());
 		boolean isContext = this.isContextPlayerPerformedLastTurn(contextPlayerId);
 		String opponentName = this.getLastTurnPlayer().getAbbreviatedName();
@@ -1009,6 +930,7 @@ public class Game implements Parcelable, Comparable<Game> {
 						return context.getString(R.string.game_last_action_undetermined);
 				}
 			 }	
+		*/
 	}
 	
 	

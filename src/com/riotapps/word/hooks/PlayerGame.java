@@ -32,7 +32,8 @@ public class PlayerGame implements Parcelable{
 	@SerializedName("player_id")
 	private String playerId; 
 	
-	private Player player; 
+	//private Player player; 
+
 	
 	@SerializedName("sc")
 	private int score = 0;
@@ -102,6 +103,22 @@ public class PlayerGame implements Parcelable{
 		this.score = score;
 	}
 	
+	public boolean isOpponent(){
+		return this.playerOrder == 2;
+	}
+	
+	public String getPlayerName(){
+		//make sure this stuff is cached well
+		
+		if (this.isOpponent()){
+			//get opponent name
+		}
+		else{
+			//get context player name
+		}
+		return "XX";	
+	}
+	 
 	
 	
 	public int getStatus() {
@@ -155,14 +172,8 @@ public class PlayerGame implements Parcelable{
 		this.hasBeenAlertedToEndOfGame = hasBeenAlertedToEndOfGame;
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-	
+	 
+ 
 	public boolean isActive(){
 		//declined and cancelled
 		//NO_TRANSLATION(0), (no action yet)
@@ -206,7 +217,7 @@ public class PlayerGame implements Parcelable{
 	public void writeToParcel(Parcel out, int flags) {
 //		Logger.d(TAG, "parcel out");
 		out.writeString(this.playerId); 
-		out.writeParcelable(player, flags);
+	 
 //		Logger.d(TAG, "parcel out playerId=" + this.player.getId());
 		out.writeInt(this.score);
 	//	out.writeLong(this.lastTurnDate == null ? 0 : this.lastTurnDate.getTime());
@@ -240,7 +251,7 @@ public class PlayerGame implements Parcelable{
 //		Logger.d(TAG, "parcel in");
 		// same order as writeToParcel
 	 	this.playerId = in.readString();
-	 	this.player = in.readParcelable(Player.class.getClassLoader());
+	 
 	// 	Logger.d(TAG, "parcel in playerId=" + this.playerId);
 	 	this.score = in.readInt();
 	// 	this.lastTurnDate = new Date();

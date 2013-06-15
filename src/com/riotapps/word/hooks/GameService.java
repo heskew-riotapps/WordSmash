@@ -141,6 +141,8 @@ public class GameService {
 	
 	public static String setupStartGame(Game game) throws DesignByContractException{
 		 
+		return "remove";
+/*		
 		Logger.d(TAG, "setupStartGame");
 		Gson gson = new Gson();
 		
@@ -158,12 +160,14 @@ public class GameService {
 		for(PlayerGame pg : game.getPlayerGames()){
 			String name = "";
 			if (pg.getPlayerId().length() == 0) {
-				name = pg.getPlayer().getName();
+				name = pg.getPlayerName();
 			}
 			newGame.addToPlayerGames(pg.getPlayerId(),pg.getPlayerOrder(), pg.getPlayer().getFB(), name);
 		}
 		
 		return gson.toJson(newGame);
+		
+		*/
 	}
 	
 	public static String setupCancelGame(String gameId) throws DesignByContractException{
@@ -436,6 +440,8 @@ public class GameService {
 			//also update win Totals for the winner
 			boolean isWinner = false;
 			Player player = PlayerService.getPlayerFromLocal();
+			
+			/*
 			for (PlayerGame pg : game.getActivePlayerGames()){
 				if (pg.isWinner() && pg.getPlayerId().equals(player.getId())){
 					if(pg.getWinNum() > player.getNumWins()) {
@@ -454,6 +460,7 @@ public class GameService {
 				 //save player to local
 				 PlayerService.putPlayerToLocal(player);
 			 }
+			 */
 			
 		}
 		GameService.putGameToLocal(game);
@@ -582,45 +589,56 @@ public class GameService {
          return game;  
 	}
 	
-	public static Game createGame(Context ctx, Player contextPlayer) throws DesignByContractException{
+ 
+	
+	public static Game createGameWithOpponent(Context ctx, Player contextPlayer, int opponentId) throws DesignByContractException{
 		
-		Check.Require(PlayerService.getPlayerFromLocal().getId().equals(contextPlayer.getId()), ctx.getString(R.string.validation_incorrect_context_player));
+		//Check.Require(PlayerService.getPlayerFromLocal().getId().equals(contextPlayer.getId()), ctx.getString(R.string.validation_incorrect_context_player));
     	
 		Game game = new Game();
     	
     	PlayerGame pg = new PlayerGame();
     	pg.setPlayerId(contextPlayer.getId());
-    	pg.setPlayer(contextPlayer);
+     
     	pg.setPlayerOrder(1);
+    	
+  
+    	PlayerGame pg2 = new PlayerGame();
+    	pg2.setPlayerId(String.valueOf(opponentId));
+    	 
+    	pg2.setPlayerOrder(2);
     	
     	List<PlayerGame> pgs = new ArrayList<PlayerGame>();
     	pgs.add(pg);
+    	pgs.add(pg2);
     	game.setPlayerGames(pgs);
     	
+    	//ported from rails
+    	game.setCreateDate(new Date());
+    	game.setStatus(1); //active
+    	game.setTurn(1);
+    	game.setLastTurnDate(game.getCreateDate());
+    	game.setRandomVowel(AlphabetService.getRandomVowel());
+    	game.setRandomConsonants(AlphabetService.getRandomConsonants());
+    	game.setHopper(AlphabetService.getHopper(game.getRandomVowel(), game.getRandomConsonants()));
+    	
+    	//get hopper letters
+    	//generate random consonants and vowels 
+    	//save game as 
+    	/*
+    	#add a PlayedTurn record
+		played_turn = PlayedTurn.new
+		played_turn.player_id = current_player.id
+		played_turn.t = 0 #turn_num (zero represents the starting of the game)
+		played_turn.a = 8 #last turn action - started the game
+		played_turn.p = 0 #points
+		played_turn.p_d = nowDate #played_date
+		@game.played_turns << played_turn
+    	*/
     	return game;
 	}
 	
-	public static Game addPlayerToGame(Context ctx, Game game, Player player) throws DesignByContractException{
-
-		Check.Require(game.getPlayerGames().size() < 5, ctx.getString(R.string.validation_too_many_players));
-		
-		Player contextPlayer = PlayerService.getPlayerFromLocal();
-		
-	 	Check.Require(!contextPlayer.getId().equals(player.getId()), ctx.getString(R.string.validation_cannot_add_yourself));
-	 	Check.Require(!contextPlayer.getId().equals(player.getId()), ctx.getString(R.string.validation_cannot_add_yourself)); 
-	 	 for (Player p : game.getOpponents(contextPlayer)){
-	 		Check.Require(player.getFB().length() > 0 || !p.getId().equals(player.getId()), String.format(ctx.getString(R.string.validation_opponent_already_added), p.getName())); 
-		 }
-
-    	PlayerGame pg = new PlayerGame();
-    	pg.setPlayerId(player.getId());
-    	pg.setPlayer(player);
-    	pg.setStatus(1);
-    	pg.setPlayerOrder(game.getPlayerGames().size() + 1);
-    	game.getPlayerGames().add(pg);
-    	
-    	return game;
-	}
+	 
 	
 	public static PlayerGame loadScoreboard(final FragmentActivity context, Game game, Player player){
 		 //determine length of name and font size if too long (maybe)
@@ -638,6 +656,9 @@ public class GameService {
 		
 		//Logger.d(TAG, "loadScoreboard game=" + gson.toJson(game));
 		
+		return new PlayerGame();
+		
+		/*
 		PlayerGame contextPlayerGame = new PlayerGame();
 		
 		 int contextPlayerIndex = -1;
@@ -680,9 +701,9 @@ public class GameService {
 		 if (playerGameCount > 2){
 			 //loop through again to fill out the order of the other players for placement in the scoreboard 
 			 //i'm sure there is a 2 line formula that will shrink this code but i'm tired and settling for switch statements
-			 for(int x = 0; x < playerGameCount; x++){
+			 for(int x = 0; x < 2; x++){
 				
-			    PlayerGame pg = game.getActivePlayerGames().get(x);
+			    PlayerGame pg = game.getPlayerGames().get(x);
 			    if (x != contextPlayerIndex){
 			    	//we already know where the context player (the player logged in right now) is
 			    	//let's find the order to display the others
@@ -803,19 +824,19 @@ public class GameService {
 		 ImageView ivWhiteFlag4 = (ImageView)context.findViewById(R.id.ivWhiteFlag_4);
 		 
 		 //position 1
-		 String contextPlayer = game.getActivePlayerGames().get(contextPlayerIndex).getPlayer().getName();
-		 if (contextPlayer.length() > 25 || playerGameCount > 2){contextPlayer = game.getActivePlayerGames().get(contextPlayerIndex).getPlayer().getAbbreviatedName();}
+		 String contextPlayer = game.getPlayerGames().get(contextPlayerIndex).getPlayer().getName();
+		 if (contextPlayer.length() > 25 || playerGameCount > 2){contextPlayer = game.getPlayerGames().get(contextPlayerIndex).getPlayer().getAbbreviatedName();}
 		 tvContextPlayer.setText(contextPlayer);
-		 tvContextPlayerScore.setText(Integer.toString(game.getActivePlayerGames().get(contextPlayerIndex).getScore()));
-		 int contextPlayerBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getActivePlayerGames().get(contextPlayerIndex).getPlayer().getBadgeDrawable(), null, null);
+		 tvContextPlayerScore.setText(Integer.toString(game.getPlayerGames().get(contextPlayerIndex).getScore()));
+		 int contextPlayerBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getPlayerGames().get(contextPlayerIndex).getPlayer().getBadgeDrawable(), null, null);
 		 ivContextPlayerBadge.setImageResource(contextPlayerBadgeId);
-		 if (game.getActivePlayerGames().get(contextPlayerIndex).isTurn() == false){
+		 if (game.getPlayerGames().get(contextPlayerIndex).isTurn() == false){
 			 ivContextPlayerTurn.setVisibility(View.INVISIBLE);
 		 }
 		 else{
 			 ivContextPlayerTurn.setVisibility(View.VISIBLE);
 		 }
-		 if (game.getActivePlayerGames().get(contextPlayerIndex).getStatus() == 7){
+		 if (game.getPlayerGames().get(contextPlayerIndex).getStatus() == 7){
 			 ivContextWhiteFlag.setVisibility(View.VISIBLE);
 		 }
 		 else{
@@ -824,7 +845,7 @@ public class GameService {
 
 		 //position 2
 		 String player2 = game.getActivePlayerGames().get(playerIndex2).getPlayer().getName();
-		 if (player2.length() > 25 || playerGameCount > 2){player2 = game.getActivePlayerGames().get(playerIndex2).getPlayer().getAbbreviatedName();}
+		 if (player2.length() > 25 || playerGameCount > 2){player2 = game.getPlayerGames().get(playerIndex2).getPlayer().getAbbreviatedName();}
 		 tvPlayer2.setText(player2);
 		 tvPlayerScore2.setText(Integer.toString(game.getActivePlayerGames().get(playerIndex2).getScore()));
 		 int playerBadgeId2 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getActivePlayerGames().get(playerIndex2).getPlayer().getBadgeDrawable(), null, null);
@@ -964,6 +985,7 @@ public class GameService {
 		 //this.tvNumPoints.setText(String.format(context.getString(R.string.scoreboard_num_points), "0"));
 		 
 		 return contextPlayerGame;
+		 */
 	 }
 	
 	//return int that represents the display message
