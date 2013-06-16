@@ -550,6 +550,16 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void setLastTurnDate(Date lastTurnDate) {
 		this.lastTurnDate = lastTurnDate;
 	}
+	
+	
+
+	public List<PlayedTurn> getPlayedTurns() {
+		return playedTurns;
+	}
+
+	public void setPlayedTurns(List<PlayedTurn> playedTurns) {
+		this.playedTurns = playedTurns;
+	}
 
 	public String getLastActionText(Context context, String contextPlayerId){
 	// LastTurn lastTurn = this.getLastTurn(contextPlayerId);

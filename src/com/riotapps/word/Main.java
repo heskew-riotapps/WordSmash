@@ -63,6 +63,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
      private final static int ONE = 1;
      private final static int TWO = 2;
      private final static int THREE = 3;
+     
+     private int chosenOpponentId = 0;
 	//Timer timer = null;
 	boolean callingIntent = false;
  
@@ -386,8 +388,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     }
 
     private void handleGameStartPrompt(int opponentId){
-		 Opponent o = OpponentService.getOpponent(opponentId);
-
+		Opponent o = OpponentService.getOpponent(opponentId);
+    	this.chosenOpponentId = opponentId;
     	
     	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
     			this.getString(R.string.main_game_start_prompt_title), 
@@ -399,6 +401,15 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	 		@Override
 			public void onClick(View v) {
 	 			dialog.dismiss(); 
+	 			
+	 			try {
+					GameService.createGameWithOpponent(context, player, chosenOpponentId);
+				} catch (DesignByContractException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	 			
+	 			//open game surface activity
 	 		//	trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 	        //			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 	 			

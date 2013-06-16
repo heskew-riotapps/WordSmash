@@ -10,6 +10,8 @@
 <RelativeLayout
  
     android:id="@+id/rlLineItem"
+    android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
   >
 
      	 
@@ -23,50 +25,67 @@
 		        android:scaleType="fitXY"    
 			 />
 	 	  
-
+		
           <com.riotapps.word.ui.MainFontTextView
             android:id="@+id/tvOpponent"
             style="@style/SubTextStyle"
             android:textSize="18sp"
-            android:paddingLeft="3dp"
+            android:paddingLeft="4dp"
             android:background="@color/list_text_background"
             android:layout_alignTop="@id/ivOpponent"
            />
-            <com.riotapps.word.ui.MainFontTextView
-            android:id="@+id/tvSkillLevel"
-            style="@style/SubTextStyle"
-            android:textSize="14sp"
-            android:background="@color/list_text_background"
-            android:layout_below="@id/tvOpponent"
-           />
-
-   
-           <com.riotapps.word.ui.MainFontTextView
-            android:id="@+id/tvYourDraws"
-            style="@style/SubTextStyle"
-            android:textSize="12sp"
-            android:paddingRight="2dp"
-            android:layout_alignBottom="@id/ivOpponent"
-            android:layout_alignRight="@id/ivOpponent"
-      
-           />
-            <com.riotapps.word.ui.MainFontTextView
-            android:id="@+id/tvYourLosses"
-            style="@style/SubTextStyle"
-            android:textSize="12sp"
-            android:paddingRight="2dp"
-             android:layout_alignRight="@id/ivOpponent"
-            android:layout_above="@id/tvYourDraws"
-           />
-                      <com.riotapps.word.ui.MainFontTextView
-            android:id="@+id/tvYourWins"
-            style="@style/SubTextStyle"
-            android:textSize="12sp"
-            android:paddingRight="2dp"
-             android:layout_alignRight="@id/ivOpponent"
-            android:layout_above="@id/tvYourLosses"
-           />
-           
+  
+          <RelativeLayout 
+              android:layout_alignBaseline="@id/ivOpponent"
+              android:background="@color/list_text_background"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              >
+	            <com.riotapps.word.ui.MainFontTextView
+	            android:id="@+id/tvSkillLevel"
+	            style="@style/SubTextStyle"
+	            android:textSize="14sp"
+	             android:layout_alignBaseline="@id/ivOpponent"
+	            android:layout_alignLeft="@id/ivOpponent"
+	           />
+	
+	    	<RelativeLayout
+	    	    android:id="@+id/rlRecord"
+	    	    android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/ivOpponent"
+                   android:layout_alignRight="@id/ivOpponent"
+	    	    >"
+	           <com.riotapps.word.ui.MainFontTextView
+	            android:id="@+id/tvYourDraws"
+	            style="@style/SubTextStyle"
+	            android:textSize="12sp"
+	            android:paddingRight="2dp"
+	            android:layout_alignRight="@id/ivOpponent"
+	      
+	           />
+	           <TextView
+	               android:text="@string/hyphen"
+	               />
+	            <com.riotapps.word.ui.MainFontTextView
+	            android:id="@+id/tvYourLosses"
+	            style="@style/SubTextStyle"
+	            android:textSize="12sp"
+	            android:paddingRight="2dp"
+	            android:layout_toLeftOf="@id/tvYourDraws"
+	           />
+	            <TextView
+	               android:text="@string/hyphen"
+	               />
+	          <com.riotapps.word.ui.MainFontTextView
+	            android:id="@+id/tvYourWins"
+	            style="@style/SubTextStyle"
+	            android:textSize="12sp"
+	            android:paddingRight="2dp"
+	            android:layout_toLeftOf="@id/tvYourLosses"
+	           />
+	          </RelativeLayout>
+           </RelativeLayout>
         
 </RelativeLayout>
 </LinearLayout>

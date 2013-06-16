@@ -1,6 +1,7 @@
 package com.riotapps.word.hooks;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class PlayedTurn {
 	/*
@@ -63,8 +64,8 @@ public class PlayedTurn {
 	public Date getPlayedDate() {
 		return playedDate;
 	}
-	public void setPlayedDate(Date playedDate) {
-		this.playedDate = playedDate;
+	public void setPlayedDate(Date date) {
+		this.playedDate = date;
 	}
 	
 	

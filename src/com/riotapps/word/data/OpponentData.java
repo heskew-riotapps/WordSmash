@@ -42,6 +42,8 @@ public class OpponentData {
 	    	
 		    //load objects into the list
 		    opponents = gson.fromJson(_opponents, type);
+		    
+		    saveOpponents(opponents);
 
 	    }
 	    else{
@@ -56,7 +58,10 @@ public class OpponentData {
 		    	for (Opponent fromDat : opponentsFromDat){
 		    		boolean add = true;
 		    		for (Opponent fromLocal : opponents){
-			    		if (fromDat.getId() == fromLocal.getId()){
+		    			if (fromDat == null){
+		    				add = false;
+		    			}
+		    			else if (fromDat.getId() == fromLocal.getId()){ 
 			    			add = false;
 			    			
 			    			//update opponent's name from dat
@@ -71,7 +76,7 @@ public class OpponentData {
 		    			opponents.add(fromDat);
 		    		}
 		    	}
-		    
+		    	saveOpponents(opponents);
 		    }
 	    }
 

@@ -622,6 +622,17 @@ public class GameService {
     	game.setRandomConsonants(AlphabetService.getRandomConsonants());
     	game.setHopper(AlphabetService.getHopper(game.getRandomVowel(), game.getRandomConsonants()));
     	
+    	List<PlayedTurn> turns = new ArrayList<PlayedTurn>();
+    	PlayedTurn turn = new PlayedTurn();
+    	turn.setPlayerId(contextPlayer.getId());
+    	turn.setTurn(0);
+    	turn.setPoints(0);
+    	turn.setAction(8);
+    	turn.setPlayedDate(new Date());
+    	turns.add(turn);
+    	
+    	game.setPlayedTurns(turns);
+    	
     	//get hopper letters
     	//generate random consonants and vowels 
     	//save game as 
@@ -635,6 +646,20 @@ public class GameService {
 		played_turn.p_d = nowDate #played_date
 		@game.played_turns << played_turn
     	*/
+    	
+    	Logger.d(TAG, "random vowel=" + game.getRandomVowel());
+    	String consonants = "";
+    	String hopper = "";
+    	for (String s : game.getRandomConsonants())
+    	{
+    		consonants += s + ",";
+    	}
+     	for (String s : game.getHopper())
+    	{
+    		hopper += s + ",";
+    	}
+    	Logger.d(TAG, "random consonants=" + consonants);
+    	Logger.d(TAG, "random hopper=" + hopper);
     	return game;
 	}
 	

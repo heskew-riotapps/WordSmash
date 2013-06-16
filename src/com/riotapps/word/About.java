@@ -17,7 +17,7 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	
 	private final Context context = this;
 	
-	
+	//attribution to smiley in here
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);

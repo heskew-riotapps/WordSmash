@@ -565,12 +565,12 @@
 		<string name="main_losses">%s losses</string>
 		<string name="main_draws">%s draws</string>
 		<string name="main_skill_level_Label">Skill Level:</string>		
-		<string name="skill_level_1">Beginner</string>		
-		<string name="skill_level_2">Fancy</string>
-		<string name="skill_level_3">Clever</string>
+		<string name="skill_level_1">Novice</string>		
+		<string name="skill_level_2">Mid-Level</string>
+		<string name="skill_level_3">Advanced</string>
 		<string name="main_choose">Tap an opponent to start a game</string>
 		<string name="main_game_start_prompt">%s is ready to play.  Are you ready?</string>
 		<string name="main_game_start_prompt_title">start a game</string>
 		
-		
+		<string name="hyphen">-</string>
 </resources>

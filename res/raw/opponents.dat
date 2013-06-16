@@ -1,8 +1,8 @@
 [
-{ "id": "1", "name": "Diapers", "skillLevel": "1", "imagePrefix": "skill_level_1_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
-{ "id": "2", "name": "Noodles", "skillLevel": "2", "imagePrefix": "skill_level_2_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
-{ "id": "3", "name": "Einstein", "skillLevel": "3", "imagePrefix": "skill_level_3_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
-{ "id": "4", "name": "Ethan 2", "skillLevel": "1", "imagePrefix": "skill_level_1_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
-{ "id": "5", "name": "Makenna", "skillLevel": "2", "imagePrefix": "skill_level_2_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
-{ "id": "6", "name": "Bailey", "skillLevel": "3", "imagePrefix": "skill_level_3_a", "numWins": "0", "numLosses": "0", "numDraws": "0" }
+{ "id": "1", "name": "Lefty", "skillLevel": "1", "imagePrefix": "skill_level_1_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
+{ "id": "2", "name": "Righty", "skillLevel": "1", "imagePrefix": "skill_level_1_b", "numWins": "0", "numLosses": "0", "numDraws": "0" },
+{ "id": "3", "name": "Grinny", "skillLevel": "2", "imagePrefix": "skill_level_2_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
+{ "id": "4", "name": "Lucky", "skillLevel": "2", "imagePrefix": "skill_level_2_b", "numWins": "0", "numLosses": "0", "numDraws": "0" },
+{ "id": "5", "name": "Grumpy", "skillLevel": "3", "imagePrefix": "skill_level_3_a", "numWins": "0", "numLosses": "0", "numDraws": "0" },
+{ "id": "6", "name": "Nerdy", "skillLevel": "3", "imagePrefix": "skill_level_3_b", "numWins": "0", "numLosses": "0", "numDraws": "0" }
 ]
