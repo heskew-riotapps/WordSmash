@@ -9,9 +9,9 @@
   >
 	 <com.riotapps.word.ui.MainFontTextView
             android:id="@+id/tvCharacter"
-            style="@style/SubTextStyle"
+ 
             android:textSize="18sp"
-            android:layout_height="30dp"
+            android:layout_height="60dp"
             android:layout_width="fill_parent"
             android:paddingLeft="4dp"
            />

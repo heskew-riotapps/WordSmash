@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.riotapps.word.hooks.OpponentGroup;
 import com.riotapps.word.hooks.OpponentGroupService;
+import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.utils.ApplicationContext;
+import com.riotapps.word.utils.Logger;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -72,11 +74,9 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 		       
 	    	}
 	    	else{
-		        	llItems.setVisibility(View.GONE);
-		        
+		        	llItems.setVisibility(View.GONE); //?? maybe show all but indicate of already bought
 		        }
 
-	    	ApplicationContext.captureTime(TAG, "loadList completed");
 	    }
 	    
 		
@@ -98,7 +98,15 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+
+		//call google payment integration here
+		OpponentGroup og = OpponentGroupService.getInactiveOpponentGroup(Integer.parseInt(v.getTag().toString()));
+		Logger.d(TAG, "tag=" + v.getTag().toString());
+		og.setActivated(true);
 		
+		OpponentGroupService.saveOpponentGroup(og);
+		
+		this.appContext.setOpponents(OpponentService.getActivatedOpponents());
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.riotapps.word.hooks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.riotapps.word.data.OpponentData;
@@ -8,7 +9,7 @@ import com.riotapps.word.utils.Constants;
 
 public class OpponentService {
 	
-	
+	/*
 	public static List<Opponent> getOpponentsFromLocal(){
 		return OpponentData.getLocalOpponents();
 		
@@ -16,6 +17,13 @@ public class OpponentService {
 	 //   appContext.setPlayer(player);
 	 
 	}
+*/
+	public static List<Opponent> getActivatedOpponents(){
+
+		return OpponentData.getActivatedOpponents();
+			 
+	}
+	
 	
 	public static Opponent getOpponent(int id){
 		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
