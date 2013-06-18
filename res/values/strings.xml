@@ -20,8 +20,8 @@
     <string name="rev_mob_app_id">5128d7dbffe6c2180000000b</string>
     <string name="rev_mob_main_landing_banner">5128d84decad1a100000003c</string>
     <string name="rev_mob_main_between_play">5128d816f95d861800000069</string>
-    <string name="rev_mob_main_landing_banner">5128d816f95d861800000069</string>
-    <string name="rev_mob_main_landing_banner">5128d816f95d861800000069</string>
+    <string name="rev_mob_main_landing_banner_">5128d816f95d861800000069</string>
+    <string name="rev_mob_main_landing_banner__">5128d816f95d861800000069</string>
     
     <string name="playtomics_guid">677d2619c62640b5</string>
 	<string name="playtomics_api_key">c77086d28be34cdaa1f3db380fb381</string>
@@ -62,10 +62,10 @@
 	<string name="seconds">seconds</string>
 	<string name="minute">minute</string>
 	<string name="minutes">minutes</string>
-	<string name="second">hour</string>
-	<string name="second">hours</string>
-	<string name="second">day</string>
-	<string name="second">days</string>
+	<string name="hour">hour</string>
+	<string name="hours">hours</string>
+	<string name="day">day</string>
+	<string name="days">days</string>
 	<string name="cancel">cancel</string>
 	<string name="header_1_win">1 win</string>
 	<string name="header_num_wins">%s wins</string>
@@ -406,7 +406,7 @@
 	   <string name="hours_ago">%s hours ago</string>
 	   <string name="a_day_ago">a day ago</string>
 	   <string name="days_ago">%s days ago</string>
-	   <string name="game_last_action_list_declined">%2$s declined %1$s</string>
+	   <string name="game_last_action_list_declined__">%2$s declined %1$s</string>
 	   <string name="game_last_action_list_resigned_context">You conceded %s</string>
 	   <string name="game_last_action_list_resigned">%2$s conceded %1$s</string>
 	   <string name="game_last_action_list_declined_context">You declined this game</string>
