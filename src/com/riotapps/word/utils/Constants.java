@@ -154,6 +154,7 @@ public class Constants {
  	public static final String USER_PREFS_PWD = "user_pw";
  	public static final String USER_PREFS_ACTIVE_GAMES = "a_games";
  	public static final String USER_PREFS_OPPONENTS = "_opps";
+ 	public static final String USER_PREFS_OPPONENT_GROUPS = "_opp_groups";
 	public static final String USER_PREFS_COMPLETED_GAMES = "c_games";
 	public static final String USER_PREFS_PLAYER_JSON = "player_json";
  	public static final String USER_PREFS_GAME_JSON = "game_json_%s";

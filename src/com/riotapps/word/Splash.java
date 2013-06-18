@@ -57,8 +57,8 @@ public class Splash  extends FragmentActivity {
                 Splash.this.finish();
 
                 // transition from splash to main  
-            //    overridePendingTransition(R.animate.activityfadein,
-             //           R.animate.splashfadeout);
+            //    overridePendingTransition(R.animator.activityfadein,
+             //          R.animator.splashfadeout);
                 
             
         		

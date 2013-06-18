@@ -571,6 +571,10 @@
 		<string name="main_choose">Tap an opponent to start a game</string>
 		<string name="main_game_start_prompt">%s is ready to play.  Are you ready?</string>
 		<string name="main_game_start_prompt_title">start a game</string>
-		
-		<string name="hyphen">-</string>
+		<string name="main_menu_about">About WordSmash</string>
+		<string name="main_menu_completed_games">Completed Games</string>
+		<string name="main_menu_badges">Badges</string>
+		<string name="main_menu_rules">Game Rules</string>
+		<string name="main_menu_store">Store</string>
+		<string name="win_loss_draw_separator"> - </string>
 </resources>

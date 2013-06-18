@@ -1,0 +1,4 @@
+[
+{ "id": "1", "name": "Smileys", "constant":"smiley", "activated": "true"},
+{ "id": "2", "name": "Disney", "constant":"disney" , "activated": "false"}
+]

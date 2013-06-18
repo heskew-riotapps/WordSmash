@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<RelativeLayout
+   xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	   android:background="@color/player_image_background_color"
+        android:id="@+id/rlLineItem"
+  >
+	 <com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvCharacter"
+            style="@style/SubTextStyle"
+            android:textSize="18sp"
+            android:layout_height="30dp"
+            android:layout_width="fill_parent"
+            android:paddingLeft="4dp"
+           />
+</RelativeLayout>

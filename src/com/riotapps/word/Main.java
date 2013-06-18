@@ -1,43 +1,21 @@
 package com.riotapps.word;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.apache.http.conn.ConnectTimeoutException;
-
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
-import com.google.android.gcm.GCMRegistrar;
-import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Opponent;
 import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
-import com.riotapps.word.hooks.PlayerGame;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.CustomButtonDialog;
-import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.utils.ApplicationContext;
-import com.riotapps.word.utils.AsyncNetworkRequest;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
-import com.riotapps.word.utils.ImageCache;
-import com.riotapps.word.utils.ImageFetcher;
 import com.riotapps.word.utils.Logger;
-import com.riotapps.word.utils.NetworkTaskResult;
-import com.riotapps.word.utils.Storage;
-import com.riotapps.word.utils.Utils;
-import com.riotapps.word.utils.Enums.RequestType;
-
-import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -46,13 +24,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Main extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
 	private static final String TAG = Main.class.getSimpleName();
@@ -60,9 +36,11 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	Context context = this;
 	Player player;
 	 private PopupMenu popupMenu;
-     private final static int ONE = 1;
-     private final static int TWO = 2;
-     private final static int THREE = 3;
+     private final static int MENU_COMPLETED_GAMES = 1;
+     private final static int MENU_ABOUT = 2;
+     private final static int MENU_BADGES = 3;
+     private final static int MENU_RULES = 4;
+     private final static int MENU_STORE = 5;
      
      private int chosenOpponentId = 0;
 	//Timer timer = null;
@@ -172,9 +150,14 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     private void setupMenu(){
     	
     	  popupMenu = new PopupMenu(this, findViewById(R.id.options));
-          popupMenu.getMenu().add(Menu.NONE, ONE, Menu.NONE, "Item 1");
-          popupMenu.getMenu().add(Menu.NONE, TWO, Menu.NONE, "Item 2");
-          popupMenu.getMenu().add(Menu.NONE, THREE, Menu.NONE, "Item 3");
+
+    	  //if player has any completed games show completed games menu option
+    	  popupMenu.getMenu().add(Menu.NONE, MENU_COMPLETED_GAMES, Menu.NONE, this.getString(R.string.main_menu_completed_games));
+          popupMenu.getMenu().add(Menu.NONE,  MENU_RULES, Menu.NONE, this.getString(R.string.main_menu_rules));
+          popupMenu.getMenu().add(Menu.NONE,  MENU_STORE, Menu.NONE, this.getString(R.string.main_menu_store));
+
+          popupMenu.getMenu().add(Menu.NONE,  MENU_ABOUT, Menu.NONE, this.getString(R.string.main_menu_about));
+      
           popupMenu.setOnMenuItemClickListener(this);
           findViewById(R.id.options).setOnClickListener(this);
     }
@@ -310,28 +293,32 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
  
   		View view = this.inflater.inflate(R.layout.opponent_item, null);
  
-	    LayoutParams params = new LayoutParams(width, height);
+	    RelativeLayout.LayoutParams params = new  RelativeLayout.LayoutParams(width, height);
 
   		//hide record if player has not played opponent
 //        ImageView ivOpponentBadge = (ImageView)view.findViewById(R.id.ivOpponentBadge);
-	    LinearLayout llLineItem = (LinearLayout)view.findViewById(R.id.llLineItem);
+	    RelativeLayout rlLineItem = (RelativeLayout)view.findViewById(R.id.rlLineItem);
+	    //LinearLayout llLineItem = (LinearLayout)view.findViewById(R.id.llLineItem);
         ImageView ivOpponent = (ImageView)view.findViewById(R.id.ivOpponent);
 	 	TextView tvOpponent = (TextView)view.findViewById(R.id.tvOpponent);
 	 	//TextView tvYourRecordLabel = (TextView)view.findViewById(R.id.tvYourRecordLabel);
-	 	TextView tvYourWins = (TextView)view.findViewById(R.id.tvYourWins);
-	 	TextView tvYourLosses = (TextView)view.findViewById(R.id.tvYourLosses);
-	 	TextView tvYourDraws = (TextView)view.findViewById(R.id.tvYourDraws);
+	  	TextView tvYourWins = (TextView)view.findViewById(R.id.tvYourWins);
+	  	TextView tvYourLosses = (TextView)view.findViewById(R.id.tvYourLosses);
+	  	TextView tvYourDraws = (TextView)view.findViewById(R.id.tvYourDraws);
 	 	TextView tvSkillLevel = (TextView)view.findViewById(R.id.tvSkillLevel);
 	 	
 	 	
-	 	llLineItem.setLayoutParams(params);
+	 	rlLineItem.setLayoutParams(params);
 	 Logger.d(TAG, "opponent=" + opponent.getName());
 	 	tvOpponent.setText(opponent.getName());
 	 	//tvYourRecordLabel.setText(String.format(this.getString(R.string.main_your_record_label), opponent.getName()));
-	 	tvYourWins.setText(String.format(this.getString(R.string.main_wins), opponent.getNumLosses()));
-	 	tvYourLosses.setText(String.format(this.getString(R.string.main_losses), opponent.getNumWins()));
-	 	tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
-	 	tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
+	  //	tvYourWins.setText(String.format(this.getString(R.string.main_wins), opponent.getNumLosses()));
+	  //	tvYourLosses.setText(String.format(this.getString(R.string.main_losses), opponent.getNumWins()));
+	  //	tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
+	 	tvYourWins.setText(String.valueOf(opponent.getNumLosses()));
+	  	tvYourLosses.setText(String.valueOf(opponent.getNumWins()));
+	  	tvYourDraws.setText(String.valueOf(opponent.getNumDraws()));
+	 	//tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
 	 	tvSkillLevel.setText(opponent.getSkillLevelText(this));
 	 	
 	 	//Logger.d(TAG, "getGameView 4.1");
@@ -372,18 +359,29 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-       /*    TextView tv = (TextView) findViewById(R.id.selection);
+    	Intent intent;
            switch (item.getItemId()) {
-           case ONE:
-                  tv.setText("ONE");
-                  break;
-           case TWO:
-                  tv.setText("TWO");
-                  break;
-           case THREE:
-                  tv.setText("THREE");
-                  break;
-           } */
+           case MENU_ABOUT:
+        	   intent = new Intent(getApplicationContext(), About.class);
+        	   startActivity(intent);	
+               break;
+           case MENU_COMPLETED_GAMES:
+        	   intent = new Intent(getApplicationContext(), About.class);
+        	   startActivity(intent);	
+               break;
+           case MENU_BADGES:
+        	   intent = new Intent(getApplicationContext(), Badges.class);
+        	   startActivity(intent);	
+               break;
+           case MENU_RULES:
+        	   intent = new Intent(getApplicationContext(), FullRules.class);
+        	   startActivity(intent);	
+               break;
+           case MENU_STORE:
+        	   intent = new Intent(getApplicationContext(), Store.class);
+        	   startActivity(intent);	
+               break;
+           }  
            return false;
     }
 

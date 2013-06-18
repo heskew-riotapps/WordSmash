@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
  
- <LinearLayout 
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-        android:background="@color/player_image_background_color"
-        android:id="@+id/llLineItem"
-     >
 <RelativeLayout
- 
-    android:id="@+id/rlLineItem"
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   
     android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	   android:background="@color/player_image_background_color"
+        android:id="@+id/rlLineItem"
   >
 
      	 
@@ -20,73 +15,76 @@
 			 android:layout_height="fill_parent"
 			    android:id="@+id/ivOpponent"	
 			    android:background="@drawable/image_border"
-			    android:paddingTop="1dp"
-			    android:paddingLeft="1dp"
+			    android:padding="1dp"
 		        android:scaleType="fitXY"    
 			 />
-	 	  
 		
           <com.riotapps.word.ui.MainFontTextView
             android:id="@+id/tvOpponent"
             style="@style/SubTextStyle"
             android:textSize="18sp"
             android:paddingLeft="4dp"
-            android:background="@color/list_text_background"
-            android:layout_alignTop="@id/ivOpponent"
+             android:layout_alignTop="@id/ivOpponent"
            />
   
-          <RelativeLayout 
-              android:layout_alignBaseline="@id/ivOpponent"
-              android:background="@color/list_text_background"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              >
-	            <com.riotapps.word.ui.MainFontTextView
+               <com.riotapps.word.ui.MainFontTextView
 	            android:id="@+id/tvSkillLevel"
 	            style="@style/SubTextStyle"
 	            android:textSize="14sp"
-	             android:layout_alignBaseline="@id/ivOpponent"
+	              android:paddingLeft="4dp"
 	            android:layout_alignLeft="@id/ivOpponent"
+	            android:layout_alignParentBottom="true"
+	           
 	           />
-	
-	    	<RelativeLayout
-	    	    android:id="@+id/rlRecord"
-	    	    android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/ivOpponent"
-                   android:layout_alignRight="@id/ivOpponent"
-	    	    >"
-	           <com.riotapps.word.ui.MainFontTextView
+ 
+	          <com.riotapps.word.ui.MainFontTextView
+	            android:layout_width="wrap_content" 
 	            android:id="@+id/tvYourDraws"
 	            style="@style/SubTextStyle"
 	            android:textSize="12sp"
-	            android:paddingRight="2dp"
-	            android:layout_alignRight="@id/ivOpponent"
+	            android:layout_marginRight="4dp"
+	            android:layout_alignParentBottom="true"
+				android:layout_alignRight="@id/ivOpponent"	           
 	      
 	           />
 	           <TextView
-	               android:text="@string/hyphen"
+	               android:layout_width="wrap_content"
+	               android:id="@+id/hyphen1"
+	               style="@style/SubTextStyle"
+	               android:text="@string/win_loss_draw_separator"
+			android:layout_toLeftOf="@id/tvYourDraws"
+	            android:layout_alignParentBottom="true"
+	           
 	               />
 	            <com.riotapps.word.ui.MainFontTextView
+	                android:layout_width="wrap_content"
 	            android:id="@+id/tvYourLosses"
 	            style="@style/SubTextStyle"
 	            android:textSize="12sp"
-	            android:paddingRight="2dp"
-	            android:layout_toLeftOf="@id/tvYourDraws"
+	            android:layout_toLeftOf="@id/hyphen1"
+	            android:layout_alignParentBottom="true"
+	           
 	           />
 	            <TextView
-	               android:text="@string/hyphen"
+	                android:layout_width="wrap_content"
+	               android:id="@+id/hyphen2"
+	               style="@style/SubTextStyle"
+	               android:text="@string/win_loss_draw_separator"
+		       android:layout_toLeftOf="@id/tvYourLosses"
+	            android:layout_alignParentBottom="true"
+	           
 	               />
 	          <com.riotapps.word.ui.MainFontTextView
+	              android:layout_width="wrap_content"
 	            android:id="@+id/tvYourWins"
 	            style="@style/SubTextStyle"
 	            android:textSize="12sp"
-	            android:paddingRight="2dp"
-	            android:layout_toLeftOf="@id/tvYourLosses"
+	            android:layout_toLeftOf="@id/hyphen2"
+	            android:layout_alignParentBottom="true"
+	           
 	           />
-	          </RelativeLayout>
-           </RelativeLayout>
-        
+	          
+         
 </RelativeLayout>
-</LinearLayout>
+ 
  

@@ -104,4 +104,10 @@ public class OpponentData {
 	    
 		gson = null;
 	}
+	
+ 
+	
+	
 }
+
+

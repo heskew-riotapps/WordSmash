@@ -14,6 +14,9 @@ public class Opponent{
 	private int numDraws;
 	private String imagePrefix;
 	private int skillLevel;
+	private int opponentGroupId;
+	
+	private OpponentGroup opponentGroup = null;
 	
 	public int getId() {
 		return id;
@@ -58,6 +61,23 @@ public class Opponent{
 		this.skillLevel = skillLevel;
 	}
 	
+	
+	public int getOpponentGroupId() {
+		return opponentGroupId;
+	}
+	public void setOpponentGroupId(int opponentGroupId) {
+		this.opponentGroupId = opponentGroupId;
+	}
+	
+	public OpponentGroup getOpponentGroup(){
+		
+		//store in local variable
+		if (this.opponentGroup == null) {
+			this.opponentGroup =  OpponentGroupService.getOpponentGroup(this.opponentGroupId);
+		}
+		return this.opponentGroup;
+	
+	}
 	
 	public String getBadgeDrawable(){
 		return PlayerService.getBadgeDrawable(this.numWins);
