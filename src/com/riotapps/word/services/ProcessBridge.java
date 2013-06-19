@@ -54,11 +54,11 @@ public class ProcessBridge extends Service {
 		public void onReceive(Context context, Intent intent) {
 			String result = intent.getStringExtra(Constants.EXTRA_PLAYER_AUTH_RESULT);
 			
-			 Player player = PlayerService.handleAuthByTokenResponse(result);
+		//	 Player player = PlayerService.handleAuthByTokenResponse(result);
     		 
     	  // 	 Logger.d(TAG, "GameListReceiver onReceive active games=" + player.getActiveGamesYourTurn().size() + " opp games=" + player.getActiveGamesOpponentTurn().size());
 
-    		 GameService.updateLastGameListCheckTime();
+    		/////// GameService.updateLastGameListCheckTime();
     		 
     		 Intent targetIntent = new Intent(Constants.INTENT_GAME_LIST_REFRESHED);
  		     sendBroadcast(targetIntent);

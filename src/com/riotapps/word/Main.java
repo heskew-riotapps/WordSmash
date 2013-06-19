@@ -401,7 +401,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	 			dialog.dismiss(); 
 	 			
 	 			try {
-					GameService.createGameWithOpponent(context, player, chosenOpponentId);
+					GameService.createGame(context, player, chosenOpponentId);
 				} catch (DesignByContractException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

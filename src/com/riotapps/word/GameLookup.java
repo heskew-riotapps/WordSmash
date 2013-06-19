@@ -6,6 +6,7 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerGame;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.CustomProgressDialog;
 import com.riotapps.word.utils.ImageCache;
@@ -52,6 +53,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	private TextView tvNotFound;
 	private CustomProgressDialog spinner;
 	private String word;
+	ApplicationContext appContext;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +66,9 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	 	String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
 	 	this.word = i.getStringExtra(Constants.EXTRA_WORD_LOOKUP);
 	 	
-	 	this.game = GameService.getGameFromLocal(gameId); 
-		
-	    this.player = PlayerService.getPlayerFromLocal(); 
+	 	this.game = GameService.getGame(gameId); 
+	 	this.appContext = (ApplicationContext)this.getApplicationContext(); 
+	    this.player = this.appContext.getPlayer(); 
 	 	GameService.loadScoreboard(this, this.game, this.player);
 	 	
 	 	 this.imageLoader = new ImageFetcher(this, Constants.DEFAULT_AVATAR_SIZE, Constants.DEFAULT_AVATAR_SIZE, 0);

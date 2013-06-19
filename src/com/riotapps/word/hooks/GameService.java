@@ -1,10 +1,10 @@
 package com.riotapps.word.hooks;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -16,10 +16,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import com.riotapps.word.R;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
@@ -44,23 +40,6 @@ import com.riotapps.word.hooks.WordService;
 public class GameService {
 	private static final String TAG = GameService.class.getSimpleName();
 	
-	 
-	
-	public static void updateLastGameListCheckTime(){
-		
-		SharedPreferences settings =  Storage.getSharedPreferences();
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putLong(Constants.USER_PREFS_GAME_LIST_CHECK_TIME, Utils.convertNanosecondsToMilliseconds(System.nanoTime()));
-		// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 }
-	}
 	
 	public static boolean checkGameAlertAlreadyShown(Context context, String gameId){
 		SharedPreferences settings = Storage.getSharedPreferences();
@@ -83,310 +62,13 @@ public class GameService {
 		}
 	}
 	
-	public static boolean checkGameChatAlert(Context context, Game game, boolean update){
-		
-		long gameChatTime = game.getLastChatDate() != null ? game.getLastChatDate().getTime() : 0;
-		SharedPreferences settings =  Storage.getSharedPreferences();
-		long localChatTime = settings.getLong(String.format(Constants.USER_PREFS_GAME_CHAT_CHECK, game.getId()), 0);
-		
-		//Logger.d(TAG, "checkGameChatAlert gameChatTime=" + gameChatTime + " localChatTime=" + localChatTime);
-		
-		if (update){
-			
-			Logger.d(TAG, " about to set gameChatTime=" + gameChatTime);
-			SharedPreferences.Editor editor = settings.edit();
-				
-			editor.putLong(String.format(Constants.USER_PREFS_GAME_CHAT_CHECK, game.getId()),gameChatTime);
-			// Check if we're running on GingerBread or above
-			 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-			     // If so, call apply()
-			     editor.apply();
-			 // if not
-			 } else {
-			     // Call commit()
-			     editor.commit();
-			 }
-		}
-		//Logger.d(TAG, "checkGameChatAlert about to return " + (gameChatTime != localChatTime)); 
-			 
-		return gameChatTime != localChatTime;
-	}
-	
-	public static void clearLastGameListCheckTime(){
-		
-		SharedPreferences settings = Storage.getSharedPreferences();
-		SharedPreferences.Editor editor = settings.edit();
-		editor.putLong(Constants.USER_PREFS_GAME_LIST_CHECK_TIME, 0);
-		// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 }
-	}
-	
-	public static long getLastGameListCheckTime(){ 
-		SharedPreferences settings = Storage.getSharedPreferences();
-		return settings.getLong(Constants.USER_PREFS_GAME_LIST_CHECK_TIME, 0);
-	}
-		
-	
+
 	public static List<Game> getLocalActiveGames(){
 		return GameData.getLocalActiveGames();	
 	}
-	
-	
-	public static String setupStartGame(Game game) throws DesignByContractException{
-		 
-		return "remove";
-/*		
-		Logger.d(TAG, "setupStartGame");
-		Gson gson = new Gson();
-		
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-		Check.Require(game.getPlayerGames().size() > 1 && game.getPlayerGames().size() < 5, ctx.getString(R.string.validation_must_have_between_2_and_4_players));
-		
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportCreateGame newGame = new TransportCreateGame();
-		newGame.setToken(player.getAuthToken());
-		
-		for(PlayerGame pg : game.getPlayerGames()){
-			String name = "";
-			if (pg.getPlayerId().length() == 0) {
-				name = pg.getPlayerName();
-			}
-			newGame.addToPlayerGames(pg.getPlayerId(),pg.getPlayerOrder(), pg.getPlayer().getFB(), name);
-		}
-		
-		return gson.toJson(newGame);
-		
-		*/
-	}
-	
-	public static String setupCancelGame(String gameId) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupCancelGame");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		
-		SharedPreferences settings = Storage.getSharedPreferences();
-		String completedDate = settings.getString(Constants.USER_PREFS_LATEST_COMPLETED_GAME_DATE, Constants.DEFAULT_COMPLETED_GAMES_DATE);
 
-		TransportCancelGame game = new TransportCancelGame();
-		game.setToken(player.getAuthToken());
-		game.setCompletedGameDate(new Date(completedDate));
-		game.setGameId(gameId);
-		
-		return gson.toJson(game);
-	}
 	
-	public static String setupDeclineGame(String gameId) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupDeclineGame");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		SharedPreferences settings = Storage.getSharedPreferences();
-		String completedDate = settings.getString(Constants.USER_PREFS_LATEST_COMPLETED_GAME_DATE, Constants.DEFAULT_COMPLETED_GAMES_DATE);
-
-		TransportDeclineGame game = new TransportDeclineGame();
-		game.setToken(player.getAuthToken());
-		game.setCompletedGameDate(new Date(completedDate));
-		game.setGameId(gameId);
-		
-		return gson.toJson(game);
-	}
-	
-	public static String setupResignGame(String gameId) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupResignGame");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		SharedPreferences settings = Storage.getSharedPreferences();
-		String completedDate = settings.getString(Constants.USER_PREFS_LATEST_COMPLETED_GAME_DATE, Constants.DEFAULT_COMPLETED_GAMES_DATE);
-		
-		TransportResignGame game = new TransportResignGame();
-		game.setToken(player.getAuthToken());
-		game.setCompletedGameDate(new Date(completedDate));
-		game.setGameId(gameId);
-		
-		return gson.toJson(game);
-	}
-	
-	public static String setupGameTurn(Game game, PlacedResult placedResult) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGameTurn");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGameTurn turn = new TransportGameTurn();
-		turn.setToken(player.getAuthToken());
-		turn.setGameId(game.getId());
-		turn.setTurn(game.getTurn());
-		turn.setPoints(placedResult.getTotalPoints());
-		
-		for (GameTile tile : placedResult.getPlacedTiles()){
-			turn.addToTiles(tile.getPlacedLetter(), tile.getId());
-		}
-
-		for (PlacedWord word : placedResult.getPlacedWords()){
-			turn.addToWords(word.getWord(), word.getTotalPoints());
-		}
-		
-		return gson.toJson(turn);
-	}
-	
-	public static String setupGameSkip(Game game) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGameSkip");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGameSkip turn = new TransportGameSkip();
-		turn.setToken(player.getAuthToken());
-		turn.setGameId(game.getId());
-		turn.setTurn(game.getTurn());
-		 
-		return gson.toJson(turn);
-	}
-	
-	public static String setupGameChat(Game game, String text) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGameChat");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	Check.Require(text != null && text.length() > 0, ctx.getString(R.string.message_chat_text_empty));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGameChat chat = new TransportGameChat();
-		chat.setToken(player.getAuthToken());
-		chat.setGameId(game.getId());
-		chat.setText(text);
-		 
-		return gson.toJson(chat);
-	}
-	
-	
-	public static String setupGameSwap(Game game, List<String> swappedLetters) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGameSkip");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGameSwap turn = new TransportGameSwap();
-		turn.setToken(player.getAuthToken());
-		turn.setGameId(game.getId());
-		turn.setTurn(game.getTurn());
-		turn.setSwappedLetters(swappedLetters);
-		 
-		return gson.toJson(turn);
-	}
-	
-	public static String setupGameCheck(String gameId, int turn) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGameCheck");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGameCheck game = new TransportGameCheck();
-		game.setToken(player.getAuthToken());
-		game.setGameId(gameId);
-		game.setTurn(turn);
-		
-		return gson.toJson(game);
-	}
-	
-	public static String setupGetGame(String gameId) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGetGame");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGetGame game = new TransportGetGame();
-		game.setToken(player.getAuthToken());
-		game.setGameId(gameId);
-		
-		return gson.toJson(game);
-	}
-
-	 
-	public static void putGameToLocal(Game game){
-		Gson gson = new Gson(); 
-	    SharedPreferences settings = Storage.getSharedPreferences();
-	    SharedPreferences.Editor editor = settings.edit();
-	    
-	    game.setLocalStorageDate(System.nanoTime());
-	    game.setLocalStorageLastTurnDate(game.getLastTurnDate().getTime());
-	 //   Logger.w(TAG, "game=" + gson.toJson(game));
-	   
-	    editor.putString(String.format(Constants.USER_PREFS_GAME_JSON, game.getId()), gson.toJson(game));
-		// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 } 
-	}
-	
-	
-	public static Game getGameFromLocal(String gameId){
+	public static Game getGame(String gameId){
 		 Gson gson = new Gson(); 
 		 Type type = new TypeToken<Game>() {}.getType();
 	     SharedPreferences settings = Storage.getSharedPreferences();
@@ -394,209 +76,27 @@ public class GameService {
 	     return game;
 	}
 	
-	public static void removeGameFromLocal(Game game){
+	public static void removeGame(Game game){
 		Gson gson = new Gson(); 
 	    SharedPreferences settings = Storage.getSharedPreferences();
 	    SharedPreferences.Editor editor = settings.edit();
 	 
 	    editor.remove(String.format(Constants.USER_PREFS_GAME_JSON, game.getId()));
-		// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 } 
-	}
-	
-
-	public static Player handleCancelGameResponse(String result){// InputStream iStream){
-		return PlayerService.handleAuthByTokenResponse(result);
-	}
-	
-	public static Player handleDeclineGameResponse(String result){// InputStream iStream){
-		return PlayerService.handleAuthByTokenResponse(result);
-	}
-	
-	public static Player handleResignGameResponse(String result){// InputStream iStream){
-		return PlayerService.handleAuthByTokenResponse(result);
+		editor.apply();
 	}
 
-	public static Game handleGamePlayResponse(String result){// InputStream iStream){
-		Game game = handleGameResponse(result); 
-		Logger.d(TAG, "handleGamePlayResponse result=" + result);
-		if (game.getStatus() == 1){ //if game is still active
-			//update local storage game lists
-			Logger.d(TAG, "handleGamePlayResponse game is active");
-		//	GameService.moveActiveGameYourTurnToOpponentsTurn(game);
-			GameService.updateLastGameListCheckTime();	
-		}
-		else {
-			Logger.d(TAG, "handleGamePlayResponse game is completed");
-			GameService.moveGameToCompletedList(game);
-			
-			//also update win Totals for the winner
-			boolean isWinner = false;
-			Player player = PlayerService.getPlayerFromLocal();
-			
-			/*
-			for (PlayerGame pg : game.getActivePlayerGames()){
-				if (pg.isWinner() && pg.getPlayerId().equals(player.getId())){
-					if(pg.getWinNum() > player.getNumWins()) {
-						player.setNumWins(pg.getWinNum());
-						isWinner = true;
-					}
-				}
-				else if (pg.isWinner()){
-					isWinner = true;
-					 
-					//add loss to opponent
-					
-				}
-		     }
-			 if (isWinner){
-				 //save player to local
-				 PlayerService.putPlayerToLocal(player);
-			 }
-			 */
-			
-		}
-		GameService.putGameToLocal(game);
-		return game;
-	}
-	
- 
-	
-	public static Game handleCreateGameResponse(String result){// InputStream iStream){
-		Game game = handleGameResponse(result);
-		
-		//addNewGameToActiveGames(game);
-		//add game new game to active games
-		
-		
-		return game; 
-	}
-	
-	public static Game handleGetGameResponse(String result){// InputStream iStream){
-        return handleGameResponse(result); 
-	}
-	
-	private static Game handleGameResponse(String result){// InputStream iStream){
-		 Gson gson = new Gson(); //wrap json return into a single call that takes a type
-    	 
-		// Logger.w(TAG, "handleGameResponse incoming json=" + IOHelper.streamToString(iStream));
-   //	   Logger.d(TAG, "handleGameResponse result=" + result);
-        
-         //Reader reader = new InputStreamReader(iStream); //serverResponseObject.response.getEntity().getContent());
-
-         Type type = new TypeToken<Game>() {}.getType();
-         Game game = gson.fromJson(result, type);
-         
-         Player player = PlayerService.getPlayerFromLocal();
-     //    Logger.d(TAG, "handleGameResponse numOpponents=" + player.getOpponents().size() );
-         
-         
-         Player currentPlayer = new Player();
-         currentPlayer.setId(player.getId());
-         currentPlayer.setNickname(player.getNickname());
-         currentPlayer.setFirstName(player.getFirstName());
-         currentPlayer.setLastName(player.getLastName());
-         currentPlayer.setGravatar(player.getGravatar());
-         currentPlayer.setFB(player.getFB());
-         currentPlayer.setNumWins(player.getNumWins());
-     	 
-        // Logger.d(TAG, "createGame game.getOpponents_().size()=" + game.getOpponents_().size());
-         if (game.getOpponents_().size() > 0){
-        	 boolean resavePlayer = false;
-        	 for (Opponent o : game.getOpponents_()){
-        		// Logger.d(TAG,"createGame opponentLoop playerid=" + o.getPlayer().getId());
-        		 boolean exists = false;
-        		 /*
-        		 for (Opponent oContext : player.getOpponents()){
-        			 if (o.getPlayer().getId().equals(oContext.getPlayer().getId())){
-        				 //opponent already exists.  don't need to add
-        				 exists = true;
-                		// Logger.d(TAG,"createGame opponentLoop playerid exists=" + o.getPlayer().getId());
-                		 break;
-        			 }
-        		 }
-        		 */
-        		 /*
-        		 if (!exists){
-        			// Logger.d(TAG,"createGame opponentLoop playerid NOT exists=" + o.getPlayer().getId());
-        			 resavePlayer = true;
-        			 //add to opponents list
-        			Opponent opponent = new Opponent();
- 					opponent.setNumGames(o.getNumGames());
- 					opponent.setStatus(o.getStatus());
- 					Player p = new Player();
- 					p.setId(o.getPlayer().getId());
- 					p.setNickname(o.getPlayer().getNickname());
- 					p.setFirstName(o.getPlayer().getFirstName());
- 					p.setLastName(o.getPlayer().getLastName());
- 					p.setGravatar(o.getPlayer().getGravatar());
- 					p.setFB(o.getPlayer().getFB());
- 					p.setNumWins(o.getPlayer().getNumWins());
- 					opponent.setPlayer(p);
- 					player.getOpponents().add(opponent);
-        		 }
-        		 */
-        	 }
-        	 if (resavePlayer){
-        		// Logger.d(TAG,"createGame opponentLoop playerid NOT exists PLAYER will be saved locally");
-        		 SharedPreferences settings = Storage.getSharedPreferences();
-     	         SharedPreferences.Editor editor = settings.edit();
-        		 editor.putString(Constants.USER_PREFS_PLAYER_JSON, gson.toJson(player));
-        			// Check if we're running on GingerBread or above
-        		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-        		     // If so, call apply()
-        		     editor.apply();
-        		 // if not
-        		 } else {
-        		     // Call commit()
-        		     editor.commit();
-        		 }  
-        	 }
-         }
-         
-         game.getOpponents_().clear();
-         
-         for (PlayerGame pg : game.getPlayerGames()){
-			//pg.setPlayer(PlayerService.getPlayerFromOpponentList(player.getOpponents(), currentPlayer, pg.getPlayerId()));
-         }
-		 
-         
-         //this means the game was just created.  lets see if any of these opponents are new. if so they need to be added to the 
-         //player's opponent list that is stored locally
-         
-       //  Logger.d(TAG, "handleGameResponse numOpponents=" + player.getOpponents().size() );
-        
-       // Logger.d(TAG, "game authtoken=" + game.getAuthToken()); 
-	       
-         //lets not do this for now
-         //PlayerService.updateAuthToken(ctx, game.getAuthToken());
-         
-         //should this be saved locally??????
-         //perhaps save it locally if it's the context player's turn, since the only thing that can
-         //change is chat in this state
-         
-         player = null;
-         currentPlayer = null;
-         gson = null;
-         
-         return game;  
-	}
-	
- 
-	
-	public static Game createGameWithOpponent(Context ctx, Player contextPlayer, int opponentId) throws DesignByContractException{
+	public static Game createGame(Context ctx, Player contextPlayer, int opponentId) throws DesignByContractException{
 		
 		//Check.Require(PlayerService.getPlayerFromLocal().getId().equals(contextPlayer.getId()), ctx.getString(R.string.validation_incorrect_context_player));
-    	
+    	Check.Require(contextPlayer.getActiveGameId().length() == 0, ctx.getString(R.string.validation_create_game_duplicate));
+		
+		
 		Game game = new Game();
     	
+		DateFormat df = new SimpleDateFormat("MMddyyyyHHmmss");
+		Date now = Calendar.getInstance().getTime();        
+	 
+		game.setId(df.format(now));
     	PlayerGame pg = new PlayerGame();
     	pg.setPlayerId(contextPlayer.getId());
      
@@ -660,7 +160,22 @@ public class GameService {
     	}
     	Logger.d(TAG, "random consonants=" + consonants);
     	Logger.d(TAG, "random hopper=" + hopper);
+    	
+    	contextPlayer.setActiveGameId(game.getId());
+    	PlayerService.savePlayer(contextPlayer);
+    	saveGame(game);
+    	
     	return game;
+	}
+	
+	public static void saveGame(Game game){
+		Gson gson = new Gson(); 
+	    SharedPreferences settings = Storage.getSharedPreferences();
+	    SharedPreferences.Editor editor = settings.edit();
+	    
+	    editor.putString(String.format(Constants.USER_PREFS_GAME_JSON, game.getId()), gson.toJson(game));
+		editor.apply();
+
 	}
 	
 	 
@@ -1667,7 +1182,7 @@ public class GameService {
   		//in this scenario, player has just played a turn and game is not over, and we and updating the local game lists
   		//by removing the game from the player's turn list and moving it to opponent's turn list
   		
-  		Player player = PlayerService.getPlayerFromLocal();
+  	//	Player player = PlayerService.getPlayerFromLocal();
   		/*
   		int numActiveGames = player.getActiveGamesYourTurn().size();
   		for(int i = 0; i < numActiveGames; i++){

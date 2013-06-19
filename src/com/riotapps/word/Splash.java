@@ -36,7 +36,7 @@ public class Splash  extends FragmentActivity {
  	 	
         this.captureTime("handleRouting starting");
         
-        Player player = PlayerService.getPlayerFromLocal();
+        Player player = PlayerService.getPlayer();
         
         ApplicationContext appContext = (ApplicationContext)this.getApplicationContext();
 		appContext.setPlayer(player);

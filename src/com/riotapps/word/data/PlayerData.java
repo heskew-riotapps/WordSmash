@@ -38,15 +38,7 @@ public class PlayerData {
         SharedPreferences.Editor editor = settings.edit();
 		
 		editor.putString(Constants.USER_PREFS_PLAYER_JSON, gson.toJson(player));
-		// Check if we're running on GingerBread or above
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		} else {
-		     // Call commit()
-		     editor.commit();
-		} 
+		editor.apply();
         
 		gson = null;
 	}

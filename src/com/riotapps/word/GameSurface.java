@@ -87,7 +87,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	private ImageFetcher imageLoader;
 	 private RelativeLayout scoreboard;
 	 private SurfaceView surfaceView;
-	 private  NetworkTask runningTask = null;
+ 
 	 private Button bRecall;
 	 private Button bPlay;
 	 private Button bSkip;
@@ -233,7 +233,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	//this.game = (Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 	 	
 	 	this.captureTime("get game from local starting");
-	 	this.game = GameService.getGameFromLocal(gameId); //(Game) i.getParcelableExtra(Constants.EXTRA_GAME);
+	 	this.game = GameService.getGame(gameId); //(Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 		Logger.d(TAG, "onCreate game turn=" + game.getTurn());
 	 	this.captureTime("get game from local ended");	 	
 	// 	spinner = new CustomProgressDialog(this);
@@ -274,32 +274,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	this.captureTime("checkGameStatus starting");
 		this.checkGameStatus();
 	 	this.captureTime("checkGameStatus ended");
-	 	this.checkFirstTimeStatus();
+	 	 
 	 	//this.setupTimer();
 	 	this.setupAdServer();
-	 	this.setupGCMReceiver();
+	 
 	 }
 	
-	private void setupGCMReceiver(){
-		if (this.gcmReceiver == null){
-			this.gcmReceiver = new BroadcastReceiver() {
-			    @Override
-			    public void onReceive(Context context, Intent intent) {
-			    	 
-					String messageGameId = intent.getStringExtra(Constants.EXTRA_GAME_ID);
-			    	
-					//refresh the game if its not the user's turn and a message is received from gcm.
-					//determine logic difference between incoming comment message and played turn message
-					if (messageGameId.equals(GameSurface.this.game.getId()) && !GameSurface.this.game.isContextPlayerTurn(GameSurface.this.player)){
-						((Activity) context).runOnUiThread(new handleGameRefresh());
-					}
-			    	// Toast.makeText(GameSurface.this, (messageGameId.equals(GameSurface.this.game.getId()) ? "true" : "false"),
-				     //           Toast.LENGTH_LONG).show();
-			    }
-			};
-			this.registerReceiver(this.gcmReceiver, new IntentFilter(Constants.INTENT_GCM_MESSAGE_RECEIVED));
-		}
-	}
+ 
 
 	private void setupAdServer(){
 		Logger.d(TAG, "setupAdServer called");
@@ -571,15 +552,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 }
 	 }
 	 
-	 private void checkFirstTimeStatus(){
-		 //completed
-		 //first check to see if this score has already been alerted (from local storage) 
-		 
-		 if (!PlayerService.checkFirstTimeGameSurfaceAlertAlreadyShown(this)) {
-			 DialogManager.SetupAlert(this, this.getString(R.string.game_surface_first_time_alert_title), String.format(this.getString(R.string.game_surface_first_time_alert_message), this.player.getFirstNameOrNickname()));
-		 }
-		 
-	 }
+	 
 	 
 	 private void setupButtons(){
 		this.isButtonActive = false;
@@ -910,10 +883,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		Logger.d(TAG, "onPause called");
 		//Playtomic.Log().freeze();
 		super.onPause();
-		if (this.runningTask != null){
-    		this.runningTask.cancel(true);
-    		this.runningTask.dismiss();
-    	}
+	 
 		Logger.d(TAG, "onPause - stop timer about to be called");
 		if (this.getGameState() != null){
 			GameStateService.setGameState(this.getGameState());
@@ -965,34 +935,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				//	this.captureTime("gameSurfaceview resume starting");
 				this.gameSurfaceView.onResume();
 				//	this.captureTime("setup timer_ starting");
-			
-				Logger.d(TAG,"onResume - setup timer about to be called");
-				//this.setupTimer();
-				if (this.runningTask != null){
-					this.runningTask.dismiss();
-				}
-
+  
 		}
 			 
 
 	}
 
-	
-//	@Override
-//	public void onWindowFocusChanged(boolean hasFocus) {
-//		// TODO Auto-generated method stub
-//		super.onWindowFocusChanged(hasFocus);
-//		this.gameSurfaceView.onWindowFocusChanged();
-//	}
-
-//	@Override
-//	public void onBackPressed() {
-//		// TODO Auto-generated method stub
-//		super.onBackPressed();
-//		this.gameSurfaceView.onBackPressed();
-//	}
-
-	
+ 
 	
 	@Override
 	public void onBackPressed() {
@@ -1014,9 +963,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		this.spinner.setMessage(this.getString(R.string.progress_saving));
 		this.spinner.show();
 			
-		if (this.runningTask != null){
-    		this.runningTask.cancel(true);
-    	}
+	 
 		
 		if (this.timer != null){
 			this.timer.cancel();
@@ -1048,7 +995,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		      if (resultCode == Activity.RESULT_OK) { 
 		    	  boolean hasGameBeenUpdated = intent.getBooleanExtra(Constants.EXTRA_IS_GAME_UPDATED, false);
 		    	  if (hasGameBeenUpdated){
-			    	  this.game = GameService.getGameFromLocal(game.getId());
+			    	  this.game = GameService.getGame(game.getId());
 			    	  this.isGameReloaded = true;
 			    	  this.setupGame();
 					  this.checkGameStatus();
@@ -1130,8 +1077,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		//Log.w(TAG, "onRestart called");
 		super.onRestart();
 		this.gameSurfaceView.onRestart(); 
-		
-		this.setupGCMReceiver();
+ 
 		Logger.d(TAG, "onRestart buttonsLoaded=" + buttonsLoaded);  
 		
 		if (this.isRestartFromInterstitialAd){
@@ -1160,7 +1106,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			if (buttonsLoaded){ 
 				//reset buttons
 				Logger.d(TAG, "onRestart game being fetched from local");
-				if (!this.isGameReloaded) {this.game = GameService.getGameFromLocal(game.getId());}
+				if (!this.isGameReloaded) {this.game = GameService.getGame(game.getId());}
 				Logger.d(TAG, "onRestart game turn=" + game.getTurn());
 				this.fillGameState();
 				this.setupButtons();
@@ -1196,11 +1142,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						startActivity(intent);
 					 
 						break;
-			        case R.id.bCancel:  
-			        	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_CANCEL_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			        	this.handleCancel();
-						break;
+			   
 			        case R.id.bRecall:
 			        	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_RECALL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
@@ -1229,11 +1171,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        			Constants.TRACKER_LABEL_SWAP_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.onSwapClick();
 						break;
-			        case R.id.bDecline: 
-			        	 this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-				        			Constants.TRACKER_LABEL_DECLINE_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			        	this.handleDecline();
-						break;
+			   
 			        case R.id.bResign:  
 			        	 this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 				        			Constants.TRACKER_LABEL_RESIGN_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
@@ -1282,104 +1220,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        }
 		    });
 		}
-	  /*  private class handleFinishPlay implements Runnable {
-		    public void run() {
-		    	try { 
-		    		if (spinner != null){
-	    				spinner.dismiss();
-	    			}
-	    			//handlePostTurnFinalAction(postTurnAction);
-				} catch (Exception e) {
-					 Logger.d(TAG, "handleFinishPlay error=" + e.toString());
-				}
-		    }
-	   }*/
-	 
-	    private void handleCancel(){
-	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
-	    			this.getString(R.string.game_surface_cancel_game_confirmation_title), 
-	    			this.getString(R.string.game_surface_cancel_game_confirmation_text),
-	    			this.getString(R.string.yes),
-	    			this.getString(R.string.no));
-	    	
-	    	dialog.setOnOKClickListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-		 			
-		 			handleGameCancelOnClick();
-		 		
-		 		}
-			});
 
-	    	dialog.setOnDismissListener(new View.OnClickListener() {
-			 		@Override
-					public void onClick(View v) {
-			 			dialog.dismiss(); 
-			 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			 			
-			 			unfreezeButtons();
-			 		}
-				});
-	    	
-	     	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-					
-					unfreezeButtons();
-				}
-			});  
-	    	dialog.show();	
-	    }
-	    
-	    private void handleDecline(){
-	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
-	    			this.getString(R.string.game_surface_decline_game_confirmation_title), 
-	    			this.getString(R.string.game_surface_decline_game_confirmation_text),
-	    			this.getString(R.string.yes),
-	    			this.getString(R.string.no));
-	    	
-	    	dialog.setOnOKClickListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_DECLINE_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-		 			
-		 			handleGameDeclineOnClick();
-		 		
-		 		}
-			});
-	    	
-	    	dialog.setOnDismissListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_DECLINE_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-
-		 			unfreezeButtons();
-		 		}
-			});
- 
-	    	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_DECLINE_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-
-					unfreezeButtons();
-					
-				}
-			});
-			 
-	    	dialog.show();	
-	    }
 
 	    private void handleResign(){
 	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
@@ -1426,62 +1267,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	dialog.show();	
 	    }
   
-	    
-	    private void handleGameCancelOnClick(){
-	    	//stop thread first
-	    	this.gameSurfaceView.onStop();
-	    	try { 
-				String json = GameService.setupCancelGame(this.game.getId());
-				
-				//kick off thread to cancel game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_cancelling), GameActionType.CANCEL_GAME);
-				runningTask.execute(Constants.REST_GAME_CANCEL);
-			} catch (DesignByContractException e) {
-				 
-				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
-			}
-	    }
-	    private class handleGameRefresh implements Runnable {
-		    public void run() {
-		    	 try { 
-		    		 if (isNetworkTaskActive == false && game != null){
-			    		 Logger.d(TAG, "handleGameRefresh");
-			    		 String json = GameService.setupGameCheck(game.getId(), game.getTurn());
-			
-						runningTask = new NetworkTask(context, RequestType.POST, json, getString(R.string.progress_syncing), GameActionType.REFRESH);
-						runningTask.execute(Constants.REST_GAME_REFRESH_URL);
-		    		 }
-				} catch (DesignByContractException e) {
-					 Logger.d(TAG, "handleGameRefresh error=" + e.toString());
-					//DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
-				}
-		    }
-	   }
-	    
-	    private void handleGameDeclineOnClick(){
-	    	//stop thread first
-	    	this.gameSurfaceView.onStop();
-	    	try { 
-				String json = GameService.setupDeclineGame(this.game.getId());
-				
-				//kick off thread to cancel game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_sending), GameActionType.DECLINE_GAME);
-				runningTask.execute(Constants.REST_GAME_DECLINE);
-			} catch (DesignByContractException e) {
-				 
-				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
-			}
-	    }
+	 
 	    
 	    private void handleGameResignOnClick(){
 	    	//stop thread first
 	    	this.gameSurfaceView.onStop();
 	    	try { 
-				String json = GameService.setupResignGame(this.game.getId());
-				
-				//kick off thread to cancel game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_sending), GameActionType.RESIGN);
-				runningTask.execute(Constants.REST_GAME_RESIGN);
+				 
+	    		GameService.resignGame();
+	    		
 			} catch (DesignByContractException e) {
 				 
 				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
@@ -1496,12 +1290,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	this.gameSurfaceView.stopThreadLoop();
 	    	try { 
-				String json = GameService.setupGameTurn(this.game, placedResult);
-				
-				Logger.d(TAG, "handleGamePlayOnClick json=" + json);
-				//kick off thread to cancel game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_sending), GameActionType.PLAY);
-				runningTask.execute(Constants.REST_GAME_PLAY);
+	    		GameService.play();
 
 			} catch (DesignByContractException e) {
 				 
@@ -1517,12 +1306,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	this.gameSurfaceView.stopThreadLoop();
 	    	try { 
-				String json = GameService.setupGameSkip(this.game);
-				
-				Logger.d(TAG, "handleGameSkipOnClick json=" + json);
-				//kick off thread to cancel game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_sending), GameActionType.SKIP);
-				runningTask.execute(Constants.REST_GAME_SKIP);
+	    		GameService.skip();
 
 			} catch (DesignByContractException e) {
 				 
@@ -1554,12 +1338,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	this.gameSurfaceView.stopThreadLoop();
 	    	try { 
-				String json = GameService.setupGameSwap(this.game, swappedLetters);
-				
-				Logger.d(TAG, "handleGameSkipOnClick json=" + json);
-				//kick off thread to cancel game on server
-				runningTask = new NetworkTask(context, RequestType.POST, json,  getString(R.string.progress_sending), GameActionType.SWAP);
-				runningTask.execute(Constants.REST_GAME_SWAP);
+	    		GameService.swap();
 
 			} catch (DesignByContractException e) {
 				 
@@ -1568,97 +1347,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 
 	    }
 	    
-	    private class NetworkTask extends AsyncNetworkRequest{
-			
-	    	GameSurface context;
-	    	//int action = 0; //1 = cancel game, 2 = decline, 3 = resign, 4 = play a turn
-	    	GameActionType actionType;
-	    		
-	    		public NetworkTask(GameSurface ctx, RequestType requestType,
-	    				String json,
-	    				String shownOnProgressDialog,
-	    				GameActionType actionType) {
-	    			super(GameSurface.this, requestType, shownOnProgressDialog, json);
-	    			this.context = ctx;
-	    			this.actionType = actionType;
-	    			isNetworkTaskActive = true;
-	    		 
-	    		}
-
-	    		@Override
-	    		protected void onPostExecute(NetworkTaskResult result) {
-	    		 
-	    			super.onPostExecute(result);
-	    			
-	    			this.handleResponse(result);
-	    			isNetworkTaskActive = false;
-
-	    		}
-	     
-	    		private void handleResponse(NetworkTaskResult result){
-	    		    
-	    		     Exception exception = result.getException();
-	    		     
-	    		     Logger.d(TAG, "handleResponse status=" + result.getStatusCode() + " result=" + result.getResult());
-	    		    		 
-	    		     if(result.getResult() != null){  
-
-	    		         //Gson gson = new Gson();
-
-	    		         //Player player = null;
-	    		         
-	    		         switch(result.getStatusCode()){  
-	    		             case 200:  
-	    		             case 201: 
-	    		            	 if (this.actionType == GameAction.GameActionType.REFRESH){
-	    		            		 game = GameService.handleGetGameResponse(result.getResult());
-	    		     			    
-	    			            	 GameService.putGameToLocal(game);
-	    			            	 gameState = GameStateService.clearGameState(game.getId());
-	    			            	 setupGame();
-	    			 	 			 checkGameStatus();
-	    			 	 			 gameSurfaceView.resetGameAfterRefresh();
-	    			 	 			 
-	    			 	 			 if (context.isRevMobActive){
-	    			 	 				GameSurface.this.revMobFullScreen = GameSurface.this.revmob.createFullscreen(GameSurface.this, GameSurface.this.getString(R.string.rev_mob_main_between_play), GameSurface.this.revmobListener);
-	    			 	 			 }
-	    			 	 			 ///setupTimer();
-	    		            	 }
-	    		            	 else {
-	    		            		 context.handlePostTurn(this.actionType, result.getResult());
-	    		            	 }
-	    		            	 break;
-	    		             case 202:
-	    		            	 if (this.actionType == GameAction.GameActionType.REFRESH){
-	    		            		 //take no action, nothing to do here
-	    		            	 }
-	    		            	 break;
-	    		             case 401:
-	    			             //case Status code == 422
-	    			            	 DialogManager.SetupAlert(this.context, this.context.getString(R.string.sorry), this.context.getString(R.string.validation_unauthorized));  
-	    			            	 break;
-	    		             case 404:
-	    		             //case Status code == 422
-	    		            	 DialogManager.SetupAlert(this.context, this.context.getString(R.string.sorry), this.context.getString(R.string.find_player_opponent_not_found), Constants.DEFAULT_DIALOG_CLOSE_TIMER_MILLISECONDS);  
-	    		            	 break;
-	    		             case 422: 
-	    		             default:
-
-	    		            	 DialogManager.SetupAlert(this.context, this.context.getString(R.string.oops), result.getStatusCode() + " " + result.getStatusReason(), 0);  
-	    		            	 break;
-	    		         }  
-	    		     }else if (exception instanceof ConnectTimeoutException ||  exception instanceof java.net.SocketTimeoutException) {
-	    		    	 DialogManager.SetupAlert(this.context, this.context.getString(R.string.oops), this.context.getString(R.string.msg_connection_timeout), 0);
-	    		     }else if(exception != null){  
-	    		    	 DialogManager.SetupAlert(this.context, this.context.getString(R.string.oops), this.context.getString(R.string.msg_not_connected), 0);  
-
-	    		     }  
-	    		     else{  
-	    		         Log.v("in ResponseHandler -> in handleResponse -> in  else ", "response and exception both are null");  
-
-	    		     }//end of else  
-	    		}
-	    	}
+	 
 	    
 	    private class SwapDialog extends AlertDialog implements View.OnClickListener{ 
 	    //	private Dialog dialog;
@@ -1987,147 +1676,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    }
 
-	    private void handlePostTurn(GameActionType action, String result){
-	    	Gson gson = new Gson();
-	    	
-	    	this.postTurnAction = action;
-	    	this.unfreezeButtons();
-	    	
-	    	switch(action){
-    	 	case CANCEL_GAME:
-    	 		 
- 				//remove game from local storage
-	 			GameService.removeGameFromLocal(context.game);
-	 			
-	 			//refresh player's game list with response from server
-	 			player = GameService.handleCancelGameResponse(result);
-	 			GameService.updateLastGameListCheckTime();
-	 			
-    	 		this.handlePostTurnOption(action);
-    	 			
-    	 		break;
-    	 	case DECLINE_GAME:
-    	 		//remove game from local storage
-	 			GameService.removeGameFromLocal(context.game);
-	 			
-	 			//refresh player's game list with response from server
-	 			player = GameService.handleDeclineGameResponse(result);
-	 			GameService.updateLastGameListCheckTime();
-	 			
-    	 		this.handlePostTurnOption(action);
-
-    	 		break;
-    	 	case RESIGN:
-    	 		//remove game from local storage
-	 			GameService.removeGameFromLocal(context.game);
-	 			
-	 			//refresh player's game list with response from server
-	 			player = GameService.handleResignGameResponse(result);
-	 			GameService.updateLastGameListCheckTime();
-	 			
-    	 		this.handlePostTurnOption(action);
-	 
-    	 		break;
-    	 	case PLAY:
-	 			//update game list for active games for last played action
-	 			
-	 			//refresh player's game list with response from server
-	 			
-    	 		//refresh game board
-    	 		game = GameService.handleGamePlayResponse(result);
-    	 		
-    	 		Logger.d(TAG,"handlePostTurn result=" + result);
-    	 		if (game.isCompleted()){
-    	 			Logger.d(TAG, "handlePostTurn game isCompleted");
-    	 			GameStateService.clearGameState(this.game.getId());
-    	 		}
-    	 		this.setupButtons();
-    	 		//Logger.d(TAG, "handleResponse game=" + gson.toJson(game));
-    	 		
-    	 		this.handlePostTurnOption(action);
-	 			
-	 			break;
-    	 	case SKIP:
-    	 		
-    	 		//update game list for active games for last played action
-	 			
-	 			//refresh player's game list with response from server
-	 			
-    	 		//refresh game board
-    	 		game = GameService.handleGamePlayResponse(result);
-    	 		GameStateService.clearGameState(this.game.getId());
-    	 		
-    	 		Logger.d(TAG, "handleResponse SKIP game=" + gson.toJson(game));
-    	 		this.setupButtons();
-
-    	 		
-    	 		this.handlePostTurnOption(action);
-	 			
-	 			break;
-    	 	case SWAP:
-    	 		
-    	 		//update game list for active games for last played action
-	 			
-	 			//refresh player's game list with response from server
-	 			
-    	 		//refresh game board
-    	 		game = GameService.handleGamePlayResponse(result);
-    	 		//GameStateService.clearGameState(context, this.game.getId());
-    	 		this.gameSurfaceView.clearPlacedTiles();
-    	 		this.setupButtons();
-    	 		//Logger.d(TAG, "handleResponse SWAP result=" + result);
-    	 		Logger.d(TAG, "handleResponse SWAP game=" + gson.toJson(game));
-    	 		
-    	 		this.handlePostTurnOption(action);
-
-    	 		break;
-    	 	case REMATCH:
-    	 		Game newGame = GameService.handleCreateGameResponse(result);
-
-            	 GameService.putGameToLocal(newGame);
-            	 GameService.clearLastGameListCheckTime();
-            	 
-            	 Intent intent = new Intent(this.context, com.riotapps.word.GameSurface.class);
-            	 intent.putExtra(Constants.EXTRA_GAME_ID, newGame.getId());
-             
-      	      	 this.context.startActivity(intent);
-                 break;  
-    	 }
-		}
-	    
-	    private void handlePostTurnOption(GameActionType action){
-	    	this.hasFinalPostTurnRun = false;
-	    	if (this.hideInterstitialAd){
-	 			this.handlePostTurnFinalAction(action);   		            	 					
-	 			}
-	 		else{
-	 			if (this.isAdMobActive){
-		 			this.spinner = new CustomProgressDialog(this);
-		 			this.spinner.setMessage(this.getString(R.string.progress_updating));
-		 			this.spinner.show();
-		 		    this.isAdStarted = false;
-		 			this.setupRunawayAdTimer();
-	
-		 			this.loadAdMobInterstitialAd();	 			
-	 			}
-	 			else if (this.isChartBoostActive) {
-		 			this.cb.setTimeout((int)Constants.GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MILLISECONDS);
-		 			this.cb.showInterstitial();
-			    	Logger.d(TAG, "showInterstitial from Chartboost");
-			    	//String toastStr = "Loading Interstitial";
-			    	//if (cb.hasCachedInterstitial()) toastStr = "Loading Interstitial From Cache";
-			    	//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
-	 			}
-	 			else if (this.isRevMobActive) {
-	 				 
-	 				 this.revMobFullScreen.show();
-			    	Logger.d(TAG, "showInterstitial RevMob");
-			    	//String toastStr = "Loading Interstitial";
-			    	//if (cb.hasCachedInterstitial()) toastStr = "Loading Interstitial From Cache";
-			    	//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
-	 			}
- 			}
-	    }
+	  
 	    
 	    private void setupRunawayAdTimer(){
 	    	Logger.d(TAG, "setupRunawayAdTimer called");

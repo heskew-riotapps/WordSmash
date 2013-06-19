@@ -24,10 +24,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	 	
 	@SerializedName("played_words")
 	private List<PlayedWord> playedWords = new ArrayList<PlayedWord>();
-	
-	@SerializedName("chats")
-	private List<Chat> chats = new ArrayList<Chat>();
-	
+ 
 	@SerializedName("player_games")
 	private List<PlayerGame> playerGames = new ArrayList<PlayerGame>();
 	
@@ -49,9 +46,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	@SerializedName("l_t_d")
 	private Date lastTurnDate;
 	
-	@SerializedName("ch_d")
-	private Date lastChatDate;
-	
+ 
 	@SerializedName("r_v")
 	private String randomVowel;
 
@@ -71,8 +66,21 @@ public class Game implements Parcelable, Comparable<Game> {
 	private Player _lastTurnPlayer;
 	private PlayerGame _contextPlayerGame;
 	
+	private int opponentId;
+	
+	public Opponent getOpponent(){
+		return OpponentService.getOpponent(this.opponentId);
+	}
  
 	
+	public int getOpponentId() {
+		return opponentId;
+	}
+
+	public void setOpponentId(int opponentId) {
+		this.opponentId = opponentId;
+	}
+
 	public String getRandomVowel() {
 		return randomVowel;
 	}
@@ -89,27 +97,11 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.randomConsonants = randomConsonants;
 	}
 
-	public List<Chat> getChats() {
-		return chats;
-	}
-
-	public void setChats(List<Chat> chats) {
-		this.chats = chats;
-	}
-	
+	 
 	//only used for new games, to add opponent to the player for "client-side joins"
 	@SerializedName("opps")
 	private List<Opponent> opponents_ = new ArrayList<Opponent>();
-
-	public Date getLastChatDate() {
-		return lastChatDate;
-	}
-
-	public void setLastChatDate(Date lastChatDate) {
-		this.lastChatDate = lastChatDate;
-	}
-
-	
+ 
 	public List<Opponent> getOpponents_() {
 		return opponents_;
 	}

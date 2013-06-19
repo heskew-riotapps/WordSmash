@@ -11,6 +11,7 @@ import com.riotapps.word.hooks.PlayedWord;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.DialogManager;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.ImageCache;
 import com.riotapps.word.utils.ImageFetcher;
@@ -40,6 +41,7 @@ public class GameHistory extends FragmentActivity{
 	private ImageFetcher imageLoader;
 	private ListView lvWords;
 	private Context context = this;
+	ApplicationContext appContext;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +52,11 @@ public class GameHistory extends FragmentActivity{
 		
 	 	Intent i = getIntent();
 	 	String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
-	 	this.game = GameService.getGameFromLocal(gameId); 
+	 	this.game = GameService.getGame(gameId); 
+	 	
+		this.appContext = (ApplicationContext)this.getApplicationContext(); 
 		
-	    this.player = PlayerService.getPlayerFromLocal(); 
+	    this.player = this.appContext.getPlayer();
 	 	GameService.loadScoreboard(this, this.game, this.player);
 	 	
 	 	 this.imageLoader = new ImageFetcher(this, Constants.DEFAULT_AVATAR_SIZE, Constants.DEFAULT_AVATAR_SIZE, 0);
@@ -134,18 +138,19 @@ private class PlayedWordArrayAdapter extends ArrayAdapter<PlayedWord> {
     			  rowView = inflater.inflate(R.layout.gamehistoryitem, parent, false);
     		  }
     		  
-	    	  PlayedWord word = values[position];
+	    	   PlayedWord word = values[position];
 	    	 
 	    	   TextView tvWord = (TextView) rowView.findViewById(R.id.tvWord);
 	    	   TextView tvTurnInfo = (TextView) rowView.findViewById(R.id.tvTurnInfo);
 	    	   
-	    	   Player player = context.game.getPlayerById(word.getPlayerId());
+ 
+	    //	   ImageView ivPlayer = (ImageView)rowView.findViewById(R.id.ivPlayer);
+	    //	   imageLoader.loadImage(player.getImageUrl(), ivPlayer); 
 	    	   
-	    	   ImageView ivPlayer = (ImageView)rowView.findViewById(R.id.ivPlayer);
-	    	   imageLoader.loadImage(player.getImageUrl(), ivPlayer); 
+	    	   String name = word.isOpponentPlay() ? game.getOpponent().getName() : player.getName(context);
 	    	   
 	    	   tvWord.setText(word.getWord());
-	    	   tvTurnInfo.setText(String.format(this.context.getString(R.string.game_history_turn_info), player.getName(), word.getTurn(), word.getPointsScored()));
+	    	   tvTurnInfo.setText(String.format(this.context.getString(R.string.game_history_turn_info), name, word.getTurn(), word.getPointsScored()));
  
 	    	   Logger.d(TAG, "adapter position=" + position + " count=" + this.wordCount); 
 	    	//   LinearLayout llBottomBorder = (LinearLayout)rowView.findViewById(R.id.llBottomBorder);

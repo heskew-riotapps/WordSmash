@@ -114,7 +114,7 @@ public class ApplicationContext extends Application{
 
     public Player getPlayer() {
     	if (player == null){
-    		player = PlayerService.getPlayerFromLocal();
+    		player = PlayerService.getPlayer();
     	}
 		return player;
 	}
@@ -362,7 +362,7 @@ public class ApplicationContext extends Application{
 	public List<Opponent> getOpponents() {
 		if (this.opponents == null){
 			
-			this.opponents = OpponentService.getOpponentsFromLocal();
+			this.opponents = OpponentService.getActivatedOpponents();
 		}
 		return opponents;
 	}

@@ -577,4 +577,5 @@
 		<string name="main_menu_rules">Game Rules</string>
 		<string name="main_menu_store">Store</string>
 		<string name="win_loss_draw_separator"> - </string>
+		<string name="validation_create_game_duplicate">A game is already active.</string>
 </resources>

@@ -8,10 +8,10 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 
-public class PlayedWord implements Parcelable{
+public class PlayedWord {
   
-	@SerializedName("player_id")
-	private String playerId;  
+ 
+	private boolean isOpponentPlay = false; 
 
 	@SerializedName("w")
 	private String word = "";
@@ -62,48 +62,14 @@ public class PlayedWord implements Parcelable{
 		this.playedDate = playedDate;
 	}
 
-	public String getPlayerId() {
-		return playerId;
+	 
+
+	public boolean isOpponentPlay() {
+		return isOpponentPlay;
 	}
 
-	public void setPlayerId(String playerId) {
-		this.playerId = playerId;
+	public void setOpponentPlay(boolean isOpponentPlay) {
+		this.isOpponentPlay = isOpponentPlay;
 	}
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel out, int flags) {
-
-		out.writeString(this.playerId);
-		out.writeString(this.word); 
-		out.writeInt(this.turn);
-		out.writeInt(this.pointsScored);
-		out.writeLong(this.playedDate == null ? 0 : this.playedDate.getTime());
-
-	}
-	public static final Parcelable.Creator<PlayedWord> CREATOR
-	= new Parcelable.Creator<PlayedWord>() {
-	public PlayedWord createFromParcel(Parcel in) {
-		return new PlayedWord(in);
-	}
-
-	public PlayedWord[] newArray(int size) {
-		return new PlayedWord[size];
-	}
-};
-
-	private PlayedWord(Parcel in) {
-		
-		this.playerId = in.readString();
-		this.word = in.readString();
-		this.turn = in.readInt();
-		this.pointsScored = in.readInt();
-		this.playedDate = new Date();
-		this.playedDate.setTime(in.readLong());
-	}
+ 
 }
