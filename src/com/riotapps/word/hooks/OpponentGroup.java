@@ -1,11 +1,15 @@
 package com.riotapps.word.hooks;
 
+import java.util.Date;
+
 public class OpponentGroup {
 	
 	private int id;
 	private String name;
 	private String constant;
 	private boolean activated;
+	private Date activatedDate;
+	
 	public int getId() {
 		return id;
 	}
@@ -29,6 +33,12 @@ public class OpponentGroup {
 	}
 	public void setActivated(boolean activated) {
 		this.activated = activated;
+	}
+	public Date getActivatedDate() {
+		return activatedDate;
+	}
+	public void setActivatedDate(Date activatedDate) {
+		this.activatedDate = activatedDate;
 	}
 
 

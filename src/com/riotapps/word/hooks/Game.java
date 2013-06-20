@@ -21,7 +21,6 @@ public class Game implements Parcelable, Comparable<Game> {
 	
 	private String id = "";
 	
-	 	
 	@SerializedName("played_words")
 	private List<PlayedWord> playedWords = new ArrayList<PlayedWord>();
  
@@ -109,6 +108,8 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void setOpponents_(List<Opponent> opponents_) {
 		this.opponents_ = opponents_;
 	}
+	
+	
 
 	private Player getLastTurnPlayer(){  //fix this
 		if (this._lastTurnPlayer == null) {
@@ -196,12 +197,7 @@ public class Game implements Parcelable, Comparable<Game> {
 
 	@SerializedName("cr_d")
 	private Date createDate = new Date(0);  
-	
-	@SerializedName("ls_d")
-	private long localStorageDate = 0;// System.nanoTime();  
-	
-	@SerializedName("ls_ltd")
-	private long localStorageLastTurnDate = 0;// System.nanoTime();  
+ 
 	
 	@SerializedName("co_d")
 	private Date completionDate = new Date(0); 
@@ -272,15 +268,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.playedTiles = playedTiles;
 	}
 	
-	
-
-	public long getLocalStorageLastTurnDate() {
-		return localStorageLastTurnDate;
-	}
-
-	public void setLocalStorageLastTurnDate(long localStorageLastTurnDate) {
-		this.localStorageLastTurnDate = localStorageLastTurnDate;
-	}
+ 
 
 	public PlayerGame[] getPlayerGameArray(){
 		PlayerGame[] ret = new PlayerGame[this.getPlayerGames().size()];
@@ -488,19 +476,8 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
-	public long getLocalStorageDate() {
-		return localStorageDate;
-	}
-	
-	public long getLocalStorageDateInMilliseconds() {
-		return localStorageDate / 1000000;
-	}
-
-	public void setLocalStorageDate(long localStorageDate) {
-		this.localStorageDate = localStorageDate;
-	}
-	
+ 
+ 
 	public int getNumPlayerSlotsLeft(){
 		return 4 - this.getPlayerGames().size(); 
 	}

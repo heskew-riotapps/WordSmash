@@ -178,6 +178,47 @@ public class GameService {
 
 	}
 	
+	
+	
+  	public static void resignGame(Player player, Game game){
+  
+  		
+    	List<PlayedTurn> turns = new ArrayList<PlayedTurn>();
+    	PlayedTurn turn = new PlayedTurn();
+    	turn.setPlayerId(player.getId());
+    	turn.setTurn(game.getTurn());
+    	turn.setPoints(0);
+    	turn.setAction(11); // #RESIGNED(11)
+    	turn.setPlayedDate(new Date());
+    	turns.add(turn);
+    	 
+    	for (PlayerGame pg : game.getPlayerGames()){
+    		if (!pg.isOpponent()){
+    			pg.setStatus(7); //resigned
+    		}
+    		else{
+    			pg.setStatus(4); //winner
+    			 
+    		}
+    	}
+    		
+    	//add 1 to opponent's wins, save opponent 
+    	//add 1 to player's losses, save player
+    	player.setActiveGameId(Constants.EMPTY_STRING);
+    	player.setNumLosses(player.getNumLosses() + 1);
+    	PlayerService.savePlayer(player);
+    	
+    	OpponentService.addWinToOpponentRecord(game.getOpponentId());
+    	
+    	
+    	game.setStatus(3); //sets up enum for game status and playerGame status
+    	game.setCompletionDate(new Date());
+    	game.setPlayedTurns(turns);	
+    	game.setTurn(game.getTurn() + 1);
+    	
+    	//update completed game list!!!!!!!!!!!!!!!!!
+  	}
+  	
 	 
 	
 	public static PlayerGame loadScoreboard(final FragmentActivity context, Game game, Player player){
@@ -1133,6 +1174,7 @@ public class GameService {
 		}
 	}
   	
+  
   	/*
   	private static void addNewGameToActiveGames(Game game){
   		Logger.d(TAG, "addNewGameToActiveGames gameId=" + game.getId());

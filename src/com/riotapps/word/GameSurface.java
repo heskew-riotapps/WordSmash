@@ -1289,8 +1289,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	this.gameSurfaceView.stopThreadLoop();
-	    	try { 
-	    		GameService.play();
+	    	 
+	    		this.gameSurfaceView.onPlayClick();
 
 			} catch (DesignByContractException e) {
 				 
