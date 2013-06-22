@@ -112,6 +112,7 @@
 	<string name="oops">Oops</string>
 	<string name="facebook">facebook</string>
 	<string name="sorry">Sorry</string>
+	<string name="game_over">game over</string>
 	<string name="error_title">Holy Gandalf!!</string>
 	<string name="error_message">Unfortunately, something messy happened down in the bowels of the code. Not to worry, we will get it fixed.  In the meantime, you might want to restart WordSmash.</string>
 	<string name="welcome_message">welcome to WordSmash</string>
@@ -350,20 +351,7 @@
  	<string name="server_404_error">We couldn\'t find the server.  Please try again later.</string>
  	<string name="dialog_title_are_you_sure">are you sure?</string>
  	<string name="dialog_text_logout">Logging out will remove the player and game data from this device.  No worries though.  You can always log back in.  Hurry back!</string>
-	<string name="gravatar_title">your gravatar</string>
-	<string name="gravatar_text">WordSmash uses an awesome service called Gravatar to let you have your own personal profile image. \n\nGravatar is owned by the folks that own WordPress, so it\'s a 
-	    reliable and safe service.  All you have to do is sign up at Gravatar.com with the same email address you used to connect with WordSmash, upload your
-	    image to Gravatar, and your G or PG-rated Gravatar will become available on WordSmash!\n\n(And not to worry, your email address is never exposed.)</string>
-	 <string name="gravatar_setup_button">manage or create your gravatar</string>
-	 <string name="gravatar_refresh_text">If you have already set up your Gravatar and aren\'t seeing it above (to the right of the WordSmash logo), let WordSmash fetch it again.</string>
-	 <string name="gravatar_refresh_button">refresh your gravatar</string>
-	  <string name="gravatar_refreshed_text">You should now be seeing your latest Gravatar above.\n\n
-	      If you just updated your Gravatar and you\'re not seeing it above, try to refresh it again in WordSmash in a few minutes, since it could take 5 to 10 minutes for avatar changes to take effect at Gravatar.\n\n   
-	      If you still don\'t see your Gravatar after the recommendation above, perhaps it was not updated properly at Gravatar.com, or perhaps your Gravatar is associated with an email other than %s. 
-	  </string>
-	   <string name="password_changed_successfully">Your password has been changed successfully.</string>
-	   <string name="account_changed_successfully">Your account has been changed successfully.</string>
-	   <string name="fb_account_changed_successfully">Your nickname has been changed successfully.</string>
+	
 	   <string name="main_landing_waiting">waiting for moves&#8230;</string>
 	   <string name="main_landing_your_turn">your turn</string>
 	   <string name="main_landing_opponents_turn">opponents\' turn</string>
@@ -396,8 +384,6 @@
 	   <string name="game_last_action_skipped">%s skipped a turn</string>
 	   <string name="game_last_action_resigned_context">You conceded</string>
 	   <string name="game_last_action_resigned">%s conceded</string>
-	   <string name="game_last_action_declined_game_active_context">You declined this game</string>
-	   <string name="game_last_action_declined_game_active">%s declined this game</string>
 	   <string name="few_seconds_ago">a few seconds ago</string>
 	   <string name="seconds_ago">%s seconds ago</string>
 	   <string name="about_a_minute_ago">about a minute ago</string>
@@ -530,20 +516,15 @@
 		<string name="game_alert_game_over_multi_player">%1$s won!</string>
 		<string name="game_alert_game_over_multi_player_draw">it\'s a draw!</string>
  
-		<string name="game_list_game_over_2_player_context">you won %2$s - %3$s %1$s</string>
-		<string name="game_list_game_over_2_player">%4$s won %2$s - %3$s %1$s</string>
-		<string name="game_list_game_over_2_player_draw">a %2$s - %3$s draw was declared %1$s</string>
-		<string name="game_list_game_over_multi_player_context">you won %1$s</string>
-		<string name="game_list_game_over_multi_player">%2$s won %1$s</string>
-		<string name="game_list_game_over_multi_player_draw">%2$s - %3$s %1$s</string>
+ 
 		
-		<string name="game_surface_game_over_2_player_context">you won %1$s - %2$s</string>
-		<string name="game_surface_game_over_2_player">%3$s won %1$s - %2$s</string>
-		<string name="game_surface_game_over_2_player_draw">a %1$s - %2$s draw was declared</string>
-		<string name="game_surface_game_over_multi_player_context">you won</string>
-		<string name="game_surface_game_over_multi_player">%1$s won</string>
-		<string name="game_surface_game_over_multi_player_draw">%1$s - %2$s</string>
-		<string name="game_surface_rematch_title">start new game?</string>
+		<string name="game_list_game_over_win">you defeated %3$s %1$s - %2$s</string>
+		<string name="game_list_game_over_loss">%3$s won %1$s - %2$s</string>
+		<string name="game_list_game_over_draw">a %1$s - %2$s draw was declared</string>
+		<string name="game_surface_game_over_win">you defeated %3$s %1$s - %2$s</string>
+		<string name="game_surface_game_over_loss">%3$s won %1$s - %2$s</string>
+		<string name="game_surface_game_over_draw">a %1$s - %2$s draw was declared</string>
+	 	<string name="game_surface_rematch_title">start new game?</string>
 		<string name="game_surface_rematch_with_1">rematch with\n%s</string>		
 		<string name="game_surface_rematch_with_2">rematch with\n%1$s\n%2$s</string>
 		<string name="game_surface_rematch_with_3">rematch with\n%1$s\n%2$s\n%3$s</string>

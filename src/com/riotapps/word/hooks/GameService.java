@@ -173,12 +173,12 @@ public class GameService {
 		GameData.saveGame(game);
 	}
 	
-	//this method is for the player
+ 
 	public static Game play(boolean isOpponent, Game game, PlacedResult placedResult){
 		
 		Date now = new Date();
 
-		//add a new word to the game's word list for eaech word played
+		//add a new word to the game's word list for each word played
 		for (PlacedWord placedWord : placedResult.getPlacedWords()){
 			PlayedWord word = new PlayedWord();
 			word.setPlayedDate(now);
@@ -216,7 +216,7 @@ public class GameService {
 		PlayedTurn turn = new PlayedTurn();
     	turn.setOpponentPlay(isOpponent);
     	turn.setTurn(game.getTurn());
-    	turn.setPoints(0);
+    	turn.setPoints(placedResult.getTotalPoints());
     	turn.setAction(9); // #WORDS_PLAYED(9), action
     	turn.setPlayedDate(new Date());
     	game.getPlayedTurns().add(turn);
@@ -282,21 +282,83 @@ public class GameService {
 		return game;	
 	}
 	
+public static Game skip(boolean isOpponent, Game game){
+		
+		Date now = new Date();
+
+		PlayedTurn turn = new PlayedTurn();
+    	turn.setOpponentPlay(isOpponent);
+    	turn.setTurn(game.getTurn());
+    	turn.setPoints(0);
+    	turn.setAction(10); // #SKIPPED(10), action
+    	turn.setPlayedDate(new Date());
+    	game.getPlayedTurns().add(turn);
+		
+
+    	//might not be needed, keeping for now though
+    	game.getPlayerGames().get(isOpponent ? 1 : 0).setTrayVersion(game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayVersion() + 1);		
+    		 
+    	game.setLastTurnDate(now);
+		game.setTurn(game.getTurn() + 1);
+		
+		//if there has been 4 skips in a row, game is over, unlikely as it is too happen, let's check for it
+		if (game.getNumConsecutiveSkips() == 4) {
+			//game is over	
+			//figure out winner (no bonus is awarded for game ending on skips)
+			  
+			int playerScore = game.getPlayerGames().get(0).getScore();
+			int opponentScore = game.getPlayerGames().get(1).getScore();
+			
+			// #WON(4), #LOSS(5), #DRAW(6)
+			if (playerScore > opponentScore){
+				//player wins!!
+				game.getPlayerGames().get(0).setStatus(4);
+				game.getPlayerGames().get(1).setStatus(5);
+				
+				PlayerService.addWinToPlayerRecord();
+				OpponentService.addLossToOpponentRecord(game.getOpponentId());
+			}
+			else if (playerScore < opponentScore){
+				game.getPlayerGames().get(0).setStatus(5);
+				game.getPlayerGames().get(1).setStatus(4);
+
+				PlayerService.addLossToPlayerRecord();
+				OpponentService.addWinToOpponentRecord(game.getOpponentId());
+			}
+			else {
+				game.getPlayerGames().get(0).setStatus(6);
+				game.getPlayerGames().get(1).setStatus(6);	
+				
+				PlayerService.addDrawToPlayerRecord();
+				OpponentService.addDrawToOpponentRecord(game.getOpponentId());
+			}
+						
+			 game.setStatus(3); // 3  # completed
+			 game.setCompletionDate(now);
+			
+		}
+		else {
+			//game is not over, let's keep going
+			//set turns, just in case...more than likely this will not be necessary
+			game.getPlayerGames().get(0).setTurn(isOpponent);
+			game.getPlayerGames().get(1).setTurn(!isOpponent);	
+		}
+  		
+		
+		return game;	
+	}
+	
+	
+	
 	public static int calculateBonusScore(PlayerGame playerGame){
-	/*	def getBonusScore(context_player_id) 
-		bonus = 0
-		#only calculate bonus from active players, not resigns or declines
-		pg = nil
-		self.player_games.each  do |value|
-			if value.player_id != context_player_id 
-				#loop through all letter in players tray and add values together
-				value.t_l.each do |letter|
-					bonus = bonus + AlphabetService.get_letter_value(letter)
-				end
-			end
-		end	
-		bonus
-	end */
+		int bonus = 0;
+		
+		for (String letter : playerGame.getTrayLetters()){
+			bonus = bonus + AlphabetService.getLetterValue(letter);
+		}
+		
+		return bonus;
+
 	}
 	
 	public static Game autoPlay(Game game){
@@ -306,7 +368,7 @@ public class GameService {
 		
 		
 		
-		//just call this after determining played words
+		//just call this after determining played words, passing PlacedResults to it
 		return GameService.play(true, game, placedResult);
 	}
 	
