@@ -1,5 +1,8 @@
 package com.riotapps.word.hooks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 public class PlayedTile {
@@ -12,11 +15,8 @@ public class PlayedTile {
 	private int boardPosition; 
 
 	@SerializedName("l_")
-	private String letter;
-	
-	@SerializedName("t_")
-	private int turn;
-
+	private List<PlayedLetter> letters = new ArrayList<PlayedLetter>();
+	 
 	public int getBoardPosition() {
 		return boardPosition;
 	}
@@ -25,20 +25,20 @@ public class PlayedTile {
 		this.boardPosition = boardPosition;
 	}
 
-	public String getLetter() {
-		return letter;
+	public List<PlayedLetter> getLetters() {
+		return letters;
 	}
 
-	public void setLetter(String letter) {
-		this.letter = letter;
+	public void setLetters(List<PlayedLetter> letters) {
+		this.letters = letters;
 	}
-
-	public int getTurn() {
-		return turn;
+  
+	public void addLetter(PlayedLetter letter){
+		this.letters.add(letter);
 	}
-
-	public void setTurn(int turn) {
-		this.turn = turn;
+	
+	public PlayedLetter getLatestPlayedLetter(){
+		return this.letters.get(this.letters.size() - 1);
 	}
 
 }

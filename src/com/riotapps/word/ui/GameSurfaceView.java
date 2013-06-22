@@ -2778,9 +2778,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					}
 				});
 				 
-		    	
 		    	dialog.show();
-
 			}
 			else{
 				//loop through placed words and show confirmation messages 

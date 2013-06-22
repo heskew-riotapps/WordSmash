@@ -27,6 +27,7 @@ import com.riotapps.word.utils.Utils;
 import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.GameTileComparator;
 import com.riotapps.word.ui.PlacedResult;
+import com.riotapps.word.ui.PlacedTile;
 import com.riotapps.word.ui.PlacedWord;
 import com.riotapps.word.ui.RowCol;
 import com.riotapps.word.utils.NetworkConnectivity;
@@ -169,36 +170,191 @@ public class GameService {
 	}
 	
 	public static void saveGame(Game game){
-		Gson gson = new Gson(); 
-	    SharedPreferences settings = Storage.getSharedPreferences();
-	    SharedPreferences.Editor editor = settings.edit();
-	    
-	    editor.putString(String.format(Constants.USER_PREFS_GAME_JSON, game.getId()), gson.toJson(game));
-		editor.apply();
-
+		GameData.saveGame(game);
 	}
 	
+	//this method is for the player
+	public static Game play(boolean isOpponent, Game game, PlacedResult placedResult){
+		
+		Date now = new Date();
+
+		//add a new word to the game's word list for eaech word played
+		for (PlacedWord placedWord : placedResult.getPlacedWords()){
+			PlayedWord word = new PlayedWord();
+			word.setPlayedDate(now);
+			word.setOpponentPlay(isOpponent);
+			word.setPointsScored(placedWord.getTotalPoints());
+			word.setTurn(game.getTurn());
+			word.setWord(placedWord.getWord());
+			
+			game.getPlayedWords().add(word);
+		}
+		
+
+		for(GameTile placedTile : placedResult.getPlacedTiles()){
+			//add or update a board tile to the list for each placed tile, 
+			game.addPlayedTile(placedTile);
+			
+			//remove the played letters from the player's tray. 
+			//make sure to only remove one letter per placedTile even if the same letter is repeated in the player's tray
+
+			//the opponent is always the second playerGame
+			game.getPlayerGames().get(isOpponent ? 1 : 0).removeFirstMatchingLetter(placedTile.getPlacedLetter());
+		}
+
+		//add letters from hopper into players tray to make up for played letters that were removed
+		for (int i = 0; i < placedResult.getPlacedTiles().size() - 1; i++){
+			//take care since the hopper may be near the end
+			if (game.getHopper().size() > 0){
+				//add the first hopper letter to the player's tray
+				game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayLetters().add(game.getHopper().get(0));
+				//remove hopper letter that was just added to the player's tray
+				game.getHopper().remove(0);
+			}
+		}
+			
+		PlayedTurn turn = new PlayedTurn();
+    	turn.setOpponentPlay(isOpponent);
+    	turn.setTurn(game.getTurn());
+    	turn.setPoints(0);
+    	turn.setAction(9); // #WORDS_PLAYED(9), action
+    	turn.setPlayedDate(new Date());
+    	game.getPlayedTurns().add(turn);
+		
+    	game.getPlayerGames().get(isOpponent ? 1 : 0).setScore(game.getPlayerGames().get(isOpponent ? 1 : 0).getScore() + placedResult.getTotalPoints());
+ 
+    	//might not be needed, keeping for now though
+    	game.getPlayerGames().get(isOpponent ? 1 : 0).setTrayVersion(game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayVersion() + 1);		
+    		 
+    	game.setLastTurnDate(now);
+		game.setTurn(game.getTurn() + 1);
+		
+		//are any letters left in the hopper??
+		//if not (and the player's tray is empty) the game is over.  let's check
+		if (game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayLetters().size() == 0 && 
+			game.getHopper().size() == 0) {
+			//game is over	
+			//figure out winner
+			
+			//send in opposite playerGame to calculate bonus
+			int bonus = calculateBonusScore(game.getPlayerGames().get(isOpponent ? 0 : 1));
+			game.getPlayerGames().get(isOpponent ? 1 : 0).setScore(game.getPlayerGames().get(isOpponent ? 1 : 0).getScore() + bonus); 
+			 
+			int playerScore = game.getPlayerGames().get(0).getScore();
+			int opponentScore = game.getPlayerGames().get(1).getScore();
+			
+			// #WON(4), #LOSS(5), #DRAW(6)
+			if (playerScore > opponentScore){
+				//player wins!!
+				game.getPlayerGames().get(0).setStatus(4);
+				game.getPlayerGames().get(1).setStatus(5);
+				
+				PlayerService.addWinToPlayerRecord();
+				OpponentService.addLossToOpponentRecord(game.getOpponentId());
+			}
+			else if (playerScore < opponentScore){
+				game.getPlayerGames().get(0).setStatus(5);
+				game.getPlayerGames().get(1).setStatus(4);
+
+				PlayerService.addLossToPlayerRecord();
+				OpponentService.addWinToOpponentRecord(game.getOpponentId());
+			}
+			else {
+				game.getPlayerGames().get(0).setStatus(6);
+				game.getPlayerGames().get(1).setStatus(6);	
+				
+				PlayerService.addDrawToPlayerRecord();
+				OpponentService.addDrawToOpponentRecord(game.getOpponentId());
+			}
+						
+			 game.setStatus(3); // 3  # completed
+			 game.setCompletionDate(now);
+			
+		}
+		else {
+			//game is not over, let's keep going
+			//set turns, just in case...more than likely this will not be necessary
+			game.getPlayerGames().get(0).setTurn(isOpponent);
+			game.getPlayerGames().get(1).setTurn(!isOpponent);	
+		}
+  		
+		
+		return game;	
+	}
 	
+	public static int calculateBonusScore(PlayerGame playerGame){
+	/*	def getBonusScore(context_player_id) 
+		bonus = 0
+		#only calculate bonus from active players, not resigns or declines
+		pg = nil
+		self.player_games.each  do |value|
+			if value.player_id != context_player_id 
+				#loop through all letter in players tray and add values together
+				value.t_l.each do |letter|
+					bonus = bonus + AlphabetService.get_letter_value(letter)
+				end
+			end
+		end	
+		bonus
+	end */
+	}
+	
+	public static Game autoPlay(Game game){
+		PlacedResult placedResult = new PlacedResult();
+		//autoplay logic kicked off here
+		//put results in placedResult object just like in normal play
+		
+		
+		
+		//just call this after determining played words
+		return GameService.play(true, game, placedResult);
+	}
+	
+	//temp
+	public static String setupGameTurn(Game game, PlacedResult placedResult) throws DesignByContractException{
+		 
+		Logger.d(TAG, "setupGameTurn");
+		Gson gson = new Gson();
+		Context ctx = ApplicationContext.getAppContext();
+		NetworkConnectivity connection = new NetworkConnectivity(ctx);
+		//are we connected to the web?
+	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
+	 	
+		Player player = PlayerService.getPlayerFromLocal();
+		
+		TransportGameTurn turn = new TransportGameTurn();
+		turn.setToken(player.getAuthToken());
+		turn.setGameId(game.getId());
+		turn.setTurn(game.getTurn());
+		turn.setPoints(placedResult.getTotalPoints());
+		
+		for (GameTile tile : placedResult.getPlacedTiles()){
+			turn.addToTiles(tile.getPlacedLetter(), tile.getId());
+		}
+
+		for (PlacedWord word : placedResult.getPlacedWords()){
+			turn.addToWords(word.getWord(), word.getTotalPoints());
+		}
+		
+		return gson.toJson(turn);
+	}
 	
   	public static void resignGame(Player player, Game game){
   
-  		
-    	List<PlayedTurn> turns = new ArrayList<PlayedTurn>();
     	PlayedTurn turn = new PlayedTurn();
     	turn.setPlayerId(player.getId());
     	turn.setTurn(game.getTurn());
     	turn.setPoints(0);
     	turn.setAction(11); // #RESIGNED(11)
     	turn.setPlayedDate(new Date());
-    	turns.add(turn);
+    	game.getPlayedTurns().add(turn);
     	 
     	for (PlayerGame pg : game.getPlayerGames()){
     		if (!pg.isOpponent()){
     			pg.setStatus(7); //resigned
     		}
     		else{
-    			pg.setStatus(4); //winner
-    			 
+    			pg.setStatus(4); //winner		 
     		}
     	}
     		
@@ -210,16 +366,22 @@ public class GameService {
     	
     	OpponentService.addWinToOpponentRecord(game.getOpponentId());
     	
-    	
     	game.setStatus(3); //sets up enum for game status and playerGame status
     	game.setCompletionDate(new Date());
     	game.setPlayedTurns(turns);	
     	game.setTurn(game.getTurn() + 1);
     	
-    	//update completed game list!!!!!!!!!!!!!!!!!
+    	saveGame(game);
+    	addGameToCompletedList(game);
   	}
   	
-	 
+	public static void addGameToCompletedList(Game game){
+		 List<GameListItem> games = GameData.getCompletedGameList();
+		 
+		 games.add(new  GameListItem(game.getId(), game.getCompletionDate()));
+		 
+		 GameData.saveCompletedGameList(games);
+	}
 	
 	public static PlayerGame loadScoreboard(final FragmentActivity context, Game game, Player player){
 		 //determine length of name and font size if too long (maybe)

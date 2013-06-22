@@ -158,6 +158,7 @@ public class Constants {
 	public static final String USER_PREFS_COMPLETED_GAMES = "c_games";
 	public static final String USER_PREFS_PLAYER_JSON = "player_json";
  	public static final String USER_PREFS_GAME_JSON = "game_json_%s";
+ 	public static final String USER_PREFS_GAME_LIST_JSON = "game_list_";
  	public static final String USER_PREFS_FRIENDS_JSON = "friends_json";
  	public static final String USER_PREFS_FRIENDS_LAST_REGISTERED_CHECK_TIME = "friends_reg_check";
  	public static final String USER_PREFS_PLAYER_CHECK_TIME = "player_check";

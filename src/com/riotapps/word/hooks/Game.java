@@ -11,6 +11,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.riotapps.word.R;
+import com.riotapps.word.ui.GameTile;
+import com.riotapps.word.ui.PlacedTile;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
@@ -535,7 +537,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		
 	 return "p";
 	 
-	 /*
+	 
 		boolean isContext = this.isContextPlayerPerformedLastTurn(contextPlayerId);
 		String opponentName = this.getLastTurnPlayer().getAbbreviatedName();
 		PlayerGame contextPlayerGame = this.getContextPlayerGame(contextPlayerId);
@@ -668,7 +670,7 @@ public class Game implements Parcelable, Comparable<Game> {
 			}
  
 		}
-		*/
+		 
 		
 	
  	}
@@ -1021,5 +1023,42 @@ public class Game implements Parcelable, Comparable<Game> {
             return 1;
     }
 	
+	public void addPlayedTile(GameTile placedTile){
+		boolean found = false;
+		for(PlayedTile tile : this.playedTiles){
 	
+		if (tile.getBoardPosition() == placedTile.getId()){
+			tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
+			found = true;
+		}	
+		if (!found){
+			PlayedTile tile1 = new PlayedTile();
+			tile.setBoardPosition(placedTile.getId());
+			tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
+		}
+	}
+		
+/*		
+		def update_played_tile_by_board_position(board_position, letter, turn)
+		found = false
+	
+		self.played_tiles.each  do |value|
+			if value.p == board_position
+				#add latest letter and turn placed on this board position
+				value.l << letter
+				value.t << turn
+				found = true
+			end
+		end	
+		if !found 
+			played_tile = PlayedTile.new
+			played_tile.p = board_position
+			played_tile.l << letter
+			played_tile.t << turn
+			self.played_tiles << played_tile
+		end
+	end 
+*/
+	}
+	}
 }

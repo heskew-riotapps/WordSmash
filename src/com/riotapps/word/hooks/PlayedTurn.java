@@ -29,7 +29,7 @@ public class PlayedTurn {
 	key :p_d, Time #played_date
 	*/
 	
-	private String playerId;
+	private boolean isOpponentPlay = false; 
 	private int turn;
 	private int action;
 	
@@ -37,11 +37,12 @@ public class PlayedTurn {
 	
 	private int points;
 	private Date playedDate;
-	public String getPlayerId() {
-		return playerId;
+	 
+	public boolean isOpponentPlay() {
+		return isOpponentPlay;
 	}
-	public void setPlayerId(String playerId) {
-		this.playerId = playerId;
+	public void setOpponentPlay(boolean isOpponentPlay) {
+		this.isOpponentPlay = isOpponentPlay;
 	}
 	public int getTurn() {
 		return turn;

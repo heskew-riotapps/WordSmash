@@ -274,5 +274,17 @@ public class PlayerGame implements Parcelable{
 	  //  Logger.d(TAG, "parcel in playerOrder=" + this.playerOrder);
 	
 	}
+	
+	public void removeFirstMatchingLetter(String letter){
+		List<String> letters = this.trayLetters;
+		
+		for (int i = 0; i < this.trayLetters.size(); i++){
+			if (this.trayLetters.get(i).equals(letter)){
+				this.trayLetters.remove(i);
+				break;
+			}
+		}
+	}
+	}
 
 }

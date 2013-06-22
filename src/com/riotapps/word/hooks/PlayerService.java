@@ -145,7 +145,26 @@ public class PlayerService {
 		player = null;
 	}
 	
+	public static void addWinToPlayerRecord(){
+		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+	    appContext.getPlayer().addWinToPlayerRecord();
+	    
+	    savePlayer(appContext.getPlayer());
+	}
+
+	public static void addLossToPlayerRecord(){
+		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+	    appContext.getPlayer().addLossToPlayerRecord();
+	    
+	    savePlayer(appContext.getPlayer());
+	}
 	
+	public static void addDrawToPlayerRecord(){
+		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+	    appContext.getPlayer().addDrawToPlayerRecord();
+	    
+	    savePlayer(appContext.getPlayer());
+	}
 	
 	public static void savePlayer(Player player){
 		PlayerData.savePlayer(player);

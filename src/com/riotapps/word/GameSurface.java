@@ -1266,15 +1266,16 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 
 	    	dialog.show();	
 	    }
-  
-	 
+
 	    
 	    private void handleGameResignOnClick(){
 	    	//stop thread first
 	    	this.gameSurfaceView.onStop();
 	    	try { 
 				 
-	    		GameService.resignGame();
+	    		GameService.resignGame(this.player, this.game);
+	    		
+	    		//create alert for resigned game that when clicked, sends user back to main
 	    		
 			} catch (DesignByContractException e) {
 				 
@@ -1287,16 +1288,28 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    public void handleGamePlayOnClick(PlacedResult placedResult){
 	    	//stop thread first
 	    	
+	    	//try{
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
- 	    	this.gameSurfaceView.stopThreadLoop();
+ 	    	this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
 	    	 
-	    		this.gameSurfaceView.onPlayClick();
+	    		game = GameService.play(false, game, placedResult);
 
-			} catch (DesignByContractException e) {
-				 
+			//} catch (DesignByContractException e) {
+				if (game.isCompleted()) 
+				{
+					//display
+					DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());
+				}
+				else{
+					// show player his score, then kick off auto play
+	//return placedResult from autoplay
+					
+					
+				}
+	    		
 				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());
 				this.unfreezeButtons();
-			}
+			//}
 			 
 	    }
 	    

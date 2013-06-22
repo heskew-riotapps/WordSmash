@@ -169,5 +169,16 @@ public class Player implements Parcelable{
 
 	}
 
+	public void addWinToPlayerRecord(){
+		this.numWins = this.numWins + 1;
+	}
+	
+	public void addLossToPlayerRecord(){
+		this.numLosses = this.numLosses + 1;
+	}
+	
+	public void addDrawToPlayerRecord(){
+		this.numDraws = this.numDraws + 1;
+	}
 	
 }
