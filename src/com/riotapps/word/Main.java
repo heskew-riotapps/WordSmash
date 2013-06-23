@@ -3,12 +3,14 @@ package com.riotapps.word;
 import java.util.List;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
+import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Opponent;
 import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.CustomButtonDialog;
+import com.riotapps.word.ui.GameSurfaceView;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
@@ -16,6 +18,7 @@ import com.riotapps.word.utils.Logger;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
@@ -29,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.graphics.BitmapFactory;
 
 public class Main extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
 	private static final String TAG = Main.class.getSimpleName();
@@ -41,6 +45,20 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
      private final static int MENU_BADGES = 3;
      private final static int MENU_RULES = 4;
      private final static int MENU_STORE = 5;
+     
+     private static Bitmap bgOpponentGroup1_Opponent1 = null;
+     private static Bitmap bgOpponentGroup1_Opponent2 = null;
+     private static Bitmap bgOpponentGroup1_Opponent3 = null;
+     private static Bitmap bgOpponentGroup1_Opponent4 = null;
+     private static Bitmap bgOpponentGroup1_Opponent5 = null;
+     private static Bitmap bgOpponentGroup1_Opponent6 = null;
+     private static Bitmap bgOpponentGroup2_Opponent1 = null;
+     private static Bitmap bgOpponentGroup2_Opponent2 = null;
+     private static Bitmap bgOpponentGroup2_Opponent3 = null;
+     private static Bitmap bgOpponentGroup2_Opponent4 = null;
+     private static Bitmap bgOpponentGroup2_Opponent5 = null;
+     private static Bitmap bgOpponentGroup2_Opponent6 = null;
+     
      
      private int chosenOpponentId = 0;
 	//Timer timer = null;
@@ -327,7 +345,16 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	//	ivOpponentBadge.setImageResource(opponentBadgeId);
 
 		int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
-		ivOpponent.setImageResource(opponentImageId);
+//		ivOpponent.setImageResource(opponentImageId);
+		
+		 
+		
+		// if (Main.bgOpponentGroup1_Opponent1 == null) {
+			Bitmap bm = GameSurfaceView.decodeSampledBitmapFromResource(getResources(), opponentImageId, width, height);
+			bm = Bitmap.createScaledBitmap(bm, width, height, false);
+		// }
+			
+			ivOpponent.setImageBitmap(bm);
 		
 		//ApplicationContext.captureTime(TAG, "getGameView almost over starting");
 	 	view.setTag(opponent.getId());
@@ -401,7 +428,12 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	 			dialog.dismiss(); 
 	 			
 	 			try {
-					GameService.createGame(context, player, chosenOpponentId);
+					Game game = GameService.createGame(context, player, chosenOpponentId);
+					
+					Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
+            		intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
+            		Main.this.startActivity(intent); 
+					
 				} catch (DesignByContractException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

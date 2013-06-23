@@ -286,5 +286,9 @@ public class PlayerGame implements Parcelable{
 		}
 	}
  
+	public void addLetterToTray(String letter){
+		this.trayLetters.add(letter);
+ 
+	}
 
 }

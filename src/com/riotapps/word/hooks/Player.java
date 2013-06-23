@@ -21,7 +21,7 @@ public class Player implements Parcelable{
 	@SerializedName("n_c_g")
 	private int numCompletedGames = 0;
 	
-	private String activeGameId;
+	private String activeGameId = "";
 	
 	@SerializedName("n_w")
 	private int numWins = 0; //num wins

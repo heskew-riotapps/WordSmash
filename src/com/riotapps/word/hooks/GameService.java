@@ -1,6 +1,5 @@
 package com.riotapps.word.hooks;
 
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import com.riotapps.word.R;
-import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
 import com.riotapps.word.utils.Check;
@@ -27,12 +25,8 @@ import com.riotapps.word.utils.Utils;
 import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.GameTileComparator;
 import com.riotapps.word.ui.PlacedResult;
-import com.riotapps.word.ui.PlacedTile;
 import com.riotapps.word.ui.PlacedWord;
 import com.riotapps.word.ui.RowCol;
-import com.riotapps.word.utils.NetworkConnectivity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.riotapps.word.data.GameData;
 import com.riotapps.word.hooks.WordService;
  
@@ -70,15 +64,12 @@ public class GameService {
 
 	
 	public static Game getGame(String gameId){
-		 Gson gson = new Gson(); 
-		 Type type = new TypeToken<Game>() {}.getType();
-	     SharedPreferences settings = Storage.getSharedPreferences();
-	     Game game = gson.fromJson(settings.getString(String.format(Constants.USER_PREFS_GAME_JSON, gameId), Constants.EMPTY_JSON), type);
-	     return game;
+		return GameData.getGame(gameId);
 	}
 	
 	public static void removeGame(Game game){
-		Gson gson = new Gson(); 
+		 
+		//change this to use GameData class
 	    SharedPreferences settings = Storage.getSharedPreferences();
 	    SharedPreferences.Editor editor = settings.edit();
 	 
@@ -100,28 +91,52 @@ public class GameService {
 		game.setId(df.format(now));
     	PlayerGame pg = new PlayerGame();
     	pg.setPlayerId(contextPlayer.getId());
-     
+    	pg.setScore(0);
+    	pg.setStatus(1);
+    	pg.setTurn(true);
+    	pg.setTrayVersion(1);
     	pg.setPlayerOrder(1);
     	
   
     	PlayerGame pg2 = new PlayerGame();
     	pg2.setPlayerId(String.valueOf(opponentId));
-    	 
+    	pg2.setScore(0); 
+    	pg2.setStatus(1);
+    	pg2.setTurn(false);
+    	pg2.setTrayVersion(1);
     	pg2.setPlayerOrder(2);
     	
-    	List<PlayerGame> pgs = new ArrayList<PlayerGame>();
-    	pgs.add(pg);
-    	pgs.add(pg2);
-    	game.setPlayerGames(pgs);
+    	
     	
     	//ported from rails
     	game.setCreateDate(new Date());
     	game.setStatus(1); //active
     	game.setTurn(1);
+    	game.setOpponentId(opponentId);
     	game.setLastTurnDate(game.getCreateDate());
     	game.setRandomVowel(AlphabetService.getRandomVowel());
     	game.setRandomConsonants(AlphabetService.getRandomConsonants());
     	game.setHopper(AlphabetService.getHopper(game.getRandomVowel(), game.getRandomConsonants()));
+    	
+    	
+    	//load the tile trays for the players
+    	for (int i = 0; i < 14; i++){
+    		//first 7 go to player
+    		if (i < 7){
+    			pg.addLetterToTray(game.getHopper().get(0));
+    		}
+    		//next 7 got to opponent
+    		else {
+    			pg2.addLetterToTray(game.getHopper().get(0));
+    		}
+    		
+    		game.getHopper().remove(0);
+    	}
+    	
+    	List<PlayerGame> pgs = new ArrayList<PlayerGame>();
+    	pgs.add(pg);
+    	pgs.add(pg2);
+    	game.setPlayerGames(pgs);
     	
     	List<PlayedTurn> turns = new ArrayList<PlayedTurn>();
     	PlayedTurn turn = new PlayedTurn();
@@ -132,6 +147,7 @@ public class GameService {
     	turn.setPlayedDate(new Date());
     	turns.add(turn);
     	
+    	 
     	game.setPlayedTurns(turns);
     	
     	//get hopper letters

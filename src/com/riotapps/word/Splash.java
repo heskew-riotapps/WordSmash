@@ -38,7 +38,7 @@ public class Splash  extends FragmentActivity {
         
         Player player = PlayerService.getPlayer();
         
-        ApplicationContext appContext = (ApplicationContext)this.getApplicationContext();
+        final ApplicationContext appContext = (ApplicationContext)this.getApplicationContext();
 		appContext.setPlayer(player);
 
         
@@ -46,12 +46,17 @@ public class Splash  extends FragmentActivity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
-            	
-                  
-            	Intent intent = new Intent(Splash.this, com.riotapps.word.Main.class);
+            	Intent intent;
+            	if (appContext.getPlayer().getActiveGameId().length() > 0){
+            		intent = new Intent(Splash.this, com.riotapps.word.GameSurface.class);
+            		intent.putExtra(Constants.EXTRA_GAME_ID, appContext.getPlayer().getActiveGameId());
+            	}
+            	else{
+            		intent = new Intent(Splash.this, com.riotapps.word.Main.class);
+            	}
             	intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             	Splash.this.startActivity(intent); 
-            	Splash.this.finish();
+            	//Splash.this.finish();
 
                 // transition from splash to main  
             //    overridePendingTransition(R.animator.activityfadein,

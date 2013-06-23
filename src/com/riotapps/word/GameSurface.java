@@ -136,7 +136,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
  
 	private Player player;
 	private TextView tvNumPoints;
-	public PlayerGame contextPlayerGame;
+	//public PlayerGame contextPlayerGame;
 	private BroadcastReceiver gcmReceiver;
 	private WordLoaderThread wordLoaderThread = null;
 	private Tracker tracker;
@@ -248,13 +248,17 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 		this.gameSurfaceView = (GameSurfaceView)findViewById(R.id.gameSurface);
 		
-	 	this.captureTime("alphabet service starting");
+	// 	this.captureTime("alphabet service starting");
 	//	this.alphabetService = new AlphabetService(context);
 		//this.wordService = new WordService(context);
-	 	this.captureTime("alphabet service started");
+	// 	this.captureTime("alphabet service started");
 		
 	
 		//appContext.getWordService()
+		
+	 	this.captureTime("setup game starting");
+		this.setupGame();
+	 	this.captureTime("setup game ended");
 		
 	 	this.captureTime("gamesurfaceview starting");
 		this.gameSurfaceView.construct(this);
@@ -267,13 +271,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		//Logger.d(TAG, "scoreboard about to be loaded");
 	 	//this.loadScoreboard();
 	 	
-	 	this.captureTime("setup game starting");
-		this.setupGame();
-	 	this.captureTime("setup game ended");
+	 //	this.captureTime("setup game starting");
+//		this.setupGame();
+//	 	this.captureTime("setup game ended");
 		
-	 	this.captureTime("checkGameStatus starting");
-		this.checkGameStatus();
-	 	this.captureTime("checkGameStatus ended");
+	// 	this.captureTime("checkGameStatus starting");
+	//	this.checkGameStatus();
+	// 	this.captureTime("checkGameStatus ended");
 	 	 
 	 	//this.setupTimer();
 	 	this.setupAdServer();
@@ -389,7 +393,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	*/
 	private void setupGame(){
 		 Logger.d(TAG,"setupGame game turn=" + this.game.getTurn());
-		this.contextPlayerGame = GameService.loadScoreboard(this, this.game, this.player);
+		GameService.loadScoreboard(this, this.game, this.player);
 	 	
 		//if (!this.game.isCompleted()){
 			this.fillGameState();
@@ -540,7 +544,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	  }
 	 
 	 private void checkGameStatus(){
-		
+	/*	
 		 //completed
 		 //first check to see if this score has already been alerted (from local storage) 
 		 if (this.game.getStatus() == 3 || this.game.getStatus() == 4){
@@ -550,6 +554,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				 DialogManager.SetupAlert(this, this.getString(R.string.game_alert_game_over_title), message);
 			 }
 		 }
+		 */
 	 }
 	 
 	 
@@ -686,13 +691,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
  //reset the game tiles based on the locally saved state (as long as the tray tiles have not been updated on the server)
 			 this.gameState.setTrayVersion(this.game.getPlayerGames().get(0).getTrayVersion());
 			 
-			 int numTrayTiles = this.contextPlayerGame.getTrayLetters().size();
+			 int numTrayTiles = this.game.getPlayerGames().get(0).getTrayLetters().size();
 			 
 			 for(int x = 0; x < 7; x++){
 				// TrayTile trayTile = new TrayTile();
 				// trayTile.setIndex(x);
 				// trayTile.setLetter(this.contextPlayerGame.getTrayLetters().size() > x ? this.contextPlayerGame.getTrayLetters().get(x) : "");
-				 this.gameState.addTrayLocation(x, numTrayTiles > x ? this.contextPlayerGame.getTrayLetters().get(x) : "");
+				 this.gameState.addTrayLocation(x, numTrayTiles > x ? this.game.getPlayerGames().get(0).getTrayLetters().get(x) : "");
 				// this.gameState.getLocations().get(x).setTrayLocation(x);
 				// this.gameState.getLocations().get(x).setLetter(this.contextPlayerGame.getTrayLetters().size() > x ? this.contextPlayerGame.getTrayLetters().get(x) : "");
 			 }
@@ -1280,7 +1285,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    }
 	    
 	    private void onSwapClick(){
-	    	final SwapDialog dialog = new SwapDialog(context, this.contextPlayerGame.getTrayLetters());
+	    	final SwapDialog dialog = new SwapDialog(context, this.game.getPlayerGames().get(0).getTrayLetters());
 	    	dialog.show();
 	    }
 	    

@@ -60,7 +60,7 @@ public class GameData {
 		Type type = new TypeToken<Game>() {}.getType();
 	    SharedPreferences settings = Storage.getGameSharedPreferences();
 
-		String _game = gson.fromJson(settings.getString(id, Constants.EMPTY_STRING), type);
+		String _game = settings.getString(String.format(Constants.USER_PREFS_GAME_JSON, id), Constants.EMPTY_STRING);
     	if (_game != Constants.EMPTY_STRING){
     	    game = gson.fromJson(_game, type);
     	}
