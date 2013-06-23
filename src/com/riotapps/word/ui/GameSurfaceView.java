@@ -2381,7 +2381,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 
      	
      	//"jimmy mac scored 42 points with supermans cape and batmans automobile"; 
-     	String lastActionText = this.parent.getGame().getLastActionText(this.parent, this.parent.getPlayer().getId());
+     	String lastActionText = this.parent.getGame().getLastActionText(this.parent);
      	 //determine text size and store in var
      	 long textSize = Math.round(this.topGapHeight * .4);
      	 if (textSize > MAX_TEXT_HEIGHT){
@@ -2944,9 +2944,11 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					 tile.setOriginalBitmap(bgBaseScaled); //this will change as default bonus and played tiles are incorporated
 					 if (this.isZoomAllowed == true){ tile.setOriginalBitmapZoomed(GameSurfaceView.bgBaseZoomed); }
 	
-					 tile.setOriginalLetter(playedTile.getLetter());
+					 //tile.setOriginalLetter(playedTile.getLetter());
+					 tile.setOriginalLetter(playedTile.getLatestPlayedLetter().getLetter());
+
 					 //was this tile placed in the previous turn???
-					 if (this.parent.getGame().getTurn() - 1 == playedTile.getTurn()){
+					 if (this.parent.getGame().getTurn() - 1 == playedTile.getLatestPlayedLetter().getTurn()){
 						 tile.setLastPlayed(true);
 					 }
 				 }

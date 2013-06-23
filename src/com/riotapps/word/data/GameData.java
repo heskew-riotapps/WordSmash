@@ -29,7 +29,7 @@ public class GameData {
 	    
 		//loop through gameIds fetching individual games from storage
  	    for(String gameId : gameIds){
- 	    	Game game = getLocalGame(gameId);
+ 	    	Game game = getGame(gameId);
 	    	if (game != null){
 	    	    games.add(game);		     
 	    	}
@@ -39,6 +39,7 @@ public class GameData {
 		return games;
 	}
 	
+	//use a lite game, gameId, winner text?????
 	public static List<String> getLocalCompletedGames(){
 		
 		//this might change to sqlLite

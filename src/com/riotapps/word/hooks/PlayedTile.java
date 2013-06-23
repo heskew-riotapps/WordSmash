@@ -40,5 +40,5 @@ public class PlayedTile {
 	public PlayedLetter getLatestPlayedLetter(){
 		return this.letters.get(this.letters.size() - 1);
 	}
-
+	 
 }

@@ -127,7 +127,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	private int scoreboardHeight;
 	private Game game;
 	private GameState gameState;
-	private AlphabetService alphabetService;
+//	private AlphabetService alphabetService;
 //	private WordService wordService;
 	
 	public long runningTime = System.nanoTime();
@@ -249,7 +249,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		this.gameSurfaceView = (GameSurfaceView)findViewById(R.id.gameSurface);
 		
 	 	this.captureTime("alphabet service starting");
-		this.alphabetService = new AlphabetService(context);
+	//	this.alphabetService = new AlphabetService(context);
 		//this.wordService = new WordService(context);
 	 	this.captureTime("alphabet service started");
 		
@@ -670,7 +670,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 //if this.turn != gameState.turn, clearGameState
 		 
 		 //if the game state is dated, clear it out
-		 if (this.game.getContextPlayerTrayVersion(this.player) != this.gameState.getTrayVersion()){
+		 if (this.game.getPlayerGames().get(0).getTrayVersion() != this.gameState.getTrayVersion()){
 			 this.gameState = GameStateService.clearGameState(this.game.getId());
 		 }
 		 
@@ -684,7 +684,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 if (this.gameState.getLocations().size() == 0){
 
  //reset the game tiles based on the locally saved state (as long as the tray tiles have not been updated on the server)
-			 this.gameState.setTrayVersion(this.game.getContextPlayerTrayVersion(this.player));
+			 this.gameState.setTrayVersion(this.game.getPlayerGames().get(0).getTrayVersion());
 			 
 			 int numTrayTiles = this.contextPlayerGame.getTrayLetters().size();
 			 
@@ -1184,16 +1184,18 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    private void handleGameResignOnClick(){
 	    	//stop thread first
 	    	this.gameSurfaceView.onStop();
-	    	try { 
+	    	//try { 
 				 
-	    		GameService.resignGame(this.player, this.game);
+	    		game = GameService.resign(false, this.game);
 	    		
+	    		DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
+				setupButtons();
 	    		//create alert for resigned game that when clicked, sends user back to main
 	    		
-			} catch (DesignByContractException e) {
-				 
-				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
-			}
+		//	} catch (DesignByContractException e) {
+		//		 
+		//		DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
+		//	}
 	    }
 	    
 	    
@@ -1224,6 +1226,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						//perhaps replace play, skip
 						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
 						setupButtons();
+					}
+					else{
+						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
 					}
 					
 				}
@@ -1262,6 +1267,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
 						setupButtons();
 					}
+					else{
+						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
+					}
 					
 				}
 	    		
@@ -1272,19 +1280,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    }
 	    
 	    private void onSwapClick(){
-	    	
 	    	final SwapDialog dialog = new SwapDialog(context, this.contextPlayerGame.getTrayLetters());
-	    	 
-	    /*	dialog.setOnOKClickListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			handleGameSwapOnClick();
-		 		}
-			});
-			*/ 
 	    	dialog.show();
-	    	
 	    }
 	    
 	    public void handleGameSwapOnClick(List<String> swappedLetters){
@@ -1292,13 +1289,26 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	this.gameSurfaceView.stopThreadLoop();
-	    	try { 
-	    		GameService.swap();
+	    //	try { 
+	    		GameService.swap(false, game, swappedLetters);
 
-			} catch (DesignByContractException e) {
+	    		String playerAction = game.getLastActionText(context);
+				game = GameService.autoPlay(game);
+
+				String opponentAction = game.getLastActionText(context);
+				
+				if (game.isCompleted()) {
+					//perhaps replace play, skip
+					DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
+					setupButtons();
+				}
+				else{
+					DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
+				}
+		//	} catch (DesignByContractException e) {
 				 
-				DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
-			}
+		//		DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
+		//	}
 			 
 	    }
 	    
@@ -1395,48 +1405,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		bOK = (Button) this.layout.findViewById(R.id.bOK);
 	    		bOK.setOnClickListener(this);
 	    		bCancel = (Button) this.layout.findViewById(R.id.bCancel);
-	    		
-	    		/*
-	    		//RelativeLayout.LayoutParams tile1 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		//rlLetter1 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter1);
-	    		//rlLetter1.setLayoutParams(tile1);
-	 
-	    		//RelativeLayout.LayoutParams tile2 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		//tile2.addRule(RelativeLayout.RIGHT_OF, rlLetter1.getId());
-	    		//tile2.setMargins(2, 0, 0, 0);
-	    		//rlLetter2 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter2);
-	    		//rlLetter2.setLayoutParams(tile2);
-	    		
-	    		//RelativeLayout.LayoutParams tile3 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		//tile3.addRule(RelativeLayout.RIGHT_OF, rlLetter2.getId());
-	    		//tile3.setMargins(2, 0, 0, 0);
-	    		//rlLetter3 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter3);
-	    		//rlLetter3.setLayoutParams(tile3);
-	    		
-	    		//RelativeLayout.LayoutParams tile4 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		//tile4.addRule(RelativeLayout.RIGHT_OF, rlLetter3.getId());
-	    		//tile4.setMargins(2, 0, 0, 0);
-	    		//rlLetter4 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter4);
-	    		//rlLetter4.setLayoutParams(tile4);
-	    	 
-	    		RelativeLayout.LayoutParams tile5 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		tile5.addRule(RelativeLayout.RIGHT_OF, rlLetter4.getId());
-	    		tile5.setMargins(2, 0, 0, 0);
-	    		rlLetter5 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter5);
-	    		rlLetter5.setLayoutParams(tile5);
-	    		
-	    		RelativeLayout.LayoutParams tile6 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		tile6.addRule(RelativeLayout.RIGHT_OF, rlLetter5.getId());
-	    		tile6.setMargins(2, 0, 0, 0);
-	    		rlLetter6 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter6);
-	    		rlLetter6.setLayoutParams(tile6);
-	    		
-	    		RelativeLayout.LayoutParams tile7 = new RelativeLayout.LayoutParams(this.tileSize, this.tileSize);
-	    		tile7.addRule(RelativeLayout.RIGHT_OF, rlLetter6.getId());
-	    		tile7.setMargins(2, 0, 0, 0);
-	    		rlLetter7 = (RelativeLayout) this.layout.findViewById(R.id.rlLetter7);
-	    		rlLetter7.setLayoutParams(tile7); 
-	    		*/
+	    
 	    		tvLetter1 = (TextView) this.layout.findViewById(R.id.tvLetter1);
 	    		//tvLetter1.setTextSize(this.textSize);
 	    		tvLetter2 = (TextView) this.layout.findViewById(R.id.tvLetter2);
@@ -1468,13 +1437,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		tvLetter6.setText(letters.get(5));
 	    		tvLetter7.setText(letters.get(6));
 	    		
-	    		tvValue1.setText(Integer.toString(alphabetService.getLetterValue(letters.get(0))));
-	    		tvValue2.setText(Integer.toString(alphabetService.getLetterValue(letters.get(1))));
-	    		tvValue3.setText(Integer.toString(alphabetService.getLetterValue(letters.get(2))));
-	    		tvValue4.setText(Integer.toString(alphabetService.getLetterValue(letters.get(3))));
-	    		tvValue5.setText(Integer.toString(alphabetService.getLetterValue(letters.get(4))));
-	    		tvValue6.setText(Integer.toString(alphabetService.getLetterValue(letters.get(5))));
-	    		tvValue7.setText(Integer.toString(alphabetService.getLetterValue(letters.get(6))));
+	    		tvValue1.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(0))));
+	    		tvValue2.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(1))));
+	    		tvValue3.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(2))));
+	    		tvValue4.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(3))));
+	    		tvValue5.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(4))));
+	    		tvValue6.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(5))));
+	    		tvValue7.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(6))));
 	    		
 	    		tvLetter1.setOnClickListener(this);
 	    		tvLetter2.setOnClickListener(this);

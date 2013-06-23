@@ -1,6 +1,7 @@
 package com.riotapps.word.hooks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
@@ -283,6 +284,10 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.hopper = hopper;
 	}
 
+	public void shuffleHopper(){
+		Collections.shuffle(this.hopper);
+	}
+	
 	/*
 	
 	public List<PlayerGame> getOpponentPlayerGames(Player contextPlayer){ 

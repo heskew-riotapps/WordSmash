@@ -125,7 +125,7 @@ public class GameService {
     	
     	List<PlayedTurn> turns = new ArrayList<PlayedTurn>();
     	PlayedTurn turn = new PlayedTurn();
-    	turn.setPlayerId(contextPlayer.getId());
+    	turn.setOpponentPlay(false);
     	turn.setTurn(0);
     	turn.setPoints(0);
     	turn.setAction(8);
@@ -148,6 +148,7 @@ public class GameService {
 		@game.played_turns << played_turn
     	*/
     	
+    	//just for logging
     	Logger.d(TAG, "random vowel=" + game.getRandomVowel());
     	String consonants = "";
     	String hopper = "";
@@ -223,7 +224,7 @@ public class GameService {
 		
     	game.getPlayerGames().get(isOpponent ? 1 : 0).setScore(game.getPlayerGames().get(isOpponent ? 1 : 0).getScore() + placedResult.getTotalPoints());
  
-    	//might not be needed, keeping for now though
+    	//not needed for opponent, keeping for now though
     	game.getPlayerGames().get(isOpponent ? 1 : 0).setTrayVersion(game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayVersion() + 1);		
     		 
     	game.setLastTurnDate(now);
@@ -278,7 +279,7 @@ public class GameService {
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
   		
-		
+		GameService.saveGame(game);
 		return game;	
 	}
 	
@@ -343,12 +344,71 @@ public static Game skip(boolean isOpponent, Game game){
 			game.getPlayerGames().get(0).setTurn(isOpponent);
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
-  		
 		
 		return game;	
 	}
 	
+	public static Game swap(boolean isOpponent, Game game, List<String> swappedLetters){
+		
+		Date now = new Date();
 	
+		PlayedTurn turn = new PlayedTurn();
+		turn.setOpponentPlay(isOpponent);
+		turn.setTurn(game.getTurn());
+		turn.setPoints(0);
+		turn.setAction(swappedLetters.size()); // #SKIPPED(10), action
+		turn.setPlayedDate(new Date());
+		game.getPlayedTurns().add(turn);
+		
+		/*
+		#ONE_LETTER_SWAPPED(1),
+		#TWO_LETTERS_SWAPPED(2),
+		#THREE_LETTERS_SWAPPED(3),
+		#FOUR_LETTERS_SWAPPED(4),
+		#FIVE_LETTERS_SWAPPED(5),
+		#SIX_LETTERS_SWAPPED(6),
+		#SEVEN_LETTERS_SWAPPED(7),
+		*/
+	
+		//add letters from hopper into players tray to make up for played letters that were removed
+		for (String letter : swappedLetters){
+			//add back to hopper
+			game.getHopper().add(letter);
+			
+			//remove from tray. 
+			game.getPlayerGames().get(isOpponent ? 1 : 0).removeFirstMatchingLetter(letter);
+		}
+		
+		//reshuffle since letters were added back to hopper
+		game.shuffleHopper();
+		
+		//add letters from hopper into players tray to make up for swapped letters that were removed
+		for (int i = 0; i < swappedLetters.size() - 1; i++){
+			//take care since the hopper may be near the end
+			if (game.getHopper().size() > 0){
+				//add the first hopper letter to the player's tray
+				game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayLetters().add(game.getHopper().get(0));
+				//remove hopper letter that was just added to the player's tray
+				game.getHopper().remove(0);
+			}
+		}
+		
+		//might not be needed, keeping for now though
+		game.getPlayerGames().get(isOpponent ? 1 : 0).setTrayVersion(game.getPlayerGames().get(isOpponent ? 1 : 0).getTrayVersion() + 1);		
+			 
+		game.setLastTurnDate(now);
+		game.setTurn(game.getTurn() + 1);
+		
+	
+		//game is not over, let's keep going
+		//set turns, just in case...more than likely this will not be necessary
+		game.getPlayerGames().get(0).setTurn(isOpponent);
+		game.getPlayerGames().get(1).setTurn(!isOpponent);	
+	
+		GameService.saveGame(game);
+		
+		return game;	
+	}	
 	
 	public static int calculateBonusScore(PlayerGame playerGame){
 		int bonus = 0;
@@ -372,70 +432,54 @@ public static Game skip(boolean isOpponent, Game game){
 		return GameService.play(true, game, placedResult);
 	}
 	
-	//temp
-	public static String setupGameTurn(Game game, PlacedResult placedResult) throws DesignByContractException{
-		 
-		Logger.d(TAG, "setupGameTurn");
-		Gson gson = new Gson();
-		Context ctx = ApplicationContext.getAppContext();
-		NetworkConnectivity connection = new NetworkConnectivity(ctx);
-		//are we connected to the web?
-	 	Check.Require(connection.checkNetworkConnectivity() == true, ctx.getString(R.string.msg_not_connected));
-	 	
-		Player player = PlayerService.getPlayerFromLocal();
-		
-		TransportGameTurn turn = new TransportGameTurn();
-		turn.setToken(player.getAuthToken());
-		turn.setGameId(game.getId());
-		turn.setTurn(game.getTurn());
-		turn.setPoints(placedResult.getTotalPoints());
-		
-		for (GameTile tile : placedResult.getPlacedTiles()){
-			turn.addToTiles(tile.getPlacedLetter(), tile.getId());
-		}
-
-		for (PlacedWord word : placedResult.getPlacedWords()){
-			turn.addToWords(word.getWord(), word.getTotalPoints());
-		}
-		
-		return gson.toJson(turn);
-	}
 	
-  	public static void resignGame(Player player, Game game){
+	//isOpponent = true means opponent is resigning
+  	public static Game resign(boolean isOpponent, Game game){
   
     	PlayedTurn turn = new PlayedTurn();
-    	turn.setPlayerId(player.getId());
+    	turn.setOpponentPlay(isOpponent);
     	turn.setTurn(game.getTurn());
     	turn.setPoints(0);
     	turn.setAction(11); // #RESIGNED(11)
     	turn.setPlayedDate(new Date());
     	game.getPlayedTurns().add(turn);
     	 
-    	for (PlayerGame pg : game.getPlayerGames()){
-    		if (!pg.isOpponent()){
-    			pg.setStatus(7); //resigned
-    		}
-    		else{
-    			pg.setStatus(4); //winner		 
-    		}
+    	if (isOpponent){
+    		game.getPlayerGames().get(0).setStatus(4); //winner		
+    		game.getPlayerGames().get(1).setStatus(7); //resigned
     	}
-    		
+    	else{
+    		game.getPlayerGames().get(0).setStatus(7); //resigned		
+    		game.getPlayerGames().get(1).setStatus(4); 	//winner	
+    	}
+
+    	Player player = PlayerService.getPlayer();
     	//add 1 to opponent's wins, save opponent 
     	//add 1 to player's losses, save player
     	player.setActiveGameId(Constants.EMPTY_STRING);
-    	player.setNumLosses(player.getNumLosses() + 1);
+    	
+    	if (isOpponent){
+        	player.setNumWins(player.getNumWins() + 1);
+        	OpponentService.addLossToOpponentRecord(game.getOpponentId());
+    		
+    	}
+    	else{
+        	player.setNumLosses(player.getNumLosses() + 1);
+        	OpponentService.addWinToOpponentRecord(game.getOpponentId());
+
+    	}
     	PlayerService.savePlayer(player);
-    	
-    	OpponentService.addWinToOpponentRecord(game.getOpponentId());
-    	
+    	 
     	game.setStatus(3); //sets up enum for game status and playerGame status
     	game.setCompletionDate(new Date());
-    	game.setPlayedTurns(turns);	
     	game.setTurn(game.getTurn() + 1);
     	
     	saveGame(game);
     	addGameToCompletedList(game);
+    	
+    	return game;
   	}
+  	
   	
 	public static void addGameToCompletedList(Game game){
 		 List<GameListItem> games = GameData.getCompletedGameList();
@@ -1266,7 +1310,7 @@ public static Game skip(boolean isOpponent, Game game){
             else
             {
                 //add this letter to the partially constructed word
-                String letter = (String) (containsGameTileId(placedTiles, tilePosition) == true ? getGameTile(placedTiles, tilePosition).getPlacedLetter() : getPlayedTile(playedTiles, tilePosition).getLetter()); 
+                String letter = (String) (containsGameTileId(placedTiles, tilePosition) == true ? getGameTile(placedTiles, tilePosition).getPlacedLetter() : getPlayedTile(playedTiles, tilePosition).getLatestPlayedLetter().getLetter()); 
                 if (proceedBackward == true) { word.setWord(letter + word.getWord()); } else { word.setWord(word.getWord() + letter); }
 
                 //keep track of the points as the word is being constructed

@@ -285,6 +285,6 @@ public class PlayerGame implements Parcelable{
 			}
 		}
 	}
-	}
+ 
 
 }
