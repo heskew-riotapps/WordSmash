@@ -188,9 +188,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.showCompletionAlert = showCompletionAlert;
 	}
 
-	@SerializedName("left")
-	private int numLettersLeft = 0;
-	
+	 
 //	@SerializedName("d_c")
 //	private String dupCheck = "";
 
@@ -443,13 +441,10 @@ public class Game implements Parcelable, Comparable<Game> {
 	}
  
 	public int getNumLettersLeft() {
-		return numLettersLeft;
+		return this.hopper.size();
 	}
 
-	public void setNumLettersLeft(int numLettersLeft) {
-		this.numLettersLeft = numLettersLeft;
-	}
-
+	 
  
 	public int getTurn() {
 		return turn;
@@ -798,7 +793,7 @@ public class Game implements Parcelable, Comparable<Game> {
  
 		out.writeList(this.playedWords);
 		out.writeList(this.playerGames);
-		out.writeInt(this.numLettersLeft);
+	 
 		//out.writeSerializable(this.createDate);
 		//out.writeSerializable(this.completionDate);
 		out.writeLong(this.createDate == null ? 0 : this.createDate.getTime());
@@ -824,7 +819,7 @@ public class Game implements Parcelable, Comparable<Game> {
          in.readList(this.playedWords,PlayedWord.class.getClassLoader());
          in.readList(this.playerGames,PlayerGame.class.getClassLoader());
  
-         this.numLettersLeft = in.readInt();
+      
  
          this.createDate = new Date(in.readLong());
  

@@ -10,86 +10,31 @@
 	android:background="@drawable/sbd_bg"
     >
     
-	      <TableLayout     
-		        android:id="@+id/scoreboardTop"
-		   	 	android:layout_height="50dp"
-		   	  
-		    	android:layout_marginLeft="3dp" 
-		       
-				android:layout_alignParentLeft="true"
-		        android:paddingLeft="4dp"
-		        android:paddingRight="4dp"  
-			    android:layout_width="wrap_content"
-		     >
-    		<TableRow android:paddingTop="2dp">
-    		     <ImageView 
-				       	android:id="@+id/ivPlayerTurn_1"
-					   	style="@style/ScoreboardTurnStyle"
-				   />
-    		     <ImageView  
-				       	android:id="@+id/ivPlayerBadge_1"
-					   	style="@style/ScoreboardBadgeStyle"
-				   />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayer_1"
-		            style="@style/ScoreboardPlayerStyle"
-		            />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayerScore_1"
-		           style="@style/ScoreboardScoreStyle"
- 	            />
-		         <ImageView 
-				       	android:id="@+id/ivPlayerTurn_3"
-					   	style="@style/ScoreboardTurnStyle"
-				   />
-		         <ImageView 
-				       	android:id="@+id/ivPlayerBadge_3"
-					   	style="@style/ScoreboardBadgeStyle"
-				   />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayer_3"
-		            style="@style/ScoreboardPlayerStyle"
-		            />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayerScore_3"
-		            style="@style/ScoreboardScoreStyle"
-	            />
-		       </TableRow>
-		       <TableRow>
-		        <ImageView 
-				       	android:id="@+id/ivPlayerTurn_2"
-					   	style="@style/ScoreboardTurnStyle"
-				   />
-		         <ImageView 
-				       	android:id="@+id/ivPlayerBadge_2"
-					   	style="@style/ScoreboardBadgeStyle" 
-				   />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayer_2"
-		            style="@style/ScoreboardPlayerStyle"
-		            />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayerScore_2"
-		            style="@style/ScoreboardScoreStyle"
-	            />
-		       <ImageView 
-				    android:id="@+id/ivPlayerTurn_4"
-					style="@style/ScoreboardTurnStyle"
-				/>
-		       <ImageView 
-				       	android:id="@+id/ivPlayerBadge_4"
-					   	style="@style/ScoreboardBadgeStyle"
-				   />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayer_4"
-		            style="@style/ScoreboardPlayerStyle" 
-		            />
-		        <com.riotapps.word.ui.ScoreboardFontTextView
-		            android:id="@+id/tvPlayerScore_4"
-		            style="@style/ScoreboardScoreStyle"
-	            />
-		       </TableRow>
-			</TableLayout> 
+	    <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:text="@string/anonymous_player_name"
+	    />
+	    <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:id="@+id/tvPlayerScore"
+	        android:layout_marginRight="10dp"
+	        android:layout_width="wrap_content"
+	   	 	android:layout_height="wrap_content"
+ 
+	    />
+	    <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:id="@+id/tvOpponentScore"
+	        android:layout_width="wrap_content"
+	   	 	android:layout_height="wrap_content"
+	    />
+	    <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:id="@+id/tvOpponentName"
+	        android:layout_width="wrap_content"
+	   	 	android:layout_height="wrap_content"
+	    />
+		<ImageView 
+		    android:id="@+id/ivOpponent"
+		    android:layout_height="48dp"
+		    android:layout_width="48dp"
+		    />
 		 
 	    <RelativeLayout
 	       android:id="@+id/scoreboardNumbers"

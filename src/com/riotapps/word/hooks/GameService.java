@@ -13,8 +13,12 @@ import java.util.TreeSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.riotapps.word.R;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
@@ -22,6 +26,7 @@ import com.riotapps.word.utils.Check;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Storage;
 import com.riotapps.word.utils.Utils;
+import com.riotapps.word.ui.GameSurfaceView;
 import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.GameTileComparator;
 import com.riotapps.word.ui.PlacedResult;
@@ -505,323 +510,23 @@ public static Game skip(boolean isOpponent, Game game){
 		 GameData.saveCompletedGameList(games);
 	}
 	
-	public static PlayerGame loadScoreboard(final FragmentActivity context, Game game, Player player){
-		 //determine length of name and font size if too long (maybe)
-		 //always use abbreviated name when 3 or more players
+	public static void loadScoreboard(final FragmentActivity context, Game game, Player player){
+	
+		 TextView tvPlayerScore = (TextView)context.findViewById(R.id.tvPlayerScore);
+		 TextView tvOpponentName = (TextView)context.findViewById(R.id.tvOpponentName);
+		 TextView tvOpponentScore = (TextView)context.findViewById(R.id.tvOpponentScore);
+		 ImageView ivOpponent = (ImageView)context.findViewById(R.id.ivOpponent);
+	 
+		 tvPlayerScore.setText(String.valueOf(game.getPlayerGames().get(0).getScore()));
+		 tvOpponentScore.setText(String.valueOf(game.getPlayerGames().get(1).getScore())); 
 		 
-		 //find context user in list.  context user will always be display in top left of scoreboard with
-		 //other players in the assigned game order following
-		 //for instance if contextUser is #3 in order, he will still be in top left corner and
-		 // #4 will be under him (or #1 if there are only 3 players in the game) and
-		 //#1 will be in top right and #2 will be in bottom right
-		 //if there are only 3 players, the bottom right will always be empty
-		 //if there are only 2 players the right column will be hidden 
-		
-		//Gson gson = new Gson();
-		
-		//Logger.d(TAG, "loadScoreboard game=" + gson.toJson(game));
-		
-		return new PlayerGame();
-		
-		/*
-		PlayerGame contextPlayerGame = new PlayerGame();
-		
-		 int contextPlayerIndex = -1;
-		 int contextPlayerTurnOrder = -1;
-		 int playerIndex2 = -1;
-		 int playerIndex3 = -1;
-		 int playerIndex4 = -1;
+		 Opponent o = OpponentService.getOpponent(game.getOpponentId());
 		 
-		 String activePlayer; 
-		 int playerGameCount = game.getActivePlayerGames().size();
+		 tvOpponentName.setText(o.getName());
 		 
-		 //Log.d(TAG,"num players=" + playerGameCount); 
-		 
-		 //loop through once to find context player
-		 for(int x = 0; x < playerGameCount; x++){ 
-			 
-			// Log.d(TAG,"x=" + x);
-		 //for (PlayerGame pg : this.game.getPlayerGames()) {
-		    PlayerGame pg = game.getActivePlayerGames().get(x);	
-		  //  Log.d(TAG,"player=" + pg.getPlayer().getId());
-			 if (pg.getPlayer().getId() != null && pg.getPlayer().getId().equals(player.getId())) {
-				// Log.d(TAG,"contextplayermatch=" + pg.getPlayer().getId());
-		    		contextPlayerIndex = x;
-		    		contextPlayerTurnOrder = pg.getPlayerOrder();
-		    		contextPlayerGame = pg;
-		     }
-			// Log.d(TAG,"about to check pg.isturn");
-			 if (pg.isTurn()){
-				 Log.d(TAG,"pg.isTurn=true");
-				 activePlayer = pg.getPlayer().getId();
-			 }
-		  }
-		 
-		// Log.d(TAG,"context playerid=" + contextPlayerIndex);
-		 
-		 if (contextPlayerIndex == -1){ 
-			 Log.w(TAG,"context player not found.  this is a problem that requires game to be removed from user's device.");
-		 }
-		 
-		 if (playerGameCount > 2){
-			 //loop through again to fill out the order of the other players for placement in the scoreboard 
-			 //i'm sure there is a 2 line formula that will shrink this code but i'm tired and settling for switch statements
-			 for(int x = 0; x < 2; x++){
-				
-			    PlayerGame pg = game.getPlayerGames().get(x);
-			    if (x != contextPlayerIndex){
-			    	//we already know where the context player (the player logged in right now) is
-			    	//let's find the order to display the others
-				    int orderDiff = contextPlayerTurnOrder - pg.getPlayerOrder();
-				    //if (contextPlayerTurnOrder == 1 && pg.getPlayerOrder() == 2)
-				    switch (contextPlayerTurnOrder){
-					    case 1:
-					    	//1 3  <-- 4 players
-					    	//2 4
-					    	//1 3  <-- 3 players
-					    	//2  
-					    	switch (pg.getPlayerOrder()){
-						    	case 2:
-						    		playerIndex2 = x;
-						    		break;
-						    	case 3:
-						    		playerIndex3 = x;
-						    		break;
-						    	case 4:
-						    		playerIndex4 = x;
-						    		break;
-					    	}
-					    	break;
-					    case 2:
-					    	//2 4  <-- 4 players
-					    	//3 1
-					    	//2 1  <-- 3 players
-					    	//3  
-					    	switch (pg.getPlayerOrder()){
-						    	case 3:
-						    		playerIndex2 = x;
-						    		break;
-						    	case 4:
-						    		playerIndex3 = x;
-						    		break;
-						    	case 1:
-						    		if (playerGameCount == 3){
-						    			playerIndex3 = x;
-						    		}
-						    		else {
-						    			playerIndex4 = x;
-						    		}
-						    		break;
-						    	}
-					    	break;
-					    case 3:
-					    	//3 2  <-- 3 players
-					    	//1
-					    	//3 1  <-- 4 players
-					    	//4 2
-					    	switch (pg.getPlayerOrder()){
-						    	case 1:
-						    		if (playerGameCount == 3){
-						    			playerIndex2 = x;
-						    		}
-						    		else {
-						    			playerIndex3 = x;
-						    		}
-						    		break;
-						    	case 4:
-						    		playerIndex2 = x;
-						    		break;
-						    	case 2:
-						    		if (playerGameCount == 3){
-						    			playerIndex3 = x;
-						    		}
-						    		else {
-						    			playerIndex4 = x;
-						    		}
-						    		break;
-						    	}
-					    	break;
-					    case 4:
-					    	//4 2  <-- 4 players (can never be 3 players by definition)
-					    	//1 3
-					    	switch (pg.getPlayerOrder()){
-					    		case 1:
-						    		playerIndex2 = x;
-						    		break;
-						    	case 2:
-						    		playerIndex3 = x;
-						    		break;
-						    	case 3:
-						    		playerIndex4 = x;
-						    		break;
-						    	}
-					    	break;
-				    }
-			    }
-			 }
-		 }
-		 else{
-			 playerIndex2 = (contextPlayerIndex == 0 ? 1 : 0);
-		 }
-		 
-		 TextView tvContextPlayer = (TextView)context.findViewById(R.id.tvPlayer_1);
-		 TextView tvContextPlayerScore = (TextView)context.findViewById(R.id.tvPlayerScore_1);
-		 ImageView ivContextPlayerBadge = (ImageView)context.findViewById(R.id.ivPlayerBadge_1);
-		 ImageView ivContextPlayerTurn = (ImageView)context.findViewById(R.id.ivPlayerTurn_1);
-		 ImageView ivContextWhiteFlag = (ImageView)context.findViewById(R.id.ivWhiteFlag_1);
-		 
-		 TextView tvPlayer2 = (TextView)context.findViewById(R.id.tvPlayer_2);
-		 TextView tvPlayerScore2 = (TextView)context.findViewById(R.id.tvPlayerScore_2);
-		 ImageView ivPlayerBadge2 = (ImageView)context.findViewById(R.id.ivPlayerBadge_2);
-		 ImageView ivPlayerTurn2 = (ImageView)context.findViewById(R.id.ivPlayerTurn_2);
-		 ImageView ivWhiteFlag2 = (ImageView)context.findViewById(R.id.ivWhiteFlag_2);
+		 int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + o.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
+		 ivOpponent.setImageResource(opponentImageId);
 
-		 TextView tvPlayer3 = (TextView)context.findViewById(R.id.tvPlayer_3);
-		 TextView tvPlayerScore3 = (TextView)context.findViewById(R.id.tvPlayerScore_3);
-		 ImageView ivPlayerBadge3 = (ImageView)context.findViewById(R.id.ivPlayerBadge_3);
-		 ImageView ivPlayerTurn3 = (ImageView)context.findViewById(R.id.ivPlayerTurn_3);
-		 ImageView ivWhiteFlag3 = (ImageView)context.findViewById(R.id.ivWhiteFlag_3);
-		 
-		 TextView tvPlayer4 = (TextView)context.findViewById(R.id.tvPlayer_4);
-		 TextView tvPlayerScore4 = (TextView)context.findViewById(R.id.tvPlayerScore_4);
-		 ImageView ivPlayerBadge4 = (ImageView)context.findViewById(R.id.ivPlayerBadge_4);
-		 ImageView ivPlayerTurn4 = (ImageView)context.findViewById(R.id.ivPlayerTurn_4);
-		 ImageView ivWhiteFlag4 = (ImageView)context.findViewById(R.id.ivWhiteFlag_4);
-		 
-		 //position 1
-		 String contextPlayer = game.getPlayerGames().get(contextPlayerIndex).getPlayer().getName();
-		 if (contextPlayer.length() > 25 || playerGameCount > 2){contextPlayer = game.getPlayerGames().get(contextPlayerIndex).getPlayer().getAbbreviatedName();}
-		 tvContextPlayer.setText(contextPlayer);
-		 tvContextPlayerScore.setText(Integer.toString(game.getPlayerGames().get(contextPlayerIndex).getScore()));
-		 int contextPlayerBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getPlayerGames().get(contextPlayerIndex).getPlayer().getBadgeDrawable(), null, null);
-		 ivContextPlayerBadge.setImageResource(contextPlayerBadgeId);
-		 if (game.getPlayerGames().get(contextPlayerIndex).isTurn() == false){
-			 ivContextPlayerTurn.setVisibility(View.INVISIBLE);
-		 }
-		 else{
-			 ivContextPlayerTurn.setVisibility(View.VISIBLE);
-		 }
-		 if (game.getPlayerGames().get(contextPlayerIndex).getStatus() == 7){
-			 ivContextWhiteFlag.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 ivContextWhiteFlag.setVisibility(View.GONE);
-		 }
-
-		 //position 2
-		 String player2 = game.getActivePlayerGames().get(playerIndex2).getPlayer().getName();
-		 if (player2.length() > 25 || playerGameCount > 2){player2 = game.getPlayerGames().get(playerIndex2).getPlayer().getAbbreviatedName();}
-		 tvPlayer2.setText(player2);
-		 tvPlayerScore2.setText(Integer.toString(game.getActivePlayerGames().get(playerIndex2).getScore()));
-		 int playerBadgeId2 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getActivePlayerGames().get(playerIndex2).getPlayer().getBadgeDrawable(), null, null);
-		 ivPlayerBadge2.setImageResource(playerBadgeId2);
-		 if (game.getActivePlayerGames().get(playerIndex2).isTurn() == false){
-			 ivPlayerTurn2.setVisibility(View.INVISIBLE);	 
-		 }
-		 else{
-			 ivPlayerTurn2.setVisibility(View.VISIBLE);
-		 }
-		 if (game.getActivePlayerGames().get(playerIndex2).getStatus() == 7){
-			 ivWhiteFlag2.setVisibility(View.VISIBLE);
-		 }
-		 else{
-			 ivWhiteFlag2.setVisibility(View.GONE);
-		 }
-		 //if neither context player and player 2 are currently taking their turn, 
-		 //collapse the turn image column on the left
-		 if (game.getActivePlayerGames().get(playerIndex2).isTurn() == false &&
-				 game.getActivePlayerGames().get(contextPlayerIndex).isTurn() == false) {
-			 ivContextPlayerTurn.setVisibility(View.GONE);
-			 ivPlayerTurn2.setVisibility(View.GONE);
-		 }
-		 
-		  
-		 if (playerGameCount == 3){
-			 //hide 4th player
-			 tvPlayer4.setVisibility(View.INVISIBLE);
-			 tvPlayerScore4.setVisibility(View.INVISIBLE);
-			 ivPlayerBadge4.setVisibility(View.INVISIBLE);
-			 ivPlayerTurn4.setVisibility(View.INVISIBLE);	
-			 ivWhiteFlag4.setVisibility(View.GONE);
-			 
-			 //position 3
-			 String player3 = game.getActivePlayerGames().get(playerIndex3).getPlayer().getName();
-			 if (player3.length() > 25 || playerGameCount > 2){player3 = game.getActivePlayerGames().get(playerIndex3).getPlayer().getAbbreviatedName();}
-			 tvPlayer3.setText(player3);
-			 tvPlayerScore3.setText(Integer.toString(game.getActivePlayerGames().get(playerIndex3).getScore()));
-			 int playerBadgeId3 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getActivePlayerGames().get(playerIndex3).getPlayer().getBadgeDrawable(), null, null);
-			 ivPlayerBadge3.setImageResource(playerBadgeId3);
-			 if (game.getActivePlayerGames().get(playerIndex3).isTurn() == false){
-				 ivPlayerTurn3.setVisibility(View.INVISIBLE);
-			 }
-			 else{
-				 ivPlayerTurn3.setVisibility(View.VISIBLE);
-			 }
-			 if (game.getActivePlayerGames().get(playerIndex3).getStatus() == 7){
-				 ivWhiteFlag3.setVisibility(View.VISIBLE);
-			 }
-			 else{
-				 ivWhiteFlag3.setVisibility(View.GONE);
-			 }
-		 }
-		 else if (playerGameCount == 2)
-		 {
-			 //hide second column if there are only 2 players
-			 tvPlayer3.setVisibility(View.GONE);
-			 tvPlayerScore3.setVisibility(View.GONE);
-			 ivPlayerBadge3.setVisibility(View.GONE);
-			 ivPlayerTurn3.setVisibility(View.GONE);
-			 ivWhiteFlag3.setVisibility(View.GONE);
-			 
-			 tvPlayer4.setVisibility(View.GONE);
-			 tvPlayerScore4.setVisibility(View.GONE);
-			 ivPlayerBadge4.setVisibility(View.GONE);
-			 ivPlayerTurn4.setVisibility(View.GONE);	 
-			 ivWhiteFlag4.setVisibility(View.GONE);
-
-		 }
-		 else if (playerGameCount == 4){
-			 
-			 //position 3
-			 String player3 = game.getActivePlayerGames().get(playerIndex3).getPlayer().getName();
-			 if (player3.length() > 25 || playerGameCount > 2){player3 = game.getActivePlayerGames().get(playerIndex3).getPlayer().getAbbreviatedName();}
-			 tvPlayer3.setText(player3);
-			 tvPlayerScore3.setText(Integer.toString(game.getActivePlayerGames().get(playerIndex3).getScore()));
-			 int playerBadgeId3 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getActivePlayerGames().get(playerIndex3).getPlayer().getBadgeDrawable(), null, null);
-			 ivPlayerBadge3.setImageResource(playerBadgeId3);
-			 if (game.getActivePlayerGames().get(playerIndex3).isTurn() == false){
-				 ivPlayerTurn3.setVisibility(View.INVISIBLE);
-			 }
-			 else{
-				 ivPlayerTurn3.setVisibility(View.VISIBLE);
-			 }
-			 if (game.getActivePlayerGames().get(playerIndex3).getStatus() == 7){
-				 ivWhiteFlag3.setVisibility(View.VISIBLE);
-			 }
-			 else{
-				 ivWhiteFlag3.setVisibility(View.GONE);
-			 }
-			 //position 4
-			 String player4 = game.getActivePlayerGames().get(playerIndex4).getPlayer().getName();
-			 if (player4.length() > 25 || playerGameCount > 2){player4 = game.getActivePlayerGames().get(playerIndex4).getPlayer().getAbbreviatedName();}
-			 tvPlayer4.setText(player4);
-			 tvPlayerScore4.setText(Integer.toString(game.getActivePlayerGames().get(playerIndex4).getScore()));
-			 int playerBadgeId4 = context.getResources().getIdentifier("com.riotapps.word:drawable/" + game.getActivePlayerGames().get(playerIndex4).getPlayer().getBadgeDrawable(), null, null);
-			 ivPlayerBadge4.setImageResource(playerBadgeId4);
-			 if (game.getActivePlayerGames().get(playerIndex4).isTurn() == false){
-				 ivPlayerTurn4.setVisibility(View.INVISIBLE);
-			 }
-			 else{
-				 ivPlayerTurn4.setVisibility(View.VISIBLE);
-			 }
-			 if (game.getActivePlayerGames().get(playerIndex4).getStatus() == 7){
-				 ivWhiteFlag4.setVisibility(View.VISIBLE);
-			 }
-			 else{
-				 ivWhiteFlag4.setVisibility(View.GONE);
-			 }
-		 }
-		 
 		 TextView tvLettersLeft = (TextView)context.findViewById(R.id.tvLettersLeft);
 		 if (game.getNumLettersLeft() == 1){
 			 tvLettersLeft.setText(R.string.scoreboard_1_letter_left);
@@ -829,28 +534,7 @@ public static Game skip(boolean isOpponent, Game game){
 		 else{
 			 tvLettersLeft.setText(String.format(context.getString(R.string.scoreboard_letters_left), game.getNumLettersLeft()));
 		 }
-		 
-		 //if game is complete, hide all turn markers
-		 if (game.isCompleted()){
-			 ivContextPlayerTurn.setVisibility(View.GONE);	
-			 ivPlayerTurn2.setVisibility(View.GONE);	
-			 ivPlayerTurn3.setVisibility(View.GONE);	
-			 ivPlayerTurn4.setVisibility(View.GONE);	
-			 
-		//	 TextView tvNumPoints = (TextView)context.findViewById(R.id.tvNumPoints);
-		//	 tvNumPoints.setText(String.format(context.getString(R.string.scoreboard_randoms), 
-		//			 game.getRandomConsonants().get(0),
-		//			 game.getRandomConsonants().get(1),
-		//			 game.getRandomConsonants().get(2),
-		//			 game.getRandomVowels().get(0),
-		//			 game.getRandomVowels().get(1)));
-		 }
-		 
-		 
-		 //this.tvNumPoints.setText(String.format(context.getString(R.string.scoreboard_num_points), "0"));
-		 
-		 return contextPlayerGame;
-		 */
+ 
 	 }
 	
 	//return int that represents the display message
