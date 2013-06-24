@@ -149,6 +149,9 @@ public class PlayerService {
 		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 	    appContext.getPlayer().addWinToPlayerRecord();
 	    
+	    //assume a game is over and clear out active game
+	    appContext.getPlayer().setActiveGameId("");
+	    
 	    savePlayer(appContext.getPlayer());
 	}
 
@@ -156,12 +159,18 @@ public class PlayerService {
 		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 	    appContext.getPlayer().addLossToPlayerRecord();
 	    
+	    //assume a game is over and clear out active game
+	    appContext.getPlayer().setActiveGameId("");
+	    
 	    savePlayer(appContext.getPlayer());
 	}
 	
 	public static void addDrawToPlayerRecord(){
 		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 	    appContext.getPlayer().addDrawToPlayerRecord();
+	    
+	    //assume a game is over and clear out active game
+	    appContext.getPlayer().setActiveGameId("");
 	    
 	    savePlayer(appContext.getPlayer());
 	}

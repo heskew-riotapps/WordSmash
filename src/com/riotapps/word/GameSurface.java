@@ -1095,7 +1095,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				        			Constants.TRACKER_LABEL_RESIGN_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.handleResign();
 						break;
-			      
+			        case R.id.bCancel:  
+			        	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+			        			Constants.TRACKER_LABEL_CANCEL_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			        	this.handleCancel();
+						break;
 		    	}
 	    	}	
 	 }
@@ -1139,6 +1143,62 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    });
 		}
 
+
+	    private void handleCancel(){
+	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
+	    			this.getString(R.string.game_surface_cancel_game_confirmation_title), 
+	    			this.getString(R.string.game_surface_cancel_game_confirmation_text),
+	    			this.getString(R.string.yes),
+	    			this.getString(R.string.no));
+	    	
+	    	dialog.setOnOKClickListener(new View.OnClickListener() {
+		 		@Override
+				public void onClick(View v) {
+		 			dialog.dismiss(); 
+		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			handleGameCancelOnClick();
+		 		
+		 		}
+			});
+
+	    	dialog.setOnDismissListener(new View.OnClickListener() {
+			 		@Override
+					public void onClick(View v) {
+			 			dialog.dismiss(); 
+			 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+			        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			 			
+			 			unfreezeButtons();
+			 		}
+				});
+	    	
+	     	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+				@Override
+				public void onCancel(DialogInterface dialog) {
+					trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+					
+					unfreezeButtons();
+				}
+			});  
+	    	dialog.show();	
+	    }
+	    
+	    private void handleGameCancelOnClick(){
+	    	//stop thread first
+	    	this.gameSurfaceView.onStop();
+	     
+	    	GameService.cancel(this.player, this.game);
+	    	GameStateService.removeGameState(this.game.getId());
+    		Intent intent = new Intent(this, com.riotapps.word.Main.class);
+    		this.startActivity(intent); 
+        
+	    	//finish this activity so it is removed from history
+    		this.finish();
+	    	
+	    }
 
 	    private void handleResign(){
 	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
@@ -1195,6 +1255,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		
 	    		DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 				setupButtons();
+				GameStateService.removeGameState(game.getId());
+
 	    		//create alert for resigned game that when clicked, sends user back to main
 	    		
 		//	} catch (DesignByContractException e) {
@@ -1219,6 +1281,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					//display
 					DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 					setupButtons();
+					GameStateService.removeGameState(game.getId());
 				}
 				else{
 					// show player his score, then kick off auto play
@@ -1231,6 +1294,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						//perhaps replace play, skip
 						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
 						setupButtons();
+						GameStateService.removeGameState(game.getId());
 					}
 					else{
 						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
@@ -1259,6 +1323,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					//display
 					DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 					setupButtons();
+					GameStateService.removeGameState(game.getId());
+
 				}
 				else{
 					// show player his score, then kick off auto play
@@ -1271,11 +1337,12 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						//perhaps replace play, skip
 						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
 						setupButtons();
+						GameStateService.removeGameState(game.getId());
+
 					}
 					else{
 						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
 					}
-					
 				}
 	    		
 				//DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());

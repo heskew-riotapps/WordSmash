@@ -72,15 +72,10 @@ public class GameService {
 		return GameData.getGame(gameId);
 	}
 	
-	public static void removeGame(Game game){
+	public static void removeGame(String gameId){
 		 
-		//change this to use GameData class
-	    SharedPreferences settings = Storage.getSharedPreferences();
-	    SharedPreferences.Editor editor = settings.edit();
-	 
-	    editor.remove(String.format(Constants.USER_PREFS_GAME_JSON, game.getId()));
-		editor.apply();
-	}
+		GameData.removeGame(gameId);
+ 	}
 
 	public static Game createGame(Context ctx, Player contextPlayer, int opponentId) throws DesignByContractException{
 		
@@ -195,9 +190,18 @@ public class GameService {
 		GameData.saveGame(game);
 	}
 	
- 
-	public static Game play(boolean isOpponent, Game game, PlacedResult placedResult){
+
+	public static void cancel(Player player, Game game){
 		
+		//Check.Require(game.getTurn() == 1, "can only cancel game on first turn");
+		removeGame(game.getId());
+		player.setActiveGameId("");
+		PlayerService.savePlayer(player);
+	}
+	
+	
+	public static Game play(boolean isOpponent, Game game, PlacedResult placedResult){
+		Logger.d(TAG, "GameService.play called.  isOpponent=" + isOpponent);		
 		Date now = new Date();
 
 		//add a new word to the game's word list for each word played
@@ -305,7 +309,7 @@ public class GameService {
 	}
 	
 public static Game skip(boolean isOpponent, Game game){
-		
+		Logger.d(TAG, "GameService.skip called.  isOpponent=" + isOpponent);
 		Date now = new Date();
 
 		PlayedTurn turn = new PlayedTurn();
@@ -370,7 +374,7 @@ public static Game skip(boolean isOpponent, Game game){
 	}
 	
 	public static Game swap(boolean isOpponent, Game game, List<String> swappedLetters){
-		
+		Logger.d(TAG, "GameService.swap called.  isOpponent=" + isOpponent);
 		Date now = new Date();
 	
 		PlayedTurn turn = new PlayedTurn();
@@ -447,10 +451,13 @@ public static Game skip(boolean isOpponent, Game game){
 		//autoplay logic kicked off here
 		//put results in placedResult object just like in normal play
 		
-		
+		//temp 
+		return game;
 		
 		//just call this after determining played words, passing PlacedResults to it
-		return GameService.play(true, game, placedResult);
+		//return GameService.play(true, game, placedResult);
+		//return GameService.skip(true, game);
+		//return GameService.swap(true, game, placedResult);
 	}
 	
 	

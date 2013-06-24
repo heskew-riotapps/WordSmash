@@ -68,6 +68,14 @@ public class GameData {
     	return game;
  	}
 	
+	public static void removeGame(String id){
+	    SharedPreferences settings = Storage.getGameSharedPreferences();
+	    SharedPreferences.Editor editor = settings.edit();
+		 
+	    editor.remove(String.format(Constants.USER_PREFS_GAME_JSON, id));
+		editor.apply();
+
+ 	}	
 	
 	public static void saveGame(Game game){
 		Gson gson = new Gson(); 

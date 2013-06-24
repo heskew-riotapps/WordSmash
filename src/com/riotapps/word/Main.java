@@ -10,6 +10,7 @@ import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.CustomButtonDialog;
+import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.GameSurfaceView;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
@@ -427,18 +428,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 			public void onClick(View v) {
 	 			dialog.dismiss(); 
 	 			
-	 			try {
-					Game game = GameService.createGame(context, player, chosenOpponentId);
-					
-					Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
-            		intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
-            		Main.this.startActivity(intent); 
-					
-				} catch (DesignByContractException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	 			
+	 			handleGameStartOnClick();
 	 			//open game surface activity
 	 		//	trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 	        //			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
@@ -469,6 +459,18 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
     private void handleGameStartOnClick(){
     	//start game and go to game surface
+    	try {
+			Game game = GameService.createGame(context, player, chosenOpponentId);
+			
+			Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
+    		intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
+    		Main.this.startActivity(intent); 
+			
+		} catch (DesignByContractException e) {
+			// TODO Auto-generated catch block
+			DialogManager.SetupAlert(this, this.getString(R.string.sorry), e.getMessage());
+		}
+
     }
     
  	

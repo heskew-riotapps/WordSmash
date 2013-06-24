@@ -54,7 +54,7 @@ public class Splash  extends FragmentActivity {
             	else{
             		intent = new Intent(Splash.this, com.riotapps.word.Main.class);
             	}
-            	intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            	//intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             	Splash.this.startActivity(intent); 
             	//Splash.this.finish();
 
