@@ -13,7 +13,7 @@ public class PlayedTile {
 	
 	@SerializedName("p")
 	private int boardPosition; 
-
+	
 	@SerializedName("l_")
 	private List<PlayedLetter> letters = new ArrayList<PlayedLetter>();
 	 

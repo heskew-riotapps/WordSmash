@@ -2,12 +2,9 @@ package com.riotapps.word;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.conn.ConnectTimeoutException;
-
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
-import com.google.gson.Gson;
 import com.revmob.RevMob;
 import com.revmob.RevMobAdsListener;
 import com.revmob.ads.fullscreen.RevMobFullscreen;
@@ -15,12 +12,9 @@ import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
-import com.riotapps.word.hooks.PlayerGame;
-import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.CustomButtonDialog;
 
 import com.riotapps.word.ui.DialogManager;
-import com.riotapps.word.ui.GameAction;
 import com.riotapps.word.ui.GameAction.GameActionType;
 import com.riotapps.word.ui.GameState;
 import com.riotapps.word.ui.GameStateService;
@@ -28,15 +22,10 @@ import com.riotapps.word.ui.GameSurfaceView;
 import com.riotapps.word.ui.PlacedResult;
 import com.riotapps.word.ui.WordLoaderThread;
 import com.riotapps.word.utils.ApplicationContext;
-import com.riotapps.word.utils.AsyncNetworkRequest;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.CustomProgressDialog;
-import com.riotapps.word.utils.DesignByContractException;
 import com.riotapps.word.utils.ImageFetcher;
 import com.riotapps.word.utils.Logger;
-import com.riotapps.word.utils.NetworkTaskResult;
- 
-import com.riotapps.word.utils.Enums.RequestType;
 import com.riotapps.word.utils.Utils;
 
 import android.annotation.SuppressLint;
@@ -46,16 +35,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
@@ -106,6 +92,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private RevMobFullscreen revMobFullScreen;
 	 private boolean hasFinalPostTurnRun = false;
 	 private boolean isBoundToGCMService = false;
+	 
+	 private String postTurnMessage = "";
+	 private String postTurnTitle = "";
  
 	 
 	 private Timer timer = null;
@@ -674,12 +663,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 
 		 //if this.turn != gameState.turn, clearGameState
 		 
+		 Logger.d(TAG, "filleGameState trayVersion=" + this.game.getPlayerGames().get(0).getTrayVersion());
+		 
 		 //if the game state is dated, clear it out
 		 if (this.game.getPlayerGames().get(0).getTrayVersion() != this.gameState.getTrayVersion()){
 			 this.gameState = GameStateService.clearGameState(this.game.getId());
 		 }
 		 
-	 
+
+		 Logger.d(TAG, "filleGameState numTrayTiles=" + this.game.getPlayedTiles().size());
 		// this.gameState.setTrayVersion(this.game.getContextPlayerTrayVersion(this.player));
 		 
 		 //load played tiles into game state
@@ -959,7 +951,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	            	 Logger.d(TAG, "onRevMobAdDismiss");
                      //Toast.makeText(GameSurface.this, "onRevMobAdDismiss.", Toast.LENGTH_SHORT).show();
 
-	            	 handlePostTurnFinalAction(postTurnAction);
+	            	 handlePostAdServer();
+	            	 //handlePostTurnFinalAction(postTurnAction);
 	            }
 	 
 	            @Override
@@ -968,7 +961,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	                    @Override
 	                    public void run() {
 	                    	Logger.d(TAG, "onRevMobAdClicked");
-	                    	handlePostTurnFinalAction(postTurnAction);
+	                    	handlePostAdServer();
+	                    	//handlePostTurnFinalAction(postTurnAction);
 	                       // Toast.makeText(GameSurface.this, "Click intercepted.", Toast.LENGTH_SHORT).show();
 	                    }
 	                });
@@ -977,7 +971,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				@Override
 				public void onRevMobAdDisplayed() {
 					 Logger.d(TAG, "onRevMobAdDisplayed");
-					 handlePostTurnFinalAction(postTurnAction);
+					 handlePostAdServer();
+					 //handlePostTurnFinalAction(postTurnAction);
 					
 				}
 	        };
@@ -1001,7 +996,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		if (this.isRestartFromInterstitialAd){
 			Logger.d(TAG, "onRestart from InterstitialAd");  
 
-			this.handlePostTurnFinalAction(this.postTurnAction);
+			this.handleInterstitialAd();
+			//this.handlePostTurnFinalAction(this.postTurnAction);
 			this.isRestartFromInterstitialAd = false;
 		}
 		else {
@@ -1271,16 +1267,22 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    	//try{
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
- 	    	this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
+ 	    	//this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
 	    	 
 	    		game = GameService.play(false, game, placedResult);
-
+	    		gameState = GameStateService.clearGameState(game.getId());
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
 				{
 					//display
-					DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
+					this.postTurnTitle = context.getString(R.string.game_over);
+					this.postTurnMessage = 	game.getLastActionText(context); 
+		
+					//DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 					setupButtons();
+					setupGame();
+		 			gameSurfaceView.resetGameAfterPlay();
+
 					GameStateService.removeGameState(game.getId());
 				}
 				else{
@@ -1289,21 +1291,26 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					game = GameService.autoPlay(game);
 
 					String opponentAction = game.getLastActionText(context);
-					
+
+					this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
+					this.postTurnMessage = 	String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction); 
+		
+					//DialogManager.SetupAlert(context, context.getString(R.string.post_turn_title_with_auto_play), String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction));
+					setupButtons();
+
+					setupGame();
+		 			gameSurfaceView.resetGameAfterPlay();
+		 			setPointsAfterPlayView();
+		 			
 					if (game.isCompleted()) {
 						//perhaps replace play, skip
-						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
-						setupButtons();
 						GameStateService.removeGameState(game.getId());
 					}
-					else{
-						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
-					}
-					
-				}
-	    		
+				}    	
+				
+				handleInterstitialAd();
 				//DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());
-				this.unfreezeButtons();
+				//this.unfreezeButtons();
 			//}
 			 
 	    }
@@ -1313,16 +1320,21 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    	//try{
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
- 	    	this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
+ 	    	//this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
 	    	 
 	    		game = GameService.skip(false, game);
-
+	    		gameState = GameStateService.clearGameState(game.getId());
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
 				{
 					//display
-					DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
+					this.postTurnTitle = context.getString(R.string.game_over);
+					this.postTurnMessage = 	game.getLastActionText(context); 
+					//DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 					setupButtons();
+					setupGame();
+		 			gameSurfaceView.resetGameAfterPlay();
+
 					GameStateService.removeGameState(game.getId());
 
 				}
@@ -1333,20 +1345,24 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 					String opponentAction = game.getLastActionText(context);
 					
+					this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
+					this.postTurnMessage = 	String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction); 
+		
+					//DialogManager.SetupAlert(context, context.getString(R.string.post_turn_title_with_auto_play), String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction));					
+					setupButtons();
+					setupGame();
+		 			gameSurfaceView.resetGameAfterPlay();
+		 			setPointsAfterPlayView();
+					
 					if (game.isCompleted()) {
 						//perhaps replace play, skip
-						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
-						setupButtons();
 						GameStateService.removeGameState(game.getId());
-
-					}
-					else{
-						DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
+						this.gameSurfaceView.stopThreadLoop();
 					}
 				}
-	    		
+				handleInterstitialAd();
 				//DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());
-				this.unfreezeButtons();
+			//	this.unfreezeButtons();
 			//}
 			 
 	    }
@@ -1360,31 +1376,73 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//stop thread first
 	    	
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
- 	    	this.gameSurfaceView.stopThreadLoop();
+ 	    	//this.gameSurfaceView.stopThreadLoop();
 	    //	try { 
 	    		GameService.swap(false, game, swappedLetters);
-
+	    		gameState = GameStateService.clearGameState(game.getId());
+	    		
 	    		String playerAction = game.getLastActionText(context);
 				game = GameService.autoPlay(game);
 
 				String opponentAction = game.getLastActionText(context);
 				
+				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
+				this.postTurnMessage = 	String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction); 
+				
+			//	DialogManager.SetupAlert(context, context.getString(R.string.post_turn_title_with_auto_play), String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction));
+				setupButtons();
+				setupGame();
+	 			gameSurfaceView.resetGameAfterPlay();
+	 			setPointsAfterPlayView();
+				
+
 				if (game.isCompleted()) {
 					//perhaps replace play, skip
-					DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
-					setupButtons();
+					GameStateService.removeGameState(game.getId());
+					this.gameSurfaceView.stopThreadLoop();
 				}
-				else{
-					DialogManager.SetupAlert(context, context.getString(R.string.game_over), playerAction + "\n\n" + opponentAction);
-				}
-		//	} catch (DesignByContractException e) {
+				
+				handleInterstitialAd();
+
+				//	} catch (DesignByContractException e) {
 				 
 		//		DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
 		//	}
 			 
 	    }
 	    
-	 
+	    public void handlePostAdServer(){
+	    	//temp message
+	    	this.unfreezeButtons();
+			DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
+	    	
+	    }
+	    
+	    private void handleInterstitialAd(){
+	    	this.hasFinalPostTurnRun = false;
+	    	if (this.hideInterstitialAd){
+	    		this.handlePostAdServer();   		            	 					
+	 			}
+	 		else{
+	 			if (this.isChartBoostActive) {
+		 			this.cb.setTimeout((int)Constants.GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MILLISECONDS);
+		 			this.cb.showInterstitial();
+			    	Logger.d(TAG, "showInterstitial from Chartboost");
+			    	//String toastStr = "Loading Interstitial";
+			    	//if (cb.hasCachedInterstitial()) toastStr = "Loading Interstitial From Cache";
+			    	//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
+	 			}
+	 			else if (this.isRevMobActive) {
+	 				 
+	 				 this.revMobFullScreen.show();
+			    	Logger.d(TAG, "showInterstitial RevMob");
+			    	//String toastStr = "Loading Interstitial";
+			    	//if (cb.hasCachedInterstitial()) toastStr = "Loading Interstitial From Cache";
+			    	//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
+	 			}
+ 			}
+	    }
+
 	    
 	    private class SwapDialog extends AlertDialog implements View.OnClickListener{ 
 	    //	private Dialog dialog;
@@ -1715,13 +1773,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    		if (spinner != null){
 	    				spinner.dismiss();
 	    			}
-	    			handlePostTurnFinalAction(postTurnAction);
+		    		handlePostAdServer();
+	    			//handlePostTurnFinalAction(postTurnAction);
 				} catch (Exception e) {
 					 Logger.d(TAG, "checkRunawayAdTaskRunnable error=" + e.toString());
 				}
 		    }
 	   }
-	    private void handlePostTurnFinalAction(GameActionType action){
+	    private void handlePostTurnFinalAction_________(GameActionType action){
 	    	 Logger.d(TAG, "handlePostTurnFinalAction called");
 	    	 if (!this.hasFinalPostTurnRun){
 	    		 	this.hasFinalPostTurnRun = true;
@@ -1802,7 +1861,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			Logger.d(TAG, "interstitial onFailedToReceiveAd called");
 			this.isAdStarted = true;
 			this.spinner.dismiss();
-			this.handlePostTurnFinalAction(this.postTurnAction);
+			handlePostAdServer();
+			//this.handlePostTurnFinalAction(this.postTurnAction);
 		}
 
 		@Override
@@ -1918,7 +1978,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				Logger.i(TAG, "ChartBoost INTERSTITIAL '"+location+"' REQUEST FAILED");
 				//Toast.makeText(context, "Interstitial '"+location+"' Load Failed",
 				//		Toast.LENGTH_SHORT).show();
-				handlePostTurnFinalAction(postTurnAction);
+				handlePostAdServer();
+				//handlePostTurnFinalAction(postTurnAction);
 			}
 
 			/*
@@ -1937,7 +1998,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 				// Immediately re-caches an interstitial
 				cb.cacheInterstitial(location);
-				handlePostTurnFinalAction(postTurnAction);
+				handlePostAdServer();
+				//handlePostTurnFinalAction(postTurnAction);
 
 
 				Logger.i(TAG, "ChartBoost INTERSTITIAL '"+location+"' DISMISSED");
@@ -1957,7 +2019,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			@Override
 			public void didCloseInterstitial(String location) {
 				Logger.i(TAG, "ChartBoost INSTERSTITIAL '"+location+"' CLOSED");
-				handlePostTurnFinalAction(postTurnAction);
+				handlePostAdServer();
+				//handlePostTurnFinalAction(postTurnAction);
 				//Toast.makeText(context, "Closed Interstitial '"+location+"'",
 				//		Toast.LENGTH_SHORT).show();
 			}
@@ -1973,7 +2036,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			@Override
 			public void didClickInterstitial(String location) {
 				Logger.i(TAG, "ChartBoost DID CLICK INTERSTITIAL '"+location+"'");
-				handlePostTurnFinalAction(postTurnAction);
+				handlePostAdServer();
+				//handlePostTurnFinalAction(postTurnAction);
 				//Toast.makeText(context, "Clicked Interstitial '"+location+"'",
 				//		Toast.LENGTH_SHORT).show();
 			}

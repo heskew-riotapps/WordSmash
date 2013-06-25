@@ -229,7 +229,7 @@ public class GameService {
 		}
 
 		//add letters from hopper into players tray to make up for played letters that were removed
-		for (int i = 0; i < placedResult.getPlacedTiles().size() - 1; i++){
+		for (int i = 0; i < placedResult.getPlacedTiles().size(); i++){
 			//take care since the hopper may be near the end
 			if (game.getHopper().size() > 0){
 				//add the first hopper letter to the player's tray
@@ -408,7 +408,7 @@ public static Game skip(boolean isOpponent, Game game){
 		game.shuffleHopper();
 		
 		//add letters from hopper into players tray to make up for swapped letters that were removed
-		for (int i = 0; i < swappedLetters.size() - 1; i++){
+		for (int i = 0; i < swappedLetters.size(); i++){
 			//take care since the hopper may be near the end
 			if (game.getHopper().size() > 0){
 				//add the first hopper letter to the player's tray
@@ -451,7 +451,8 @@ public static Game skip(boolean isOpponent, Game game){
 		//autoplay logic kicked off here
 		//put results in placedResult object just like in normal play
 		
-		//temp 
+		//temp
+		GameService.skip(true, game);
 		return game;
 		
 		//just call this after determining played words, passing PlacedResults to it

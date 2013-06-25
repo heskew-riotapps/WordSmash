@@ -901,6 +901,8 @@ containing a value of this type.
         public static final int password=0x7f060026;
         public static final int playtomics_api_key=0x7f060017;
         public static final int playtomics_guid=0x7f060016;
+        public static final int post_turn_message_with_auto_play=0x7f0601ff;
+        public static final int post_turn_title_with_auto_play=0x7f060200;
         public static final int progress_cancelling=0x7f060080;
         public static final int progress_checking=0x7f06007d;
         public static final int progress_connecting=0x7f06007f;

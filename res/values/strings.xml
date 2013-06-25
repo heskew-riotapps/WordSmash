@@ -559,4 +559,6 @@
 		<string name="main_menu_store">Store</string>
 		<string name="win_loss_draw_separator"> - </string>
 		<string name="validation_create_game_duplicate">A game is already active.</string>
+		<string name="post_turn_message_with_auto_play">%1$s and then %2$s</string>
+		<string name="post_turn_title_with_auto_play"></string>
 </resources>

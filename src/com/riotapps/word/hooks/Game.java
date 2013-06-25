@@ -847,11 +847,13 @@ public class Game implements Parcelable, Comparable<Game> {
 		if (tile.getBoardPosition() == placedTile.getId()){
 			tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
 			found = true;
+			break;
 		}	
 		if (!found){
 			PlayedTile tile1 = new PlayedTile();
 			tile.setBoardPosition(placedTile.getId());
 			tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
+			this.playedTiles.add(tile1);
 		}
 	}
 		

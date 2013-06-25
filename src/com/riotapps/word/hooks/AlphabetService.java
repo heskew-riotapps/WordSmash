@@ -16,7 +16,7 @@ import com.riotapps.word.utils.Utils;
 
 public class AlphabetService {
 	
-	private static Alphabet alphabet = new Alphabet();
+	private static Alphabet alphabet = null;
 	
 	public AlphabetService(Context context){
 		 Gson gson = new Gson();
