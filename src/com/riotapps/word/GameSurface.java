@@ -90,7 +90,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private RevMob revmob;
 	 private RevMobAdsListener revmobListener;
 	 private RevMobFullscreen revMobFullScreen;
-	 private boolean hasFinalPostTurnRun = false;
+	 private boolean hasPostAdRun = false;
 	 private boolean isBoundToGCMService = false;
 	 
 	 private String postTurnMessage = "";
@@ -697,19 +697,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 }
 	 }
 	 
-	    
-/*	 public class UpdateThread______ implements Runnable {
-	    	 
-	        @Override
-	        public void run() {
-	             while(true){
-	            	 GameSurface.this.updateHandler.sendEmptyMessage(0);
-	            }
-	        }
-	 
-	    }
-
-	 */   
+ 
 //	public RelativeLayout getScoreboard() {
 //		return scoreboard;
 //	}
@@ -1412,14 +1400,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    }
 	    
 	    public void handlePostAdServer(){
-	    	//temp message
-	    	this.unfreezeButtons();
-			DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
-	    	
+	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
+    		 	this.hasPostAdRun = true;
+    		 	this.unfreezeButtons();
+    		 	DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
+	    	}
 	    }
 	    
 	    private void handleInterstitialAd(){
-	    	this.hasFinalPostTurnRun = false;
+	    	this.hasPostAdRun = false;
 	    	if (this.hideInterstitialAd){
 	    		this.handlePostAdServer();   		            	 					
 	 			}
@@ -1780,58 +1769,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				}
 		    }
 	   }
-	    private void handlePostTurnFinalAction_________(GameActionType action){
-	    	 Logger.d(TAG, "handlePostTurnFinalAction called");
-	    	 if (!this.hasFinalPostTurnRun){
-	    		 	this.hasFinalPostTurnRun = true;
-	    		 	
-	    		 	if (action != null){
-				    	switch(action){
-			    	 	case CANCEL_GAME:
-			    	 			//remove game from storage
-			    	 		
-				 				//send player back to main landing 
-				 				context.handleBack(com.riotapps.word.Main.class);
-				 		 
-			    	 	
-			    	 		break;
-			    	 
-			    	 	case RESIGN:
-			
-				 			//send player back to main landing 
-				 			context.handleBack(com.riotapps.word.Main.class);
-				 
-			    	 		break;
-			    	 	case PLAY: //xxxxx
-				 			//refresh game board and buttons
-			    	 		Logger.d(TAG, "handlePostTurnFinalAction game status=" + this.game.getStatus());
-				 			setupGame();
-				 			checkGameStatus();
-				 			gameSurfaceView.resetGameAfterPlay();
-				 			///this.setupTimer();
-			
-				 			break;
-			    	 	case SKIP:
-			
-				 			//refresh game board and buttons
-				 			setupGame();
-				 			checkGameStatus();
-				 			gameSurfaceView.resetGameAfterPlay();
-				 		///this.setupTimer();
-				 			break;
-			    	 	case SWAP:
-			
-				 			//refresh game board and buttons
-			    	 		Logger.d(TAG,"handlePostTurnFinalAction SWAP");
-				 			setupGame();
-				 			gameSurfaceView.resetGameAfterPlay();
-				 			//this.setupTimer();
-			    	 		break;
-				    	}	
-		    	 }
-	    	 }
-		}
-
+	 
 	    private void loadAdMobInterstitialAd(){
 		    // Create the interstitial
 	        interstitial = new  com.google.ads.InterstitialAd(this, this.getString(R.string.admob_pub_id_interstitial));
@@ -1914,7 +1852,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 */
 			@Override
 			public boolean shouldDisplayInterstitial(String location) {
-				Logger.i(TAG, "SHOULD DISPLAY INTERSTITIAL '"+location+ "'?");
+				Logger.d(TAG, "SHOULD DISPLAY INTERSTITIAL '"+location+ "'?");
 				return true;
 			}
 
@@ -1936,7 +1874,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 */
 			@Override
 			public boolean shouldRequestInterstitial(String location) {
-				Logger.i(TAG, "SHOULD REQUEST INSTERSTITIAL '"+location+ "'?");
+				Logger.d(TAG, "SHOULD REQUEST INSTERSTITIAL '"+location+ "'?");
 				return true;
 			}
 
@@ -1955,7 +1893,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 */
 			@Override
 			public void didCacheInterstitial(String location) {
-				Logger.i(TAG, "INTERSTITIAL '"+location+"' CACHED");
+				Logger.d(TAG, "INTERSTITIAL '"+location+"' CACHED");
 			}
 
 			/*
@@ -1975,7 +1913,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			public void didFailToLoadInterstitial(String location) {
 			    // Show a house ad or do something else when a chartboost interstitial fails to load
 
-				Logger.i(TAG, "ChartBoost INTERSTITIAL '"+location+"' REQUEST FAILED");
+				Logger.d(TAG, "ChartBoost INTERSTITIAL '"+location+"' REQUEST FAILED");
 				//Toast.makeText(context, "Interstitial '"+location+"' Load Failed",
 				//		Toast.LENGTH_SHORT).show();
 				handlePostAdServer();
@@ -2002,7 +1940,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				//handlePostTurnFinalAction(postTurnAction);
 
 
-				Logger.i(TAG, "ChartBoost INTERSTITIAL '"+location+"' DISMISSED");
+				Logger.d(TAG, "ChartBoost INTERSTITIAL '"+location+"' DISMISSED");
 				//Toast.makeText(context, "Dismissed Interstitial '"+location+"'",
 				//		Toast.LENGTH_SHORT).show();
 				

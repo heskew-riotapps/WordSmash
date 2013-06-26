@@ -46,21 +46,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
      private final static int MENU_BADGES = 3;
      private final static int MENU_RULES = 4;
      private final static int MENU_STORE = 5;
-     
-     private static Bitmap bgOpponentGroup1_Opponent1 = null;
-     private static Bitmap bgOpponentGroup1_Opponent2 = null;
-     private static Bitmap bgOpponentGroup1_Opponent3 = null;
-     private static Bitmap bgOpponentGroup1_Opponent4 = null;
-     private static Bitmap bgOpponentGroup1_Opponent5 = null;
-     private static Bitmap bgOpponentGroup1_Opponent6 = null;
-     private static Bitmap bgOpponentGroup2_Opponent1 = null;
-     private static Bitmap bgOpponentGroup2_Opponent2 = null;
-     private static Bitmap bgOpponentGroup2_Opponent3 = null;
-     private static Bitmap bgOpponentGroup2_Opponent4 = null;
-     private static Bitmap bgOpponentGroup2_Opponent5 = null;
-     private static Bitmap bgOpponentGroup2_Opponent6 = null;
-     
-     
+        
      private int chosenOpponentId = 0;
 	//Timer timer = null;
 	boolean callingIntent = false;
@@ -328,14 +314,14 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	 	
 	 	
 	 	rlLineItem.setLayoutParams(params);
-	 Logger.d(TAG, "opponent=" + opponent.getName());
+	// Logger.d(TAG, "opponent=" + opponent.getName());
 	 	tvOpponent.setText(opponent.getName());
 	 	//tvYourRecordLabel.setText(String.format(this.getString(R.string.main_your_record_label), opponent.getName()));
 	  //	tvYourWins.setText(String.format(this.getString(R.string.main_wins), opponent.getNumLosses()));
 	  //	tvYourLosses.setText(String.format(this.getString(R.string.main_losses), opponent.getNumWins()));
 	  //	tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
-	 	tvYourWins.setText(String.valueOf(opponent.getNumLosses()));
-	  	tvYourLosses.setText(String.valueOf(opponent.getNumWins()));
+	 	tvYourWins.setText(String.valueOf(opponent.getNumWins()));
+	  	tvYourLosses.setText(String.valueOf(opponent.getNumLosses()));
 	  	tvYourDraws.setText(String.valueOf(opponent.getNumDraws()));
 	 	//tvYourDraws.setText(String.format(this.getString(R.string.main_draws), opponent.getNumDraws()));
 	 	tvSkillLevel.setText(opponent.getSkillLevelText(this));

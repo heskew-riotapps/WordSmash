@@ -361,7 +361,7 @@ public static Game skip(boolean isOpponent, Game game){
 						
 			 game.setStatus(3); // 3  # completed
 			 game.setCompletionDate(now);
-			
+			 
 		}
 		else {
 			//game is not over, let's keep going
@@ -369,7 +369,8 @@ public static Game skip(boolean isOpponent, Game game){
 			game.getPlayerGames().get(0).setTurn(isOpponent);
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
-		
+
+		GameService.saveGame(game);
 		return game;	
 	}
 	
@@ -431,7 +432,6 @@ public static Game skip(boolean isOpponent, Game game){
 		game.getPlayerGames().get(1).setTurn(!isOpponent);	
 	
 		GameService.saveGame(game);
-		
 		return game;	
 	}	
 	
@@ -450,6 +450,20 @@ public static Game skip(boolean isOpponent, Game game){
 		PlacedResult placedResult = new PlacedResult();
 		//autoplay logic kicked off here
 		//put results in placedResult object just like in normal play
+		
+		//game.getOpponentGame().getTrayLetters() are the letters you will be playing with
+		
+		//game.getPlayedTiles() contains the tiles that already have at least one letter played on them
+		
+		//if getPlayedTiles.size() == 0, the player skipped his first turn, you can play any word
+		//formed by the tray tiles but at least one letter must be placed on a starter tile
+		
+		//TileLayout.
+		
+		//WordService.isWordValid(word)
+		//game.getPlayedTiles().get(0).getLatestPlayedLetter()
+		
+		
 		
 		//temp
 		GameService.skip(true, game);

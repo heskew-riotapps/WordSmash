@@ -27,14 +27,14 @@
 	   	 	android:layout_marginRight="5dp"
 	  
 	 
-	   	 	android:textSize="20sp"
+	   	 	android:textSize="18sp"
 	    /> 
 	      <com.riotapps.word.ui.ScoreboardFontTextView
 	        android:id="@+id/tvOpponentScore"
 	        android:layout_width="wrap_content"
 	   	 	android:layout_height="wrap_content" 
-	   	  	android:layout_marginTop="-4dp"
-	   	 	android:textSize="30sp"
+	   	  	android:layout_marginTop="-1dp"
+	   	 	android:textSize="26sp"
 	   	 	android:layout_toRightOf="@id/tvOpponentName"
 	   	 	android:layout_marginRight="18dp"
 	   	  
@@ -48,16 +48,16 @@
 	   	    android:gravity="center_vertical"
 	   	 	android:layout_toRightOf="@id/tvOpponentScore"
  			
-	   	 	android:textSize="20sp"
+	   	 	android:textSize="18sp"
 	    />
 	      
 	    <com.riotapps.word.ui.ScoreboardFontTextView
 	        android:id="@+id/tvPlayerScore"
 	        android:layout_width="wrap_content"
 	   	 	android:layout_height="wrap_content" 
- 			android:textSize="30sp"
+ 			android:textSize="26sp"
  			android:layout_toRightOf="@id/tvPlayerName"
-	   	    android:layout_marginTop="-4dp"
+	   	    android:layout_marginTop="-1dp"
 	    />
  	    <RelativeLayout
 	       android:id="@+id/scoreboardNumbers"
@@ -67,11 +67,22 @@
 	        android:layout_alignParentRight="true"
 	        android:paddingTop="2dp"
 	    >    
+	    	 <ImageButton 
+		          android:id="@+id/options"
+		          android:layout_alignParentRight="true"
+		 		   android:layout_marginLeft="4dp"
+		 		  android:layout_centerVertical="true"
+		          android:src="@drawable/options_sb" 
+		          android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         android:background="@drawable/options"  
+				/>
+ 	        
 	     	<com.riotapps.word.ui.ScoreboardFontTextView
 	            android:id="@+id/tvLettersLeft"
 	            android:textColor="@color/scoreboard_text_color"
 	            android:textSize="10sp"
-	            
+	            android:layout_toLeftOf="@id/options"
 	            android:gravity="right"
 	          
 	         />
@@ -80,7 +91,7 @@
 	            android:textColor="@color/scoreboard_text_color"
 	            android:textSize="10sp"
 	            android:layout_below="@id/tvLettersLeft"
-	             
+	            android:layout_toLeftOf="@id/options"             
 	       		android:gravity="right"
 	         />
 	    </RelativeLayout>

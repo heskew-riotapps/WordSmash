@@ -733,6 +733,10 @@ public class Game implements Parcelable, Comparable<Game> {
 
 	}
 	
+	public PlayerGame getOpponentGame(){
+		return this.playerGames.get(1);
+		
+	}
 
 	public enum LastAction{
 		NO_TRANSLATION(0),
@@ -843,41 +847,18 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void addPlayedTile(GameTile placedTile){
 		boolean found = false;
 		for(PlayedTile tile : this.playedTiles){
-	
-		if (tile.getBoardPosition() == placedTile.getId()){
-			tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
-			found = true;
-			break;
-		}	
+			if (tile.getBoardPosition() == placedTile.getId()){
+				tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
+				found = true;
+				break;
+			}
+		}
 		if (!found){
 			PlayedTile tile1 = new PlayedTile();
-			tile.setBoardPosition(placedTile.getId());
-			tile.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
+			tile1.setBoardPosition(placedTile.getId());
+			tile1.addLetter(new PlayedLetter(this.turn, placedTile.getPlacedLetter()));
 			this.playedTiles.add(tile1);
 		}
-	}
-		
-/*		
-		def update_played_tile_by_board_position(board_position, letter, turn)
-		found = false
-	
-		self.played_tiles.each  do |value|
-			if value.p == board_position
-				#add latest letter and turn placed on this board position
-				value.l << letter
-				value.t << turn
-				found = true
-			end
-		end	
-		if !found 
-			played_tile = PlayedTile.new
-			played_tile.p = board_position
-			played_tile.l << letter
-			played_tile.t << turn
-			self.played_tiles << played_tile
-		end
-	end 
-*/
 	}
 	
 }

@@ -25,6 +25,7 @@
         android:layout_width="0dp" 
         android:layout_weight="1.0"
         android:text="@string/gameboard_played_words_button_text"
+        android:maxWidth="100dp"
     />
  
 	  <com.riotapps.word.ui.ScoreboardButton 
