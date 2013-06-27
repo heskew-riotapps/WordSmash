@@ -370,7 +370,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-    	return MenuUtils.handleMenuClick(item.getItemId());
+    	return MenuUtils.handleMenuClick(this, item.getItemId());
     }
 
     private void handleGameStartPrompt(int opponentId){

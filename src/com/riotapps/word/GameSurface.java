@@ -76,6 +76,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	private ImageFetcher imageLoader;
 	 private RelativeLayout scoreboard;
 	 private SurfaceView surfaceView;
+	 private PopupMenu popupMenu;
  
 	 private Button bRecall;
 	 private Button bPlay;
@@ -861,11 +862,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	}
     private void setupMenu(){
     	
-  	  PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.options));
+  	  this.popupMenu = new PopupMenu(this, findViewById(R.id.options));
 
-  	  MenuUtils.fillMenu(this, popupMenu);
-         popupMenu.setOnMenuItemClickListener(this);
-        findViewById(R.id.options).setOnClickListener(this);
+  	  MenuUtils.fillMenu(this, this.popupMenu);
+      this.popupMenu.setOnMenuItemClickListener(this);
+      findViewById(R.id.options).setOnClickListener(this);
   }
 
 	
@@ -873,7 +874,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
     public boolean onMenuItemClick(MenuItem item) {
     	
     	//probably need to stop thread here
-    	return MenuUtils.handleMenuClick(item.getItemId());
+    	return MenuUtils.handleMenuClick(this, item.getItemId());
     }
 
 	
@@ -1060,6 +1061,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		this.isButtonActive = true;
 		    	    	
 		    	switch(v.getId()){  
+			    	case R.id.options:
+				 		popupMenu.show();
+				 		break;
 			        case R.id.bShuffle:  
 			        	Logger.d(TAG, "bShuffle clicked");
 			        	 this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
