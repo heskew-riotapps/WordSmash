@@ -458,6 +458,13 @@ public static Game skip(boolean isOpponent, Game game){
 		//if getPlayedTiles.size() == 0, the player skipped his first turn, you can play any word
 		//formed by the tray tiles but at least one letter must be placed on a starter tile
 		
+		//this will return row and column (15x15 board)
+		//TileLayoutService.getRowCol(tileId)
+		
+		//for more advanced AI, potential bonus can be taken into account
+		//TileLayoutService.getLetterMultiplier(tileId, layout)
+		//TileLayoutService.getWordMultiplier(tileId, layout)
+		//create letter value method for each specific tile, given that a previously placed letter removes bonuses from the tile
 		//TileLayout.
 		
 		//WordService.isWordValid(word)

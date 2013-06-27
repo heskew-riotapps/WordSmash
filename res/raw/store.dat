@@ -1,0 +1,11 @@
+[
+{ "id": "1", "name": "Get Rid of Ads", "constant":"no_ads"},
+{ "id": "2", "name": "Character Packs", "constant":"character_packs",
+	"items" : [
+	
+	
+	]
+
+
+}
+]

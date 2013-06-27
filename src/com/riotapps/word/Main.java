@@ -12,6 +12,7 @@ import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.CustomButtonDialog;
 import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.GameSurfaceView;
+import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
@@ -41,11 +42,6 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	Context context = this;
 	Player player;
 	 private PopupMenu popupMenu;
-     private final static int MENU_COMPLETED_GAMES = 1;
-     private final static int MENU_ABOUT = 2;
-     private final static int MENU_BADGES = 3;
-     private final static int MENU_RULES = 4;
-     private final static int MENU_STORE = 5;
         
      private int chosenOpponentId = 0;
 	//Timer timer = null;
@@ -156,13 +152,14 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     	
     	  popupMenu = new PopupMenu(this, findViewById(R.id.options));
 
+    	  MenuUtils.fillMenu(this, popupMenu);
     	  //if player has any completed games show completed games menu option
-    	  popupMenu.getMenu().add(Menu.NONE, MENU_COMPLETED_GAMES, Menu.NONE, this.getString(R.string.main_menu_completed_games));
+/*    	  popupMenu.getMenu().add(Menu.NONE, MENU_COMPLETED_GAMES, Menu.NONE, this.getString(R.string.main_menu_completed_games));
           popupMenu.getMenu().add(Menu.NONE,  MENU_RULES, Menu.NONE, this.getString(R.string.main_menu_rules));
           popupMenu.getMenu().add(Menu.NONE,  MENU_STORE, Menu.NONE, this.getString(R.string.main_menu_store));
-
+          popupMenu.getMenu().add(Menu.NONE,  MENU_SHARE, Menu.NONE, this.getString(R.string.main_menu_share));
           popupMenu.getMenu().add(Menu.NONE,  MENU_ABOUT, Menu.NONE, this.getString(R.string.main_menu_about));
-      
+  */    
           popupMenu.setOnMenuItemClickListener(this);
           findViewById(R.id.options).setOnClickListener(this);
     }
@@ -373,30 +370,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-    	Intent intent;
-           switch (item.getItemId()) {
-           case MENU_ABOUT:
-        	   intent = new Intent(getApplicationContext(), About.class);
-        	   startActivity(intent);	
-               break;
-           case MENU_COMPLETED_GAMES:
-        	   intent = new Intent(getApplicationContext(), About.class);
-        	   startActivity(intent);	
-               break;
-           case MENU_BADGES:
-        	   intent = new Intent(getApplicationContext(), Badges.class);
-        	   startActivity(intent);	
-               break;
-           case MENU_RULES:
-        	   intent = new Intent(getApplicationContext(), FullRules.class);
-        	   startActivity(intent);	
-               break;
-           case MENU_STORE:
-        	   intent = new Intent(getApplicationContext(), Store.class);
-        	   startActivity(intent);	
-               break;
-           }  
-           return false;
+    	return MenuUtils.handleMenuClick(item.getItemId());
     }
 
     private void handleGameStartPrompt(int opponentId){

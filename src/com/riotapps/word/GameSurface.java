@@ -19,6 +19,7 @@ import com.riotapps.word.ui.GameAction.GameActionType;
 import com.riotapps.word.ui.GameState;
 import com.riotapps.word.ui.GameStateService;
 import com.riotapps.word.ui.GameSurfaceView;
+import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.ui.PlacedResult;
 import com.riotapps.word.ui.WordLoaderThread;
 import com.riotapps.word.utils.ApplicationContext;
@@ -44,11 +45,13 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.google.ads.AdRequest.ErrorCode;
@@ -64,7 +67,7 @@ import com.chartboost.sdk.ChartboostDelegate;
 
 //import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
-public class GameSurface extends FragmentActivity implements View.OnClickListener, AdListener{
+public class GameSurface extends FragmentActivity implements View.OnClickListener, AdListener, PopupMenu.OnMenuItemClickListener{
 	private static final String TAG = GameSurface.class.getSimpleName();
 	
 	private Chartboost cb;
@@ -97,7 +100,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private String postTurnTitle = "";
  
 	 
-	 private Timer timer = null;
+	// private Timer timer = null;
 	 private Timer runawayAdTimer = null;
 	// CustomProgressDialog spinner = null;
 	
@@ -270,6 +273,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	 
 	 	//this.setupTimer();
 	 	this.setupAdServer();
+	 	this.setupMenu();
 	 
 	 }
 	
@@ -855,32 +859,58 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			this.handleBack(com.riotapps.word.Main.class);
 		}
 	}
+    private void setupMenu(){
+    	
+  	  PopupMenu popupMenu = new PopupMenu(this, findViewById(R.id.options));
+
+  	  MenuUtils.fillMenu(this, popupMenu);
+         popupMenu.setOnMenuItemClickListener(this);
+        findViewById(R.id.options).setOnClickListener(this);
+  }
+
 	
-	private void handleBack(Class<?> cls){
-		this.spinner = new CustomProgressDialog(this);
-		this.spinner.setMessage(this.getString(R.string.progress_saving));
-		this.spinner.show();
-			
-	 
-		
-		if (this.timer != null){
-			this.timer.cancel();
-			this.timer = null;
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+    	
+    	//probably need to stop thread here
+    	return MenuUtils.handleMenuClick(item.getItemId());
+    }
+
+	
+		private void handleBack(Class<?> cls){
+			if (this.game.isCompleted()){
+
+				this.gameSurfaceView.onStop();
+				this.game = null;
+				this.player = null;
+				this.gameState = null;
+				
+				Intent intent = new Intent(this.context, cls );
+			    this.context.startActivity(intent);
+			    this.finish();
+				
+			}
+			else{
+				this.spinner = new CustomProgressDialog(this);
+				this.spinner.setMessage(this.getString(R.string.progress_saving));
+				this.spinner.show();
+				
+				if (this.getGameState() != null){
+					GameStateService.setGameState(this.getGameState());
+				}
+				
+				this.gameSurfaceView.onStop();
+				this.game = null;
+				this.player = null;
+				this.gameState = null;
+				
+				Intent startMain = new Intent(Intent.ACTION_MAIN);
+				startMain.addCategory(Intent.CATEGORY_HOME);
+				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(startMain);
+				this.finish(); 	
+			}		
 		}
-		
-		if (this.getGameState() != null){
-			GameStateService.setGameState(this.getGameState());
-		}
-		
-		this.gameSurfaceView.onStop();
-		this.game = null;
-		this.player = null;
-		this.gameState = null;
-		
-		Intent intent = new Intent(this.context, cls );
-	    this.context.startActivity(intent);
-	    this.finish();
-	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {

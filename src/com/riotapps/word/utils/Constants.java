@@ -294,5 +294,18 @@ public class Constants {
 	 * opponent image modes 
 	 *==============================================*/
 	public static final String OPPONENT_IMAGE_MODE_MAIN = "main";
+
+	
+	/**=============================================
+	 * opponent image modes 
+	 *==============================================*/
+    public static final int MENU_COMPLETED_GAMES = 1;
+    public static final int MENU_ABOUT = 2;
+    public static final int MENU_BADGES = 3;
+    public static final int MENU_RULES = 4;
+    public static final int MENU_STORE = 5;
+    public static final int MENU_SHARE = 6;
+
+	
 }//end class Constants
  

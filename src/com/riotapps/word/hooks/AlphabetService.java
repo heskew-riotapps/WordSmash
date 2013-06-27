@@ -7,15 +7,17 @@ import java.util.List;
 
 import android.content.Context;
 
+import com.riotapps.word.Main;
 import com.riotapps.word.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.FileUtils;
+import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
 public class AlphabetService {
-	
+	private static final String TAG = AlphabetService.class.getSimpleName();
 	private static Alphabet alphabet = null;
 	
 	public AlphabetService(Context context){
@@ -103,6 +105,14 @@ public class AlphabetService {
 			*/
 		String[] letters = appContext.getResources().getStringArray(R.array.alphabet_spread);
 		Utils.shuffleArray(letters);
+		
+	
+		String letterLog = "";
+		for (String s : letters)
+    	{
+			letterLog = letterLog + "<item>" + s + "</item>";
+    	}
+		Logger.d(TAG, letterLog);
 		
 		List<String> list = new ArrayList<String>();
 		
