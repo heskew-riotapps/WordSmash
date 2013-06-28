@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
+import com.riotapps.word.ui.RowCol;
 
 public class PlayedTile {
 
@@ -41,4 +42,8 @@ public class PlayedTile {
 		return this.letters.get(this.letters.size() - 1);
 	}
 	 
+	public RowCol getRowCol(){
+		return TileLayoutService.getRowCol(this.getBoardPosition());
+		
+	}
 }

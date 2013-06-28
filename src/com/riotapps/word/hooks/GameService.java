@@ -295,6 +295,7 @@ public class GameService {
 						
 			 game.setStatus(3); // 3  # completed
 			 game.setCompletionDate(now);
+			 addGameToCompletedList(game);
 			
 		}
 		else {
@@ -307,6 +308,8 @@ public class GameService {
 		GameService.saveGame(game);
 		return game;	
 	}
+	
+ 
 	
 public static Game skip(boolean isOpponent, Game game){
 		Logger.d(TAG, "GameService.skip called.  isOpponent=" + isOpponent);
@@ -361,6 +364,7 @@ public static Game skip(boolean isOpponent, Game game){
 						
 			 game.setStatus(3); // 3  # completed
 			 game.setCompletionDate(now);
+			 addGameToCompletedList(game);
 			 
 		}
 		else {
@@ -446,8 +450,11 @@ public static Game skip(boolean isOpponent, Game game){
 
 	}
 	
-	public static Game autoPlay(Game game){
+	public static Game autoPlay(Context context, Game game){
 		PlacedResult placedResult = new PlacedResult();
+		
+		
+		TileLayout defaultLayout = TileLayoutService.getDefaultLayout(context);
 		//autoplay logic kicked off here
 		//put results in placedResult object just like in normal play
 		
@@ -459,18 +466,27 @@ public static Game skip(boolean isOpponent, Game game){
 		//formed by the tray tiles but at least one letter must be placed on a starter tile
 		
 		//this will return row and column (15x15 board)
-		//TileLayoutService.getRowCol(tileId)
+		//TileLayoutService.getRowCol(tileId) 
+		//this is already wrapped by game.getPlayedTile.get(x).getRowCol()
+		
+		// you'll probably want to look at GameService.isWordConnectedToPlayedWords and GameService.getWords to 
+		//study some of that logic
+		
+		//WordService.isWordValid(word) will tell you if the word is in the dictionary
 		
 		//for more advanced AI, potential bonus can be taken into account
 		//TileLayoutService.getLetterMultiplier(tileId, layout)
 		//TileLayoutService.getWordMultiplier(tileId, layout)
-		//create letter value method for each specific tile, given that a previously placed letter removes bonuses from the tile
-		//TileLayout.
 		
-		//WordService.isWordValid(word)
-		//game.getPlayedTiles().get(0).getLatestPlayedLetter()
+		//getTileValue returns the points for a specific played tile, helpful for more advanced AI
+ 
+		//game.getPlayedTiles().get(0).getLatestPlayedLetter() will return the latest letter that has been played on that tile
+		//note that game.getPlayedTiles will only return the tiles that have had a letter played on them, it will NOT return all 225 tiles from the board layout
 		
+		//defaultLayout will contain all of the bonus and starter tiles, you may not need it directly
 		
+		//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot 
+		//if any of them return 255 that means the tile position being requested is outside of the board boundaries
 		
 		//temp
 		GameService.skip(true, game);
@@ -500,7 +516,12 @@ public static Game skip(boolean isOpponent, Game game){
     	}
     	else{
     		game.getPlayerGames().get(0).setStatus(7); //resigned		
-    		game.getPlayerGames().get(1).setStatus(4); 	//winner	
+    		game.getPlayerGames().get(1).setStatus(4); 	//winner
+    		
+    		//in case player resigns while ahead
+    		if (game.getPlayerGames().get(0).getScore() >= game.getPlayerGames().get(1).getScore()){
+    			game.getPlayerGames().get(1).setScore(game.getPlayerGames().get(0).getScore() + 1);
+    		}
     	}
 
     	Player player = PlayerService.getPlayer();
@@ -534,9 +555,26 @@ public static Game skip(boolean isOpponent, Game game){
 	public static void addGameToCompletedList(Game game){
 		 List<GameListItem> games = GameData.getCompletedGameList();
 		 
-		 games.add(new  GameListItem(game.getId(), game.getCompletionDate()));
+		 //put game at the beginning so that it saves in descending order
+		 games.add(0, new  GameListItem(game.getId(), game.getCompletionDate()));
 		 
 		 GameData.saveCompletedGameList(games);
+	}
+	
+	public static List<Game> getCompletedGames(){
+		 List<GameListItem> games = GameData.getCompletedGameList();
+		 List<Game> gameList = new ArrayList<Game>();
+		 
+		 for (GameListItem gli : games){
+			 try{
+				 gameList.add(getGame(gli.getGameId()));
+			 }
+			 catch (Exception e){
+				 //game was likely missing for some reason
+			 }
+		 }
+ 		 
+		 return gameList;
 	}
 	
 	public static void loadScoreboard(final FragmentActivity context, Game game, Player player){
@@ -678,15 +716,7 @@ public static Game skip(boolean isOpponent, Game game){
         	}
         }
         
-       // Check.Require(isConnected, context.getString(R.string.game_play_invalid_gaps));
-        //String temp = "";
-        
-  //      for(PlacedWord word : words){
-  //      	temp = temp + word.getWord() + "\n";
-  //      }
-        
-   //     Check.Require(1 == 2, temp);
-        
+  
         int totalPoints = 0;
         
         List<PlacedWord> invalidWords = new ArrayList<PlacedWord>();
@@ -1217,58 +1247,5 @@ public static Game skip(boolean isOpponent, Game game){
   	 
 	}
 */
-	private static void moveGameToCompletedList(Game game){
-  		//in this scenario, player has just played a turn and game is not over, and we and updating the local game lists
-  		//by removing the game from the player's turn list and moving it to opponent's turn list
-  		
-  	//	Player player = PlayerService.getPlayerFromLocal();
-  		/*
-  		int numActiveGames = player.getActiveGamesYourTurn().size();
-  		for(int i = 0; i < numActiveGames; i++){
-  			if (game.getId().equals(player.getActiveGamesYourTurn().get(i).getId())){
-  				player.getActiveGamesYourTurn().remove(i);
-  				break;
-  			}
-  		}
-
-  		//remove it from opponents list just in case it was clicked on in that list and main
-  		//landing had not been refreshed
-  		int numOpponentGames = player.getActiveGamesOpponentTurn().size();
-  		for(int i = 0; i < numOpponentGames; i++){
-  			if (game.getId().equals(player.getActiveGamesOpponentTurn().get(i).getId())){
-  				player.getActiveGamesOpponentTurn().remove(i);
-  				break;
-  			}
-  		}
-  		
-  		//now add it to the completed games 
-  		//make sure this game is not already in the completed list
-  		boolean add = true;
-  		for (Game g : player.getCompletedGames()){
-  			if (g.getId().equals(game.getId())){
-  				add = false;
-  			}
-  		}
-  		if (add){
-  			player.getCompletedGames().add(0, game);
-  		}
-  		Gson gson = new Gson();  
-	        
-        //update player to shared preferences
-	    SharedPreferences settings = Storage.getSharedPreferences();
-	    SharedPreferences.Editor editor = settings.edit();
- 
-	    editor.putString(Constants.USER_PREFS_PLAYER_JSON, gson.toJson(player));
-		// Check if we're running on GingerBread or above
-		 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-		     // If so, call apply()
-		     editor.apply();
-		 // if not
-		 } else {
-		     // Call commit()
-		     editor.commit();
-		 } 
-		 */
-	}
-  	
+	
 }

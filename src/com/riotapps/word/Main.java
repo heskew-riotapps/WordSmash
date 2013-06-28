@@ -349,9 +349,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     
     @Override 
     public void onClick(View v) {
-    	Intent intent;
-    	
-  
+    
 		 //open dialog mgr to confirm that player wants to play this particular opponent
 		 
 		 

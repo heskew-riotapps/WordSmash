@@ -6,6 +6,7 @@ import com.riotapps.word.hooks.OpponentGroup;
 import com.riotapps.word.hooks.OpponentGroupService;
 import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Logger;
 
@@ -32,7 +33,7 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	        this.appContext = (ApplicationContext)this.getApplicationContext(); 
 	        this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	        this.loadCharacterOptions();
- 
+	        MenuUtils.hideMenu(this);
 	 }
 	
 	

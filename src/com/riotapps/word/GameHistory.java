@@ -11,6 +11,7 @@ import com.riotapps.word.hooks.PlayedWord;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.ui.DialogManager;
+import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.ImageCache;
@@ -63,6 +64,7 @@ public class GameHistory extends FragmentActivity{
 	     this.imageLoader.setImageCache(ImageCache.findOrCreateCache(this, Constants.IMAGE_CACHE_DIR));
 	 	
 	 	this.loadList();
+	 	MenuUtils.hideMenu(this);
 	}
 
  

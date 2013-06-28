@@ -6,6 +6,7 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerGame;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.CustomProgressDialog;
@@ -86,6 +87,8 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	     this.llDefs = (LinearLayout)this.findViewById(R.id.llDefs);
 	     this.tvNotFound = (TextView)this.findViewById(R.id.tvNotFound);
 	     //tvNotFound.setText(context.getString(R.string.lookup_definition_not_found));
+	     
+	     MenuUtils.hideMenu(this);
 	     
 	     System.setProperty("WORDNIK_API_KEY", this.getString(R.string.wordnik_apiKey));
 	 

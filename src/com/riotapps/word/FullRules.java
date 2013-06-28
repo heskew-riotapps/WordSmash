@@ -2,6 +2,7 @@ package com.riotapps.word;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.ui.MenuUtils;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class FullRules extends FragmentActivity{
 	        fullRulesDictionary2.setMovementMethod(LinkMovementMethod.getInstance());
 
 			PlayerService.loadPlayerInHeader(this);  
+	        MenuUtils.hideMenu(this);
 	 }
 	@Override
 	protected void onStart() {

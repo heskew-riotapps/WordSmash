@@ -705,7 +705,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 	}
 	
-	public String getLastActionTextForList(Context context, String contextPlayerId){
+	public String getLastActionTextForList(Context context){
 
 		String timeSince = Utils.getTimeSinceString(context, this.getLastTurnDate());
 		String opponentName = OpponentService.getOpponent(this.opponentId).getName();
@@ -717,7 +717,7 @@ public class Game implements Parcelable, Comparable<Game> {
 			 return String.format(context.getString(R.string.game_list_game_over_win), timeSince,
 					 contextPlayerGame.getScore(),
 					 opponentGame.getScore(),
-					 opponentGame);
+					 opponentName);
 		 }
 		 else if (contextPlayerGame.isDraw()){ 
 			 return String.format(context.getString(R.string.game_list_game_over_draw), timeSince,
@@ -725,12 +725,11 @@ public class Game implements Parcelable, Comparable<Game> {
 					 contextPlayerGame.getScore());
 		 }
 		 else { 
-			 return String.format(context.getString(R.string.game_surface_game_over_win), timeSince,
+			 return String.format(context.getString(R.string.game_list_game_over_loss), timeSince,
 					 opponentGame.getScore(),
 					 contextPlayerGame.getScore(),
-					 opponentGame);
+					 opponentName);
 		 }
-
 	}
 	
 	public PlayerGame getOpponentGame(){

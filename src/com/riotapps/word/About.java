@@ -2,6 +2,7 @@ package com.riotapps.word;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.Constants;
 
 import android.content.Context;
@@ -35,6 +36,8 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	
 	        tvSupportLink.setOnClickListener(this);
 	        tvSupportText.setOnClickListener(this);
+	        
+	        MenuUtils.hideMenu(this);
 	 }
 
 

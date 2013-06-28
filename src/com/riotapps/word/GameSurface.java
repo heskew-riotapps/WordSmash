@@ -581,6 +581,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	bCancel.setTextColor(Color.parseColor(btnTextColor));
 	 	bResign.setTextColor(Color.parseColor(btnTextColor));
 	 	bSwap.setTextColor(Color.parseColor(btnTextColor));
+	 	bPlayedWords.setTextColor(Color.parseColor(btnTextColor));
 	 	
 	 	//bRecall.setVisibility(View.GONE);
 	 	bShuffle.setVisibility(View.VISIBLE);
@@ -592,6 +593,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	
 	 	Logger.d(TAG, "getNumLettersLeft=" + this.game.getNumLettersLeft());
 	 	
+	 	if (this.game.getPlayedWords().size() > 0){
+	 		bPlayedWords.setOnClickListener(this);
+	 		bPlayedWords.setClickable(true);	 		
+	 	}
+	 	else{
+	 		bPlayedWords.setClickable(false);
+	 		bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));	 		
+	 	}
 	  	if (this.game.getNumLettersLeft() > 0){
 	 		bSwap.setOnClickListener(this);
 	 		bSwap.setClickable(this.game.isContextPlayerTurn(this.player));
@@ -856,8 +865,17 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		if (this.isChartBoostActive && this.cb.onBackPressed())
 			// If a Chartboost view exists, close it and return
 			return;
-		else{
-			this.handleBack(com.riotapps.word.Main.class);
+		else if (this.game.isCompleted()){
+			//if game is completed, just go back to whatever activity is in the stack
+			this.gameSurfaceView.onStop();
+			this.game = null;
+			this.player = null;
+			this.gameState = null;
+			
+			super.onBackPressed();
+		}
+		else {
+			this.handleBack();
 		}
 	}
     private void setupMenu(){
@@ -878,20 +896,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
     }
 
 	
-		private void handleBack(Class<?> cls){
-			if (this.game.isCompleted()){
-
-				this.gameSurfaceView.onStop();
-				this.game = null;
-				this.player = null;
-				this.gameState = null;
-				
-				Intent intent = new Intent(this.context, cls );
-			    this.context.startActivity(intent);
-			    this.finish();
-				
-			}
-			else{
+		private void handleBack(){
+		 
 				this.spinner = new CustomProgressDialog(this);
 				this.spinner.setMessage(this.getString(R.string.progress_saving));
 				this.spinner.show();
@@ -910,7 +916,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(startMain);
 				this.finish(); 	
-			}		
+	 	
 		}
 
 	@Override
@@ -1310,7 +1316,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				else{
 					// show player his score, then kick off auto play
 					String playerAction = game.getLastActionText(context);
-					game = GameService.autoPlay(game);
+					game = GameService.autoPlay(this, game);
 
 					String opponentAction = game.getLastActionText(context);
 
@@ -1363,7 +1369,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				else{
 					// show player his score, then kick off auto play
 					String playerAction = game.getLastActionText(context);
-					game = GameService.autoPlay(game);
+					game = GameService.autoPlay(this, game);
 
 					String opponentAction = game.getLastActionText(context);
 					
@@ -1404,7 +1410,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		gameState = GameStateService.clearGameState(game.getId());
 	    		
 	    		String playerAction = game.getLastActionText(context);
-				game = GameService.autoPlay(game);
+				game = GameService.autoPlay(this, game);
 
 				String opponentAction = game.getLastActionText(context);
 				

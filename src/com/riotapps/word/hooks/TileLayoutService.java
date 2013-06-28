@@ -17,6 +17,8 @@ import com.riotapps.word.R;
 
 public class TileLayoutService {
 
+	private static TileLayout defaultLayout = null;
+	
 	public enum eDefaultTile {
 		None,
 		FourLetter,
@@ -27,11 +29,15 @@ public class TileLayoutService {
 		Starter
 	}
 	
-	public TileLayout GetDefaultLayout(Context context){
-		 Gson gson = new Gson();
-		 Type type = new TypeToken<TileLayout>() {}.getType();
-	       
-		return gson.fromJson(FileUtils.ReadRawTextFile(context, R.raw.tile_layout), type);
+	public static TileLayout getDefaultLayout(Context context){
+		if (defaultLayout == null){
+			 Gson gson = new Gson();
+			 Type type = new TypeToken<TileLayout>() {}.getType();
+		       
+			 defaultLayout = gson.fromJson(FileUtils.ReadRawTextFile(context, R.raw.tile_layout), type);
+		}
+		
+		return defaultLayout;
 	}
 	
 	public static eDefaultTile getDefaultTile(int id, TileLayout layout){

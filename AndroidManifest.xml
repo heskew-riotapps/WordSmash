@@ -47,17 +47,10 @@
 			</intent-filter>
 		</activity> 
         <activity android:name=".Welcome" android:label="@string/app_name" android:screenOrientation="portrait"/>
-  		<activity android:name=".JoinNative" android:label="@string/app_name" android:screenOrientation="portrait"/>
-  		<activity android:name=".ConnectToFacebook" android:label="@string/app_name" android:screenOrientation="portrait"/>
+  		<activity android:name=".CompletedGames" android:label="@string/app_name" android:screenOrientation="portrait"/>
  		<activity android:name=".Main" android:label="@string/app_name" android:screenOrientation="portrait" />
-		<activity android:name=".QuickRules" android:label="@string/app_name" android:screenOrientation="portrait"/>
-		<activity android:name=".AccountSettings" android:label="@string/app_name" android:screenOrientation="portrait"/>
-		<activity android:name=".Settings" android:label="@string/app_name" android:screenOrientation="portrait"/>
 		<activity android:name=".GameSurface" android:label="@string/app_name" android:screenOrientation="portrait"/>
 		<activity android:name=".Options" android:label="@string/app_name" android:screenOrientation="portrait"/>
-		<activity android:name=".Gravatar" android:label="@string/app_name" android:screenOrientation="portrait"/>
-		<activity android:name=".GravatarRefresh" android:label="@string/app_name" android:screenOrientation="portrait"/>
-		<activity android:name=".FBAccountSettings" android:label="@string/app_name" android:screenOrientation="portrait"/>
 	 	<activity android:name=".GameHistory" android:label="@string/app_name" android:screenOrientation="portrait"/>
 	 	<activity android:name=".GameLookup" android:label="@string/app_name" android:screenOrientation="portrait"/>
 	 	<activity android:name=".About" android:label="@string/app_name" android:screenOrientation="portrait"/>

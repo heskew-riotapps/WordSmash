@@ -287,7 +287,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	List<GameTile> tiles = new ArrayList<GameTile>();
 	List<TrayTile> trayTiles = new ArrayList<TrayTile>();
     TileLayout defaultLayout;
-    TileLayoutService layoutService;
+    //TileLayoutService layoutService;
    // AlphabetService alphabetService;
   //  WordService wordService;
    
@@ -322,8 +322,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		this.parent.captureTime(TAG + " construct starting");
 		
 		//this.context = context;
-		this.layoutService = new TileLayoutService();
-		this.defaultLayout = layoutService.GetDefaultLayout(parent);
+		//this.layoutService = new TileLayoutService();
+		this.defaultLayout = TileLayoutService.getDefaultLayout(parent); // layoutService.GetDefaultLayout(parent);
 		
 	//	this.alphabetService = alphabetService; //new AlphabetService(context);
 		//this.wordService = wordService;

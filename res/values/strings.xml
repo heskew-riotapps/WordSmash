@@ -518,9 +518,9 @@
  
  
 		
-		<string name="game_list_game_over_win">you defeated %3$s %1$s - %2$s</string>
-		<string name="game_list_game_over_loss">%3$s won %1$s - %2$s</string>
-		<string name="game_list_game_over_draw">a %1$s - %2$s draw was declared</string>
+		<string name="game_list_game_over_win">you defeated %4$s %2$s - %3$s %1$s</string>
+		<string name="game_list_game_over_loss">%4$s won %2$s - %3$s %1$s</string>
+		<string name="game_list_game_over_draw">a %1$s - %2$s draw was declared %1$s</string>
 		<string name="game_surface_game_over_win">you defeated %3$s %1$s - %2$s</string>
 		<string name="game_surface_game_over_loss">%3$s won %1$s - %2$s</string>
 		<string name="game_surface_game_over_draw">a %1$s - %2$s draw was declared</string>
@@ -535,6 +535,7 @@
 		<string name="lookup_definition">(%1$s) %2$s</string>
 		<string name="lookup_definition_not_found">Sorry, we couldn\'t find the definition.</string>
 		<string name="about_title">about WordSmash</string>
+		<string name="completed_games_title">completed games</string>
 		<string name="about_main">WordSmash by RiotApps</string>
 		<string name="about_version">version: %s</string>		
 		<string name="about_build_number">build: %s</string>		
@@ -563,5 +564,6 @@
 		<string name="post_turn_message_with_auto_play">%1$s and then %2$s</string>
 		<string name="post_turn_title_with_auto_play"></string>
 		<string name="share_using">Share using</string>
+		<string name="game_list_skill_level">(%s)</string>
 				
 </resources>
