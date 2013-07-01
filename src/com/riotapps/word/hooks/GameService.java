@@ -577,7 +577,7 @@ public static Game skip(boolean isOpponent, Game game){
 		 return gameList;
 	}
 	
-	public static void loadScoreboard(final FragmentActivity context, Game game, Player player){
+	public static void loadScoreboard(final FragmentActivity context, Game game){
 	
 		 TextView tvPlayerScore = (TextView)context.findViewById(R.id.tvPlayerScore);
 		 TextView tvOpponentName = (TextView)context.findViewById(R.id.tvOpponentName);

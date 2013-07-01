@@ -1,6 +1,8 @@
 package com.riotapps.word;
 
 import java.util.List;
+
+import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
 import com.riotapps.word.hooks.Game;
@@ -9,6 +11,7 @@ import com.riotapps.word.hooks.Opponent;
 import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.CustomButtonDialog;
 import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.GameSurfaceView;
@@ -146,6 +149,10 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	//	this.loadListTask = new LoadListTask();
 	//	this.loadListTask.execute("");
 		
+		if (StoreService.isHideBannerAdsPurchased()){
+			AdView adView = (AdView)this.findViewById(R.id.adView);
+			adView.setVisibility(View.GONE);
+		}
     }
  
     private void setupMenu(){

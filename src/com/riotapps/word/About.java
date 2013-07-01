@@ -1,7 +1,9 @@
 package com.riotapps.word;
 
+import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.Constants;
 
@@ -38,6 +40,11 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        tvSupportText.setOnClickListener(this);
 	        
 	        MenuUtils.hideMenu(this);
+	        
+	    	if (StoreService.isHideBannerAdsPurchased()){
+				AdView adView = (AdView)this.findViewById(R.id.adView);
+				adView.setVisibility(View.GONE);
+			}
 	 }
 
 

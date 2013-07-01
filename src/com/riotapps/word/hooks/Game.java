@@ -860,4 +860,23 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 	}
 	
+	public int getNumLettersLeftInHopperAndOpponentTray(String letter){
+		int count = 0;
+		
+		for (String l : this.hopper){
+			if (l.equals(letter)){
+				count += 1;
+			}
+		}
+		for (String l : this.playerGames.get(1).getTrayLetters()){
+			if (l.equals(letter)){
+				count += 1;
+			}
+		}
+		return count;
+	}
+	
+	public int getTotalNumLetterCountLeftInHopperAndOpponentTray(){
+		return this.hopper.size() + this.playerGames.get(1).getTrayLetters().size() ;
+	}
 }

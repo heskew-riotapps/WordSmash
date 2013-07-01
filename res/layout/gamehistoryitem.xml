@@ -14,6 +14,7 @@
 	   	android:layout_width="34dp"
    		android:layout_height="34dp"
 	    android:id="@+id/ivPlayer"	
+	    android:src="@drawable/you"
 	    android:background="@drawable/image_border"
 	    android:layout_marginRight="5dp"
 	    android:layout_marginLeft="8dp"

@@ -3,6 +3,7 @@ package com.riotapps.word;
  
 import java.util.Collections;
 
+import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.FBFriend;
 import com.riotapps.word.hooks.Game;
@@ -10,6 +11,7 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.PlayedWord;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
@@ -39,9 +41,11 @@ public class GameHistory extends FragmentActivity{
 	private static final String TAG = GameHistory.class.getSimpleName();
 	private Game game;
 	private Player player;
-	private ImageFetcher imageLoader;
+ 
 	private ListView lvWords;
 	private Context context = this;
+	private int opponentImageId;
+
 	ApplicationContext appContext;
 	
 	@Override
@@ -49,8 +53,7 @@ public class GameHistory extends FragmentActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gamehistory);
-		 
-		
+
 	 	Intent i = getIntent();
 	 	String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
 	 	this.game = GameService.getGame(gameId); 
@@ -58,13 +61,18 @@ public class GameHistory extends FragmentActivity{
 		this.appContext = (ApplicationContext)this.getApplicationContext(); 
 		
 	    this.player = this.appContext.getPlayer();
-	 	GameService.loadScoreboard(this, this.game, this.player);
+	 	GameService.loadScoreboard(this, this.game);
 	 	
-	 	 this.imageLoader = new ImageFetcher(this, Constants.DEFAULT_AVATAR_SIZE, Constants.DEFAULT_AVATAR_SIZE, 0);
-	     this.imageLoader.setImageCache(ImageCache.findOrCreateCache(this, Constants.IMAGE_CACHE_DIR));
-	 	
+	  	
+	     this.opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + this.game.getOpponent().getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
+
 	 	this.loadList();
 	 	MenuUtils.hideMenu(this);
+	 	
+		if (StoreService.isHideBannerAdsPurchased()){
+			AdView adView = (AdView)this.findViewById(R.id.adView);
+			adView.setVisibility(View.GONE);
+		}
 	}
 
  
@@ -146,11 +154,15 @@ private class PlayedWordArrayAdapter extends ArrayAdapter<PlayedWord> {
 	    	   TextView tvTurnInfo = (TextView) rowView.findViewById(R.id.tvTurnInfo);
 	    	   
  
-	    //	   ImageView ivPlayer = (ImageView)rowView.findViewById(R.id.ivPlayer);
+	     	   ImageView ivPlayer = (ImageView)rowView.findViewById(R.id.ivPlayer);
 	    //	   imageLoader.loadImage(player.getImageUrl(), ivPlayer); 
 	    	   
 	    	   String name = word.isOpponentPlay() ? game.getOpponent().getName() : player.getName(context);
 	    	   
+	    	   if ( word.isOpponentPlay()){
+	    		   ivPlayer.setImageResource(GameHistory.this.opponentImageId);
+	    	   }
+	    	  
 	    	   tvWord.setText(word.getWord());
 	    	   tvTurnInfo.setText(String.format(this.context.getString(R.string.game_history_turn_info), name, word.getTurn(), word.getPointsScored()));
  

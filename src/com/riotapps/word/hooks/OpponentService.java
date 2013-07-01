@@ -71,5 +71,8 @@ public class OpponentService {
 		saveOpponent(opponent);
 	}
  
+	public static OpponentRecord getOpponentRecord(int opponentId){
+		return OpponentData.getOpponentRecord(opponentId);
+	}
 
 }

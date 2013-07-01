@@ -32,8 +32,10 @@ public class Player implements Parcelable{
 	@SerializedName("n_d")
 	private int numDraws = 0; //num draws
 	
-	@SerializedName("alerts")
-	private List<Alert> latestAlerts = new ArrayList(); //the latest communication alert 
+	//@SerializedName("alerts")
+	//private List<Alert> latestAlerts = new ArrayList(); //the latest communication alert 
+	
+	private List<Purchase> purchases = new ArrayList<Purchase>();
 
 
 //	@SerializedName("game_")
@@ -74,14 +76,21 @@ public class Player implements Parcelable{
 		 
 	 }
  
+	/*
 	public List<Alert> getLatestAlerts() {
 		return latestAlerts;
 	}
 	public void setLatestAlerts(List<Alert> latestAlerts) {
 		this.latestAlerts = latestAlerts;
 	}
-	
+	*/
  
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
+	}
 	public boolean isNoInterstitialAdsOption() {
 		return noInterstitialAdsOption;
 	}

@@ -7,8 +7,11 @@ public class OpponentGroup {
 	private int id;
 	private String name;
 	private String constant;
-	private boolean activated;
-	private Date activatedDate;
+	private boolean autoActivated;
+	private String storeItemId = "";
+	
+ 
+	private Purchase purchase = null;
 	
 	public int getId() {
 		return id;
@@ -28,18 +31,43 @@ public class OpponentGroup {
 	public void setConstant(String constant) {
 		this.constant = constant;
 	}
-	public boolean isActivated() {
-		return activated;
+	public boolean isAutoActivated() {
+		return autoActivated;
 	}
-	public void setActivated(boolean activated) {
-		this.activated = activated;
+	public void setAutoActivated(boolean autoActivated) {
+		this.autoActivated = autoActivated;
 	}
+	
+ 
+	public boolean isPurchased() {
+		if (this.purchase == null){
+			this.purchase = StoreService.getPurchaseByStoreItemId(this.storeItemId);
+		}
+		return this.purchase.isPurchased();
+	}
+ 
+	public Date getPurchaseDate() {
+		if (this.purchase == null){
+			this.purchase = StoreService.getPurchaseByStoreItemId(this.storeItemId);
+		}
+		return this.purchase.getPurchaseDate();
+	}
+ 
+	public String getStoreItemId() {
+		return storeItemId;
+	}
+	public void setStoreItemId(String storeItemId) {
+		this.storeItemId = storeItemId;
+	}
+	
+	
+	/*
 	public Date getActivatedDate() {
 		return activatedDate;
 	}
 	public void setActivatedDate(Date activatedDate) {
 		this.activatedDate = activatedDate;
 	}
-
+*/
 
 }

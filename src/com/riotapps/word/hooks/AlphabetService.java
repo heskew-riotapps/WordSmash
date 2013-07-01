@@ -41,6 +41,15 @@ public class AlphabetService {
 	      return 0;
 	}
 	
+	public static List<Letter> getLetters(){
+		if (AlphabetService.alphabet == null){
+			 Gson gson = new Gson();
+			 Type type = new TypeToken<Alphabet>() {}.getType();
+			 AlphabetService.alphabet = gson.fromJson(FileUtils.ReadRawTextFile( ApplicationContext.getAppContext(), R.raw.alphabet), type);
+		}
+		
+		return AlphabetService.alphabet.Letters;
+	}
 	/*
 	def self.get_random_vowels
 		return ["A","E","I","O","U"].shuffle.first(1) 

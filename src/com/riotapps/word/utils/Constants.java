@@ -127,6 +127,7 @@ public class Constants {
 	public static final String EXTRA_GAME_LIST_PREFETCHED = "isGameListFetched";
  	public static final String EXTRA_GAME = "com.riotapps.word.hooks.Game";
 	public static final String EXTRA_GAME_ID = "gameId";
+	public static final String EXTRA_FROM_COMPLETED_GAME_LIST = "from_cg";
 	public static final String EXTRA_PLAYER = "com.riotapps.word.hooks.Player";
 	public static final String EXTRA_GCM_GAME_ID = "id";
 	public static final String EXTRA_GCM_MESSAGE = "msg";
@@ -148,6 +149,8 @@ public class Constants {
  	public static final String SHARED_PREFERENCE_PREFIX = "com.riotapps.word.utils_";
  	public static final String USER_PREFS = "user_";
  	public static final String GAME_PREFS = "game_";
+ 	public static final String OPPONENT_PREFS = "opponent_";
+ 	public static final String PURCHASE_PREFS = "purchase_";
  	public static final String USER_PREFS_USER_ID = "user_uid";
  	public static final String USER_PREFS_AUTH_TOKEN = "user_at";
  	public static final String USER_PREFS_EMAIL = "user_em";
@@ -164,6 +167,9 @@ public class Constants {
  	public static final String USER_PREFS_PLAYER_CHECK_TIME = "player_check";
  	public static final String USER_PREFS_GAME_LIST_CHECK_TIME = "game_list_check";
  	public static final String USER_PREFS_GCM_REGISTRATION_ID = "gcm";
+ 	public static final String PURCHASE_PREFS_ITEM = "p_item_%s";
+ 	public static final String OPPONENT_PREFS_RECORD = "o_rec_%s";
+ 	public static final String OPPONENT_PREFS_GROUP_ACTIVATED = "o_rec_%s";
 	public static final String USER_PREFS_GAME_ALERT_CHECK = "game_alert_check_%s";
 	public static final String USER_PREFS_FIRST_TIME_GAME_SURFACE_ALERT_CHECK = "f_t_g_s";
 	public static final String USER_PREFS_ALERT_CHECK = "alert_check_";

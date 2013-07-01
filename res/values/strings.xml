@@ -340,6 +340,7 @@
  	<string name="gameboard_skip_button_text">skip</string>
  	<string name="gameboard_cancel_button_text">cancel</string>
  	<string name="gameboard_played_words_button_text">look up\nwords</string>
+ 	<string name="gameboard_hopper_peek_button_text">peek at\nhopper</string>
  	<string name="gameboard_swap_button_text">swap</string>
  	<string name="gameboard_swap_dialog_button_text">swap letters</string>
  	<string name="gameboard_swap_dialog_title_text">tap the letter(s) to swap</string>
@@ -565,5 +566,12 @@
 		<string name="post_turn_title_with_auto_play"></string>
 		<string name="share_using">Share using</string>
 		<string name="game_list_skill_level">(%s)</string>
+		<string name="hopper_peek_title">peek at the hopper</string>
+		
+		<string name="hopper_peek_letter">%1$s - %2$s</string>
+		<string name="gameboard_hopper_peek_dialog_title">peek</string>
+		<string name="gameboard_hopper_peek_dialog_decription">there are %1$s remaining letters in the hopper and %2$s\'s tray</string>
+		<string name="share_subject">WordSmash</string>
+		<string name="share_message">Check out WordSmash for Andoid in the Google Play store.  Test your crossword skills against the character of your choice.  Always play at your own pace, as fast as you desire.</string>
 				
 </resources>

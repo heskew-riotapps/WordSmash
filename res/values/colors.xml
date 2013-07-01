@@ -26,6 +26,7 @@
 	<color name="chat_border">#C9DECB</color>
 	<color name="chat_text">#080808</color>
  
+	<color name="main_opponents_backgroud_color">#000000</color>  
     <color name="pressed_color">#D3D3D3</color> <!--custom color for pressed state -->
     <color name="normal_color">#fff5ee</color>  
     <color name="form_background_color">#fff5ee</color> 

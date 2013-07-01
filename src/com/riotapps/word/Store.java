@@ -6,6 +6,8 @@ import com.riotapps.word.hooks.OpponentGroup;
 import com.riotapps.word.hooks.OpponentGroupService;
 import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.hooks.StoreItem;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Logger;
@@ -32,61 +34,35 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	        PlayerService.loadPlayerInHeader(this);
 	        this.appContext = (ApplicationContext)this.getApplicationContext(); 
 	        this.inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        this.loadCharacterOptions();
+	        this.loadStoreItems();
 	        MenuUtils.hideMenu(this);
 	 }
 	
 	
-	 private void loadCharacterOptions(){
-		 
-			ApplicationContext.captureTime(TAG, "loadList starting");
-	 
+	 private void loadStoreItems(){
+
 	    	LinearLayout llItems = (LinearLayout)findViewById(R.id.llItems);
 	   
 	    	llItems.removeAllViews();
 
-	    	
-	  //	Logger.w(TAG, "loadLists this.player.getActiveGamesYourTurn() size=" + this.player.getActiveGamesYourTurn().size() );
-
 	    	ApplicationContext.captureTime(TAG, "loadList opponents fetch starting");
 	    	
-	    	List<OpponentGroup> opponentGroups = OpponentGroupService.getInactiveOpponentGroups();
-	    	int i = 1;
-	    	int j = 1;
-	    	
-	 
-	    	
- 
-		  //	int w  = displaymetrics.widthPixels;
-	    	//if opponents lists is empty, something is screwy
-	    	if (opponentGroups.size() > 0){    	
-	     		
-	    		
-	    		LinearLayout llHorizontal = null;
-	    		
+	    	List<StoreItem> storeItems = StoreService.getStoreItems();
+
 	    		 
-		        for (OpponentGroup o : opponentGroups){
-		        	//if (i == 3){break;}
-		        	//Logger.w(TAG, "loadLists this.player.getActiveGamesYourTurn() game=" +g.getId() );
-		        	 
-		        	llItems.addView(getOpponentGroupView(o));
-		        	 
-				}
-		       
-	    	}
-	    	else{
-		        	llItems.setVisibility(View.GONE); //?? maybe show all but indicate of already bought
-		        }
+	        for (StoreItem item : storeItems){
+	 	        	llItems.addView(getStoreItemView(item));
+			}
 
 	    }
 	    
 		
-	    public View getOpponentGroupView(OpponentGroup opponentGroup) {
+	    public View getStoreItemView(StoreItem item) {
 
 	  		View view = this.inflater.inflate(R.layout.character_item, null);
 	 
  
-		 	TextView tvCharacter = (TextView)view.findViewById(R.id.tvCharacter);
+		/* 	TextView tvCharacter = (TextView)view.findViewById(R.id.tvCharacter);
 		 
  
 		 	tvCharacter.setText(opponentGroup.getName());
@@ -94,6 +70,7 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 		 	 
 		 	view.setTag(opponentGroup.getId());
 		 	view.setOnClickListener(this);
+	  	  */
 	  	    return view;
 	  	}
 	@Override
@@ -101,13 +78,13 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 		// TODO Auto-generated method stub
 
 		//call google payment integration here
-		OpponentGroup og = OpponentGroupService.getInactiveOpponentGroup(Integer.parseInt(v.getTag().toString()));
-		Logger.d(TAG, "tag=" + v.getTag().toString());
-		og.setActivated(true);
+	//	OpponentGroup og = OpponentGroupService.getInactiveOpponentGroup(Integer.parseInt(v.getTag().toString()));
+	//	Logger.d(TAG, "tag=" + v.getTag().toString());
+	//	og.setActivated(true);
 		
-		OpponentGroupService.saveOpponentGroup(og);
+	//	OpponentGroupService.saveOpponentGroup(og);
 		
-		this.appContext.setOpponents(OpponentService.getActivatedOpponents());
+	//	this.appContext.setOpponents(OpponentService.getActivatedOpponents());
 	}
 	
 	

@@ -12,6 +12,7 @@ import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.CustomButtonDialog;
 
 import com.riotapps.word.ui.DialogManager;
@@ -19,6 +20,7 @@ import com.riotapps.word.ui.GameAction.GameActionType;
 import com.riotapps.word.ui.GameState;
 import com.riotapps.word.ui.GameStateService;
 import com.riotapps.word.ui.GameSurfaceView;
+import com.riotapps.word.ui.HopperPeekDialog;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.ui.PlacedResult;
 import com.riotapps.word.ui.WordLoaderThread;
@@ -49,6 +51,7 @@ import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -223,6 +226,12 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	//Logger.d(TAG, "Game about to be fetched from extra");
 	 	Intent i = getIntent();
 	 	String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
+	 	boolean fromCompletedGameList = i.getBooleanExtra(Constants.EXTRA_FROM_COMPLETED_GAME_LIST, false);
+	 	
+	 	//do this so that back button does not get crazy if one navigates to game from completed game list continuously
+	 	if (fromCompletedGameList){
+	 		MenuUtils.hideMenu(this);
+	 	}
 	 	//this.game = (Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 	 	
 	 	this.captureTime("get game from local starting");
@@ -288,7 +297,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		boolean isRevMob = false; //Constants.INTERSTITIAL_REVMOB;
 		final int useRevMob = 0;
 		
-	 	if (!Constants.HIDE_ALL_ADS)
+	 	if (!StoreService.isHideInterstitialAdPurchased())
 	 	{
 	 		//assign either chartboost or revmob randomly
 	 		/*if (isChartBoost && isRevMob){
@@ -387,7 +396,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	*/
 	private void setupGame(){
 		 Logger.d(TAG,"setupGame game turn=" + this.game.getTurn());
-		GameService.loadScoreboard(this, this.game, this.player);
+		GameService.loadScoreboard(this, this.game);
 	 	
 		//if (!this.game.isCompleted()){
 			this.fillGameState();
@@ -563,12 +572,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		this.bSkip = (Button) findViewById(R.id.bSkip);
 		this.bShuffle = (Button) findViewById(R.id.bShuffle);
 		 
+		Button bHopperPeek = (Button) findViewById(R.id.bHopperPeek);
 		Button bSwap = (Button) findViewById(R.id.bSwap);
 		Button bPlayedWords = (Button) findViewById(R.id.bPlayedWords);
 		Button bCancel = (Button) findViewById(R.id.bCancel);
 		Button bResign = (Button) findViewById(R.id.bResign);
 	 	this.bShuffle.setOnClickListener(this);
 	 
+	 	bHopperPeek.setOnClickListener(this);
 	 	this.bSkip.setOnClickListener(this);
 	 	bPlayedWords.setOnClickListener(this);
 	 	this.bRecall.setOnClickListener(this);
@@ -612,7 +623,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
  			bSwap.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));
  		}
 	  	
-	 	
+	  	//based on store purchase
+	  	bHopperPeek.setClickable(true);
+	  	
 	 	bSkip.setClickable(this.game.isContextPlayerTurn(this.player));
 	 	bResign.setClickable(this.game.isContextPlayerTurn(this.player));
 
@@ -652,7 +665,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 	 	}
 	 	else if(this.game.isCompleted()){  
-	 		 
+	 		bHopperPeek.setVisibility(View.GONE);
 	 		bRecall.setVisibility(View.GONE);
 	 		bSwap.setVisibility(View.GONE);
 	 		bSkip.setVisibility(View.GONE);
@@ -665,7 +678,12 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 		}
 
 	 	}
+	 	
+	 	if (!StoreService.isHopperPeekPurchased()){
+	 		bHopperPeek.setVisibility(View.GONE);
+	 	}
 	 
+	 	
 	 	
 	 //	Logger.d(TAG, "setupButtons bRecall visible=" + bRecall.getVisibility() + " bShuffle=" + bShuffle.getVisibility());
 	}
@@ -879,7 +897,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		}
 	}
     private void setupMenu(){
-    	
+      	
   	  this.popupMenu = new PopupMenu(this, findViewById(R.id.options));
 
   	  MenuUtils.fillMenu(this, this.popupMenu);
@@ -890,7 +908,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-    	
+    	Logger.d(TAG, "onMenuItemClick");
     	//probably need to stop thread here
     	return MenuUtils.handleMenuClick(this, item.getItemId());
     }
@@ -1059,26 +1077,36 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	
 	 @Override 
 	    public void onClick(View v) {
+		 Logger.d(TAG, "onclick this.isButtonActive=" + this.isButtonActive);
 	    	Intent intent;
 	    	if (this.isButtonActive == true){
 	    		//skip processing to stop dialogs from doubling up
 	    	}
-	    	else {	
-	    		this.isButtonActive = true;
-		    	    	
+	    	else {		
 		    	switch(v.getId()){  
 			    	case R.id.options:
 				 		popupMenu.show();
 				 		break;
-			        case R.id.bShuffle:  
+			        case R.id.bShuffle: 
+			        	this.isButtonActive = true;
 			        	Logger.d(TAG, "bShuffle clicked");
 			        	 this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 				        			Constants.TRACKER_LABEL_SHUFFLE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.gameSurfaceView.shuffleTray();
 			        	this.unfreezeButtons();
 			        	break;
-			      
+			        case R.id.bHopperPeek:  
+			        	this.isButtonActive = true;
+			        	final HopperPeekDialog dialog = new HopperPeekDialog(context, this.game);
+			       	 
+				    	dialog.show();
+			        	//intent = new Intent(this, HopperPeek.class);
+			        	//intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
+						//startActivity(intent);
+					 
+						break;
 			        case R.id.bPlayedWords:  
+			        	this.isButtonActive = true;
 			        	intent = new Intent(this, GameHistory.class);
 			        	intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
 						startActivity(intent);
@@ -1086,12 +1114,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						break;
 			   
 			        case R.id.bRecall:
+			        	this.isButtonActive = true;
 			        	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_RECALL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.gameSurfaceView.recallLetters();
 			        	this.unfreezeButtons();
 						break;
 			        case R.id.bPlay:
+			        	this.isButtonActive = true;
 			        	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_PLAY_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	//this.loadPlaySpinner();
@@ -1104,22 +1134,26 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	//this.gameSurfaceView.onPlayClick();
 						break;
 			       case R.id.bSkip:
+			    	   this.isButtonActive = true;
 			    	   this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_SKIP_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.gameSurfaceView.onPlayClick();
 						break;
 			       case R.id.bSwap:
+			    	   this.isButtonActive = true;
 			    	   this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_SWAP_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.onSwapClick();
 						break;
 			   
 			        case R.id.bResign:  
+			        	this.isButtonActive = true;
 			        	 this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 				        			Constants.TRACKER_LABEL_RESIGN_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.handleResign();
 						break;
 			        case R.id.bCancel:  
+			        	this.isButtonActive = true;
 			        	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_CANCEL_INITIAL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.handleCancel();
@@ -1280,7 +1314,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 				setupButtons();
 				GameStateService.removeGameState(game.getId());
-
+				this.setupMenu(); //in case this is the first completed game, it will add that option to menu
+				this.gameSurfaceView.stopThreadLoop();
 	    		//create alert for resigned game that when clicked, sends user back to main
 	    		
 		//	} catch (DesignByContractException e) {
@@ -1312,6 +1347,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 			gameSurfaceView.resetGameAfterPlay();
 
 					GameStateService.removeGameState(game.getId());
+					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
+					this.gameSurfaceView.stopThreadLoop();
 				}
 				else{
 					// show player his score, then kick off auto play
@@ -1333,6 +1370,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					if (game.isCompleted()) {
 						//perhaps replace play, skip
 						GameStateService.removeGameState(game.getId());
+						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
+						this.gameSurfaceView.stopThreadLoop();
 					}
 				}    	
 				
@@ -1364,7 +1403,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 			gameSurfaceView.resetGameAfterPlay();
 
 					GameStateService.removeGameState(game.getId());
-
+					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
+					this.gameSurfaceView.stopThreadLoop();
 				}
 				else{
 					// show player his score, then kick off auto play
@@ -1385,6 +1425,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					if (game.isCompleted()) {
 						//perhaps replace play, skip
 						GameStateService.removeGameState(game.getId());
+						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 						this.gameSurfaceView.stopThreadLoop();
 					}
 				}
@@ -1493,13 +1534,6 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	private TextView tvLetter5;
 	    	private TextView tvLetter6;
 	    	private TextView tvLetter7;
-	    	private RelativeLayout rlLetter1;
-	    	private RelativeLayout rlLetter2;
-	    	private RelativeLayout rlLetter3;
-	    	private RelativeLayout rlLetter4;
-	    	private RelativeLayout rlLetter5;
-	    	private RelativeLayout rlLetter6;
-	    	private RelativeLayout rlLetter7;
 	    	
 	    	private View layout;
 	    	Context context;

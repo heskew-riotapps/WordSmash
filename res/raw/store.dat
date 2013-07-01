@@ -1,11 +1,6 @@
 [
-{ "id": "1", "name": "Get Rid of Ads", "constant":"no_ads"},
-{ "id": "2", "name": "Character Packs", "constant":"character_packs",
-	"items" : [
-	
-	
-	]
+{ "id": "1", "name": "Get Rid of Ads", "constant":"no_ads", "price": "2.99", "sku": ""},
+{ "id": "2", "name": "Disney Character Pack", "constant":"disney_characters", "price": ".99", "sku": ""},
+{ "id": "3", "name": "Cute Alien Character Pack", "constant":"disney_characters", "price": ".99", "sku": "" }
 
-
-}
 ]

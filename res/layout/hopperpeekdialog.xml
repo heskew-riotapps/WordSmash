@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	android:padding="2dp"
+ android:layout_marginLeft="10dp"
+  android:layout_marginRight="10dp"
+    android:id="@+id/progress_root"
+    style="@style/DialogStyle"
+    android:background="@drawable/dialog_background"
+	>
+ <RelativeLayout  
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/progress_inner_background"
+    android:id="@+id/alert_top"
+ 
+	>
+	
+    <RelativeLayout
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		android:background="@drawable/alert_background"
+		android:id="@+id/header_wrapper"
+	>
+	 <RelativeLayout
+ 		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+	 	android:id="@+id/header"
+	>
+    <com.riotapps.word.ui.MainFontTextView
+         android:id="@+id/alert_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		style="@style/TextStyle"
+		android:text="@string/gameboard_hopper_peek_dialog_title"
+		android:textSize="14dp"
+        android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+    />
+   <ImageView
+        android:id="@+id/img_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_button"
+        android:layout_alignParentRight="true"
+        android:paddingRight="3dp"
+        android:paddingTop="3dp"
+		/>
+  </RelativeLayout>
+   <com.riotapps.word.ui.MainFontTextView
+       android:layout_below="@id/header"
+        android:id="@+id/peek_description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+		 style="@style/ContentAreaTextAreaStyle" 
+		android:text="@string/gameboard_hopper_peek_dialog_decription"
+		android:textSize="14sp"
+		android:paddingTop="4dp"
+		android:paddingBottom="4dp"
+		android:gravity="center"
+    />
+    
+ <TableLayout
+    android:layout_below="@id/peek_description"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/tblLetters"
+    style="@style/ContentAreaTextAreaStyle" 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:stretchColumns="*">
+    <TableRow style="@style/RulesTableRowStyle" >
+
+        <com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter1"
+      		style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:id="@+id/tvLetter2"
+      		style="@style/LetterValueStyle"       
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter3"
+      		style="@style/LetterValueStyle"          
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter4"
+      		style="@style/LetterValueStyle"
+        />
+
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+        <com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter5"
+      		style="@style/LetterValueStyle"
+        />
+        <com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter6"
+            style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter7"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter8"
+            style="@style/LetterValueStyle"
+ 
+        />
+     </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter9"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter10"
+            style="@style/LetterValueStyle"
+		/>
+        <com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter11"
+            style="@style/LetterValueStyle"
+		/>
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter12"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter13"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter14"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:id="@+id/tvLetter15"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter16"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter17"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:id="@+id/tvLetter18"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:id="@+id/tvLetter19"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter20"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter21"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:id="@+id/tvLetter22"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter23"
+            style="@style/LetterValueStyle"
+        />
+ 		<com.riotapps.word.ui.MainFontTextView
+           android:id="@+id/tvLetter24"
+            style="@style/LetterValueStyle"
+        />
+    </TableRow>
+    <TableRow style="@style/RulesTableRowStyle" >
+
+ 		<com.riotapps.word.ui.MainFontTextView
+ 		    style="@style/LetterValueStyle"
+            android:id="@+id/tvLetter25"
+         />
+ 		<com.riotapps.word.ui.MainFontTextView
+            android:id="@+id/tvLetter26"
+            style="@style/LetterValueStyle"
+        />
+
+    </TableRow>
+ 	</TableLayout>   
+           
+ 
+</RelativeLayout>   
+  
+	    <LinearLayout
+	        style="@style/FormButtonAreaStyle"
+	        android:layout_below="@+id/header_wrapper" 
+ 			android:id="@+id/llOK"
+ 		 
+	        >
+ 
+		<com.riotapps.word.ui.MainFontTextView
+		  
+		        android:id="@+id/tvOK"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+				style="@style/TextStyle"
+				android:gravity="center"
+				android:text="@string/ok"
+				android:textSize="20sp"
+				android:textColor="@color/sub_text_color"
+			 
+		    />
+	    </LinearLayout>
+    
+  </RelativeLayout>
+</RelativeLayout>
+  

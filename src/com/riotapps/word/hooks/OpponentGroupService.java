@@ -40,6 +40,7 @@ public class OpponentGroupService {
 		}
 		
 		
+		/*
 		public static void saveOpponentGroup(OpponentGroup opponentGroup){
 			List<OpponentGroup> opponentGroups = OpponentGroupData.getActiveOpponentGroups();
 			
@@ -57,4 +58,7 @@ public class OpponentGroupService {
 			OpponentGroupData.saveOpponentGroups(opponentGroups);
 		
 		}
+		*/
+		
+
 }

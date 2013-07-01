@@ -27,7 +27,14 @@
         android:text="@string/gameboard_played_words_button_text"
         android:maxWidth="100dp"
     />
- 
+ 	<com.riotapps.word.ui.ScoreboardButton 
+  	    style="@style/GameBoardButtonStyle"
+  	    android:id="@+id/bHopperPeek"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_hopper_peek_button_text"
+        android:maxWidth="100dp"
+    />
 	  <com.riotapps.word.ui.ScoreboardButton 
   	    style="@style/GameBoardButtonStyle"
   	    android:id="@+id/bRecall"

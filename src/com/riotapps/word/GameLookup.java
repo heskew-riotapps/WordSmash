@@ -70,7 +70,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	 	this.game = GameService.getGame(gameId); 
 	 	this.appContext = (ApplicationContext)this.getApplicationContext(); 
 	    this.player = this.appContext.getPlayer(); 
-	 	GameService.loadScoreboard(this, this.game, this.player);
+	 	GameService.loadScoreboard(this, this.game);
 	 	
 	 	 this.imageLoader = new ImageFetcher(this, Constants.DEFAULT_AVATAR_SIZE, Constants.DEFAULT_AVATAR_SIZE, 0);
 	     this.imageLoader.setImageCache(ImageCache.findOrCreateCache(this, Constants.IMAGE_CACHE_DIR));

@@ -55,6 +55,7 @@ public class ApplicationContext extends Application{
 	//private Playtomic playtomic = null;
 	
 	private Player player = null;
+	private boolean bannerAdHidden = false;
 	
 	public static long runningTime = 0;
 	public static long captureTime = 0;
@@ -121,6 +122,16 @@ public class ApplicationContext extends Application{
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	
+	
+	public boolean isBannerAdHidden() {
+		return bannerAdHidden;
+	}
+
+	public void setBannerAdsHidden(boolean bannerAdHidden) {
+		this.bannerAdHidden = bannerAdHidden;
 	}
 
 	public void onCreate(){

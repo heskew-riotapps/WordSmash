@@ -15,6 +15,7 @@ public class Opponent{
 	private String imagePrefix;
 	private int skillLevel;
 	private int opponentGroupId;
+	private OpponentRecord record = null;
 	
 	private OpponentGroup opponentGroup = null;
 	
@@ -68,6 +69,16 @@ public class Opponent{
 	public void setOpponentGroupId(int opponentGroupId) {
 		this.opponentGroupId = opponentGroupId;
 	}
+	
+	public OpponentRecord getRecord() {
+		//store in local variable
+				if (this.record == null) {
+					this.record =  OpponentService.getOpponentRecord(this.opponentGroupId);
+				}
+				return this.record;
+	}
+	
+ 
 	
 	public OpponentGroup getOpponentGroup(){
 		

@@ -1,4 +1,4 @@
 [
-{ "id": "1", "name": "Smileys", "constant":"smiley", "activated": "true"},
-{ "id": "2", "name": "Disney", "constant":"disney" , "activated": "false"}
+{ "id": "1", "name": "Smileys", "constant":"smiley", "storeItemId": "a", "autoActivated": "true"},
+{ "id": "2", "name": "Disney", "constant":"disney" , "storeItemId": "b", "autoActivated": "false"}
 ]
