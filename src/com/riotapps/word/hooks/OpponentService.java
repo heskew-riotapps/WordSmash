@@ -20,7 +20,14 @@ public class OpponentService {
 */
 	public static List<Opponent> getActivatedOpponents(){
 
-		return OpponentData.getActivatedOpponents();
+		//loop through activated opponents and load bitmaps??????
+//		return OpponentData.getActivatedOpponents();
+		List<Opponent> opponents = OpponentData.getActivatedOpponents();
+		
+		for (Opponent o : opponents){
+			o.preloadBitmaps();
+		}
+		return opponents;
 			 
 	}
 	

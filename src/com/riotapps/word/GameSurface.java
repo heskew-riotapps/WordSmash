@@ -1315,7 +1315,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				setupButtons();
 				GameStateService.removeGameState(game.getId());
 				this.setupMenu(); //in case this is the first completed game, it will add that option to menu
-				this.gameSurfaceView.stopThreadLoop();
+				//??this.gameSurfaceView.stopThreadLoop();
 	    		//create alert for resigned game that when clicked, sends user back to main
 	    		
 		//	} catch (DesignByContractException e) {
@@ -1348,7 +1348,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
-					this.gameSurfaceView.stopThreadLoop();
+					//??this.gameSurfaceView.stopThreadLoop();
 				}
 				else{
 					// show player his score, then kick off auto play
@@ -1371,7 +1371,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						//perhaps replace play, skip
 						GameStateService.removeGameState(game.getId());
 						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
-						this.gameSurfaceView.stopThreadLoop();
+						//??this.gameSurfaceView.stopThreadLoop();
 					}
 				}    	
 				
@@ -1404,7 +1404,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
-					this.gameSurfaceView.stopThreadLoop();
+					//???this.gameSurfaceView.stopThreadLoop();
 				}
 				else{
 					// show player his score, then kick off auto play
@@ -1426,7 +1426,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						//perhaps replace play, skip
 						GameStateService.removeGameState(game.getId());
 						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
-						this.gameSurfaceView.stopThreadLoop();
+						//??this.gameSurfaceView.stopThreadLoop();
 					}
 				}
 				handleInterstitialAd();

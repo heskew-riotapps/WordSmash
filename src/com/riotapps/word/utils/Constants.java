@@ -300,6 +300,7 @@ public class Constants {
 	 * opponent image modes 
 	 *==============================================*/
 	public static final String OPPONENT_IMAGE_MODE_MAIN = "main";
+	public static final String OPPONENT_IMAGE_MODE_SMALL = "small";
 
 	
 	/**=============================================

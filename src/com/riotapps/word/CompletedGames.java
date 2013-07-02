@@ -114,12 +114,12 @@ public class CompletedGames extends FragmentActivity {
 		    	  Game game = values.get(position);// values[position];
 		    	  Opponent opponent = game.getOpponent();
 		    	  
-		    	  int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
+		    	//  int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
  		  		 //  ivOpponent.setImageResource(opponentImageId);
  		  		  
- 		  		  Bitmap bm = GameSurfaceView.decodeSampledBitmapFromResource(getResources(), opponentImageId, 64, 64);
- 		  		   bm = Bitmap.createScaledBitmap(bm, 64, 64, false);
- 		  		   ivOpponent.setImageBitmap(bm);
+ 		  		//  Bitmap bm = GameSurfaceView.decodeSampledBitmapFromResource(getResources(), opponentImageId, 64, 64);
+ 		  		  //Bitmap bm = Bitmap.createScaledBitmap(bm, 64, 64, false);
+ 		  		  ivOpponent.setImageBitmap(opponent.getSmallBitmap());
 		    	  tvOpponent.setText(opponent.getName());
 		    	  tvSkillLevel.setText(String.format(context.getString(R.string.game_list_skill_level), opponent.getSkillLevelText(context)));
 		    	  tvSummary.setText(game.getLastActionTextForList(context));
@@ -136,7 +136,7 @@ public class CompletedGames extends FragmentActivity {
 		    	   else{
 		    		   llBottomBorder.setVisibility(View.VISIBLE);
 		    	   }
-		    	 bm = null;
+		    	// bm = null;
 		    	  rowView.setTag(game.getId());
 		    	  return rowView;
 	    	  }
