@@ -1,8 +1,11 @@
 package com.riotapps.word.hooks;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.riotapps.word.R;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 
 public class Opponent{
@@ -16,6 +19,7 @@ public class Opponent{
 	private int skillLevel;
 	private int opponentGroupId;
 	private OpponentRecord record = null;
+	private Bitmap smallImage = null;
 	
 	private OpponentGroup opponentGroup = null;
 	
@@ -108,5 +112,23 @@ public class Opponent{
 			return context.getString(R.string.skill_level_3);
 		}
 		return Constants.EMPTY_STRING;
+	}
+
+	public Bitmap getSmallBitmap(){
+		if (this.smallImage == null){
+		 this.preloadBitmaps();
+		}
+		
+		return smallImage;
+	
+	}
+	
+	public void preloadBitmaps(){
+		if (this.smallImage == null){
+		  Context context = ApplicationContext.getAppContext();
+			
+		  int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + this.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_SMALL), null, null);
+		  this.smallImage = BitmapFactory.decodeResource(context.getResources(), opponentImageId);
+		}
 	}
 }
