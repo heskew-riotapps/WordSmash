@@ -462,14 +462,26 @@ public static Game skip(boolean isOpponent, Game game){
 		
 		//game.getPlayedTiles() contains the tiles that already have at least one letter played on them
 		
-		//create collections for H/V tiles. 
-		//object in collection must contain letter, x, y
+		List<PlayedTile> tiles = game.getPlayedTiles();
+		
+		//create collections for H/V tiles/sets. 
+		//object in collection must contain letter(s),len , x, y
 		
 		//for each tile
-		//get left/right/up/down - 
+		for  (PlayedTile tile : tiles) {
+			PlayedTile[] tileArray = new PlayedTile[1];
+			tileArray[0] = tile;
+		//get left/right/up/down -
+			//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot
+			//int uTile = TileLayoutService.getTileIdAbove(tile.getBoardPosition());
+			PlayedTile nextTile;
+			nextTile = tiles.get(TileLayoutService.getTileIdAbove(tile.getBoardPosition()));
+			//if nextTile null to another direction. if not, also go opposite direction
+			//need to take precaution to not process multiple tiles of the same string in the same axis
 		//append / get next
 			//add to H or V collection at end
 		//add single tile to opposite h/v collection regardless for single cross build
+		}
 		
 		//for each in V col 
 			//look for another V on same row
@@ -482,6 +494,13 @@ public static Game skip(boolean isOpponent, Game game){
 		//with letter blob compares, still need to shift/rotate through playable tiles
 		//this is to check for words of all length, combinations of the letters from 2 thru tray+board(row/col)
 		
+		//all possible plays added to list - 
+			//check for distance/position
+		//free standing plays added to a smash list
+			//check for valid impacted words
+		//calc scores of valid plays 
+		//sort by score
+		//apply AI difficulty rules and random failure rates
 		
 		//if getPlayedTiles.size() == 0, the player skipped his first turn, you can play any word
 		//formed by the tray tiles but at least one letter must be placed on a starter tile
@@ -493,14 +512,6 @@ public static Game skip(boolean isOpponent, Game game){
 		// you'll probably want to look at GameService.isWordConnectedToPlayedWords and GameService.getWords to 
 		//study some of that logic
 		
-		//abcd
-		//a
-		//b
-		//c
-		//ab
-		//ac
-		//ba
-		//bc
 		
 		//WordService.isWordValid(word) will tell you if the word is in the dictionary
 		
