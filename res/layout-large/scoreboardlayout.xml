@@ -6,36 +6,60 @@
 <RelativeLayout
     android:id="@+id/scoreboard"
     android:layout_width="fill_parent"
-	android:layout_height="42dp"
+	android:layout_height="30dp"
 	android:background="@drawable/sbd_bg"
-    >
-      <com.riotapps.word.ui.ScoreboardFontTextView
-	        android:text="@string/anonymous_player_name"
-	    />
-	    <com.riotapps.word.ui.ScoreboardFontTextView
-	        android:id="@+id/tvPlayerScore"
-	        android:layout_marginRight="10dp"
-	        android:layout_width="wrap_content"
-	   	 	android:layout_height="wrap_content"
  
-	    />
-	    <com.riotapps.word.ui.ScoreboardFontTextView
-	        android:id="@+id/tvOpponentScore"
-	        android:layout_width="wrap_content"
-	   	 	android:layout_height="wrap_content"
-	    />
-	    <com.riotapps.word.ui.ScoreboardFontTextView
+    >
+    	<ImageView 
+		    android:id="@+id/ivOpponent"
+		    android:layout_height="30dp"
+		    android:layout_width="30dp"
+		    android:layout_marginRight="3dp"
+ 
+		    />	
+		   
+		 <com.riotapps.word.ui.ScoreboardFontTextView
 	        android:id="@+id/tvOpponentName"
 	        android:layout_width="wrap_content"
-	   	 	android:layout_height="wrap_content"
+	   	 	android:layout_height="30dp" 
+	   	    android:gravity="center_vertical"
+	   	 	android:layout_toRightOf="@id/ivOpponent"
+	   	 	android:layout_marginRight="5dp"
+	  
+	 
+	   	 	android:textSize="16sp"
+	    /> 
+	      <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:id="@+id/tvOpponentScore"
+	        android:layout_width="wrap_content"
+	   	 	android:layout_height="wrap_content" 
+	   	  	android:layout_marginTop="0dp"
+	   	 	android:textSize="24sp"
+	   	 	android:layout_toRightOf="@id/tvOpponentName"
+	   	 	android:layout_marginRight="16dp"
+	   	  
+ 	    />
+	    <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:text="@string/anonymous_player_name"
+	        android:id="@+id/tvPlayerName"
+	        android:layout_marginRight="5dp"
+	        android:layout_width="wrap_content"
+	   	 	android:layout_height="30dp" 
+	   	    android:gravity="center_vertical"
+	   	 	android:layout_toRightOf="@id/tvOpponentScore"
+ 			
+	   	 	android:textSize="16sp"
 	    />
-		<ImageView 
-		    android:id="@+id/ivOpponent"
-		    android:layout_height="40dp"
-		    android:layout_width="40dp"
-		    />
-		 
-	    <RelativeLayout
+	      
+	    <com.riotapps.word.ui.ScoreboardFontTextView
+	        android:id="@+id/tvPlayerScore"
+	        android:layout_width="wrap_content"
+	   	 	android:layout_height="wrap_content" 
+ 			android:textSize="24sp"
+ 			android:layout_toRightOf="@id/tvPlayerName"
+	   	    android:layout_marginTop="0dp"
+	    />
+ 	    <RelativeLayout
 	       android:id="@+id/scoreboardNumbers"
 	    	android:layout_width="wrap_content"
 	   	 	android:layout_height="wrap_content"
@@ -43,21 +67,31 @@
 	        android:layout_alignParentRight="true"
 	        android:paddingTop="2dp"
 	    >    
+	    	 <ImageButton 
+		          android:id="@+id/options"
+		          android:layout_alignParentRight="true"
+		 		   android:layout_marginLeft="4dp"
+		 		  android:layout_centerVertical="true"
+		          android:src="@drawable/options_sb" 
+		          android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		         android:background="@drawable/options"  
+				/>
+ 	        
 	     	<com.riotapps.word.ui.ScoreboardFontTextView
 	            android:id="@+id/tvLettersLeft"
-
 	            android:textColor="@color/scoreboard_text_color"
-	            android:textSize="14dp"
-	            
+	            android:textSize="10sp"
+	            android:layout_toLeftOf="@id/options"
 	            android:gravity="right"
 	          
 	         />
 	     	<com.riotapps.word.ui.ScoreboardFontTextView
 	            android:id="@+id/tvNumPoints"
 	            android:textColor="@color/scoreboard_text_color"
-	            android:textSize="14dp"
+	            android:textSize="10sp"
 	            android:layout_below="@id/tvLettersLeft"
-	             
+	            android:layout_toLeftOf="@id/options"             
 	       		android:gravity="right"
 	         />
 	    </RelativeLayout>
