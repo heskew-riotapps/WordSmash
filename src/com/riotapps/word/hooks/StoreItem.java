@@ -33,14 +33,14 @@ public class StoreItem {
 	
 	public boolean isPurchased() {
 		if (this.purchase == null){
-			this.purchase = StoreService.getPurchaseByStoreItemId(this.id);
+			this.purchase = StoreService.getPurchaseBySku(this.sku);
 		}
 		return this.purchase.isPurchased();
 	}
  
 	public Date getPurchaseDate() {
 		if (this.purchase == null){
-			this.purchase = StoreService.getPurchaseByStoreItemId(this.id);
+			this.purchase = StoreService.getPurchaseBySku(this.sku);
 		}
 		return this.purchase.getPurchaseDate();
 	}

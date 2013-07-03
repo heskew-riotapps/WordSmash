@@ -94,7 +94,7 @@ public class OpponentData {
 		
 	    if (_opponentRecord.equals(Constants.EMPTY_STRING)){
 	    	
-	    	return new OpponentRecord(opponentId);
+	    	return new OpponentRecord();
 	    }
 	    else {
 			Gson gson = new Gson(); 			 
@@ -105,12 +105,12 @@ public class OpponentData {
 	    }
 	}
 	
-	public static void saveOpponentRecord(OpponentRecord record){
+	public static void saveOpponentRecord(int opponentId, OpponentRecord record){
 		Gson gson = new Gson(); 			 
 		 
 		SharedPreferences settings = Storage.getOpponentSharedPreferences();
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putString(String.format(Constants.OPPONENT_PREFS_RECORD, String.valueOf(record.getOpponentId())), gson.toJson(record));
+		editor.putString(String.format(Constants.OPPONENT_PREFS_RECORD, String.valueOf(opponentId)), gson.toJson(record));
 		// Check if we're running on GingerBread or above
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 		     // If so, call apply()

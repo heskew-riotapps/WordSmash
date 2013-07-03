@@ -312,6 +312,16 @@ public class Constants {
     public static final int MENU_RULES = 4;
     public static final int MENU_STORE = 5;
     public static final int MENU_SHARE = 6;
+    
+    /**=============================================
+	 * store skus 
+	 *==============================================*/
+    public static final String sku_google_play_hide_interstitial = "sku_gp_hi";
+    public static final String sku_google_play_hopper_peek = "sku_gp_hp";
+    public static final String sku_google_play_word_definition = "sku_gp_wd";
+    public static final String sku_google_play_premium_upgrade = "sku_gp_pu";
+    public static final String sku_google_play_character_set_dogs_1 = "sku_gp_csd1"; //sample for testing
+    public static final String sku_google_play_character_set_cats_1 = "sku_gp_csc1";
 
 	
 }//end class Constants

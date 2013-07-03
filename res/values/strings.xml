@@ -572,6 +572,6 @@
 		<string name="gameboard_hopper_peek_dialog_title">peek</string>
 		<string name="gameboard_hopper_peek_dialog_decription">there are %1$s remaining letters in the hopper and %2$s\'s tray</string>
 		<string name="share_subject">WordSmash</string>
-		<string name="share_message">Check out WordSmash for Andoid in the Google Play store.  Test your crossword skills against the character of your choice.  Always play at your own pace, as fast as you desire.</string>
-				
+		<string name="share_message">Check out WordSmash for Android in the Google Play store.  Test your crossword skills against the character of your choice.  Always play at your own pace, as fast as you desire.</string>
+		<string name="hopper_peek_preview">Peeking at the hopper requires a Hopper Peek Upgrade or a Premium Upgrade.</string>		
 </resources>

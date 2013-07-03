@@ -276,27 +276,27 @@ public class GameService {
 				game.getPlayerGames().get(1).setStatus(5);
 				
 				PlayerService.addWinToPlayerRecord();
-				OpponentService.addLossToOpponentRecord(game.getOpponentId());
+				game.getOpponent().addWinToRecord();
 			}
 			else if (playerScore < opponentScore){
 				game.getPlayerGames().get(0).setStatus(5);
 				game.getPlayerGames().get(1).setStatus(4);
 
 				PlayerService.addLossToPlayerRecord();
-				OpponentService.addWinToOpponentRecord(game.getOpponentId());
+				game.getOpponent().addLossToRecord();
 			}
 			else {
 				game.getPlayerGames().get(0).setStatus(6);
 				game.getPlayerGames().get(1).setStatus(6);	
 				
 				PlayerService.addDrawToPlayerRecord();
-				OpponentService.addDrawToOpponentRecord(game.getOpponentId());
+				game.getOpponent().addDrawToRecord();
 			}
 						
 			 game.setStatus(3); // 3  # completed
 			 game.setCompletionDate(now);
 			 addGameToCompletedList(game);
-			
+			 OpponentService.saveOpponentRecord(game.getOpponentId(), game.getOpponent().getRecord());
 		}
 		else {
 			//game is not over, let's keep going
@@ -304,7 +304,10 @@ public class GameService {
 			game.getPlayerGames().get(0).setTurn(isOpponent);
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
-  		
+
+		Logger.d(TAG, "is aaaabenn indexed? " + WordService.isWordIndexed("aaaabenn"));
+		Logger.d(TAG, "is ehiinooopstz indexed? " + WordService.isWordIndexed("ehiinooopstz"));
+		
 		GameService.saveGame(game);
 		return game;	
 	}
@@ -345,27 +348,28 @@ public static Game skip(boolean isOpponent, Game game){
 				game.getPlayerGames().get(1).setStatus(5);
 				
 				PlayerService.addWinToPlayerRecord();
-				OpponentService.addLossToOpponentRecord(game.getOpponentId());
-			}
+				game.getOpponent().addWinToRecord();
+ 			}
 			else if (playerScore < opponentScore){
 				game.getPlayerGames().get(0).setStatus(5);
 				game.getPlayerGames().get(1).setStatus(4);
 
 				PlayerService.addLossToPlayerRecord();
-				OpponentService.addWinToOpponentRecord(game.getOpponentId());
+				game.getOpponent().addLossToRecord();
 			}
 			else {
 				game.getPlayerGames().get(0).setStatus(6);
 				game.getPlayerGames().get(1).setStatus(6);	
 				
 				PlayerService.addDrawToPlayerRecord();
-				OpponentService.addDrawToOpponentRecord(game.getOpponentId());
+				game.getOpponent().addDrawToRecord();
+				
 			}
 						
 			 game.setStatus(3); // 3  # completed
 			 game.setCompletionDate(now);
 			 addGameToCompletedList(game);
-			 
+			 OpponentService.saveOpponentRecord(game.getOpponentId(), game.getOpponent().getRecord());
 		}
 		else {
 			//game is not over, let's keep going
@@ -572,15 +576,15 @@ public static Game skip(boolean isOpponent, Game game){
     	
     	if (isOpponent){
         	player.setNumWins(player.getNumWins() + 1);
-        	OpponentService.addLossToOpponentRecord(game.getOpponentId());
-    		
+        	game.getOpponent().addLossToRecord();   		
     	}
     	else{
         	player.setNumLosses(player.getNumLosses() + 1);
-        	OpponentService.addWinToOpponentRecord(game.getOpponentId());
+        	game.getOpponent().addWinToRecord();
 
     	}
     	PlayerService.savePlayer(player);
+    	OpponentService.saveOpponentRecord(game.getOpponentId(), game.getOpponent().getRecord());
     	 
     	game.setStatus(3); //sets up enum for game status and playerGame status
     	game.setCompletionDate(new Date());

@@ -1,4 +1,4 @@
 [
-{ "id": "1", "name": "Smileys", "constant":"smiley", "storeItemId": "a", "autoActivated": "true"},
-{ "id": "2", "name": "Disney", "constant":"disney" , "storeItemId": "b", "autoActivated": "false"}
+{ "id": "1", "name": "Smileys", "constant":"smiley", "sku": "google_play_a", "autoActivated": "true"},
+{ "id": "2", "name": "Disney", "constant":"disney" , "sku": "google_play_b", "autoActivated": "false"}
 ]

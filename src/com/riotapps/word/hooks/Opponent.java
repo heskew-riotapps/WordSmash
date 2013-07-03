@@ -12,9 +12,7 @@ public class Opponent{
 	
 	private int id;
 	private String name;
-	private int numWins;
-	private int numLosses;
-	private int numDraws;
+ 
 	private String imagePrefix;
 	private int skillLevel;
 	private int opponentGroupId;
@@ -36,23 +34,17 @@ public class Opponent{
 		this.name = name;
 	}
 	public int getNumWins() {
-		return numWins;
+		return this.getRecord().getNumWins();
 	}
-	public void setNumWins(int numWins) {
-		this.numWins = numWins;
-	}
+	 
 	public int getNumLosses() {
-		return numLosses;
+		return this.getRecord().getNumLosses();
 	}
-	public void setNumLosses(int numLosses) {
-		this.numLosses = numLosses;
-	}
+	 
 	public int getNumDraws() {
-		return numDraws;
+		return this.getRecord().getNumDraws();
 	}
-	public void setNumDraws(int numDraws) {
-		this.numDraws = numDraws;
-	}
+	 
 	public String getImagePrefix() {
 		return imagePrefix;
 	}
@@ -76,10 +68,10 @@ public class Opponent{
 	
 	public OpponentRecord getRecord() {
 		//store in local variable
-				if (this.record == null) {
-					this.record =  OpponentService.getOpponentRecord(this.opponentGroupId);
-				}
-				return this.record;
+		if (this.record == null) {
+			this.record =  OpponentService.getOpponentRecord(this.id);
+		}
+		return this.record;
 	}
 	
  
@@ -94,9 +86,9 @@ public class Opponent{
 	
 	}
 	
-	public String getBadgeDrawable(){
-		return PlayerService.getBadgeDrawable(this.numWins);
-	}
+//	public String getBadgeDrawable(){
+//		return PlayerService.getBadgeDrawable(this.get);
+//	}
 
 	public String getDrawableByMode(String mode){
 		return this.imagePrefix + Constants.UNDERSCORE + mode;
@@ -130,5 +122,17 @@ public class Opponent{
 		  int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + this.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_SMALL), null, null);
 		  this.smallImage = BitmapFactory.decodeResource(context.getResources(), opponentImageId);
 		}
+	}
+	
+	public void addLossToRecord(){
+		this.getRecord().setNumLosses(this.getRecord().getNumLosses() + 1);
+	}
+	
+	public void addWinToRecord(){
+		this.getRecord().setNumWins(this.getRecord().getNumWins() + 1);
+	}
+	
+	public void addDrawToRecord(){
+		this.getRecord().setNumDraws(this.getRecord().getNumDraws() + 1);
 	}
 }

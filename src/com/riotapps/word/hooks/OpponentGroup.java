@@ -8,7 +8,7 @@ public class OpponentGroup {
 	private String name;
 	private String constant;
 	private boolean autoActivated;
-	private String storeItemId = "";
+	private String sku = "";
 	
  
 	private Purchase purchase = null;
@@ -41,24 +41,25 @@ public class OpponentGroup {
  
 	public boolean isPurchased() {
 		if (this.purchase == null){
-			this.purchase = StoreService.getPurchaseByStoreItemId(this.storeItemId);
+			this.purchase = StoreService.getPurchaseBySku(this.sku);
 		}
 		return this.purchase.isPurchased();
 	}
  
 	public Date getPurchaseDate() {
 		if (this.purchase == null){
-			this.purchase = StoreService.getPurchaseByStoreItemId(this.storeItemId);
+			this.purchase = StoreService.getPurchaseBySku(this.sku);
 		}
 		return this.purchase.getPurchaseDate();
 	}
+	public String getSku() {
+		return sku;
+	}
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
  
-	public String getStoreItemId() {
-		return storeItemId;
-	}
-	public void setStoreItemId(String storeItemId) {
-		this.storeItemId = storeItemId;
-	}
+
 	
 	
 	/*

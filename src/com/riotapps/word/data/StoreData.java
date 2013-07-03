@@ -20,14 +20,14 @@ import com.riotapps.word.utils.FileUtils;
 import com.riotapps.word.utils.Storage;
 
 public class StoreData {
-	public static Purchase getPurchaseByStoreItemId(String storeItemId){
+	public static Purchase getPurchaseBySku(String sku){
 		SharedPreferences settings = Storage.getPurchaseSharedPreferences();
 			
-	    String _purchase =  settings.getString(String.format(Constants.PURCHASE_PREFS_ITEM, storeItemId), Constants.EMPTY_STRING);
+	    String _purchase =  settings.getString(String.format(Constants.PURCHASE_PREFS_ITEM, sku), Constants.EMPTY_STRING);
 		
 	    if (_purchase.equals(Constants.EMPTY_STRING)){
 	    	
-	    	return new Purchase(storeItemId);
+	    	return new Purchase(sku);
 	    }
 	    else {
 			Gson gson = new Gson(); 			 
@@ -43,7 +43,7 @@ public class StoreData {
 		 
 		SharedPreferences settings = Storage.getPurchaseSharedPreferences();
 		SharedPreferences.Editor editor = settings.edit();
-		editor.putString(String.format(Constants.PURCHASE_PREFS_ITEM, purchase.getStoreItemId()), gson.toJson(purchase));
+		editor.putString(String.format(Constants.PURCHASE_PREFS_ITEM, purchase.getSku()), gson.toJson(purchase));
 		// Check if we're running on GingerBread or above
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 		     // If so, call apply()

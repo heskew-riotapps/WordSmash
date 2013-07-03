@@ -3,25 +3,26 @@ package com.riotapps.word.hooks;
 import java.util.Date;
 
 public class Purchase {
-	private String storeItemId;
+//	private String storeItemId;
 	private Date purchaseDate = null;
 	private String purchaseToken;
+	private String sku = ""; //might not be needed, will be stored by sku
  
 
-	public Purchase (String storeItemId){
-		this.storeItemId = storeItemId;
+	public Purchase (String sku){
+		this.sku = sku;
 	}
-	public Purchase (String storeItemId, Date purchaseDate){
-		this.storeItemId = storeItemId;
+	public Purchase (String sku, Date purchaseDate){
+		this.sku = sku;
 		this.purchaseDate = purchaseDate;
 	}
 	
-	public String getStoreItemId() {
-		return storeItemId;
+	public String getSku() {
+		return sku;
 	}
 
-	public void setStoreItemId(String storeItemId) {
-		this.storeItemId = storeItemId;
+	public void setStoreItemId(String sku) {
+		this.sku = sku;
 	}
 
 	public Date getPurchaseDate() {

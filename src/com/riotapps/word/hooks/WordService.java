@@ -74,6 +74,7 @@ public class WordService {
 	private static SortedSet<String> words_y = null;
 	private static SortedSet<String> words_z = null;
 	
+	private static SortedSet<String> word_index = null;	
 	
 	/*
 	ArrayList<String> words_a = null;
@@ -141,6 +142,18 @@ public class WordService {
 		//this.context = context;
 	}
 	
+	public static boolean isWordIndexed(String word){
+		word = word.toLowerCase();
+		if (word_index == null){
+			Context context = ApplicationContext.getAppContext();
+			Type type = new TypeToken<SortedSet<String>>() {}.getType();
+			Logger.d(TAG, "loading index from disk letter");
+			word_index = new Gson().fromJson(new InputStreamReader(context.getResources().openRawResource(R.raw.word_index_1)), type);//FileUtils.ReadRawTextFile(context, R.raw.words_a), type);
+			context = null;
+		}
+		return word_index.contains(word);
+	}
+
 
 	public static boolean isWordValid(String word){
 		word = word.toLowerCase();

@@ -41,7 +41,7 @@ public class OpponentService {
 		}
 		return null;
 	}
-	
+	/*
 	public static void saveOpponent(Opponent opponent){
 		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 		
@@ -57,29 +57,18 @@ public class OpponentService {
 		OpponentData.saveOpponents(opponents);
 		appContext.setOpponents(opponents);
 	}
-	
-	public static void addWinToOpponentRecord(int id){
-		Opponent opponent = getOpponent(id);
-		opponent.setNumWins(opponent.getNumWins() + 1);
-		saveOpponent(opponent);
-	}
-	
-
-	public static void addLossToOpponentRecord(int id){
-		Opponent opponent = getOpponent(id);
-		opponent.setNumLosses(opponent.getNumLosses() + 1);
-		saveOpponent(opponent);	
-	}
-	
-
-	public static void addDrawToOpponentRecord(int id){
-		Opponent opponent = getOpponent(id);
-		opponent.setNumDraws(opponent.getNumDraws() + 1);
-		saveOpponent(opponent);
-	}
+	*/
  
 	public static OpponentRecord getOpponentRecord(int opponentId){
 		return OpponentData.getOpponentRecord(opponentId);
+	}
+	
+	public static void saveOpponentRecord(int opponentId, OpponentRecord record){
+		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+ 
+		OpponentData.saveOpponentRecord(opponentId, record);
+		
+		appContext.setOpponents(getActivatedOpponents());
 	}
 
 }

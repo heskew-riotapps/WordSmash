@@ -680,7 +680,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	}
 	 	
 	 	if (!StoreService.isHopperPeekPurchased()){
-	 		bHopperPeek.setVisibility(View.GONE);
+	 	//	bHopperPeek.setVisibility(View.GONE);
 	 	}
 	 
 	 	
