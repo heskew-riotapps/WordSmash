@@ -28,9 +28,9 @@ public class Logger {
 	
 	public static void d(String tag, String msg, Exception e){
 		//is logging on?
-		if (BuildConfig.DEBUG && LOG_OK) {
-			Log.d((tag==null?"UNKNOWN_TAG":tag), (msg==null?"unknown message":msg));
-		}
+		//if (BuildConfig.DEBUG && LOG_OK) {
+			Log.e((tag==null?"UNKNOWN_TAG":tag), (msg==null?"unknown message":msg));
+		//}
 	}
 	
 	public static void longInfo(String tag, String str) {

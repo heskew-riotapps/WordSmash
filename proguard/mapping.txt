@@ -11121,7 +11121,7 @@ com.riotapps.word.utils.Logger -> com.riotapps.word.utils.Logger:
     15:15:void w(java.lang.String,java.lang.String) -> w
     22:22:void w(java.lang.String,java.lang.String,java.lang.Exception) -> w
     25:26:void d(java.lang.String,java.lang.String) -> d
-    34:34:void d(java.lang.String,java.lang.String,java.lang.Exception) -> d
+    32:34:void d(java.lang.String,java.lang.String,java.lang.Exception) -> d
     37:42:void longInfo(java.lang.String,java.lang.String) -> longInfo
     45:47:void e(java.lang.String,java.lang.String) -> e
     54:54:void e(java.lang.String,java.lang.String,java.lang.Exception) -> e
