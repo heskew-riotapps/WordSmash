@@ -48,9 +48,9 @@ public class WordLoaderThread extends Thread {
 			 this.wordService.loadList(tile.getLatestPlayedLetter().getLetter());
 		 }
 		 
-		 for(String letter : this.game.getContextPlayerGame(contextPlayerId).getTrayLetters()){
-			 this.wordService.loadList(letter);
-		 }
+	//	 for(String letter : this.game.getContextPlayerGame().getTrayLetters()){
+	//		 this.wordService.loadList(letter);
+	//	 }
 	 }
 	 
 	}

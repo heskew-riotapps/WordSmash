@@ -4,17 +4,26 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.google.gson.annotations.SerializedName;
 import com.riotapps.word.R;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 
 public class Opponent{
 	
+	@SerializedName("id")
 	private int id;
+	
+	@SerializedName("name")
 	private String name;
  
+	@SerializedName("imagePrefix")
 	private String imagePrefix;
+	
+	@SerializedName("skillLevel")
 	private int skillLevel;
+	
+	@SerializedName("opponentGroupId")
 	private int opponentGroupId;
 	private OpponentRecord record = null;
 	private Bitmap smallImage = null;

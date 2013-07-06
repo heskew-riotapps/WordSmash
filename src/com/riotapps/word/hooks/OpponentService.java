@@ -1,14 +1,13 @@
 package com.riotapps.word.hooks;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.riotapps.word.data.OpponentData;
 import com.riotapps.word.utils.ApplicationContext;
-import com.riotapps.word.utils.Constants;
+import com.riotapps.word.utils.Logger;
 
 public class OpponentService {
-	
+	private static final String TAG = OpponentService.class.getSimpleName();
 	/*
 	public static List<Opponent> getOpponentsFromLocal(){
 		return OpponentData.getLocalOpponents();
@@ -19,7 +18,7 @@ public class OpponentService {
 	}
 */
 	public static List<Opponent> getActivatedOpponents(){
-
+		Logger.d(TAG, "getActivatedOpponents called");
 		//loop through activated opponents and load bitmaps??????
 //		return OpponentData.getActivatedOpponents();
 		List<Opponent> opponents = OpponentData.getActivatedOpponents();

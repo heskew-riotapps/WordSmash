@@ -16,11 +16,13 @@ public class Player implements Parcelable{
 	
 	public Player(){}
 	
+	@SerializedName("id")
 	private String id = "";
 	
-	@SerializedName("n_c_g")
-	private int numCompletedGames = 0;
+//	@SerializedName("n_c_g")
+//	private int numCompletedGames = 0;
 	
+	@SerializedName("activeGameId")
 	private String activeGameId = "";
 	
 	@SerializedName("n_w")
@@ -31,33 +33,6 @@ public class Player implements Parcelable{
 	
 	@SerializedName("n_d")
 	private int numDraws = 0; //num draws
-	
-	//@SerializedName("alerts")
-	//private List<Alert> latestAlerts = new ArrayList(); //the latest communication alert 
-	
-	private List<Purchase> purchases = new ArrayList<Purchase>();
-
-
-//	@SerializedName("game_")
-//	private Game notificationGame = null; //the game associated with notification via gcmIntent
-	
-	@SerializedName("o_n_i_a")
-	private boolean noInterstitialAdsOption = false; //a paid upgrade to not display interstitial ads 
- 
-	/*
-	@SerializedName("a_games")
-	private List<Game> activeGames= new ArrayList<Game>();
-
-	@SerializedName("c_games")
-	private List<Game> completedGames = new ArrayList<Game>();
-	
-	@SerializedName("l_rf_d") 
-	private Date lastRefreshDate = null; //new GregorianCalendar("10/6/2012"); //last time a game status changed that the player was involved in
-	
-	private List<Game> activeGamesYourTurn = null; //new ArrayList<Game>();
-	private List<Game> activeGamesOpponentTurn = null; //new ArrayList<Game>();
-*/
-	//private String badge_drawable = "";
 
 	public void setId(String id) {
 		this.id = id;
@@ -66,39 +41,13 @@ public class Player implements Parcelable{
 		return this.id;
 	}
 	
- 
 	public int getNumGames(){
 		return this.numWins + this.numLosses + this.numDraws;
 	}
 	
 	 public String getName(Context ctx){
-		 return ctx.getString(com.riotapps.word.R.string.anonymous_player_name);
-		 
+		 return ctx.getString(com.riotapps.word.R.string.anonymous_player_name); 
 	 }
- 
-	/*
-	public List<Alert> getLatestAlerts() {
-		return latestAlerts;
-	}
-	public void setLatestAlerts(List<Alert> latestAlerts) {
-		this.latestAlerts = latestAlerts;
-	}
-	*/
- 
-	public List<Purchase> getPurchases() {
-		return purchases;
-	}
-	public void setPurchases(List<Purchase> purchases) {
-		this.purchases = purchases;
-	}
-	public boolean isNoInterstitialAdsOption() {
-		return noInterstitialAdsOption;
-	}
-	
-	public void setNoInterstitialAdsOption(boolean noInterstitialAdsOption) {
-		this.noInterstitialAdsOption = noInterstitialAdsOption;
-	}
-	
  
 	public int getNumWins() {
 		return numWins;
@@ -117,27 +66,14 @@ public class Player implements Parcelable{
 	}
 	public void setNumDraws(int numDraws) {
 		this.numDraws = numDraws;
-	}
-
-	
-	public int getNumCompletedGames() {
-		return numCompletedGames;
-	}
-	public void setNumCompletedGames(int numCompletedGames) {
-		this.numCompletedGames = numCompletedGames;
-	}
- 
-	
+	}	
 	public String getActiveGameId() {
 		return activeGameId;
 	}
 	public void setActiveGameId(String activeGameId) {
 		this.activeGameId = activeGameId;
 	}
-	/*public String getBadgeDrawable(){
-		return PlayerService.getBadgeDrawable(this.numWins);
-	}*/
-	@Override
+ 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;

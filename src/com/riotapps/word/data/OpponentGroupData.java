@@ -15,13 +15,16 @@ import com.riotapps.word.hooks.OpponentGroup;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.FileUtils;
+import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Storage;
 
 public class OpponentGroupData {
 	
- 
+	private static final String TAG = OpponentGroupData.class.getSimpleName();
 
 	public static List<OpponentGroup> getActiveOpponentGroups(){
+		Logger.d(TAG, "getActiveOpponentGroups called");
+		
 		Gson gson = new Gson(); 
 		 
 		Type type = new TypeToken<List<OpponentGroup>>() {}.getType();
@@ -34,10 +37,16 @@ public class OpponentGroupData {
     	 
     	//load all opponent groups shipped in this app version
     	opponentGroups = gson.fromJson(FileUtils.ReadRawTextFile(appContext, R.raw.opponent_groups), type);
-    		  
+    		
+    	Logger.d(TAG, "getActiveOpponentGroups - num opponentGroups=" + opponentGroups.size());
+    	
     	for (OpponentGroup og : opponentGroups){
     		//add auto activated opponent groups to player's list
+    		Logger.d(TAG, "activated check loop og.getName()=" + og.getName() + " isactivated=" + og.isAutoActivated());
+    		
     		if (og.isPurchased() || og.isAutoActivated()){
+    			Logger.d(TAG, "activated check loop match og.getName()=" + og.getName());
+    			
     			OpponentGroup o = new OpponentGroup();
     			o.setId(og.getId());
     			o.setName(og.getName());
@@ -49,6 +58,10 @@ public class OpponentGroupData {
      
     	opponentGroups = null;
 		gson = null;
+		
+		
+    	Logger.d(TAG, "getActiveOpponentGroups - num activeOpponentGroups=" + activeOpponentGroups.size());
+		
 		return activeOpponentGroups;	
 	}
 	

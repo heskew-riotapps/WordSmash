@@ -1,9 +1,16 @@
 package com.riotapps.word.ui;
 
+import com.google.gson.annotations.SerializedName;
+
 public class GameStateLocation {
 
+	@SerializedName("l")
 	private String letter = "";
+	
+	@SerializedName("b_l")
 	private int boardLocation = -1;
+	
+	@SerializedName("t_l")
 	private int trayLocation = -1;
  
 	public String getLetter() {

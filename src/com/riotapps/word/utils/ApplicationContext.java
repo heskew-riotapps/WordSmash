@@ -370,6 +370,7 @@ public class ApplicationContext extends Application{
 */
 
 	public List<Opponent> getOpponents() {
+		Logger.d(TAG, "getOpponents called");
 		if (this.opponents == null){
 			
 			this.opponents = OpponentService.getActivatedOpponents();

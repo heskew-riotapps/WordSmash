@@ -2,12 +2,23 @@ package com.riotapps.word.hooks;
 
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
+
 public class OpponentGroup {
 	
+	@SerializedName("id")
 	private int id;
+	
+	@SerializedName("name")
 	private String name;
+	
+	@SerializedName("constant")
 	private String constant;
+	
+	@SerializedName("autoActivated")
 	private boolean autoActivated;
+	
+	@SerializedName("sku")
 	private String sku = "";
 	
  

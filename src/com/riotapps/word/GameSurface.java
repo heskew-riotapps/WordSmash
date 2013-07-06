@@ -587,7 +587,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	this.bRecall.setOnClickListener(this);
 	 	this.bPlay.setOnClickListener(this);
 	 	
-	 	String btnTextColor = this.game.isContextPlayerTurn(this.player) ? this.getString(R.color.button_text_color_on) : this.getString(R.color.button_text_color_off);
+	 	String btnTextColor = this.game.isContextPlayerTurn() ? this.getString(R.color.button_text_color_on) : this.getString(R.color.button_text_color_off);
 	 	
 	 	this.bPlay.setTextColor(Color.parseColor(btnTextColor));
 	 	this.bSkip.setTextColor(Color.parseColor(btnTextColor));
@@ -602,7 +602,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	bPlay.setVisibility(View.GONE);
 	 	bSkip.setVisibility(View.VISIBLE);
 	 	
-	 	bPlay.setClickable(this.game.isContextPlayerTurn(this.player));
+	 	bPlay.setClickable(this.game.isContextPlayerTurn());
 	 	
 	 	Logger.d(TAG, "getNumLettersLeft=" + this.game.getNumLettersLeft());
 	 	
@@ -616,7 +616,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	}
 	  	if (this.game.getNumLettersLeft() > 0){
 	 		bSwap.setOnClickListener(this);
-	 		bSwap.setClickable(this.game.isContextPlayerTurn(this.player));
+	 		bSwap.setClickable(this.game.isContextPlayerTurn());
  		//	Logger.d(TAG, "bSwap clickable");
 	  	}
  		else{
@@ -628,8 +628,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	  	//based on store purchase
 	  	bHopperPeek.setClickable(true);
 	  	
-	 	bSkip.setClickable(this.game.isContextPlayerTurn(this.player));
-	 	bResign.setClickable(this.game.isContextPlayerTurn(this.player));
+	 	bSkip.setClickable(this.game.isContextPlayerTurn());
+	 	bResign.setClickable(this.game.isContextPlayerTurn());
 
 	 	
 	 	//by default recall button will be hidden, it will be switched with shuffle button when a letter is dropped on the board
@@ -662,7 +662,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 			bCancel.setVisibility(View.GONE);	
 		 		bResign.setOnClickListener(this);
 		 		bResign.setVisibility(View.VISIBLE);
-		 		bResign.setClickable(this.game.isContextPlayerTurn(this.player));
+		 		bResign.setClickable(this.game.isContextPlayerTurn());
 		 	}
 
 	 	}

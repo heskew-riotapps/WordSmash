@@ -1,8 +1,13 @@
 package com.riotapps.word.hooks;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PlayedLetter {
 
+	@SerializedName("t")
 	private int turn;
+	
+	@SerializedName("l")
 	private String letter;
 	
 	public PlayedLetter(int turn, String letter){

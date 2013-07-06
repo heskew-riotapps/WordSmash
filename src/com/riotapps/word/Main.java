@@ -262,6 +262,10 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	 	this.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 	    int screenWidth = displaymetrics.widthPixels;
 	    
+	    Logger.d(TAG, "SCREEN WIDTH=" + screenWidth);
+	    Logger.d(TAG, "opponents.size()=" + opponents.size());
+	    
+	    
 	    int itemWidth = Math.round(screenWidth / 2) - 1;
 	   LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 	  //	int w  = displaymetrics.widthPixels;

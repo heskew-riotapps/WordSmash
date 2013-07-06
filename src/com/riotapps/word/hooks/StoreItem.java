@@ -3,11 +3,23 @@ package com.riotapps.word.hooks;
 import java.util.Currency;
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
+
 public class StoreItem {
+	
+	@SerializedName("id")
 	private String id;
+	
+	@SerializedName("name")
 	private String name;
+	
+	@SerializedName("constant")
 	private String constant;
+	
+	@SerializedName("price")
 	private Currency price;
+	
+	@SerializedName("sku")
 	private String sku;
 	
 	private Purchase purchase;

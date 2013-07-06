@@ -2,8 +2,14 @@ package com.riotapps.word.hooks;
 
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
+
 public class GameListItem {
+	
+	@SerializedName("g")
 	private String gameId;
+	
+	@SerializedName("c_d")
 	private Date completedDate;
 	
 	public GameListItem(String id, Date date){

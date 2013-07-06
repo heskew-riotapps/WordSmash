@@ -2,6 +2,8 @@ package com.riotapps.word.hooks;
 
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
+
 
 public class PlayedTurn {
 	/*
@@ -29,13 +31,20 @@ public class PlayedTurn {
 	key :p_d, Time #played_date
 	*/
 	
+	@SerializedName("i_o")
 	private boolean isOpponentPlay = false; 
+	
+	@SerializedName("t")
 	private int turn;
+	
+	@SerializedName("a")
 	private int action;
 	
 	//create enum for action
-	
+	@SerializedName("p")
 	private int points;
+	
+	@SerializedName("d")
 	private Date playedDate;
 	 
 	public boolean isOpponentPlay() {

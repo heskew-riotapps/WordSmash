@@ -306,19 +306,16 @@ com.riotapps.word.Splash:
     android.os.Handler handler
     private com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
     186:200:private void handleRouting()
-com.riotapps.word.hooks.Game:
-    private com.riotapps.word.hooks.Player _lastTurnPlayer
-    118:132:private com.riotapps.word.hooks.Player getLastTurnPlayer()
 com.riotapps.word.hooks.TileLayout$BonusTile:
     final synthetic com.riotapps.word.hooks.TileLayout this$0
-    23:23:TileLayout$BonusTile(com.riotapps.word.hooks.TileLayout)
-    28:29:public void setId(int)
-    34:35:public void setMultiplier(int)
-    40:41:public void setScope(java.lang.String)
+    29:29:TileLayout$BonusTile(com.riotapps.word.hooks.TileLayout)
+    44:45:public void setId(int)
+    50:51:public void setMultiplier(int)
+    56:57:public void setScope(java.lang.String)
 com.riotapps.word.hooks.TileLayout$StarterTile:
     final synthetic com.riotapps.word.hooks.TileLayout this$0
-    11:11:TileLayout$StarterTile(com.riotapps.word.hooks.TileLayout)
-    19:20:public void setId(int)
+    16:16:TileLayout$StarterTile(com.riotapps.word.hooks.TileLayout)
+    25:26:public void setId(int)
 com.riotapps.word.hooks.WordIndex:
     private java.lang.String index
     private java.lang.String word

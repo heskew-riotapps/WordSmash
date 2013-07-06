@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import com.google.gson.annotations.SerializedName;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.PlayedTile;
 import com.riotapps.word.utils.Logger;
@@ -16,10 +17,19 @@ public class GameState {
 		this.locations = new ArrayList<GameStateLocation>();
 	}
 	
+	@SerializedName("g")
 	private String gameId;
+	
+	@SerializedName("t")
 	private int turn = 0;
+	
+	@SerializedName("t_v")
 	private int trayVersion = 1;
+	
+	@SerializedName("l")
 	private List<GameStateLocation> locations = new ArrayList<GameStateLocation>();
+	
+	@SerializedName("p_t")
 	private List<PlayedTile> playedTiles = new ArrayList<PlayedTile>(); 
 	
 	//placetiles to remember board state

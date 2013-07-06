@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.riotapps.word.R;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
 import com.riotapps.word.utils.Check;
@@ -304,9 +305,11 @@ public class GameService {
 			game.getPlayerGames().get(0).setTurn(isOpponent);
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
-
+		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed starting");
 		Logger.d(TAG, "is aaaabenn indexed? " + WordService.isWordIndexed("aaaabenn"));
+		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 1 ended");
 		Logger.d(TAG, "is ehiinooopstz indexed? " + WordService.isWordIndexed("ehiinooopstz"));
+		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 2 ended");
 		
 		GameService.saveGame(game);
 		return game;	
@@ -457,7 +460,7 @@ public static Game skip(boolean isOpponent, Game game){
 	public static Game autoPlay(Context context, Game game){
 		PlacedResult placedResult = new PlacedResult();
 		
-		
+		Logger.d(TAG,"before getDefaultLayout");
 		TileLayout defaultLayout = TileLayoutService.getDefaultLayout(context);
 		//autoplay logic kicked off here
 		//put results in placedResult object just like in normal play
@@ -465,21 +468,33 @@ public static Game skip(boolean isOpponent, Game game){
 		//game.getOpponentGame().getTrayLetters() are the letters you will be playing with
 		
 		//game.getPlayedTiles() contains the tiles that already have at least one letter played on them
-		
+		Logger.d(TAG,"before getPlayedTiles");
 		List<PlayedTile> tiles = game.getPlayedTiles();
 		
 		//create collections for H/V tiles/sets. 
 		//object in collection must contain letter(s),len , x, y
 		
+		
+		Logger.d(TAG,"before played tile loop");
 		//for each tile
 		for  (PlayedTile tile : tiles) {
 			PlayedTile[] tileArray = new PlayedTile[1];
 			tileArray[0] = tile;
+			
+		//	Logger.d(TAG,"played tile loop" + tile.getBoardPosition());
+			
 		//get left/right/up/down -
 			//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot
 			//int uTile = TileLayoutService.getTileIdAbove(tile.getBoardPosition());
 			PlayedTile nextTile;
+			
+			//have to have a null check here
+			try{
 			nextTile = tiles.get(TileLayoutService.getTileIdAbove(tile.getBoardPosition()));
+			}
+			catch (IndexOutOfBoundsException iEx){
+				//played tile does not exist at that location
+			}
 			//if nextTile null to another direction. if not, also go opposite direction
 			//need to take precaution to not process multiple tiles of the same string in the same axis
 		//append / get next
@@ -534,6 +549,7 @@ public static Game skip(boolean isOpponent, Game game){
 		//if any of them return 255 that means the tile position being requested is outside of the board boundaries
 		
 		//temp
+		Logger.d(TAG,"before skip");
 		GameService.skip(true, game);
 		return game;
 		

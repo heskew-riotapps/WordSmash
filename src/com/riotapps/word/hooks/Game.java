@@ -22,6 +22,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	private static final String TAG = Game.class.getSimpleName();
 	public Game(){}
 	
+	@SerializedName("id")
 	private String id = "";
 	
 	@SerializedName("played_words")
@@ -58,17 +59,32 @@ public class Game implements Parcelable, Comparable<Game> {
 	@SerializedName("hop")
 	private List<String> hopper;
 	
-	private boolean showCompletionAlert;
+	@SerializedName("cr_d")
+	private Date createDate = new Date(0);  
+ 
+	
+	@SerializedName("co_d")
+	private Date completionDate = new Date(0); 
+
+	@SerializedName("st")
+	private int status = 0;   
+	
+	@SerializedName("t")
+	private int turn = 0;  	
+	
+	@SerializedName("opp")
+	private int opponentId;
+//	private boolean showCompletionAlert;
  
 	/*
 	private List<PlayerGame> activePlayerGames = null;
 	private List<PlayerGame> opponentPlayerGames = null;
 	*/ 
 	
-	private Player _lastTurnPlayer;
-	private PlayerGame _contextPlayerGame;
+//	private Player _lastTurnPlayer;
+//	private PlayerGame _contextPlayerGame;
 	
-	private int opponentId;
+
 	
 	public Opponent getOpponent(){
 		return OpponentService.getOpponent(this.opponentId);
@@ -99,7 +115,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.randomConsonants = randomConsonants;
 	}
 
-	 
+	 /*
 	//only used for new games, to add opponent to the player for "client-side joins"
 	@SerializedName("opps")
 	private List<Opponent> opponents_ = new ArrayList<Opponent>();
@@ -111,9 +127,9 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void setOpponents_(List<Opponent> opponents_) {
 		this.opponents_ = opponents_;
 	}
+	*/
 	
-	
-
+/*
 	private Player getLastTurnPlayer(){  //fix this
 		if (this._lastTurnPlayer == null) {
 			for (PlayerGame pg : this.getPlayerGames()){
@@ -131,6 +147,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 		return this._lastTurnPlayer;
 	}
+	*/
 	/*
 	private Player getAdjustedLastTurnPlayer(){
 		if (this._lastTurnPlayer == null) {
@@ -145,7 +162,7 @@ public class Game implements Parcelable, Comparable<Game> {
 		return this._lastTurnPlayer;
 	}
 	*/
-	
+	/*
 	public PlayerGame getContextPlayerGame(String contextPlayerId){
 		if (this._contextPlayerGame == null) {
 			for (PlayerGame pg : this.getPlayerGames()){
@@ -156,7 +173,9 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 		return this._contextPlayerGame;
 	}
+	*/
 	
+	/*
 	public Player getPlayerById(String playerId){
 		Player player = null;
 	 
@@ -169,7 +188,7 @@ public class Game implements Parcelable, Comparable<Game> {
  
 		return player;
 	}
-	
+	*/
 //	@SerializedName("last_action_alert_text")
 	//do not serialize
  //	private String lastActionText = "";
@@ -179,7 +198,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	}
  
 	
-
+/*
 	public boolean isShowCompletionAlert() {
 		return showCompletionAlert;
 	}
@@ -187,23 +206,12 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void setShowCompletionAlert(boolean showCompletionAlert) {
 		this.showCompletionAlert = showCompletionAlert;
 	}
-
+*/
 	 
 //	@SerializedName("d_c")
 //	private String dupCheck = "";
 
-	@SerializedName("cr_d")
-	private Date createDate = new Date(0);  
- 
-	
-	@SerializedName("co_d")
-	private Date completionDate = new Date(0); 
 
-	@SerializedName("st")
-	private int status = 0;   
-	
-	@SerializedName("t")
-	private int turn = 0;  
 	
 	public String getId() {
 		return id;
@@ -355,6 +363,12 @@ public class Game implements Parcelable, Comparable<Game> {
 //		return 0;
 	}
 	*/
+	public boolean isContextPlayerTurn(){
+		return !this.playedTurns.get(this.playedTurns.size() - 1).isOpponentPlay();
+		
+	}
+	
+	/*
 	public boolean isContextPlayerTurn(Player contextPlayer){
 		try{
 			return this.getContextPlayerGame(contextPlayer.getId()).isTurn();
@@ -369,6 +383,7 @@ public class Game implements Parcelable, Comparable<Game> {
 //		}
 //		return 0;
 	}
+	*/
 	/*
 	public int getContextPlayerTrayVersion(Player contextPlayer){ 
 		try{

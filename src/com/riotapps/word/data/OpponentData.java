@@ -15,17 +15,23 @@ import com.riotapps.word.hooks.Opponent;
 import com.riotapps.word.hooks.OpponentGroup;
 import com.riotapps.word.hooks.OpponentGroupService;
 import com.riotapps.word.hooks.OpponentRecord;
+import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.FileUtils;
+import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Storage;
 
 public class OpponentData {
-
-	public static List<Opponent> getActivatedOpponents(){
 	
+	private static final String TAG = OpponentData.class.getSimpleName();
+	
+	public static List<Opponent> getActivatedOpponents(){
+		Logger.d(TAG, "getActivatedOpponents called");
 		List<OpponentGroup> opponentGroups = OpponentGroupData.getActiveOpponentGroups();
+		
+		Logger.d(TAG, "num opponentGroups=" + opponentGroups.size());
 		
 		//this might change to sqlLite
 		Gson gson = new Gson(); 
@@ -38,10 +44,15 @@ public class OpponentData {
     	
 	    //load objects into the list
 	    List<Opponent> opponents = gson.fromJson(_opponents, type);
+	    
+		Logger.d(TAG, "num opponents from gson=" + opponents.size());
+		
 	    List<Opponent> activeOpponents = new ArrayList<Opponent>();
 	    
 	    //filter out inactive groups
 	    for (Opponent o : opponents){
+	    	Logger.d(TAG, "opponent loop name=" + o.getName());
+	    	
 	    	boolean include = false;
 	    	for (OpponentGroup og : opponentGroups){
 	    		if (o.getOpponentGroupId() == og.getId()){
@@ -63,7 +74,7 @@ public class OpponentData {
 	    opponents = null;
 	    opponentGroups = null;
 		gson = null;    
-		
+		Logger.d(TAG, "num activeOpponents=" + activeOpponents.size());
 		return activeOpponents;
 	}
 
