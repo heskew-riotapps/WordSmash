@@ -134,9 +134,9 @@ public class Player implements Parcelable{
 	public void setActiveGameId(String activeGameId) {
 		this.activeGameId = activeGameId;
 	}
-	public String getBadgeDrawable(){
+	/*public String getBadgeDrawable(){
 		return PlayerService.getBadgeDrawable(this.numWins);
-	}
+	}*/
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub

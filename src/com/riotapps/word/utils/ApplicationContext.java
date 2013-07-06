@@ -6,8 +6,6 @@ import com.riotapps.word.hooks.Opponent;
 import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
-import com.riotapps.word.hooks.WordService;
-
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -15,7 +13,7 @@ import android.graphics.Typeface;
 public class ApplicationContext extends Application{
 	private static final String TAG = ApplicationContext.class.getSimpleName();
     private static Context context;
-    private WordService wordService;
+  //  private WordService wordService;
     private List<Opponent> opponents = null;
     /*
     private Bitmap bgPlacedTileFull;
@@ -137,7 +135,7 @@ public class ApplicationContext extends Application{
 	public void onCreate(){
         super.onCreate();
         ApplicationContext.context = getApplicationContext();
-        this.wordService = new WordService();
+     //   this.wordService = new WordService();
     /*    try {
 			playtomic = Playtomic.getInstance(
 					this.getResources().getInteger(R.integer.playtomics_game_id), 
@@ -168,7 +166,7 @@ public class ApplicationContext extends Application{
 	public static Context getAppContext() {
         return ApplicationContext.context;
     }
-
+/*
 	public WordService getWordService() {
 		return wordService;
 	}
@@ -176,6 +174,7 @@ public class ApplicationContext extends Application{
 	public void setWordService(WordService wordService) {
 		this.wordService = wordService;
 	}
+	*/
 /*
 	public Bitmap getBgPlacedTileFull() {
 		return bgPlacedTileFull;

@@ -5,13 +5,14 @@ import java.util.List;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
 import com.google.ads.AdRequest;
-import com.revmob.RevMob;
-import com.revmob.RevMobAdsListener;
-import com.revmob.ads.fullscreen.RevMobFullscreen;
+//import com.revmob.RevMob;
+//import com.revmob.RevMobAdsListener;
+//import com.revmob.ads.fullscreen.RevMobFullscreen;
 import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
+import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.CustomButtonDialog;
 
@@ -94,9 +95,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private boolean isChartBoostActive = false;
 	 private boolean isRevMobActive = false;
 	 private boolean isAdMobActive = false;
-	 private RevMob revmob;
-	 private RevMobAdsListener revmobListener;
-	 private RevMobFullscreen revMobFullScreen;
+//	 private RevMob revmob;
+//	 private RevMobAdsListener revmobListener;
+//	 private RevMobFullscreen revMobFullScreen;
 	 private boolean hasPostAdRun = false;
 	 private boolean isBoundToGCMService = false;
 	 
@@ -312,7 +313,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				}
 			}
 */
-	 		if (isRevMob){
+/*	 		if (isRevMob){
 	 			Logger.d(TAG, "setupAdServer isRevMob=true");
 	 			
 	 			
@@ -320,7 +321,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 		this.revmob = RevMob.start(this, this.getString(R.string.rev_mob_app_id));
 		 
 	 		}
-	 		else if (isChartBoost){
+	 		else*/ 
+	 		if (isChartBoost){
 	 			Logger.d(TAG, "setupAdServer isCharBoost=true");
 	 			
 		 		this.isChartBoostActive = true;
@@ -679,8 +681,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 	 	}
 	 	
-	 	if (!StoreService.isHopperPeekPurchased()){
-	 	//	bHopperPeek.setVisibility(View.GONE);
+	 	if (!StoreService.isHopperPeekPurchased() && PlayerService.getRemainingFreeUsesHopperPeek() == 0){
+	 	 	bHopperPeek.setVisibility(View.GONE);
 	 	}
 	 
 	 	
@@ -793,13 +795,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			//this.cb = n//ull;
 		}
 		
-		if (this.isRevMobActive){
+	/*	if (this.isRevMobActive){
 		//	this.revmob.
 			this.revMobFullScreen = null;
 			this.revmobListener = null;
 			this.revmob = null;		
 		}
-		
+		*/
 		if (this.gcmReceiver != null) {
 			this.unregisterReceiver(this.gcmReceiver);
 			this.gcmReceiver = null;
@@ -973,7 +975,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			}
 			this.cb.onStart(this);
 		}
-		
+		/*
 		if (this.isRevMobActive){
 			this.revmobListener = new RevMobAdsListener() {
 	            @Override
@@ -1024,6 +1026,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	        }
 	        this.revMobFullScreen = revmob.createFullscreen(this, this.getString(R.string.rev_mob_main_between_play), this.revmobListener);
 		}
+		*/
 		//this.doBindService();
 		
 	}
@@ -1502,6 +1505,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			    	//if (cb.hasCachedInterstitial()) toastStr = "Loading Interstitial From Cache";
 			    	//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
 	 			}
+	 			/*
 	 			else if (this.isRevMobActive) {
 	 				 
 	 				 this.revMobFullScreen.show();
@@ -1509,7 +1513,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			    	//String toastStr = "Loading Interstitial";
 			    	//if (cb.hasCachedInterstitial()) toastStr = "Loading Interstitial From Cache";
 			    	//Toast.makeText(this, toastStr, Toast.LENGTH_SHORT).show();
-	 			}
+	 			}*/
  			}
 	    }
 

@@ -40,6 +40,7 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        tvSupportText.setOnClickListener(this);
 	        
 	        MenuUtils.hideMenu(this);
+	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_about));
 	        
 	    	if (StoreService.isHideBannerAdsPurchased()){
 				AdView adView = (AdView)this.findViewById(R.id.adView);

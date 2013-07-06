@@ -107,6 +107,7 @@
 	<string name="validation_must_have_between_2_and_4_players">The game must have either 2, 3, or 4 players.</string>
 		
 	<string name="ok">ok</string>
+	<string name="thank_you">thank you</string>
 	<string name="yes">yes</string>
 	<string name="no">no</string>
 	<string name="oops">Oops</string>
@@ -573,5 +574,14 @@
 		<string name="gameboard_hopper_peek_dialog_decription">there are %1$s remaining letters in the hopper and %2$s\'s tray</string>
 		<string name="share_subject">WordSmash</string>
 		<string name="share_message">Check out WordSmash for Android in the Google Play store.  Test your crossword skills against the character of your choice.  Always play at your own pace, as fast as you desire.</string>
-		<string name="hopper_peek_preview">Peeking at the hopper requires a Hopper Peek Upgrade or a Premium Upgrade.</string>		
+		<string name="hopper_peek_preview">Peeking at the hopper requires a Peek at the Hopper Upgrade or a Premium Upgrade.</string>
+		<string name="purchase_thanks_hopper_peek">We hope you enjoy your unlimited usage of Hopper Peeks!</string>	
+		<string name="purchase_thanks_word_hints">We hope you enjoy your unlimited usage of Word Hints!</string>
+		<string name="purchase_thanks_word_definitions">We hope you enjoy your unlimited usage of Word Definitions!</string>			
+		<string name="purchase_thanks_premium_upgrade">We hope you enjoy your Premium Upgrade!</string>
+		<string name="purchase_thanks_hide_interstitial">No more ads between plays!</string>	
+		<string name="header_title_store">STORE</string>		
+		<string name="header_title_about">ABOUT</string>
+		<string name="header_title_completed_games">GAMES</string>
+		<string name="header_title_rules">RULES</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.riotapps.word.About;
 import com.riotapps.word.CompletedGames;
@@ -36,7 +37,15 @@ public class MenuUtils {
 		public static void hideMenu(FragmentActivity context){
 			ImageButton popupMenu = (ImageButton)context.findViewById(R.id.options);	
 	    	  popupMenu.setVisibility(View.GONE);
+		}
 		
+		public static void hideHeaderTitle(FragmentActivity context){
+			TextView tvActivityTitle = (TextView)context.findViewById(R.id.tvActivityTitle);	
+			tvActivityTitle.setVisibility(View.GONE);
+		}
+		public static void setHeaderTitle(FragmentActivity context, String title){
+			TextView tvActivityTitle = (TextView)context.findViewById(R.id.tvActivityTitle);	
+			tvActivityTitle.setText(title);
 		}
 
 		public static boolean handleMenuClick(FragmentActivity context, int option){

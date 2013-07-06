@@ -160,6 +160,8 @@ public class Constants {
  	public static final String USER_PREFS_OPPONENT_GROUPS = "_opp_groups";
 	public static final String USER_PREFS_COMPLETED_GAMES = "c_games";
 	public static final String USER_PREFS_PLAYER_JSON = "player_json";
+	public static final String USER_PREFS_FREE_REMAINING_USES_HOPPER_PEEK = "fu_hp";
+	public static final String USER_PREFS_FREE_REMAINING_USES_WORD_DEFINITION = "fu_wd";
  	public static final String USER_PREFS_GAME_JSON = "game_json_%s";
  	public static final String USER_PREFS_GAME_LIST_JSON = "game_list_";
  	public static final String USER_PREFS_FRIENDS_JSON = "friends_json";
@@ -180,6 +182,27 @@ public class Constants {
  	public static final String FB_TOKEN = "fb_token";
 	public static final String FB_TOKEN_EXPIRES = "fb_token_expires";
  	
+	
+	public static final int FREE_USES_HOPPER_PEEK = 4;
+	public static final int FREE_USES_WORD_DEFINITION = 2;
+	
+	public static final String IAB_1 = "MIIBIjANBgkqhkiG9";
+	public static final String IAB_2 = "w0BAQEFAAOCAQ8AMIIBCgKCAQ";
+	public static final String IAB_3 = "EAjsNPfIZBLfO68j+8rjkMwYi5694";
+	public static final String IAB_4 = "YApXBOcPNfg28djJm07uAcTcqHs";
+	public static final String IAB_5 = "TbuRL/nfcVe1ztMyBuzbuzHwZeHSbrV";
+	public static final String IAB_6 = "u+f5UWCwMHNGi8lmyCDSnaw7yUepzl";
+	public static final String IAB_7 = "E8ZcdEfs1ljznksOLgi1WjzuiiOtWSt";
+	public static final String IAB_8 = "xgoT61MpV6JDBl1oS7neDRy9Tb7t5faLe/dDvlw3";
+	public static final String IAB_9 = "vCeWZYL1qH7mzIaXZIyLGjNdpyv7yEC+";
+	public static final String IAB_10 = "MdPTxn2CjWv9bkY09cFysUDFcFMPC/2J";
+	public static final String IAB_11 = "rvn3fPeTVPpfobpzbHCEq/RCCtnxy";
+	public static final String IAB_12 = "rfUxLNFtJ7TbjaqgIk13Ujl1dB8I50nwOMfR";
+	public static final String IAB_13 = "jWPyYs9aA0e6Y50ozjlkKZqpVxQIDAQAB";
+	
+	
+
+//	public static final String SKU_HOPPER_PEEK = "riotapps_wordsmash_hopper_peek.a";
 	/**=============================================
 	 * creatingXMLParser for class
 	 *==============================================*/
@@ -316,13 +339,11 @@ public class Constants {
     /**=============================================
 	 * store skus 
 	 *==============================================*/
-    public static final String sku_google_play_hide_interstitial = "sku_gp_hi";
-    public static final String sku_google_play_hopper_peek = "sku_gp_hp";
-    public static final String sku_google_play_word_definition = "sku_gp_wd";
-    public static final String sku_google_play_premium_upgrade = "sku_gp_pu";
-    public static final String sku_google_play_character_set_dogs_1 = "sku_gp_csd1"; //sample for testing
-    public static final String sku_google_play_character_set_cats_1 = "sku_gp_csc1";
-
+	public static final String SKU_GOOGLE_PLAY_HOPPER_PEEK = "riotapps_wordsmash_hopper_peek.a";
+	public static final String SKU_GOOGLE_PLAY_PREMIUM_UPGRADE = "riotapps_wordsmash_premium_upgrade.a";
+	public static final String SKU_GOOGLE_PLAY_WORD_DEFINITIONS = "riotapps_wordsmash_word_definitions.a";
+	public static final String SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL = "riotapps_wordsmash_hide_interstitial.a";
+	public static final String SKU_GOOGLE_PLAY_WORD_HINTS = "riotapps_wordsmash_word_hints.a";
 	
 }//end class Constants
  

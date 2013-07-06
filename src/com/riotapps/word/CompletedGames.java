@@ -46,6 +46,7 @@ public class CompletedGames extends FragmentActivity {
 	         
 	        ApplicationContext.captureTime(TAG, "oncreate about to hide menu");
 	        MenuUtils.hideMenu(this);
+	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_completed_games));
 	        ApplicationContext.captureTime(TAG, "oncreate hide menu completed");
 	        ApplicationContext.captureTime(TAG, "oncreate about to loadlist"); 
 	        this.loadList();

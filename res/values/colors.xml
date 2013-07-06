@@ -58,4 +58,5 @@
 	<color name="list_text_background">#20000000</color>
 	<color name="main_label_text_color">#fff5ee</color>
 	<color name="main_label_background_color">#3366dd</color>
+	<color name="header_text_color">#fff5ee</color>
 </resources>

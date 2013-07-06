@@ -98,6 +98,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 		
         Logger.d(TAG, "player is null =" + (this.player == null)); 
 		PlayerService.loadPlayerInHeader(this, this.player);
+		MenuUtils.hideHeaderTitle(this);
 		
 		//SharedPreferences settings = Storage.getSharedPreferences();
 	    //String completedDate = settings.getString(Constants.USER_PREFS_LATEST_COMPLETED_GAME_DATE, Constants.DEFAULT_COMPLETED_GAMES_DATE);

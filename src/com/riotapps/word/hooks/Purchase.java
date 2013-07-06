@@ -21,10 +21,9 @@ public class Purchase {
 		return sku;
 	}
 
-	public void setStoreItemId(String sku) {
+	public void setSku(String sku) {
 		this.sku = sku;
 	}
-
 	public Date getPurchaseDate() {
 		return purchaseDate;
 	}

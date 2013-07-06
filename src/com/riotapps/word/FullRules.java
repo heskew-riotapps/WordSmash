@@ -28,6 +28,7 @@ public class FullRules extends FragmentActivity{
 
 			PlayerService.loadPlayerInHeader(this);  
 	        MenuUtils.hideMenu(this);
+	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_rules));
 	        
 	        if (StoreService.isHideBannerAdsPurchased()){
 				AdView adView = (AdView)this.findViewById(R.id.adView);

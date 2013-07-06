@@ -5,22 +5,16 @@ import java.util.Collections;
 
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
-import com.riotapps.word.hooks.FBFriend;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.PlayedWord;
 import com.riotapps.word.hooks.Player;
-import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
-import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
-import com.riotapps.word.utils.ImageCache;
-import com.riotapps.word.utils.ImageFetcher;
 import com.riotapps.word.utils.Logger;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,9 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 

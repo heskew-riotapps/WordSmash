@@ -33,8 +33,7 @@ import com.riotapps.word.utils.ImageFetcher;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.NetworkConnectivity;
 import com.riotapps.word.utils.Validations;
-import com.facebook.model.GraphUser;
-import com.facebook.android.FacebookError;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.riotapps.word.data.PlayerData;
@@ -198,7 +197,7 @@ public class PlayerService {
 			 player.setNumDraws(0);
 			 player.setNumWins(0);
 			 player.setNumLosses(0);
-			 player.setId(Constants.DEFAULT_PLAYER_ID);
+			 player.setId(java.util.UUID.randomUUID().toString());
 	 
 			 PlayerData.savePlayer(player);
 		 }
@@ -207,7 +206,27 @@ public class PlayerService {
 	}
 	
  
-	public static String getBadgeDrawable(int numWins){
+	public static int getRemainingFreeUsesHopperPeek(){
+		
+	  return PlayerData.getRemainingFreeUsesHopperPeek();
+	}
+	
+	public static int getRemainingFreeUsesWordDefinition(){
+		
+		 return PlayerData.getRemainingFreeUsesWordDefinition();	}
+	
+	public int removeAFreeUseFromHopperPeek(){
+		//remain number of free uses is returned
+		return PlayerData.removeAFreeUseFromHopperPeek();
+	}
+	
+	public int removeAFreeUseFromWordDefinition(){
+		return PlayerData.removeAFreeUseFromWordDefinition();
+	}	
+	
+	
+	
+	public static String getBadgeDrawable__(int numWins){
 		if (numWins == -1) {
 			return Constants.BADGE_INVITED;
 		}
