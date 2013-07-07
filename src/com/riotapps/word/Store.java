@@ -3,10 +3,10 @@ package com.riotapps.word;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.android.trivialdrivesample.util.IabHelper;
-import com.example.android.trivialdrivesample.util.IabResult;
-import com.example.android.trivialdrivesample.util.Inventory;
-import com.example.android.trivialdrivesample.util.SkuDetails;
+import com.riotapps.word.billing.IabHelper;
+import com.riotapps.word.billing.IabResult;
+import com.riotapps.word.billing.Inventory;
+import com.riotapps.word.billing.SkuDetails;
 import com.riotapps.word.hooks.OpponentGroup;
 import com.riotapps.word.hooks.OpponentGroupService;
 import com.riotapps.word.hooks.OpponentService;
@@ -20,10 +20,13 @@ import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,7 +36,7 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	private ApplicationContext appContext;
 	private	LayoutInflater inflater;
 	private IabHelper mHelper;
-	private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
+ 
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -58,65 +61,64 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	        	   }
 	        	});
 	        
-	        
-	        
 	 }
-	 
+	  @Override
+	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	      Logger.d(TAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+
+	      // Pass on the activity result to the helper for handling
+	      if (!mHelper.handleActivityResult(requestCode, resultCode, data)) {
+	          // not handled, so handle it ourselves (here's where you'd
+	          // perform any handling of activity results not related to in-app
+	          // billing...
+	          super.onActivityResult(requestCode, resultCode, data);
+	      }
+	      else {
+	          Logger.d(TAG, "onActivityResult handled by IABUtil.");
+	      }
+	  }
+	  
 	 public void onSetupFinished(IabResult result){
 		 if (!result.isSuccess()) {
 	         // Oh noes, there was a problem.
 	         Logger.d(TAG, "Problem setting up In-app Billing: " + result);
 	      }  
 		 else{
-			 IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener 
-			 			= new IabHelper.OnIabPurchaseFinishedListener() {
-			     public void onIabPurchaseFinished(IabResult result, com.example.android.trivialdrivesample.util.Purchase purchase) 
-			     {
-			     	onPurchaseFinished(result, purchase);
-			     }
-			 };
-			 
-			 IabHelper.QueryInventoryFinishedListener mGotInventoryListener 
-							= new IabHelper.QueryInventoryFinishedListener() {
-					public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
-						onPurchaseCheck(result, inventory);
-				
-					}
-				};
-				
-	 
+
 				mHelper.queryInventoryAsync(true, StoreService.getAllSkus(), mGotInventoryListener);
 				//mHelper.queryInventoryAsync(mGotInventoryListener);
 		 }
 		 
 	 }
 	 
+	 IabHelper.QueryInventoryFinishedListener mGotInventoryListener 
+				= new IabHelper.QueryInventoryFinishedListener() {
+			public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+				onPurchaseCheck(result, inventory);
+			
+			}
+		};
+	 
+	 
+	 IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener 
+				= new IabHelper.OnIabPurchaseFinishedListener() {
+			public void onIabPurchaseFinished(IabResult result, com.riotapps.word.billing.Purchase purchase) 
+			{
+				onPurchaseFinished(result, purchase);
+			}
+	 	};
+	 
 	 public void onPurchaseCheck(IabResult result, Inventory inventory){
+		  Logger.d(TAG, "onPurchaseCheck failed=" + result.isFailure());
+		 
+		  //put this as method in StoreService
+		  
 		  if (result.isFailure()) {
 		         // handle error here
 		       }
 	       else {
 	         // update the local purchases first just in case something is out of sync
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK)){
-	        	com.example.android.trivialdrivesample.util.Purchase skuPeek = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK);
-	        	StoreService.savePurchase(skuPeek.getSku(), skuPeek.getToken()); 
-	         }
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuPremium = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE);
-		        	StoreService.savePurchase(skuPremium.getSku(), skuPremium.getToken()); 
-		     }  
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuDefs = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS);
-		        	StoreService.savePurchase(skuDefs.getSku(), skuDefs.getToken()); 
-		     }  
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuInterstitial = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL);
-		        	StoreService.savePurchase(skuInterstitial.getSku(), skuInterstitial.getToken()); 
-		     }  
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_WORD_HINTS)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuHints = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_WORD_HINTS);
-		        	StoreService.savePurchase(skuHints.getSku(), skuHints.getToken()); 
-		     }  
+	         StoreService.syncPurchases(inventory);
 	         
 	    	 this.loadStore(inventory);
 
@@ -130,7 +132,16 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	    mHelper = null;
 	 }
 	 
-	 private void onPurchaseFinished(IabResult result, com.example.android.trivialdrivesample.util.Purchase purchase){
+	 private void onPurchaseFinished(IabResult result, com.riotapps.word.billing.Purchase purchase){
+		 
+		 //Security Recommendation: When you receive the purchase response from Google Play, make sure to check the returned data signature, 
+		 //the orderId, and the developerPayload string in the Purchase object to make sure that you are getting the expected values. 
+		 //You should verify that the orderId is a unique value that you have not previously processed, and the developerPayload string
+		 //matches the token that you sent previously with the purchase request. As a further security precaution, 
+		 //you should perform the verification on your own secure server.
+		 
+		 Logger.d(TAG, "onPurchaseFinished failed=" + result.isFailure());
+		 
 		 if (result.isFailure()) {
              Logger.d(TAG, "Error purchasing: " + result);
              return;
@@ -157,16 +168,58 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 				 
 			 //popup a thank you dialog
 			 DialogManager.SetupAlert(this, this.getString(R.string.thank_you), thankYouMessage);
-			 
+	 
+			 this.resetPriceButtons(purchase.getSku());
 		 }
-       /*   else if (purchase.getSku().equals(SKU_GAS)) {
-             // consume the ggas and update the UI
-          }
-          else if (purchase.getSku().equals(SKU_PREMIUM)) {
-             // give user access to premium content and update the UI
-          }
-          */
+       
 	 }
+	 private void resetPriceButtons(String sku){
+		 if (sku.equals(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL)){
+			 Button bNoAdsPrice = (Button)this.findViewById(R.id.bNoAdsPrice);
+			 ImageView ivNoAdsPurchased = (ImageView)this.findViewById(R.id.ivNoAdsPurchased);
+			 bNoAdsPrice.setVisibility(View.GONE);
+			 ivNoAdsPurchased.setVisibility(View.VISIBLE);
+		 }
+		 else if (sku.equals(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK)){
+			 Button bHopperPeekPrice = (Button)this.findViewById(R.id.bHopperPeekPrice);
+			 ImageView ivHopperPeekPurchased = (ImageView)this.findViewById(R.id.ivHopperPeekPurchased);
+			 bHopperPeekPrice.setVisibility(View.GONE);
+			 ivHopperPeekPurchased.setVisibility(View.VISIBLE);
+		 }
+		 else if (sku.equals(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS)){
+			 Button bWordDefinitionsPrice = (Button)this.findViewById(R.id.bWordDefinitionsPrice);
+			 ImageView ivWordDefinitionsPurchased = (ImageView)this.findViewById(R.id.ivWordDefinitionsPurchased);
+			 bWordDefinitionsPrice.setVisibility(View.GONE);
+			 ivWordDefinitionsPurchased.setVisibility(View.VISIBLE);
+		 }
+		 else if (sku.equals(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE)){
+			 Button bPremiumUpgradePrice = (Button)this.findViewById(R.id.bPremiumUpgradePrice);
+			 ImageView ivPremiumUpgradePurchased = (ImageView)this.findViewById(R.id.ivPremiumUpgradePurchased);
+			 bPremiumUpgradePrice.setVisibility(View.GONE);
+			 ivPremiumUpgradePurchased.setVisibility(View.VISIBLE);
+			 
+			 Button bNoAdsPrice = (Button)this.findViewById(R.id.bNoAdsPrice);
+			 ImageView ivNoAdsPurchased = (ImageView)this.findViewById(R.id.ivNoAdsPurchased);
+			 bNoAdsPrice.setVisibility(View.GONE);
+			 ivNoAdsPurchased.setVisibility(View.VISIBLE);
+			 
+			 Button bHopperPeekPrice = (Button)this.findViewById(R.id.bHopperPeekPrice);
+			 ImageView ivHopperPeekPurchased = (ImageView)this.findViewById(R.id.ivHopperPeekPurchased);
+			 bHopperPeekPrice.setVisibility(View.GONE);
+			 ivHopperPeekPurchased.setVisibility(View.VISIBLE);
+			 
+			 Button bWordDefinitionsPrice = (Button)this.findViewById(R.id.bWordDefinitionsPrice);
+			 ImageView ivWordDefinitionsPurchased = (ImageView)this.findViewById(R.id.ivWordDefinitionsPurchased);
+			 bWordDefinitionsPrice.setVisibility(View.GONE);
+			 ivWordDefinitionsPurchased.setVisibility(View.VISIBLE);
+		 }
+		 
+		// else if (sku.equals(Constants.SKU_GOOGLE_PLAY_WORD_HINTS)){
+		//	 thankYouMessage = this.getString(R.string.purchase_thanks_word_hints);
+		// }
+	 }
+	 
+	 
 	 
 	 private void purchaseItem(String sku){
 		 mHelper.launchPurchaseFlow(this, sku, 10001,   
@@ -175,51 +228,89 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	 
 	 
 	 private void loadStore(Inventory inventory){
+		 //if premium upgrade is purchased, dont let them buy the other items that are already covered
+		 
 		 TextView tvPremiumUpgradeTitle = (TextView)this.findViewById(R.id.tvPremiumUpgradeTitle);
 		 TextView tvPremiumUpgradeDescription = (TextView)this.findViewById(R.id.tvPremiumUpgradeDescription);
-		 TextView tvPremiumUpgradePrice = (TextView)this.findViewById(R.id.tvPremiumUpgradePrice);
+		 Button bPremiumUpgradePrice = (Button)this.findViewById(R.id.bPremiumUpgradePrice);
+		 ImageView ivPremiumUpgradePurchased = (ImageView)this.findViewById(R.id.ivPremiumUpgradePurchased);
+		 
+		 TextView tvNoAdsTitle = (TextView)this.findViewById(R.id.tvNoAdsTitle);
+		 TextView tvNoAdsDescription = (TextView)this.findViewById(R.id.tvNoAdsDescription);
+		 Button bNoAdsPrice = (Button)this.findViewById(R.id.bNoAdsPrice);
+		 ImageView ivNoAdsPurchased = (ImageView)this.findViewById(R.id.ivNoAdsPurchased);
+		 
+		 TextView tvWordDefinitionsTitle = (TextView)this.findViewById(R.id.tvWordDefinitionsTitle);
+		 TextView tvWordDefinitionsDescription = (TextView)this.findViewById(R.id.tvWordDefinitionsDescription);
+		 Button bWordDefinitionsPrice = (Button)this.findViewById(R.id.bWordDefinitionsPrice);
+		 ImageView ivWordDefinitionsPurchased = (ImageView)this.findViewById(R.id.ivWordDefinitionsPurchased);
+		 
+		 TextView tvHopperPeekTitle = (TextView)this.findViewById(R.id.tvHopperPeekTitle);
+		 TextView tvHopperPeekDescription = (TextView)this.findViewById(R.id.tvHopperPeekDescription);
+		 Button bHopperPeekPrice = (Button)this.findViewById(R.id.bHopperPeekPrice);
+		 ImageView ivHopperPeekPurchased = (ImageView)this.findViewById(R.id.ivHopperPeekPurchased);
 		 
 		 SkuDetails skuPremiumUpgrade = inventory.getSkuDetails(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE);
-		 tvPremiumUpgradeTitle.setText(skuPremiumUpgrade.getTitle());
-		 tvPremiumUpgradeDescription.setText(skuPremiumUpgrade.getDescription());
-		 tvPremiumUpgradePrice.setText(skuPremiumUpgrade.getPrice());
-		 tvPremiumUpgradePrice.setTag(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE);
+		 tvPremiumUpgradeTitle.setText(this.getString(R.string.store_item_premium_upgrade_title));
+		 tvPremiumUpgradeDescription.setText(this.getString(R.string.store_item_premium_upgrade_description));
+		 if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE)){
+			 bPremiumUpgradePrice.setVisibility(View.GONE); 
+			 }
+		 else{
+			 bPremiumUpgradePrice.setText(skuPremiumUpgrade.getPrice());
+			 bPremiumUpgradePrice.setTag(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE);
+			 bPremiumUpgradePrice.setOnClickListener(this);
+			 ivPremiumUpgradePurchased.setVisibility(View.GONE);
+		 }
+
+		 SkuDetails skuNoAds = inventory.getSkuDetails(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL);
+		 tvNoAdsTitle.setText(this.getString(R.string.store_item_no_ads_title));
+		 tvNoAdsDescription.setText(this.getString(R.string.store_item_no_ads_description));
+		 if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL)){ // || inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE) {
+			 bNoAdsPrice.setVisibility(View.GONE); 
+			 }
+		 else{
+			 bNoAdsPrice.setText(skuNoAds.getPrice());
+			 bNoAdsPrice.setTag(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL);
+			 bNoAdsPrice.setOnClickListener(this);
+			 ivNoAdsPurchased.setVisibility(View.GONE);
+		 }
+	 	 
+		 SkuDetails skuWordDefinitions = inventory.getSkuDetails(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS);
+		 tvWordDefinitionsTitle.setText(this.getString(R.string.store_item_word_definitions_title));
+		 tvWordDefinitionsDescription.setText(this.getString(R.string.store_item_word_definitions_description));
+		 if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS)){ // || inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE) {
+			 bWordDefinitionsPrice.setVisibility(View.GONE); 
+			 }
+		 else{
+			 bWordDefinitionsPrice.setText(skuWordDefinitions.getPrice());
+			 bWordDefinitionsPrice.setTag(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS);
+			 bWordDefinitionsPrice.setOnClickListener(this);
+			 ivWordDefinitionsPurchased.setVisibility(View.GONE);
+		 }
 		 
-		 tvPremiumUpgradePrice.setOnClickListener(this);
+		 
+		 SkuDetails skuHopperPeek = inventory.getSkuDetails(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK);
+		 tvHopperPeekTitle.setText(this.getString(R.string.store_item_hopper_peek_title));
+		 tvHopperPeekDescription.setText(this.getString(R.string.store_item_hopper_peek_description));
+		 if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK)){ // || inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE) {
+			 bHopperPeekPrice.setVisibility(View.GONE); 
+			 }
+		 else{
+			 bHopperPeekPrice.setText(skuHopperPeek.getPrice());
+			 bHopperPeekPrice.setTag(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK);
+			 bHopperPeekPrice.setOnClickListener(this);
+			 ivHopperPeekPurchased.setVisibility(View.GONE);
+		 }
 	 }
 	 
-		
-	    public View getStoreItemView(StoreItem item) {
-
-	  		View view = this.inflater.inflate(R.layout.character_item, null);
-	 
  
-		/* 	TextView tvCharacter = (TextView)view.findViewById(R.id.tvCharacter);
-		 
- 
-		 	tvCharacter.setText(opponentGroup.getName());
-		  
-		 	 
-		 	view.setTag(opponentGroup.getId());
-		 	view.setOnClickListener(this);
-	  	  */
-	  	    return view;
-	  	}
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
 		this.purchaseItem(v.getTag().toString());
-		
-		
-		//call google payment integration here
-	//	OpponentGroup og = OpponentGroupService.getInactiveOpponentGroup(Integer.parseInt(v.getTag().toString()));
-	//	Logger.d(TAG, "tag=" + v.getTag().toString());
-	//	og.setActivated(true);
-		
-	//	OpponentGroupService.saveOpponentGroup(og);
-		
-	//	this.appContext.setOpponents(OpponentService.getActivatedOpponents());
+ 
 	}
 	
 	

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
-import com.example.android.trivialdrivesample.util.IabHelper;
-import com.example.android.trivialdrivesample.util.IabResult;
-import com.example.android.trivialdrivesample.util.Inventory;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.riotapps.word.billing.IabHelper;
+import com.riotapps.word.billing.IabResult;
+import com.riotapps.word.billing.Inventory;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
@@ -116,6 +116,13 @@ public class Splash  extends FragmentActivity {
     	
     }
     
+    @Override
+    public void onDestroy() {
+       super.onDestroy();
+       if (mHelper != null) mHelper.dispose();
+       mHelper = null;
+    }
+    
 	 public void onPurchaseCheck(IabResult result, Inventory inventory){
 		 Logger.d(TAG, "onPurchaseCheck");
 		  if (result.isFailure()) {
@@ -123,26 +130,7 @@ public class Splash  extends FragmentActivity {
 		       } 
 	       else {
 	         // does the user have the premium upgrade?
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK)){
-	        	com.example.android.trivialdrivesample.util.Purchase skuPeek = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_HOPPER_PEEK);
-	        	StoreService.savePurchase(skuPeek.getSku(), skuPeek.getToken()); 
-	         }
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuPremium = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_PREMIUM_UPGRADE);
-		        	StoreService.savePurchase(skuPremium.getSku(), skuPremium.getToken()); 
-		     }  
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuDefs = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_WORD_DEFINITIONS);
-		        	StoreService.savePurchase(skuDefs.getSku(), skuDefs.getToken()); 
-		     }  
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuInterstitial = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL);
-		        	StoreService.savePurchase(skuInterstitial.getSku(), skuInterstitial.getToken()); 
-		     }  
-	         if (inventory.hasPurchase(Constants.SKU_GOOGLE_PLAY_WORD_HINTS)){
-		        	com.example.android.trivialdrivesample.util.Purchase skuHints = inventory.getPurchase(Constants.SKU_GOOGLE_PLAY_WORD_HINTS);
-		        	StoreService.savePurchase(skuHints.getSku(), skuHints.getToken()); 
-		     }  
+	    	   StoreService.syncPurchases(inventory);
 	       }
 		  
 		  Intent intent;

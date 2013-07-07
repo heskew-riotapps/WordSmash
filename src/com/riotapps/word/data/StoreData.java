@@ -57,6 +57,24 @@ public class StoreData {
 		gson = null;
 	}
 	
+	public static void removePurchase(String sku){
+	 	SharedPreferences settings = Storage.getPurchaseSharedPreferences();
+		SharedPreferences.Editor editor = settings.edit();
+		editor.remove(String.format(Constants.PURCHASE_PREFS_ITEM, sku));
+	 	// Check if we're running on GingerBread or above
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+		     // If so, call apply()
+		     editor.apply();
+		 // if not
+		} else {
+		     // Call commit()
+		     editor.commit();
+		} 
+	
+	}
+	
+	
+	
 	public static List<StoreItem> getStoreItems(){
 		
 	 	Gson gson = new Gson(); 

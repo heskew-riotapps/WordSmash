@@ -584,4 +584,16 @@
 		<string name="header_title_about">ABOUT</string>
 		<string name="header_title_completed_games">GAMES</string>
 		<string name="header_title_rules">RULES</string>
+		
+		<string name="store_item_premium_upgrade_title">Premium Upgrade</string>
+		<string name="store_item_premium_upgrade_description">Enjoy the purest WordSmash experience.  No third-party ads at all.  
+		    Unlimited word definition lookup for any played word. 
+		    Unlimited peeks at the hopper.</string>
+	    <string name="store_item_word_definitions_title">Word Definition Lookups</string>
+		<string name="store_item_word_definitions_description">Lookup the definition of any played word. Learn as you play! Unlimited usage.</string>
+	    <string name="store_item_no_ads_title">No Ads Between Moves</string>
+		<string name="store_item_no_ads_description">Want to get rid of the ads between moves?  This is the upgrade for you.</string>
+	    <string name="store_item_hopper_peek_title">Peek at the Hopper</string>
+		<string name="store_item_hopper_peek_description">At any time, you will be able to see which letters are left in play in the hopper
+		     as well as in your opponent\'s tray.  Unlimited usage.</string>			
 </resources>

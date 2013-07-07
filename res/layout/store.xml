@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout 
      xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     >
 
 <LinearLayout  
@@ -18,7 +17,7 @@
          >
 	<LinearLayout
 		style="@style/FormBackgroundStyle"
-					android:layout_marginTop="5dp"
+				android:layout_marginTop="5dp"
 				 android:layout_marginBottom="5dp"
 				 android:orientation="vertical"
 				 android:layout_width="fill_parent"
@@ -27,6 +26,8 @@
 	>
 		<com.riotapps.word.ui.MainFontTextView
 		        style="@style/ContentAreaTextTopStyle"
+		        android:paddingTop="0dp"
+		        android:layout_height="15dp"
 		        />
 		 
 		<LinearLayout 
@@ -39,43 +40,168 @@
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent" 
     	android:fadingEdge="none"
+    	 
     	
     	 >
-	<RelativeLayout 
-	   	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent" 
-		android:orientation="vertical"
-	    > 
+		<LinearLayout 
+		   	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content" 
+			android:orientation="vertical"
+		    > 
+		
+			<RelativeLayout 
+				   	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content" 
+					android:id="@+id/rlPremiumUpgrade"
+			> 
+		 
+				 <com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvPremiumUpgradeTitle"
+				        android:textSize="18sp" 
+				        />
+ 				  <com.riotapps.word.ui.StoreItemPriceButton 
+				  	    style="@style/StoreItemPriceButtonStyle"
+				  	    android:id="@+id/bPremiumUpgradePrice"
+				  	    android:layout_alignParentRight="true"
+				  	    android:layout_alignParentTop="true"
+				  	    android:layout_marginRight="3dp"
+				    />
+ 				  <ImageView
+ 				      style="@style/StoreItemCheckStyle"
+ 				      android:id="@+id/ivPremiumUpgradePurchased"
+ 				   />
+				  <com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvPremiumUpgradeDescription"
+				        android:textSize="16sp" 
+				        android:layout_below="@id/tvPremiumUpgradeTitle"
+				        android:layout_toLeftOf="@id/bPremiumUpgradePrice"
+				        />
+				  <View
+				      android:layout_width="fill_parent"
+				      android:layout_height="2dp" 
+				      android:background="@color/store_item_divider_color" 
+				     
+				      android:layout_marginTop="3dp"
+				      android:layout_below="@id/tvPremiumUpgradeDescription"
+				      />
+			  </RelativeLayout>
+			  
+			  <RelativeLayout 
+				   	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content" 
+					android:id="@+id/rlNoAds"
+					android:layout_marginTop="5dp"
+				> 
+				<com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvNoAdsTitle"
+				        android:textSize="18sp" 
+				        />
+ 				  <com.riotapps.word.ui.StoreItemPriceButton 
+				  	    style="@style/StoreItemPriceButtonStyle"
+				  	    android:id="@+id/bNoAdsPrice"
+				  	    android:layout_alignParentRight="true"
+				  	    android:layout_alignParentTop="true"
+				  	    android:layout_marginRight="3dp"
+				    />
+ 				  <ImageView
+ 				     style="@style/StoreItemCheckStyle"
+ 				      android:id="@+id/ivNoAdsPurchased"
+ 				   />
+				  <com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvNoAdsDescription"
+				        android:textSize="16sp" 
+				        android:layout_below="@id/tvNoAdsTitle"
+				        android:layout_toLeftOf="@id/bNoAdsPrice"
+				        />
+				  <View
+				      android:layout_width="fill_parent"
+				      android:layout_height="2dp" 
+				      android:background="@color/store_item_divider_color" 
+				     
+				      android:layout_marginTop="3dp"
+				      android:layout_below="@id/tvNoAdsDescription"
+				      />
+			  </RelativeLayout>
+			  
+			  <RelativeLayout 
+				   	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content" 
+					android:id="@+id/rlWordDefinitions"
+					android:layout_marginTop="5dp"
+				> 
+				<com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvWordDefinitionsTitle"
+				        android:textSize="18sp" 
+				        />
+ 				  <com.riotapps.word.ui.StoreItemPriceButton 
+				  	    style="@style/StoreItemPriceButtonStyle"
+				  	    android:id="@+id/bWordDefinitionsPrice"
+				  	    android:layout_alignParentRight="true"
+				  	    android:layout_alignParentTop="true"
+				  	    android:layout_marginRight="3dp"
+				  	    />
+ 				  <ImageView
+ 				      style="@style/StoreItemCheckStyle"
+ 				      android:id="@+id/ivWordDefinitionsPurchased"
+ 				   />
+				  <com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvWordDefinitionsDescription"
+				        android:textSize="16sp" 
+				        android:layout_below="@id/tvWordDefinitionsTitle"
+				       android:layout_toLeftOf="@id/bWordDefinitionsPrice"
+				        />
+				  <View
+				      android:layout_width="fill_parent"
+				      android:layout_height="2dp" 
+				      android:background="@color/store_item_divider_color" 
+				     
+				      android:layout_marginTop="3dp"
+				      android:layout_below="@id/tvWordDefinitionsDescription"
+				      />
+				  
+				  
+			  </RelativeLayout>
+			  
+			  <RelativeLayout 
+				   	android:layout_width="fill_parent"
+			    	android:layout_height="wrap_content" 
+					android:id="@+id/rlHopperPeek"
+					 android:layout_marginTop="5dp" 
+				> 
+				<com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvHopperPeekTitle"
+				        android:textSize="18sp" 
+				        />
+ 				  <com.riotapps.word.ui.StoreItemPriceButton 
+				  	    style="@style/StoreItemPriceButtonStyle"
+				  	    android:id="@+id/bHopperPeekPrice"
+				  	    android:layout_alignParentRight="true"
+				  		 android:layout_alignParentTop="true"
+				  	    android:layout_marginRight="3dp"
+ 				    />
+ 				  <ImageView
+ 				      style="@style/StoreItemCheckStyle"
+ 				      android:id="@+id/ivHopperPeekPurchased"
+ 				   />
+				  <com.riotapps.word.ui.MainFontTextView
+				        style="@style/ContentAreaTextStyle"
+						android:id="@+id/tvHopperPeekDescription"
+				        android:textSize="16sp" 
+				        android:layout_below="@id/tvHopperPeekTitle"
+				       android:layout_toLeftOf="@id/bHopperPeekPrice"
+				      
+				        />
 
-
-<com.riotapps.word.ui.MainFontTextView
-        style="@style/ContentAreaTextStyle"
-		android:id="@+id/tvPremiumUpgradeTitle"
-        android:textSize="14sp" 
-        />
-  <com.riotapps.word.ui.MainFontTextView
-        style="@style/ContentAreaTextStyle"
-		android:id="@+id/tvPremiumUpgradePrice"
-        android:textSize="14dp" 
-         android:layout_below="@id/tvPremiumUpgradeTitle"
-        />
-
-
-
-  <com.riotapps.word.ui.MainFontTextView
-        style="@style/ContentAreaTextStyle"
-		android:id="@+id/tvPremiumUpgradeDescription"
-        android:textSize="14sp" 
-        android:layout_below="@id/tvPremiumUpgradePrice"
-        android:layout_marginTop="2dp"
-        />
-   
- 
-   	
-
- 
-</RelativeLayout>
- </ScrollView> 
+			  </RelativeLayout>
+		</LinearLayout>
+ 	</ScrollView> 
 </LinearLayout>
 </LinearLayout> 
    </LinearLayout> 

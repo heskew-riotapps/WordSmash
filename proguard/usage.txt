@@ -229,18 +229,6 @@ com.android.vending.billing.IInAppBillingService$Stub:
     static final int TRANSACTION_consumePurchase
 com.android.vending.billing.IInAppBillingService$Stub$Proxy:
     186:186:public java.lang.String getInterfaceDescriptor()
-com.example.android.trivialdrivesample.util.Base64:
-    private static final byte EQUALS_SIGN
-    private static final byte NEW_LINE
-    private static final byte WHITE_SPACE_ENC
-    private static final byte EQUALS_SIGN_ENC
-com.example.android.trivialdrivesample.util.Inventory:
-    67:67:java.util.List getAllOwnedSkus()
-    81:81:java.util.List getAllPurchases()
-com.example.android.trivialdrivesample.util.Security:
-    private static final java.lang.String TAG
-    private static final java.lang.String KEY_FACTORY_ALGORITHM
-    private static final java.lang.String SIGNATURE_ALGORITHM
 com.google.android.gcm.GCMBaseIntentService:
     private static final java.lang.String WAKELOCK_KEY
     private static final java.lang.String EXTRA_TOKEN
@@ -304,8 +292,20 @@ com.riotapps.word.Main:
     181:187:private void trackEvent(java.lang.String,java.lang.String,long)
 com.riotapps.word.Splash:
     android.os.Handler handler
-    private com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
-    186:200:private void handleRouting()
+    private com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
+    174:188:private void handleRouting()
+com.riotapps.word.billing.Base64:
+    private static final byte EQUALS_SIGN
+    private static final byte NEW_LINE
+    private static final byte WHITE_SPACE_ENC
+    private static final byte EQUALS_SIGN_ENC
+com.riotapps.word.billing.Inventory:
+    67:67:java.util.List getAllOwnedSkus()
+    81:81:java.util.List getAllPurchases()
+com.riotapps.word.billing.Security:
+    private static final java.lang.String TAG
+    private static final java.lang.String KEY_FACTORY_ALGORITHM
+    private static final java.lang.String SIGNATURE_ALGORITHM
 com.riotapps.word.hooks.TileLayout$BonusTile:
     final synthetic com.riotapps.word.hooks.TileLayout this$0
     29:29:TileLayout$BonusTile(com.riotapps.word.hooks.TileLayout)

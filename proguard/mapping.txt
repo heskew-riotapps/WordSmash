@@ -4133,215 +4133,6 @@ com.chartboost.sdk.impl.z -> com.chartboost.sdk.impl.z:
     76:76:java.lang.String b() -> b
     89:97:boolean equals(java.lang.Object) -> equals
     102:104:int hashCode() -> hashCode
-com.example.android.trivialdrivesample.util.Base64 -> com.example.android.trivialdrivesample.util.Base64:
-    boolean ENCODE -> ENCODE
-    boolean DECODE -> DECODE
-    byte[] ALPHABET -> b
-    byte[] WEBSAFE_ALPHABET -> c
-    byte[] DECODABET -> d
-    byte[] WEBSAFE_DECODABET -> e
-    boolean $assertionsDisabled -> a
-    210:234:byte[] encode3to4(byte[],int,int,byte[],int,byte[]) -> a
-    247:247:java.lang.String encode(byte[]) -> encode
-    258:258:java.lang.String encodeWebSafe(byte[],boolean) -> encodeWebSafe
-    274:286:java.lang.String encode(byte[],int,int,byte[],boolean) -> encode
-    301:345:byte[] encode(byte[],int,int,byte[],int) -> encode
-    378:406:int decode4to3(byte[],int,byte[],int,byte[]) -> a
-    419:420:byte[] decode(java.lang.String) -> decode
-    431:432:byte[] decodeWebSafe(java.lang.String) -> decodeWebSafe
-    445:445:byte[] decode(byte[]) -> decode
-    458:458:byte[] decodeWebSafe(byte[]) -> decodeWebSafe
-    474:474:byte[] decode(byte[],int,int) -> decode
-    489:489:byte[] decodeWebSafe(byte[],int,int) -> decodeWebSafe
-    504:568:byte[] decode(byte[],int,int,byte[]) -> decode
-com.example.android.trivialdrivesample.util.Base64DecoderException -> com.example.android.trivialdrivesample.util.Base64DecoderException:
-    long serialVersionUID -> serialVersionUID
-com.example.android.trivialdrivesample.util.IabException -> com.example.android.trivialdrivesample.util.IabException:
-    com.example.android.trivialdrivesample.util.IabResult mResult -> a
-    42:42:com.example.android.trivialdrivesample.util.IabResult getResult() -> getResult
-com.example.android.trivialdrivesample.util.IabHelper -> com.example.android.trivialdrivesample.util.IabHelper:
-    boolean mDebugLog -> a
-    java.lang.String mDebugTag -> b
-    boolean mSetupDone -> c
-    boolean mSubscriptionsSupported -> d
-    boolean mAsyncInProgress -> e
-    java.lang.String mAsyncOperation -> f
-    android.content.Context mContext -> g
-    com.android.vending.billing.IInAppBillingService mService -> h
-    android.content.ServiceConnection mServiceConn -> i
-    int mRequestCode -> j
-    java.lang.String mPurchasingItemType -> k
-    java.lang.String mSignatureBase64 -> l
-    int BILLING_RESPONSE_RESULT_OK -> BILLING_RESPONSE_RESULT_OK
-    int BILLING_RESPONSE_RESULT_USER_CANCELED -> BILLING_RESPONSE_RESULT_USER_CANCELED
-    int BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE -> BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE
-    int BILLING_RESPONSE_RESULT_ITEM_UNAVAILABLE -> BILLING_RESPONSE_RESULT_ITEM_UNAVAILABLE
-    int BILLING_RESPONSE_RESULT_DEVELOPER_ERROR -> BILLING_RESPONSE_RESULT_DEVELOPER_ERROR
-    int BILLING_RESPONSE_RESULT_ERROR -> BILLING_RESPONSE_RESULT_ERROR
-    int BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED -> BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED
-    int BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED -> BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED
-    int IABHELPER_ERROR_BASE -> IABHELPER_ERROR_BASE
-    int IABHELPER_REMOTE_EXCEPTION -> IABHELPER_REMOTE_EXCEPTION
-    int IABHELPER_BAD_RESPONSE -> IABHELPER_BAD_RESPONSE
-    int IABHELPER_VERIFICATION_FAILED -> IABHELPER_VERIFICATION_FAILED
-    int IABHELPER_SEND_INTENT_FAILED -> IABHELPER_SEND_INTENT_FAILED
-    int IABHELPER_USER_CANCELLED -> IABHELPER_USER_CANCELLED
-    int IABHELPER_UNKNOWN_PURCHASE_RESPONSE -> IABHELPER_UNKNOWN_PURCHASE_RESPONSE
-    int IABHELPER_MISSING_TOKEN -> IABHELPER_MISSING_TOKEN
-    int IABHELPER_UNKNOWN_ERROR -> IABHELPER_UNKNOWN_ERROR
-    int IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE -> IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE
-    int IABHELPER_INVALID_CONSUMPTION -> IABHELPER_INVALID_CONSUMPTION
-    java.lang.String RESPONSE_CODE -> RESPONSE_CODE
-    java.lang.String RESPONSE_GET_SKU_DETAILS_LIST -> RESPONSE_GET_SKU_DETAILS_LIST
-    java.lang.String RESPONSE_BUY_INTENT -> RESPONSE_BUY_INTENT
-    java.lang.String RESPONSE_INAPP_PURCHASE_DATA -> RESPONSE_INAPP_PURCHASE_DATA
-    java.lang.String RESPONSE_INAPP_SIGNATURE -> RESPONSE_INAPP_SIGNATURE
-    java.lang.String RESPONSE_INAPP_ITEM_LIST -> RESPONSE_INAPP_ITEM_LIST
-    java.lang.String RESPONSE_INAPP_PURCHASE_DATA_LIST -> RESPONSE_INAPP_PURCHASE_DATA_LIST
-    java.lang.String RESPONSE_INAPP_SIGNATURE_LIST -> RESPONSE_INAPP_SIGNATURE_LIST
-    java.lang.String INAPP_CONTINUATION_TOKEN -> INAPP_CONTINUATION_TOKEN
-    java.lang.String ITEM_TYPE_INAPP -> ITEM_TYPE_INAPP
-    java.lang.String ITEM_TYPE_SUBS -> ITEM_TYPE_SUBS
-    java.lang.String GET_SKU_DETAILS_ITEM_LIST -> GET_SKU_DETAILS_ITEM_LIST
-    java.lang.String GET_SKU_DETAILS_ITEM_TYPE_LIST -> GET_SKU_DETAILS_ITEM_TYPE_LIST
-    com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener mPurchaseListener -> m
-    171:173:void enableDebugLogging(boolean,java.lang.String) -> enableDebugLogging
-    176:177:void enableDebugLogging(boolean) -> enableDebugLogging
-    201:272:void startSetup(com.example.android.trivialdrivesample.util.IabHelper$OnIabSetupFinishedListener) -> startSetup
-    281:290:void dispose() -> dispose
-    294:294:boolean subscriptionsSupported() -> subscriptionsSupported
-    319:320:void launchPurchaseFlow(android.app.Activity,java.lang.String,int,com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener) -> launchPurchaseFlow
-    324:325:void launchPurchaseFlow(android.app.Activity,java.lang.String,int,com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> launchPurchaseFlow
-    329:330:void launchSubscriptionPurchaseFlow(android.app.Activity,java.lang.String,int,com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener) -> launchSubscriptionPurchaseFlow
-    334:335:void launchSubscriptionPurchaseFlow(android.app.Activity,java.lang.String,int,com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> launchSubscriptionPurchaseFlow
-    357:404:void launchPurchaseFlow(android.app.Activity,java.lang.String,java.lang.String,int,com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> launchPurchaseFlow
-    421:499:boolean handleActivityResult(int,int,android.content.Intent) -> handleActivityResult
-    503:503:com.example.android.trivialdrivesample.util.Inventory queryInventory(boolean,java.util.List) -> queryInventory
-    521:557:com.example.android.trivialdrivesample.util.Inventory queryInventory(boolean,java.util.List,java.util.List) -> queryInventory
-    588:613:void queryInventoryAsync(boolean,java.util.List,com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener) -> queryInventoryAsync
-    616:617:void queryInventoryAsync(com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener) -> queryInventoryAsync
-    620:621:void queryInventoryAsync(boolean,com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener) -> queryInventoryAsync
-    634:663:void consume(com.example.android.trivialdrivesample.util.Purchase) -> a
-    701:705:void consumeAsync(com.example.android.trivialdrivesample.util.Purchase,com.example.android.trivialdrivesample.util.IabHelper$OnConsumeFinishedListener) -> consumeAsync
-    713:715:void consumeAsync(java.util.List,com.example.android.trivialdrivesample.util.IabHelper$OnConsumeMultiFinishedListener) -> consumeAsync
-    725:748:java.lang.String getResponseDesc(int) -> getResponseDesc
-    754:758:void checkSetupDone(java.lang.String) -> a
-    762:772:int getResponseCodeFromBundle(android.os.Bundle) -> a
-    778:788:int getResponseCodeFromIntent(android.content.Intent) -> a
-    793:798:void flagStartAsync(java.lang.String) -> b
-    801:804:void flagEndAsync() -> a
-    809:867:int queryPurchases(com.example.android.trivialdrivesample.util.Inventory,java.lang.String) -> a
-    872:907:int querySkuDetails(java.lang.String,com.example.android.trivialdrivesample.util.Inventory,java.util.List) -> a
-    914:946:void consumeAsyncInternal(java.util.List,com.example.android.trivialdrivesample.util.IabHelper$OnConsumeFinishedListener,com.example.android.trivialdrivesample.util.IabHelper$OnConsumeMultiFinishedListener) -> a
-    949:950:void logDebug(java.lang.String) -> c
-    953:954:void logError(java.lang.String) -> d
-    957:958:void logWarn(java.lang.String) -> e
-com.example.android.trivialdrivesample.util.IabHelper$1 -> jt:
-    com.example.android.trivialdrivesample.util.IabHelper this$0 -> a
-    com.example.android.trivialdrivesample.util.IabHelper$OnIabSetupFinishedListener val$listener -> b
-    208:210:void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
-    214:256:void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
-com.example.android.trivialdrivesample.util.IabHelper$2 -> ju:
-    com.example.android.trivialdrivesample.util.IabHelper this$0 -> a
-    boolean val$querySkuDetails -> b
-    java.util.List val$moreSkus -> c
-    android.os.Handler val$handler -> d
-    com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener val$listener -> e
-    593:611:void run() -> run
-com.example.android.trivialdrivesample.util.IabHelper$2$1 -> jv:
-    com.example.android.trivialdrivesample.util.IabHelper$2 this$1 -> a
-    com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener val$listener -> b
-    com.example.android.trivialdrivesample.util.IabResult val$result_f -> c
-    com.example.android.trivialdrivesample.util.Inventory val$inv_f -> d
-    608:609:void run() -> run
-com.example.android.trivialdrivesample.util.IabHelper$3 -> jw:
-    com.example.android.trivialdrivesample.util.IabHelper this$0 -> a
-    java.util.List val$purchases -> b
-    com.example.android.trivialdrivesample.util.IabHelper$OnConsumeFinishedListener val$singleListener -> c
-    android.os.Handler val$handler -> d
-    com.example.android.trivialdrivesample.util.IabHelper$OnConsumeMultiFinishedListener val$multiListener -> e
-    918:944:void run() -> run
-com.example.android.trivialdrivesample.util.IabHelper$3$1 -> jx:
-    com.example.android.trivialdrivesample.util.IabHelper$3 this$1 -> a
-    com.example.android.trivialdrivesample.util.IabHelper$OnConsumeFinishedListener val$singleListener -> b
-    java.util.List val$purchases -> c
-    java.util.List val$results -> d
-    933:934:void run() -> run
-com.example.android.trivialdrivesample.util.IabHelper$3$2 -> jy:
-    com.example.android.trivialdrivesample.util.IabHelper$3 this$1 -> a
-    com.example.android.trivialdrivesample.util.IabHelper$OnConsumeMultiFinishedListener val$multiListener -> b
-    java.util.List val$purchases -> c
-    java.util.List val$results -> d
-    940:941:void run() -> run
-com.example.android.trivialdrivesample.util.IabHelper$OnConsumeFinishedListener -> com.example.android.trivialdrivesample.util.IabHelper$OnConsumeFinishedListener:
-    void onConsumeFinished(com.example.android.trivialdrivesample.util.Purchase,com.example.android.trivialdrivesample.util.IabResult) -> onConsumeFinished
-com.example.android.trivialdrivesample.util.IabHelper$OnConsumeMultiFinishedListener -> com.example.android.trivialdrivesample.util.IabHelper$OnConsumeMultiFinishedListener:
-    void onConsumeMultiFinished(java.util.List,java.util.List) -> onConsumeMultiFinished
-com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener -> com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener:
-    void onIabPurchaseFinished(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Purchase) -> onIabPurchaseFinished
-com.example.android.trivialdrivesample.util.IabHelper$OnIabSetupFinishedListener -> com.example.android.trivialdrivesample.util.IabHelper$OnIabSetupFinishedListener:
-    void onIabSetupFinished(com.example.android.trivialdrivesample.util.IabResult) -> onIabSetupFinished
-com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener -> com.example.android.trivialdrivesample.util.IabHelper$QueryInventoryFinishedListener:
-    void onQueryInventoryFinished(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Inventory) -> onQueryInventoryFinished
-com.example.android.trivialdrivesample.util.IabResult -> com.example.android.trivialdrivesample.util.IabResult:
-    int mResponse -> a
-    java.lang.String mMessage -> b
-    39:39:int getResponse() -> getResponse
-    40:40:java.lang.String getMessage() -> getMessage
-    41:41:boolean isSuccess() -> isSuccess
-    42:42:boolean isFailure() -> isFailure
-    43:43:java.lang.String toString() -> toString
-com.example.android.trivialdrivesample.util.Inventory -> com.example.android.trivialdrivesample.util.Inventory:
-    java.util.Map mSkuMap -> a
-    java.util.Map mPurchaseMap -> b
-    35:35:com.example.android.trivialdrivesample.util.SkuDetails getSkuDetails(java.lang.String) -> getSkuDetails
-    40:40:com.example.android.trivialdrivesample.util.Purchase getPurchase(java.lang.String) -> getPurchase
-    45:45:boolean hasPurchase(java.lang.String) -> hasPurchase
-    50:50:boolean hasDetails(java.lang.String) -> hasDetails
-    62:63:void erasePurchase(java.lang.String) -> erasePurchase
-    72:76:java.util.List getAllOwnedSkus(java.lang.String) -> a
-    85:86:void addSkuDetails(com.example.android.trivialdrivesample.util.SkuDetails) -> a
-    89:90:void addPurchase(com.example.android.trivialdrivesample.util.Purchase) -> a
-com.example.android.trivialdrivesample.util.Purchase -> com.example.android.trivialdrivesample.util.Purchase:
-    java.lang.String mItemType -> a
-    java.lang.String mOrderId -> b
-    java.lang.String mPackageName -> c
-    java.lang.String mSku -> d
-    long mPurchaseTime -> e
-    int mPurchaseState -> f
-    java.lang.String mDeveloperPayload -> g
-    java.lang.String mToken -> h
-    java.lang.String mOriginalJson -> i
-    java.lang.String mSignature -> j
-    50:50:java.lang.String getItemType() -> getItemType
-    51:51:java.lang.String getOrderId() -> getOrderId
-    52:52:java.lang.String getPackageName() -> getPackageName
-    53:53:java.lang.String getSku() -> getSku
-    54:54:long getPurchaseTime() -> getPurchaseTime
-    55:55:int getPurchaseState() -> getPurchaseState
-    56:56:java.lang.String getDeveloperPayload() -> getDeveloperPayload
-    57:57:java.lang.String getToken() -> getToken
-    58:58:java.lang.String getOriginalJson() -> getOriginalJson
-    59:59:java.lang.String getSignature() -> getSignature
-    62:62:java.lang.String toString() -> toString
-com.example.android.trivialdrivesample.util.Security -> com.example.android.trivialdrivesample.util.Security:
-    59:73:boolean verifyPurchase(java.lang.String,java.lang.String,java.lang.String) -> verifyPurchase
-    85:95:java.security.PublicKey generatePublicKey(java.lang.String) -> generatePublicKey
-    111:128:boolean verify(java.security.PublicKey,java.lang.String,java.lang.String) -> verify
-com.example.android.trivialdrivesample.util.SkuDetails -> com.example.android.trivialdrivesample.util.SkuDetails:
-    java.lang.String mItemType -> a
-    java.lang.String mSku -> b
-    java.lang.String mType -> c
-    java.lang.String mPrice -> d
-    java.lang.String mTitle -> e
-    java.lang.String mDescription -> f
-    java.lang.String mJson -> g
-    48:48:java.lang.String getSku() -> getSku
-    49:49:java.lang.String getType() -> getType
-    50:50:java.lang.String getPrice() -> getPrice
-    51:51:java.lang.String getTitle() -> getTitle
-    52:52:java.lang.String getDescription() -> getDescription
-    56:56:java.lang.String toString() -> toString
 com.google.ads.Ad -> com.google.ads.Ad:
     boolean isReady() -> isReady
     void loadAd(com.google.ads.AdRequest) -> loadAd
@@ -6693,7 +6484,7 @@ com.google.android.gms.analytics.internal.Command -> com.google.android.gms.anal
     76:76:int describeContents() -> describeContents
     81:84:void writeToParcel(android.os.Parcel,int) -> writeToParcel
     87:90:void readFromParcel(android.os.Parcel) -> a
-com.google.android.gms.analytics.internal.Command$1 -> jz:
+com.google.android.gms.analytics.internal.Command$1 -> jt:
     57:57:com.google.android.gms.analytics.internal.Command createFromParcel(android.os.Parcel) -> a
     62:62:com.google.android.gms.analytics.internal.Command[] newArray(int) -> a
     54:54:java.lang.Object[] newArray(int) -> newArray
@@ -6705,13 +6496,13 @@ com.google.android.gms.analytics.internal.IAnalyticsService$Stub -> com.google.a
     26:33:com.google.android.gms.analytics.internal.IAnalyticsService asInterface(android.os.IBinder) -> asInterface
     37:37:android.os.IBinder asBinder() -> asBinder
     41:72:boolean onTransact(int,android.os.Parcel,android.os.Parcel,int) -> onTransact
-com.google.android.gms.analytics.internal.IAnalyticsService$Stub$Proxy -> ka:
+com.google.android.gms.analytics.internal.IAnalyticsService$Stub$Proxy -> ju:
     android.os.IBinder mRemote -> a
     83:83:android.os.IBinder asBinder() -> asBinder
     102:117:void sendHit(java.util.Map,long,java.lang.String,java.util.List) -> sendHit
     123:134:void clearHits() -> clearHits
 com.google.android.gms.common.util.VisibleForTesting -> com.google.android.gms.common.util.VisibleForTesting:
-com.google.gson.DefaultDateTypeAdapter -> kb:
+com.google.gson.DefaultDateTypeAdapter -> jv:
     java.text.DateFormat enUsFormat -> a
     java.text.DateFormat localFormat -> b
     java.text.DateFormat iso8601Format -> c
@@ -6747,15 +6538,15 @@ com.google.gson.FieldNamingPolicy -> com.google.gson.FieldNamingPolicy:
     164:164:java.lang.String modifyString(char,java.lang.String,int) -> a
     30:30:java.lang.String access$100(java.lang.String) -> a
     30:30:java.lang.String access$200(java.lang.String,java.lang.String) -> a
-com.google.gson.FieldNamingPolicy$1 -> kc:
+com.google.gson.FieldNamingPolicy$1 -> jw:
     38:38:java.lang.String translateName(java.lang.reflect.Field) -> translateName
-com.google.gson.FieldNamingPolicy$2 -> kd:
+com.google.gson.FieldNamingPolicy$2 -> jx:
     54:54:java.lang.String translateName(java.lang.reflect.Field) -> translateName
-com.google.gson.FieldNamingPolicy$3 -> ke:
+com.google.gson.FieldNamingPolicy$3 -> jy:
     73:73:java.lang.String translateName(java.lang.reflect.Field) -> translateName
-com.google.gson.FieldNamingPolicy$4 -> kf:
+com.google.gson.FieldNamingPolicy$4 -> jz:
     91:91:java.lang.String translateName(java.lang.reflect.Field) -> translateName
-com.google.gson.FieldNamingPolicy$5 -> kg:
+com.google.gson.FieldNamingPolicy$5 -> ka:
     114:114:java.lang.String translateName(java.lang.reflect.Field) -> translateName
 com.google.gson.FieldNamingStrategy -> com.google.gson.FieldNamingStrategy:
     java.lang.String translateName(java.lang.reflect.Field) -> translateName
@@ -6798,36 +6589,36 @@ com.google.gson.Gson -> com.google.gson.Gson:
     852:855:java.lang.Object fromJson(com.google.gson.JsonElement,java.lang.reflect.Type) -> fromJson
     885:890:java.lang.String toString() -> toString
     98:98:void access$000(com.google.gson.Gson,double) -> a
-com.google.gson.Gson$1 -> kh:
+com.google.gson.Gson$1 -> kb:
     com.google.gson.Gson this$0 -> a
     113:113:java.util.Map initialValue() -> a
     111:111:java.lang.Object initialValue() -> initialValue
-com.google.gson.Gson$2 -> ki:
+com.google.gson.Gson$2 -> kc:
     com.google.gson.Gson this$0 -> a
     131:131:java.lang.Object deserialize(com.google.gson.JsonElement,java.lang.reflect.Type) -> deserialize
-com.google.gson.Gson$3 -> kj:
+com.google.gson.Gson$3 -> kd:
     com.google.gson.Gson this$0 -> a
     137:137:com.google.gson.JsonElement serialize(java.lang.Object) -> serialize
     140:140:com.google.gson.JsonElement serialize(java.lang.Object,java.lang.reflect.Type) -> serialize
-com.google.gson.Gson$4 -> kk:
+com.google.gson.Gson$4 -> ke:
     com.google.gson.Gson this$0 -> a
     253:257:java.lang.Double read(com.google.gson.stream.JsonReader) -> a
     260:267:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     251:251:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     251:251:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.Gson$5 -> kl:
+com.google.gson.Gson$5 -> kf:
     com.google.gson.Gson this$0 -> a
     277:281:java.lang.Float read(com.google.gson.stream.JsonReader) -> a
     284:291:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     275:275:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     275:275:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.Gson$6 -> km:
+com.google.gson.Gson$6 -> kg:
     com.google.gson.Gson this$0 -> a
     309:313:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     316:321:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     307:307:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     307:307:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.Gson$FutureTypeAdapter -> kn:
+com.google.gson.Gson$FutureTypeAdapter -> kh:
     com.google.gson.TypeAdapter delegate -> a
     862:866:void setDelegate(com.google.gson.TypeAdapter) -> a
     869:872:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
@@ -6996,11 +6787,11 @@ com.google.gson.LongSerializationPolicy -> com.google.gson.LongSerializationPoli
     27:27:com.google.gson.LongSerializationPolicy[] values() -> values
     27:27:com.google.gson.LongSerializationPolicy valueOf(java.lang.String) -> valueOf
     com.google.gson.JsonElement serialize(java.lang.Long) -> serialize
-com.google.gson.LongSerializationPolicy$1 -> ko:
+com.google.gson.LongSerializationPolicy$1 -> ki:
     36:36:com.google.gson.JsonElement serialize(java.lang.Long) -> serialize
-com.google.gson.LongSerializationPolicy$2 -> kp:
+com.google.gson.LongSerializationPolicy$2 -> kj:
     47:47:com.google.gson.JsonElement serialize(java.lang.Long) -> serialize
-com.google.gson.TreeTypeAdapter -> kq:
+com.google.gson.TreeTypeAdapter -> kk:
     com.google.gson.JsonSerializer serializer -> a
     com.google.gson.JsonDeserializer deserializer -> b
     com.google.gson.Gson gson -> c
@@ -7013,8 +6804,8 @@ com.google.gson.TreeTypeAdapter -> kq:
     85:85:com.google.gson.TypeAdapterFactory newFactory(com.google.gson.reflect.TypeToken,java.lang.Object) -> a
     95:96:com.google.gson.TypeAdapterFactory newFactoryWithMatchRawType(com.google.gson.reflect.TypeToken,java.lang.Object) -> b
     105:105:com.google.gson.TypeAdapterFactory newTypeHierarchyFactory(java.lang.Class,java.lang.Object) -> a
-com.google.gson.TreeTypeAdapter$1 -> kr:
-com.google.gson.TreeTypeAdapter$SingleTypeFactory -> ks:
+com.google.gson.TreeTypeAdapter$1 -> kl:
+com.google.gson.TreeTypeAdapter$SingleTypeFactory -> km:
     com.google.gson.reflect.TypeToken exactType -> a
     boolean matchRawType -> b
     java.lang.Class hierarchyType -> c
@@ -7031,7 +6822,7 @@ com.google.gson.TypeAdapter -> com.google.gson.TypeAdapter:
     255:256:java.lang.Object fromJson(java.io.Reader) -> fromJson
     269:269:java.lang.Object fromJson(java.lang.String) -> fromJson
     280:283:java.lang.Object fromJsonTree(com.google.gson.JsonElement) -> fromJsonTree
-com.google.gson.TypeAdapter$1 -> kt:
+com.google.gson.TypeAdapter$1 -> kn:
     com.google.gson.TypeAdapter this$0 -> a
     188:193:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
     195:199:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
@@ -7073,14 +6864,14 @@ com.google.gson.internal.$Gson$Types -> com.google.gson.internal.$Gson$Types:
     431:432:void checkNotPrimitive(java.lang.reflect.Type) -> b
     42:42:void access$000(java.lang.reflect.Type) -> a
     42:42:int access$100(java.lang.Object) -> a
-com.google.gson.internal.$Gson$Types$GenericArrayTypeImpl -> ku:
+com.google.gson.internal.$Gson$Types$GenericArrayTypeImpl -> ko:
     java.lang.reflect.Type componentType -> a
     long serialVersionUID -> serialVersionUID
     506:506:java.lang.reflect.Type getGenericComponentType() -> getGenericComponentType
     510:510:boolean equals(java.lang.Object) -> equals
     515:515:int hashCode() -> hashCode
     519:519:java.lang.String toString() -> toString
-com.google.gson.internal.$Gson$Types$ParameterizedTypeImpl -> kv:
+com.google.gson.internal.$Gson$Types$ParameterizedTypeImpl -> kp:
     java.lang.reflect.Type ownerType -> a
     java.lang.reflect.Type rawType -> b
     java.lang.reflect.Type[] typeArguments -> c
@@ -7091,7 +6882,7 @@ com.google.gson.internal.$Gson$Types$ParameterizedTypeImpl -> kv:
     470:470:boolean equals(java.lang.Object) -> equals
     475:475:int hashCode() -> hashCode
     481:492:java.lang.String toString() -> toString
-com.google.gson.internal.$Gson$Types$WildcardTypeImpl -> kw:
+com.google.gson.internal.$Gson$Types$WildcardTypeImpl -> kq:
     java.lang.reflect.Type upperBound -> a
     java.lang.reflect.Type lowerBound -> b
     long serialVersionUID -> serialVersionUID
@@ -7107,31 +6898,31 @@ com.google.gson.internal.ConstructorConstructor -> com.google.gson.internal.Cons
     116:154:com.google.gson.internal.ObjectConstructor newDefaultImplementationConstructor(java.lang.Class) -> b
     159:159:com.google.gson.internal.ObjectConstructor newUnsafeAllocator(java.lang.reflect.Type,java.lang.Class) -> a
     175:175:java.lang.String toString() -> toString
-com.google.gson.internal.ConstructorConstructor$1 -> kx:
+com.google.gson.internal.ConstructorConstructor$1 -> kr:
     com.google.gson.InstanceCreator val$creator -> a
     java.lang.reflect.Type val$type -> b
     com.google.gson.internal.ConstructorConstructor this$0 -> c
     61:61:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$2 -> ky:
+com.google.gson.internal.ConstructorConstructor$2 -> ks:
     java.lang.reflect.Constructor val$constructor -> a
     com.google.gson.internal.ConstructorConstructor this$0 -> b
     90:101:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$3 -> kz:
+com.google.gson.internal.ConstructorConstructor$3 -> kt:
     com.google.gson.internal.ConstructorConstructor this$0 -> a
     120:120:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$4 -> la:
+com.google.gson.internal.ConstructorConstructor$4 -> ku:
     com.google.gson.internal.ConstructorConstructor this$0 -> a
     126:126:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$5 -> lb:
+com.google.gson.internal.ConstructorConstructor$5 -> kv:
     com.google.gson.internal.ConstructorConstructor this$0 -> a
     132:132:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$6 -> lc:
+com.google.gson.internal.ConstructorConstructor$6 -> kw:
     com.google.gson.internal.ConstructorConstructor this$0 -> a
     138:138:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$7 -> ld:
+com.google.gson.internal.ConstructorConstructor$7 -> kx:
     com.google.gson.internal.ConstructorConstructor this$0 -> a
     148:148:java.lang.Object construct() -> construct
-com.google.gson.internal.ConstructorConstructor$8 -> le:
+com.google.gson.internal.ConstructorConstructor$8 -> ky:
     com.google.gson.internal.UnsafeAllocator unsafeAllocator -> d
     java.lang.Class val$rawType -> a
     java.lang.reflect.Type val$type -> b
@@ -7161,7 +6952,7 @@ com.google.gson.internal.Excluder -> com.google.gson.internal.Excluder:
     233:239:boolean isValidSince(com.google.gson.annotations.Since) -> a
     243:249:boolean isValidUntil(com.google.gson.annotations.Until) -> a
     50:50:java.lang.Object clone() -> clone
-com.google.gson.internal.Excluder$1 -> lf:
+com.google.gson.internal.Excluder$1 -> kz:
     com.google.gson.TypeAdapter delegate -> f
     boolean val$skipDeserialize -> a
     boolean val$skipSerialize -> b
@@ -7195,15 +6986,15 @@ com.google.gson.internal.Streams -> com.google.gson.internal.Streams:
     40:59:com.google.gson.JsonElement parse(com.google.gson.stream.JsonReader) -> parse
     67:68:void write(com.google.gson.JsonElement,com.google.gson.stream.JsonWriter) -> write
     71:71:java.io.Writer writerForAppendable(java.lang.Appendable) -> writerForAppendable
-com.google.gson.internal.Streams$1 -> lg:
-com.google.gson.internal.Streams$AppendableWriter -> lh:
+com.google.gson.internal.Streams$1 -> la:
+com.google.gson.internal.Streams$AppendableWriter -> lb:
     java.lang.Appendable appendable -> a
     com.google.gson.internal.Streams$AppendableWriter$CurrentWrite currentWrite -> b
     87:89:void write(char[],int,int) -> write
     92:93:void write(int) -> write
     95:95:void flush() -> flush
     96:96:void close() -> close
-com.google.gson.internal.Streams$AppendableWriter$CurrentWrite -> li:
+com.google.gson.internal.Streams$AppendableWriter$CurrentWrite -> lc:
     char[] chars -> a
     104:104:int length() -> length
     107:107:char charAt(int) -> charAt
@@ -7238,30 +7029,30 @@ com.google.gson.internal.StringMap -> com.google.gson.internal.StringMap:
     38:38:com.google.gson.internal.StringMap$LinkedEntry access$300(com.google.gson.internal.StringMap) -> a
     38:38:int access$500(com.google.gson.internal.StringMap) -> b
     38:38:boolean access$600(com.google.gson.internal.StringMap,java.lang.Object,java.lang.Object) -> a
-com.google.gson.internal.StringMap$1 -> lj:
-com.google.gson.internal.StringMap$EntrySet -> lk:
+com.google.gson.internal.StringMap$1 -> ld:
+com.google.gson.internal.StringMap$EntrySet -> le:
     com.google.gson.internal.StringMap this$0 -> a
     452:452:java.util.Iterator iterator() -> iterator
     460:465:boolean contains(java.lang.Object) -> contains
     469:473:boolean remove(java.lang.Object) -> remove
     477:477:int size() -> size
     481:482:void clear() -> clear
-com.google.gson.internal.StringMap$EntrySet$1 -> ll:
+com.google.gson.internal.StringMap$EntrySet$1 -> lf:
     com.google.gson.internal.StringMap$EntrySet this$1 -> a
     454:454:java.util.Map$Entry next() -> a
     452:452:java.lang.Object next() -> next
-com.google.gson.internal.StringMap$KeySet -> lm:
+com.google.gson.internal.StringMap$KeySet -> lg:
     com.google.gson.internal.StringMap this$0 -> a
     402:402:java.util.Iterator iterator() -> iterator
     410:410:int size() -> size
     414:414:boolean contains(java.lang.Object) -> contains
     418:420:boolean remove(java.lang.Object) -> remove
     424:425:void clear() -> clear
-com.google.gson.internal.StringMap$KeySet$1 -> ln:
+com.google.gson.internal.StringMap$KeySet$1 -> lh:
     com.google.gson.internal.StringMap$KeySet this$1 -> a
     404:404:java.lang.String next() -> a
     402:402:java.lang.Object next() -> next
-com.google.gson.internal.StringMap$LinkedEntry -> lo:
+com.google.gson.internal.StringMap$LinkedEntry -> li:
     java.lang.String key -> a
     java.lang.Object value -> b
     int hash -> c
@@ -7275,37 +7066,37 @@ com.google.gson.internal.StringMap$LinkedEntry -> lo:
     336:336:int hashCode() -> hashCode
     340:340:java.lang.String toString() -> toString
     287:287:java.lang.Object getKey() -> getKey
-com.google.gson.internal.StringMap$LinkedHashIterator -> lp:
+com.google.gson.internal.StringMap$LinkedHashIterator -> lj:
     com.google.gson.internal.StringMap$LinkedEntry next -> b
     com.google.gson.internal.StringMap$LinkedEntry lastReturned -> c
     com.google.gson.internal.StringMap this$0 -> d
     379:379:boolean hasNext() -> hasNext
     383:388:com.google.gson.internal.StringMap$LinkedEntry nextEntry() -> b
     392:397:void remove() -> remove
-com.google.gson.internal.StringMap$Values -> lq:
+com.google.gson.internal.StringMap$Values -> lk:
     com.google.gson.internal.StringMap this$0 -> a
     430:430:java.util.Iterator iterator() -> iterator
     438:438:int size() -> size
     442:442:boolean contains(java.lang.Object) -> contains
     446:447:void clear() -> clear
-com.google.gson.internal.StringMap$Values$1 -> lr:
+com.google.gson.internal.StringMap$Values$1 -> ll:
     com.google.gson.internal.StringMap$Values this$1 -> a
     432:432:java.lang.Object next() -> next
 com.google.gson.internal.UnsafeAllocator -> com.google.gson.internal.UnsafeAllocator:
     java.lang.Object newInstance(java.lang.Class) -> newInstance
     39:97:com.google.gson.internal.UnsafeAllocator create() -> create
-com.google.gson.internal.UnsafeAllocator$1 -> ls:
+com.google.gson.internal.UnsafeAllocator$1 -> lm:
     java.lang.reflect.Method val$allocateInstance -> a
     java.lang.Object val$unsafe -> b
     48:48:java.lang.Object newInstance(java.lang.Class) -> newInstance
-com.google.gson.internal.UnsafeAllocator$2 -> lt:
+com.google.gson.internal.UnsafeAllocator$2 -> ln:
     java.lang.reflect.Method val$newInstance -> a
     67:67:java.lang.Object newInstance(java.lang.Class) -> newInstance
-com.google.gson.internal.UnsafeAllocator$3 -> lu:
+com.google.gson.internal.UnsafeAllocator$3 -> lo:
     java.lang.reflect.Method val$newInstance -> a
     int val$constructorId -> b
     90:90:java.lang.Object newInstance(java.lang.Class) -> newInstance
-com.google.gson.internal.UnsafeAllocator$4 -> lv:
+com.google.gson.internal.UnsafeAllocator$4 -> lp:
     100:100:java.lang.Object newInstance(java.lang.Class) -> newInstance
 com.google.gson.internal.bind.ArrayTypeAdapter -> com.google.gson.internal.bind.ArrayTypeAdapter:
     com.google.gson.TypeAdapterFactory FACTORY -> FACTORY
@@ -7313,12 +7104,12 @@ com.google.gson.internal.bind.ArrayTypeAdapter -> com.google.gson.internal.bind.
     com.google.gson.TypeAdapter componentTypeAdapter -> b
     64:80:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     85:96:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.ArrayTypeAdapter$1 -> lw:
+com.google.gson.internal.bind.ArrayTypeAdapter$1 -> lq:
     42:49:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
 com.google.gson.internal.bind.CollectionTypeAdapterFactory -> com.google.gson.internal.bind.CollectionTypeAdapterFactory:
     com.google.gson.internal.ConstructorConstructor constructorConstructor -> a
     44:57:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
-com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter -> lx:
+com.google.gson.internal.bind.CollectionTypeAdapterFactory$Adapter -> lr:
     com.google.gson.TypeAdapter elementTypeAdapter -> b
     com.google.gson.internal.ObjectConstructor constructor -> c
     com.google.gson.internal.bind.CollectionTypeAdapterFactory this$0 -> a
@@ -7337,7 +7128,7 @@ com.google.gson.internal.bind.DateTypeAdapter -> com.google.gson.internal.bind.D
     86:92:void write(com.google.gson.stream.JsonWriter,java.util.Date) -> write
     41:41:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     41:41:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.DateTypeAdapter$1 -> ly:
+com.google.gson.internal.bind.DateTypeAdapter$1 -> ls:
     45:45:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
 com.google.gson.internal.bind.JsonTreeReader -> com.google.gson.internal.bind.JsonTreeReader:
     java.io.Reader UNREADABLE_READER -> a
@@ -7363,7 +7154,7 @@ com.google.gson.internal.bind.JsonTreeReader -> com.google.gson.internal.bind.Js
     208:213:void skipValue() -> skipValue
     216:216:java.lang.String toString() -> toString
     220:225:void promoteNameToValue() -> promoteNameToValue
-com.google.gson.internal.bind.JsonTreeReader$1 -> lz:
+com.google.gson.internal.bind.JsonTreeReader$1 -> lt:
     42:42:int read(char[],int,int) -> read
     45:45:void close() -> close
 com.google.gson.internal.bind.JsonTreeWriter -> com.google.gson.internal.bind.JsonTreeWriter:
@@ -7388,7 +7179,7 @@ com.google.gson.internal.bind.JsonTreeWriter -> com.google.gson.internal.bind.Js
     176:188:com.google.gson.stream.JsonWriter value(java.lang.Number) -> value
     192:192:void flush() -> flush
     195:199:void close() -> close
-com.google.gson.internal.bind.JsonTreeWriter$1 -> ma:
+com.google.gson.internal.bind.JsonTreeWriter$1 -> lu:
     36:36:void write(char[],int,int) -> write
     39:39:void flush() -> flush
     42:42:void close() -> close
@@ -7398,7 +7189,7 @@ com.google.gson.internal.bind.MapTypeAdapterFactory -> com.google.gson.internal.
     117:134:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
     141:141:com.google.gson.TypeAdapter getKeyAdapter(com.google.gson.Gson,java.lang.reflect.Type) -> a
     106:106:boolean access$000(com.google.gson.internal.bind.MapTypeAdapterFactory) -> a
-com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter -> mb:
+com.google.gson.internal.bind.MapTypeAdapterFactory$Adapter -> lv:
     com.google.gson.TypeAdapter keyTypeAdapter -> b
     com.google.gson.TypeAdapter valueTypeAdapter -> c
     com.google.gson.internal.ObjectConstructor constructor -> d
@@ -7413,9 +7204,9 @@ com.google.gson.internal.bind.ObjectTypeAdapter -> com.google.gson.internal.bind
     com.google.gson.Gson gson -> a
     54:88:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     93:106:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.ObjectTypeAdapter$1 -> mc:
+com.google.gson.internal.bind.ObjectTypeAdapter$1 -> lw:
     40:43:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
-com.google.gson.internal.bind.ObjectTypeAdapter$2 -> md:
+com.google.gson.internal.bind.ObjectTypeAdapter$2 -> lx:
     int[] $SwitchMap$com$google$gson$stream$JsonToken -> a
 com.google.gson.internal.bind.ReflectiveTypeAdapterFactory -> com.google.gson.internal.bind.ReflectiveTypeAdapterFactory:
     com.google.gson.internal.ConstructorConstructor constructorConstructor -> a
@@ -7426,7 +7217,7 @@ com.google.gson.internal.bind.ReflectiveTypeAdapterFactory -> com.google.gson.in
     65:72:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
     78:81:com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$BoundField createBoundField(com.google.gson.Gson,java.lang.reflect.Field,java.lang.String,com.google.gson.reflect.TypeToken,boolean,boolean) -> a
     102:129:java.util.Map getBoundFields(com.google.gson.Gson,com.google.gson.reflect.TypeToken,java.lang.Class) -> a
-com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1 -> me:
+com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$1 -> ly:
     com.google.gson.TypeAdapter typeAdapter -> a
     com.google.gson.Gson val$context -> b
     com.google.gson.reflect.TypeToken val$fieldType -> c
@@ -7441,7 +7232,7 @@ com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter -> com.google
     com.google.gson.internal.bind.ReflectiveTypeAdapterFactory this$0 -> a
     157:181:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     185:202:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$BoundField -> mf:
+com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$BoundField -> lz:
     java.lang.String name -> g
     boolean serialized -> h
     boolean deserialized -> i
@@ -7454,7 +7245,7 @@ com.google.gson.internal.bind.SqlDateTypeAdapter -> com.google.gson.internal.bin
     65:66:void write(com.google.gson.stream.JsonWriter,java.sql.Date) -> write
     38:38:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     38:38:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.SqlDateTypeAdapter$1 -> mg:
+com.google.gson.internal.bind.SqlDateTypeAdapter$1 -> ma:
     42:42:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
 com.google.gson.internal.bind.TimeTypeAdapter -> com.google.gson.internal.bind.TimeTypeAdapter:
     com.google.gson.TypeAdapterFactory FACTORY -> FACTORY
@@ -7463,9 +7254,9 @@ com.google.gson.internal.bind.TimeTypeAdapter -> com.google.gson.internal.bind.T
     64:65:void write(com.google.gson.stream.JsonWriter,java.sql.Time) -> write
     40:40:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     40:40:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TimeTypeAdapter$1 -> mh:
+com.google.gson.internal.bind.TimeTypeAdapter$1 -> mb:
     44:44:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
-com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper -> mi:
+com.google.gson.internal.bind.TypeAdapterRuntimeTypeWrapper -> mc:
     com.google.gson.Gson context -> a
     com.google.gson.TypeAdapter delegate -> b
     java.lang.reflect.Type type -> c
@@ -7523,166 +7314,166 @@ com.google.gson.internal.bind.TypeAdapters -> com.google.gson.internal.bind.Type
     783:783:com.google.gson.TypeAdapterFactory newFactory(java.lang.Class,java.lang.Class,com.google.gson.TypeAdapter) -> newFactory
     798:798:com.google.gson.TypeAdapterFactory newFactoryForMultipleTypes(java.lang.Class,java.lang.Class,com.google.gson.TypeAdapter) -> newFactoryForMultipleTypes
     813:813:com.google.gson.TypeAdapterFactory newTypeHierarchyFactory(java.lang.Class,com.google.gson.TypeAdapter) -> newTypeHierarchyFactory
-com.google.gson.internal.bind.TypeAdapters$1 -> mj:
+com.google.gson.internal.bind.TypeAdapters$1 -> md:
     64:64:void write(com.google.gson.stream.JsonWriter,java.lang.Class) -> a
     69:69:java.lang.Class read(com.google.gson.stream.JsonReader) -> a
     61:61:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     61:61:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$10 -> mk:
+com.google.gson.internal.bind.TypeAdapters$10 -> me:
     281:285:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     289:290:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     278:278:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     278:278:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$11 -> ml:
+com.google.gson.internal.bind.TypeAdapters$11 -> mf:
     296:304:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     309:310:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     293:293:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     293:293:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$12 -> mm:
+com.google.gson.internal.bind.TypeAdapters$12 -> mg:
     318:326:java.lang.Character read(com.google.gson.stream.JsonReader) -> a
     330:331:void write(com.google.gson.stream.JsonWriter,java.lang.Character) -> a
     315:315:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     315:315:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$13 -> mn:
+com.google.gson.internal.bind.TypeAdapters$13 -> mh:
     340:349:java.lang.String read(com.google.gson.stream.JsonReader) -> a
     353:354:void write(com.google.gson.stream.JsonWriter,java.lang.String) -> a
     337:337:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     337:337:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$14 -> mo:
+com.google.gson.internal.bind.TypeAdapters$14 -> mi:
     359:366:java.math.BigDecimal read(com.google.gson.stream.JsonReader) -> a
     371:372:void write(com.google.gson.stream.JsonWriter,java.math.BigDecimal) -> a
     357:357:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     357:357:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$15 -> mp:
+com.google.gson.internal.bind.TypeAdapters$15 -> mj:
     377:384:java.math.BigInteger read(com.google.gson.stream.JsonReader) -> a
     389:390:void write(com.google.gson.stream.JsonWriter,java.math.BigInteger) -> a
     375:375:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     375:375:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$16 -> mq:
+com.google.gson.internal.bind.TypeAdapters$16 -> mk:
     398:402:java.lang.StringBuilder read(com.google.gson.stream.JsonReader) -> a
     406:407:void write(com.google.gson.stream.JsonWriter,java.lang.StringBuilder) -> a
     395:395:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     395:395:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$17 -> mr:
+com.google.gson.internal.bind.TypeAdapters$17 -> ml:
     416:420:java.lang.StringBuffer read(com.google.gson.stream.JsonReader) -> a
     424:425:void write(com.google.gson.stream.JsonWriter,java.lang.StringBuffer) -> a
     413:413:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     413:413:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$18 -> ms:
+com.google.gson.internal.bind.TypeAdapters$18 -> mm:
     434:439:java.net.URL read(com.google.gson.stream.JsonReader) -> a
     443:444:void write(com.google.gson.stream.JsonWriter,java.net.URL) -> a
     431:431:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     431:431:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$19 -> mt:
+com.google.gson.internal.bind.TypeAdapters$19 -> mn:
     452:460:java.net.URI read(com.google.gson.stream.JsonReader) -> a
     465:466:void write(com.google.gson.stream.JsonWriter,java.net.URI) -> a
     449:449:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     449:449:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$2 -> mu:
+com.google.gson.internal.bind.TypeAdapters$2 -> mo:
     77:114:java.util.BitSet read(com.google.gson.stream.JsonReader) -> a
     118:129:void write(com.google.gson.stream.JsonWriter,java.util.BitSet) -> a
     75:75:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     75:75:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$20 -> mv:
+com.google.gson.internal.bind.TypeAdapters$20 -> mp:
     474:479:java.net.InetAddress read(com.google.gson.stream.JsonReader) -> a
     483:484:void write(com.google.gson.stream.JsonWriter,java.net.InetAddress) -> a
     471:471:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     471:471:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$21 -> mw:
+com.google.gson.internal.bind.TypeAdapters$21 -> mq:
     493:497:java.util.UUID read(com.google.gson.stream.JsonReader) -> a
     501:502:void write(com.google.gson.stream.JsonWriter,java.util.UUID) -> a
     490:490:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     490:490:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$22 -> mx:
+com.google.gson.internal.bind.TypeAdapters$22 -> mr:
     510:515:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
-com.google.gson.internal.bind.TypeAdapters$22$1 -> my:
+com.google.gson.internal.bind.TypeAdapters$22$1 -> ms:
     com.google.gson.TypeAdapter val$dateTypeAdapter -> a
     com.google.gson.internal.bind.TypeAdapters$22 this$0 -> b
     517:518:java.sql.Timestamp read(com.google.gson.stream.JsonReader) -> a
     522:523:void write(com.google.gson.stream.JsonWriter,java.sql.Timestamp) -> a
     515:515:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     515:515:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$23 -> mz:
+com.google.gson.internal.bind.TypeAdapters$23 -> mt:
     538:567:java.util.Calendar read(com.google.gson.stream.JsonReader) -> a
     572:590:void write(com.google.gson.stream.JsonWriter,java.util.Calendar) -> a
     528:528:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     528:528:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$24 -> na:
+com.google.gson.internal.bind.TypeAdapters$24 -> mu:
     599:622:java.util.Locale read(com.google.gson.stream.JsonReader) -> a
     627:628:void write(com.google.gson.stream.JsonWriter,java.util.Locale) -> a
     596:596:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     596:596:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$25 -> nb:
+com.google.gson.internal.bind.TypeAdapters$25 -> mv:
     635:667:com.google.gson.JsonElement read(com.google.gson.stream.JsonReader) -> a
     672:702:void write(com.google.gson.stream.JsonWriter,com.google.gson.JsonElement) -> a
     633:633:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     633:633:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$26 -> nc:
+com.google.gson.internal.bind.TypeAdapters$26 -> mw:
     746:753:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
-com.google.gson.internal.bind.TypeAdapters$27 -> nd:
+com.google.gson.internal.bind.TypeAdapters$27 -> mx:
     com.google.gson.reflect.TypeToken val$type -> a
     com.google.gson.TypeAdapter val$typeAdapter -> b
     763:763:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
-com.google.gson.internal.bind.TypeAdapters$28 -> ne:
+com.google.gson.internal.bind.TypeAdapters$28 -> my:
     java.lang.Class val$type -> a
     com.google.gson.TypeAdapter val$typeAdapter -> b
     773:773:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
     776:776:java.lang.String toString() -> toString
-com.google.gson.internal.bind.TypeAdapters$29 -> nf:
+com.google.gson.internal.bind.TypeAdapters$29 -> mz:
     java.lang.Class val$unboxed -> a
     java.lang.Class val$boxed -> b
     com.google.gson.TypeAdapter val$typeAdapter -> c
     786:787:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
     790:790:java.lang.String toString() -> toString
-com.google.gson.internal.bind.TypeAdapters$3 -> ng:
+com.google.gson.internal.bind.TypeAdapters$3 -> na:
     137:144:java.lang.Boolean read(com.google.gson.stream.JsonReader) -> a
     148:153:void write(com.google.gson.stream.JsonWriter,java.lang.Boolean) -> a
     134:134:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     134:134:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$30 -> nh:
+com.google.gson.internal.bind.TypeAdapters$30 -> nb:
     java.lang.Class val$base -> a
     java.lang.Class val$sub -> b
     com.google.gson.TypeAdapter val$typeAdapter -> c
     801:802:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
     805:805:java.lang.String toString() -> toString
-com.google.gson.internal.bind.TypeAdapters$31 -> ni:
+com.google.gson.internal.bind.TypeAdapters$31 -> nc:
     java.lang.Class val$clazz -> a
     com.google.gson.TypeAdapter val$typeAdapter -> b
     816:816:com.google.gson.TypeAdapter create(com.google.gson.Gson,com.google.gson.reflect.TypeToken) -> create
     819:819:java.lang.String toString() -> toString
-com.google.gson.internal.bind.TypeAdapters$32 -> nj:
+com.google.gson.internal.bind.TypeAdapters$32 -> nd:
     int[] $SwitchMap$com$google$gson$stream$JsonToken -> a
-com.google.gson.internal.bind.TypeAdapters$4 -> nk:
+com.google.gson.internal.bind.TypeAdapters$4 -> ne:
     162:166:java.lang.Boolean read(com.google.gson.stream.JsonReader) -> a
     170:171:void write(com.google.gson.stream.JsonWriter,java.lang.Boolean) -> a
     160:160:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     160:160:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$5 -> nl:
+com.google.gson.internal.bind.TypeAdapters$5 -> nf:
     180:188:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     193:194:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     177:177:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     177:177:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$6 -> nm:
+com.google.gson.internal.bind.TypeAdapters$6 -> ng:
     203:210:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     215:216:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     200:200:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     200:200:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$7 -> nn:
+com.google.gson.internal.bind.TypeAdapters$7 -> nh:
     225:232:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     237:238:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     222:222:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     222:222:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$8 -> no:
+com.google.gson.internal.bind.TypeAdapters$8 -> ni:
     247:254:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     259:260:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     244:244:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     244:244:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$9 -> np:
+com.google.gson.internal.bind.TypeAdapters$9 -> nj:
     266:270:java.lang.Number read(com.google.gson.stream.JsonReader) -> a
     274:275:void write(com.google.gson.stream.JsonWriter,java.lang.Number) -> a
     263:263:java.lang.Object read(com.google.gson.stream.JsonReader) -> read
     263:263:void write(com.google.gson.stream.JsonWriter,java.lang.Object) -> write
-com.google.gson.internal.bind.TypeAdapters$EnumTypeAdapter -> nq:
+com.google.gson.internal.bind.TypeAdapters$EnumTypeAdapter -> nk:
     java.util.Map nameToConstant -> a
     java.util.Map constantToName -> b
     728:732:java.lang.Enum read(com.google.gson.stream.JsonReader) -> a
@@ -7774,11 +7565,11 @@ com.google.gson.stream.JsonReader -> com.google.gson.stream.JsonReader:
     190:190:java.lang.String access$400(com.google.gson.stream.JsonReader) -> d
     190:190:java.lang.String access$402(com.google.gson.stream.JsonReader,java.lang.String) -> b
     190:190:com.google.gson.stream.JsonToken access$002(com.google.gson.stream.JsonReader,com.google.gson.stream.JsonToken) -> a
-com.google.gson.stream.JsonReader$1 -> nr:
+com.google.gson.stream.JsonReader$1 -> nl:
     1317:1329:void promoteNameToValue(com.google.gson.stream.JsonReader) -> promoteNameToValue
-com.google.gson.stream.JsonReader$2 -> ns:
+com.google.gson.stream.JsonReader$2 -> nm:
     int[] $SwitchMap$com$google$gson$stream$JsonScope -> a
-com.google.gson.stream.JsonScope -> nt:
+com.google.gson.stream.JsonScope -> nn:
     com.google.gson.stream.JsonScope EMPTY_ARRAY -> a
     com.google.gson.stream.JsonScope NONEMPTY_ARRAY -> b
     com.google.gson.stream.JsonScope EMPTY_OBJECT -> c
@@ -7844,11 +7635,11 @@ com.google.gson.stream.JsonWriter -> com.google.gson.stream.JsonWriter:
     549:557:void newline() -> c
     564:572:void beforeName() -> d
     584:617:void beforeValue(boolean) -> a
-com.google.gson.stream.JsonWriter$1 -> nu:
+com.google.gson.stream.JsonWriter$1 -> no:
     int[] $SwitchMap$com$google$gson$stream$JsonScope -> a
 com.google.gson.stream.MalformedJsonException -> com.google.gson.stream.MalformedJsonException:
     long serialVersionUID -> serialVersionUID
-com.google.gson.stream.StringPool -> nv:
+com.google.gson.stream.StringPool -> np:
     java.lang.String[] pool -> a
     33:58:java.lang.String get(char[],int,int) -> a
 com.riotapps.word.About -> com.riotapps.word.About:
@@ -7864,10 +7655,10 @@ com.riotapps.word.CompletedGames -> com.riotapps.word.CompletedGames:
     android.content.Context context -> n
     40:59:void onCreate(android.os.Bundle) -> onCreate
     62:83:void loadList() -> b
-com.riotapps.word.CompletedGames$1 -> nw:
+com.riotapps.word.CompletedGames$1 -> nq:
     com.riotapps.word.CompletedGames this$0 -> a
     72:80:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.riotapps.word.CompletedGames$CompletedGameArrayAdapter -> nx:
+com.riotapps.word.CompletedGames$CompletedGameArrayAdapter -> nr:
     com.riotapps.word.CompletedGames context -> c
     int itemCount -> d
     java.util.List values -> e
@@ -7896,10 +7687,10 @@ com.riotapps.word.GameHistory -> com.riotapps.word.GameHistory:
     39:39:int access$2(com.riotapps.word.GameHistory) -> c
     33:33:java.lang.String access$3() -> b
     38:38:android.content.Context access$4(com.riotapps.word.GameHistory) -> d
-com.riotapps.word.GameHistory$1 -> ny:
+com.riotapps.word.GameHistory$1 -> ns:
     com.riotapps.word.GameHistory this$0 -> a
     110:114:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-com.riotapps.word.GameHistory$PlayedWordArrayAdapter -> nz:
+com.riotapps.word.GameHistory$PlayedWordArrayAdapter -> nt:
     com.riotapps.word.GameHistory context -> c
     com.riotapps.word.hooks.PlayedWord[] values -> d
     int wordCount -> e
@@ -7926,7 +7717,7 @@ com.riotapps.word.GameLookup -> com.riotapps.word.GameLookup:
     199:211:android.view.View getDefinitionView(int,net.jeremybrooks.knicker.dto.Definition) -> getDefinitionView
     217:224:void onClick(android.view.View) -> onClick
     47:47:java.lang.String access$0() -> b
-com.riotapps.word.GameLookup$WordnikLookup -> oa:
+com.riotapps.word.GameLookup$WordnikLookup -> nu:
     java.lang.String word -> b
     com.riotapps.word.GameLookup this$0 -> a
     138:152:java.util.List doInBackground(java.lang.String[]) -> a
@@ -8056,17 +7847,17 @@ com.riotapps.word.GameSurface -> com.riotapps.word.GameSurface:
     79:79:com.riotapps.word.ui.GameSurfaceView access$14(com.riotapps.word.GameSurface) -> i
     1250:1250:void access$15(com.riotapps.word.GameSurface) -> j
     1310:1310:void access$16(com.riotapps.word.GameSurface) -> k
-com.riotapps.word.GameSurface$1 -> ob:
+com.riotapps.word.GameSurface$1 -> nv:
     com.riotapps.word.GameSurface this$0 -> a
     419:425:void handleMessage(android.os.Message) -> handleMessage
-com.riotapps.word.GameSurface$10 -> oc:
+com.riotapps.word.GameSurface$10 -> nw:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
     1286:1291:void onClick(android.view.View) -> onClick
-com.riotapps.word.GameSurface$11 -> od:
+com.riotapps.word.GameSurface$11 -> nx:
     com.riotapps.word.GameSurface this$0 -> a
     1297:1302:void onCancel(android.content.DialogInterface) -> onCancel
-com.riotapps.word.GameSurface$2 -> oe:
+com.riotapps.word.GameSurface$2 -> ny:
     com.riotapps.word.GameSurface this$0 -> a
     1933:1934:boolean shouldDisplayInterstitial(java.lang.String) -> shouldDisplayInterstitial
     1955:1956:boolean shouldRequestInterstitial(java.lang.String) -> shouldRequestInterstitial
@@ -8086,34 +7877,34 @@ com.riotapps.word.GameSurface$2 -> oe:
     2200:2203:void didClickMoreApps() -> didClickMoreApps
     2215:2216:void didShowMoreApps() -> didShowMoreApps
     2226:2226:boolean shouldRequestInterstitialsInFirstSession() -> shouldRequestInterstitialsInFirstSession
-com.riotapps.word.GameSurface$3 -> of:
+com.riotapps.word.GameSurface$3 -> nz:
     com.riotapps.word.GameSurface this$0 -> a
     1134:1135:void run() -> run
-com.riotapps.word.GameSurface$4 -> og:
+com.riotapps.word.GameSurface$4 -> oa:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.PlacedResult val$placedResult -> b
     1186:1187:void run() -> run
-com.riotapps.word.GameSurface$5 -> oh:
+com.riotapps.word.GameSurface$5 -> ob:
     com.riotapps.word.GameSurface this$0 -> a
     int val$code -> b
     java.lang.String val$message -> c
     1198:1203:void run() -> run
-com.riotapps.word.GameSurface$6 -> oi:
+com.riotapps.word.GameSurface$6 -> oc:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
     1218:1224:void onClick(android.view.View) -> onClick
-com.riotapps.word.GameSurface$7 -> oj:
+com.riotapps.word.GameSurface$7 -> od:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
     1230:1235:void onClick(android.view.View) -> onClick
-com.riotapps.word.GameSurface$8 -> ok:
+com.riotapps.word.GameSurface$8 -> oe:
     com.riotapps.word.GameSurface this$0 -> a
     1241:1245:void onCancel(android.content.DialogInterface) -> onCancel
-com.riotapps.word.GameSurface$9 -> ol:
+com.riotapps.word.GameSurface$9 -> of:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
     1274:1280:void onClick(android.view.View) -> onClick
-com.riotapps.word.GameSurface$SwapDialog -> om:
+com.riotapps.word.GameSurface$SwapDialog -> og:
     android.widget.Button bOK -> f
     android.widget.Button bCancel -> g
     java.util.List swapped -> h
@@ -8144,20 +7935,20 @@ com.riotapps.word.GameSurface$SwapDialog -> om:
     1702:1724:void handleOKClick() -> a
     1728:1796:void onClick(android.view.View) -> onClick
     1521:1521:com.riotapps.word.GameSurface access$0(com.riotapps.word.GameSurface$SwapDialog) -> a
-com.riotapps.word.GameSurface$SwapDialog$1 -> on:
+com.riotapps.word.GameSurface$SwapDialog$1 -> oh:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
     1658:1662:void onClick(android.view.View) -> onClick
-com.riotapps.word.GameSurface$SwapDialog$2 -> oo:
+com.riotapps.word.GameSurface$SwapDialog$2 -> oi:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
     1671:1676:void onClick(android.view.View) -> onClick
-com.riotapps.word.GameSurface$SwapDialog$3 -> op:
+com.riotapps.word.GameSurface$SwapDialog$3 -> oj:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
     1682:1687:void onCancel(android.content.DialogInterface) -> onCancel
-com.riotapps.word.GameSurface$handleButtonSwitchRunnable -> oq:
+com.riotapps.word.GameSurface$handleButtonSwitchRunnable -> ok:
     int activeButton -> b
     com.riotapps.word.GameSurface this$0 -> a
     460:487:void run() -> run
-com.riotapps.word.GameSurface$handlePointsViewRunnable -> or:
+com.riotapps.word.GameSurface$handlePointsViewRunnable -> ol:
     int points -> b
     int type -> c
     com.riotapps.word.GameSurface this$0 -> a
@@ -8204,15 +7995,15 @@ com.riotapps.word.Main -> com.riotapps.word.Main:
     387:428:void handleGameStartPrompt(int) -> b
     433:444:void handleGameStartOnClick() -> d
     430:430:void access$0(com.riotapps.word.Main) -> a
-com.riotapps.word.Main$1 -> os:
+com.riotapps.word.Main$1 -> om:
     com.riotapps.word.Main this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
     399:407:void onClick(android.view.View) -> onClick
-com.riotapps.word.Main$2 -> ot:
+com.riotapps.word.Main$2 -> on:
     com.riotapps.word.Main this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
     413:416:void onClick(android.view.View) -> onClick
-com.riotapps.word.Main$3 -> ou:
+com.riotapps.word.Main$3 -> oo:
     com.riotapps.word.Main this$0 -> a
     425:425:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.R -> com.riotapps.word.R:
@@ -8281,6 +8072,7 @@ com.riotapps.word.R$color -> com.riotapps.word.R$color:
     int progress_background_color -> progress_background_color
     int scoreboard_text_color -> scoreboard_text_color
     int scoreboard_text_last_played_color -> scoreboard_text_last_played_color
+    int store_item_divider_color -> store_item_divider_color
     int sub_text_color -> sub_text_color
     int tab_background_color -> tab_background_color
     int tab_off_color -> tab_off_color
@@ -8421,6 +8213,7 @@ com.riotapps.word.R$drawable -> com.riotapps.word.R$drawable:
     int spinner_white_48 -> spinner_white_48
     int splash_riot_background -> splash_riot_background
     int status_icon -> status_icon
+    int store_item_check -> store_item_check
     int tab_content_background -> tab_content_background
     int tab_divider -> tab_divider
     int tab_form_background -> tab_form_background
@@ -8461,14 +8254,18 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int alert_top -> alert_top
     int bCancel -> bCancel
     int bHopperPeek -> bHopperPeek
+    int bHopperPeekPrice -> bHopperPeekPrice
+    int bNoAdsPrice -> bNoAdsPrice
     int bOK -> bOK
     int bPlay -> bPlay
     int bPlayedWords -> bPlayedWords
+    int bPremiumUpgradePrice -> bPremiumUpgradePrice
     int bRecall -> bRecall
     int bResign -> bResign
     int bShuffle -> bShuffle
     int bSkip -> bSkip
     int bSwap -> bSwap
+    int bWordDefinitionsPrice -> bWordDefinitionsPrice
     int bonus2l -> bonus2l
     int bonus2l_img -> bonus2l_img
     int bonus2l_text -> bonus2l_text
@@ -8504,6 +8301,8 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int inner_form -> inner_form
     int ivBadge -> ivBadge
     int ivChatAlert -> ivChatAlert
+    int ivHopperPeekPurchased -> ivHopperPeekPurchased
+    int ivNoAdsPurchased -> ivNoAdsPurchased
     int ivOpponent -> ivOpponent
     int ivOpponent1 -> ivOpponent1
     int ivOpponent2 -> ivOpponent2
@@ -8512,6 +8311,8 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int ivOpponentBadge_2 -> ivOpponentBadge_2
     int ivOpponentBadge_3 -> ivOpponentBadge_3
     int ivPlayer -> ivPlayer
+    int ivPremiumUpgradePurchased -> ivPremiumUpgradePurchased
+    int ivWordDefinitionsPurchased -> ivWordDefinitionsPurchased
     int ivWordnik -> ivWordnik
     int llBottomBorder -> llBottomBorder
     int llDefs -> llDefs
@@ -8536,6 +8337,7 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int quick_rule5 -> quick_rule5
     int rlAvatars -> rlAvatars
     int rlGame -> rlGame
+    int rlHopperPeek -> rlHopperPeek
     int rlItem -> rlItem
     int rlLetter1 -> rlLetter1
     int rlLetter2 -> rlLetter2
@@ -8546,9 +8348,12 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int rlLetter7 -> rlLetter7
     int rlLetters -> rlLetters
     int rlLineItem -> rlLineItem
+    int rlNoAds -> rlNoAds
     int rlPlayer_1 -> rlPlayer_1
     int rlPlayer_2 -> rlPlayer_2
     int rlPlayer_3 -> rlPlayer_3
+    int rlPremiumUpgrade -> rlPremiumUpgrade
+    int rlWordDefinitions -> rlWordDefinitions
     int scoreboard -> scoreboard
     int scoreboardNumbers -> scoreboardNumbers
     int sub_title_join_native -> sub_title_join_native
@@ -8567,6 +8372,8 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int tvChat -> tvChat
     int tvChatDate -> tvChatDate
     int tvDefinition -> tvDefinition
+    int tvHopperPeekDescription -> tvHopperPeekDescription
+    int tvHopperPeekTitle -> tvHopperPeekTitle
     int tvLastAction -> tvLastAction
     int tvLetter1 -> tvLetter1
     int tvLetter10 -> tvLetter10
@@ -8595,6 +8402,8 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int tvLetter8 -> tvLetter8
     int tvLetter9 -> tvLetter9
     int tvLettersLeft -> tvLettersLeft
+    int tvNoAdsDescription -> tvNoAdsDescription
+    int tvNoAdsTitle -> tvNoAdsTitle
     int tvNotFound -> tvNotFound
     int tvNum -> tvNum
     int tvNumPoints -> tvNumPoints
@@ -8609,7 +8418,6 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int tvPlayerScore -> tvPlayerScore
     int tvPlayerWins -> tvPlayerWins
     int tvPremiumUpgradeDescription -> tvPremiumUpgradeDescription
-    int tvPremiumUpgradePrice -> tvPremiumUpgradePrice
     int tvPremiumUpgradeTitle -> tvPremiumUpgradeTitle
     int tvSkillLevel -> tvSkillLevel
     int tvSummary -> tvSummary
@@ -8625,6 +8433,8 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int tvValue7 -> tvValue7
     int tvVersion -> tvVersion
     int tvWord -> tvWord
+    int tvWordDefinitionsDescription -> tvWordDefinitionsDescription
+    int tvWordDefinitionsTitle -> tvWordDefinitionsTitle
     int tvYourDraws -> tvYourDraws
     int tvYourLosses -> tvYourLosses
     int tvYourWins -> tvYourWins
@@ -9200,6 +9010,14 @@ com.riotapps.word.R$string -> com.riotapps.word.R$string:
     int start_game_fb_friends -> start_game_fb_friends
     int start_game_prev_opponents -> start_game_prev_opponents
     int start_game_sub -> start_game_sub
+    int store_item_hopper_peek_description -> store_item_hopper_peek_description
+    int store_item_hopper_peek_title -> store_item_hopper_peek_title
+    int store_item_no_ads_description -> store_item_no_ads_description
+    int store_item_no_ads_title -> store_item_no_ads_title
+    int store_item_premium_upgrade_description -> store_item_premium_upgrade_description
+    int store_item_premium_upgrade_title -> store_item_premium_upgrade_title
+    int store_item_word_definitions_description -> store_item_word_definitions_description
+    int store_item_word_definitions_title -> store_item_word_definitions_title
     int success -> success
     int test_landing_badges -> test_landing_badges
     int test_landing_game_play -> test_landing_game_play
@@ -9290,6 +9108,8 @@ com.riotapps.word.R$style -> com.riotapps.word.R$style:
     int ScoreboardPlayerStyle -> ScoreboardPlayerStyle
     int ScoreboardScoreStyle -> ScoreboardScoreStyle
     int ScoreboardTurnStyle -> ScoreboardTurnStyle
+    int StoreItemCheckStyle -> StoreItemCheckStyle
+    int StoreItemPriceButtonStyle -> StoreItemPriceButtonStyle
     int SubTextStyle -> SubTextStyle
     int TabContentBackgroundStyle -> TabContentBackgroundStyle
     int TabFormBackgroundStyle -> TabFormBackgroundStyle
@@ -9310,48 +9130,260 @@ com.riotapps.word.Splash -> com.riotapps.word.Splash:
     android.content.Context context -> m
     com.riotapps.word.Splash me -> n
     long startTime -> startTime
-    com.example.android.trivialdrivesample.util.IabHelper mHelper -> q
+    com.riotapps.word.billing.IabHelper mHelper -> q
     com.riotapps.word.utils.ApplicationContext appContext -> o
     35:95:void onCreate(android.os.Bundle) -> onCreate
-    98:117:void onSetupFinished(com.example.android.trivialdrivesample.util.IabResult) -> onSetupFinished
-    120:158:void onPurchaseCheck(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Inventory) -> onPurchaseCheck
-    162:162:void startBackgroundService() -> b
-    168:170:void onStart() -> onStart
-    176:178:void onStop() -> onStop
-    182:184:void captureTime(java.lang.String) -> captureTime
-    205:207:void onPause() -> onPause
-com.riotapps.word.Splash$1 -> ov:
+    98:117:void onSetupFinished(com.riotapps.word.billing.IabResult) -> onSetupFinished
+    121:124:void onDestroy() -> onDestroy
+    127:146:void onPurchaseCheck(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Inventory) -> onPurchaseCheck
+    150:150:void startBackgroundService() -> b
+    156:158:void onStart() -> onStart
+    164:166:void onStop() -> onStop
+    170:172:void captureTime(java.lang.String) -> captureTime
+    193:195:void onPause() -> onPause
+com.riotapps.word.Splash$1 -> op:
     com.riotapps.word.Splash this$0 -> a
-    56:57:void onIabSetupFinished(com.example.android.trivialdrivesample.util.IabResult) -> onIabSetupFinished
-com.riotapps.word.Splash$2 -> ow:
+    56:57:void onIabSetupFinished(com.riotapps.word.billing.IabResult) -> onIabSetupFinished
+com.riotapps.word.Splash$2 -> oq:
     com.riotapps.word.Splash this$0 -> a
-    109:111:void onQueryInventoryFinished(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Inventory) -> onQueryInventoryFinished
+    109:111:void onQueryInventoryFinished(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Inventory) -> onQueryInventoryFinished
 com.riotapps.word.Store -> com.riotapps.word.Store:
-    java.lang.String TAG -> m
-    com.riotapps.word.utils.ApplicationContext appContext -> n
-    android.view.LayoutInflater inflater -> o
-    com.example.android.trivialdrivesample.util.IabHelper mHelper -> p
-    com.example.android.trivialdrivesample.util.IabHelper$OnIabPurchaseFinishedListener mPurchaseFinishedListener -> q
-    40:63:void onCreate(android.os.Bundle) -> onCreate
-    66:92:void onSetupFinished(com.example.android.trivialdrivesample.util.IabResult) -> onSetupFinished
-    95:124:void onPurchaseCheck(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Inventory) -> onPurchaseCheck
-    128:131:void onDestroy() -> onDestroy
-    134:169:void onPurchaseFinished(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Purchase) -> a
-    172:174:void purchaseItem(java.lang.String) -> a
-    178:189:void loadStore(com.example.android.trivialdrivesample.util.Inventory) -> a
-    194:206:android.view.View getStoreItemView(com.riotapps.word.hooks.StoreItem) -> getStoreItemView
-    212:223:void onClick(android.view.View) -> onClick
-    31:31:java.lang.String access$0() -> b
-    133:133:void access$1(com.riotapps.word.Store,com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Purchase) -> a
-com.riotapps.word.Store$1 -> ox:
+    java.lang.String TAG -> o
+    com.riotapps.word.utils.ApplicationContext appContext -> p
+    android.view.LayoutInflater inflater -> q
+    com.riotapps.word.billing.IabHelper mHelper -> r
+    com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener mGotInventoryListener -> m
+    com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener mPurchaseFinishedListener -> n
+    43:64:void onCreate(android.os.Bundle) -> onCreate
+    67:79:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    82:92:void onSetupFinished(com.riotapps.word.billing.IabResult) -> onSetupFinished
+    112:126:void onPurchaseCheck(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Inventory) -> onPurchaseCheck
+    130:133:void onDestroy() -> onDestroy
+    143:175:void onPurchaseFinished(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Purchase) -> a
+    177:220:void resetPriceButtons(java.lang.String) -> a
+    225:227:void purchaseItem(java.lang.String) -> b
+    233:305:void loadStore(com.riotapps.word.billing.Inventory) -> a
+    312:314:void onClick(android.view.View) -> onClick
+    135:135:void access$0(com.riotapps.word.Store,com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Purchase) -> a
+    34:34:java.lang.String access$1() -> b
+com.riotapps.word.Store$1 -> or:
     com.riotapps.word.Store this$0 -> a
-    56:58:void onIabSetupFinished(com.example.android.trivialdrivesample.util.IabResult) -> onIabSetupFinished
-com.riotapps.word.Store$2 -> oy:
+    97:99:void onQueryInventoryFinished(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Inventory) -> onQueryInventoryFinished
+com.riotapps.word.Store$2 -> os:
     com.riotapps.word.Store this$0 -> a
-    75:76:void onIabPurchaseFinished(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Purchase) -> onIabPurchaseFinished
-com.riotapps.word.Store$3 -> oz:
+    107:108:void onIabPurchaseFinished(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Purchase) -> onIabPurchaseFinished
+com.riotapps.word.Store$3 -> ot:
     com.riotapps.word.Store this$0 -> a
-    82:84:void onQueryInventoryFinished(com.example.android.trivialdrivesample.util.IabResult,com.example.android.trivialdrivesample.util.Inventory) -> onQueryInventoryFinished
+    59:61:void onIabSetupFinished(com.riotapps.word.billing.IabResult) -> onIabSetupFinished
+com.riotapps.word.billing.Base64 -> com.riotapps.word.billing.Base64:
+    boolean ENCODE -> ENCODE
+    boolean DECODE -> DECODE
+    byte[] ALPHABET -> b
+    byte[] WEBSAFE_ALPHABET -> c
+    byte[] DECODABET -> d
+    byte[] WEBSAFE_DECODABET -> e
+    boolean $assertionsDisabled -> a
+    210:234:byte[] encode3to4(byte[],int,int,byte[],int,byte[]) -> a
+    247:247:java.lang.String encode(byte[]) -> encode
+    258:258:java.lang.String encodeWebSafe(byte[],boolean) -> encodeWebSafe
+    274:286:java.lang.String encode(byte[],int,int,byte[],boolean) -> encode
+    301:345:byte[] encode(byte[],int,int,byte[],int) -> encode
+    378:406:int decode4to3(byte[],int,byte[],int,byte[]) -> a
+    419:420:byte[] decode(java.lang.String) -> decode
+    431:432:byte[] decodeWebSafe(java.lang.String) -> decodeWebSafe
+    445:445:byte[] decode(byte[]) -> decode
+    458:458:byte[] decodeWebSafe(byte[]) -> decodeWebSafe
+    474:474:byte[] decode(byte[],int,int) -> decode
+    489:489:byte[] decodeWebSafe(byte[],int,int) -> decodeWebSafe
+    504:568:byte[] decode(byte[],int,int,byte[]) -> decode
+com.riotapps.word.billing.Base64DecoderException -> com.riotapps.word.billing.Base64DecoderException:
+    long serialVersionUID -> serialVersionUID
+com.riotapps.word.billing.IabException -> com.riotapps.word.billing.IabException:
+    com.riotapps.word.billing.IabResult mResult -> a
+    42:42:com.riotapps.word.billing.IabResult getResult() -> getResult
+com.riotapps.word.billing.IabHelper -> com.riotapps.word.billing.IabHelper:
+    boolean mDebugLog -> a
+    java.lang.String mDebugTag -> b
+    boolean mSetupDone -> c
+    boolean mSubscriptionsSupported -> d
+    boolean mAsyncInProgress -> e
+    java.lang.String mAsyncOperation -> f
+    android.content.Context mContext -> g
+    com.android.vending.billing.IInAppBillingService mService -> h
+    android.content.ServiceConnection mServiceConn -> i
+    int mRequestCode -> j
+    java.lang.String mPurchasingItemType -> k
+    java.lang.String mSignatureBase64 -> l
+    int BILLING_RESPONSE_RESULT_OK -> BILLING_RESPONSE_RESULT_OK
+    int BILLING_RESPONSE_RESULT_USER_CANCELED -> BILLING_RESPONSE_RESULT_USER_CANCELED
+    int BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE -> BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE
+    int BILLING_RESPONSE_RESULT_ITEM_UNAVAILABLE -> BILLING_RESPONSE_RESULT_ITEM_UNAVAILABLE
+    int BILLING_RESPONSE_RESULT_DEVELOPER_ERROR -> BILLING_RESPONSE_RESULT_DEVELOPER_ERROR
+    int BILLING_RESPONSE_RESULT_ERROR -> BILLING_RESPONSE_RESULT_ERROR
+    int BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED -> BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED
+    int BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED -> BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED
+    int IABHELPER_ERROR_BASE -> IABHELPER_ERROR_BASE
+    int IABHELPER_REMOTE_EXCEPTION -> IABHELPER_REMOTE_EXCEPTION
+    int IABHELPER_BAD_RESPONSE -> IABHELPER_BAD_RESPONSE
+    int IABHELPER_VERIFICATION_FAILED -> IABHELPER_VERIFICATION_FAILED
+    int IABHELPER_SEND_INTENT_FAILED -> IABHELPER_SEND_INTENT_FAILED
+    int IABHELPER_USER_CANCELLED -> IABHELPER_USER_CANCELLED
+    int IABHELPER_UNKNOWN_PURCHASE_RESPONSE -> IABHELPER_UNKNOWN_PURCHASE_RESPONSE
+    int IABHELPER_MISSING_TOKEN -> IABHELPER_MISSING_TOKEN
+    int IABHELPER_UNKNOWN_ERROR -> IABHELPER_UNKNOWN_ERROR
+    int IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE -> IABHELPER_SUBSCRIPTIONS_NOT_AVAILABLE
+    int IABHELPER_INVALID_CONSUMPTION -> IABHELPER_INVALID_CONSUMPTION
+    java.lang.String RESPONSE_CODE -> RESPONSE_CODE
+    java.lang.String RESPONSE_GET_SKU_DETAILS_LIST -> RESPONSE_GET_SKU_DETAILS_LIST
+    java.lang.String RESPONSE_BUY_INTENT -> RESPONSE_BUY_INTENT
+    java.lang.String RESPONSE_INAPP_PURCHASE_DATA -> RESPONSE_INAPP_PURCHASE_DATA
+    java.lang.String RESPONSE_INAPP_SIGNATURE -> RESPONSE_INAPP_SIGNATURE
+    java.lang.String RESPONSE_INAPP_ITEM_LIST -> RESPONSE_INAPP_ITEM_LIST
+    java.lang.String RESPONSE_INAPP_PURCHASE_DATA_LIST -> RESPONSE_INAPP_PURCHASE_DATA_LIST
+    java.lang.String RESPONSE_INAPP_SIGNATURE_LIST -> RESPONSE_INAPP_SIGNATURE_LIST
+    java.lang.String INAPP_CONTINUATION_TOKEN -> INAPP_CONTINUATION_TOKEN
+    java.lang.String ITEM_TYPE_INAPP -> ITEM_TYPE_INAPP
+    java.lang.String ITEM_TYPE_SUBS -> ITEM_TYPE_SUBS
+    java.lang.String GET_SKU_DETAILS_ITEM_LIST -> GET_SKU_DETAILS_ITEM_LIST
+    java.lang.String GET_SKU_DETAILS_ITEM_TYPE_LIST -> GET_SKU_DETAILS_ITEM_TYPE_LIST
+    com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener mPurchaseListener -> m
+    171:173:void enableDebugLogging(boolean,java.lang.String) -> enableDebugLogging
+    176:177:void enableDebugLogging(boolean) -> enableDebugLogging
+    201:272:void startSetup(com.riotapps.word.billing.IabHelper$OnIabSetupFinishedListener) -> startSetup
+    281:290:void dispose() -> dispose
+    294:294:boolean subscriptionsSupported() -> subscriptionsSupported
+    319:320:void launchPurchaseFlow(android.app.Activity,java.lang.String,int,com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener) -> launchPurchaseFlow
+    324:325:void launchPurchaseFlow(android.app.Activity,java.lang.String,int,com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> launchPurchaseFlow
+    329:330:void launchSubscriptionPurchaseFlow(android.app.Activity,java.lang.String,int,com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener) -> launchSubscriptionPurchaseFlow
+    334:335:void launchSubscriptionPurchaseFlow(android.app.Activity,java.lang.String,int,com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> launchSubscriptionPurchaseFlow
+    357:404:void launchPurchaseFlow(android.app.Activity,java.lang.String,java.lang.String,int,com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener,java.lang.String) -> launchPurchaseFlow
+    421:499:boolean handleActivityResult(int,int,android.content.Intent) -> handleActivityResult
+    503:503:com.riotapps.word.billing.Inventory queryInventory(boolean,java.util.List) -> queryInventory
+    521:557:com.riotapps.word.billing.Inventory queryInventory(boolean,java.util.List,java.util.List) -> queryInventory
+    588:613:void queryInventoryAsync(boolean,java.util.List,com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener) -> queryInventoryAsync
+    616:617:void queryInventoryAsync(com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener) -> queryInventoryAsync
+    620:621:void queryInventoryAsync(boolean,com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener) -> queryInventoryAsync
+    634:663:void consume(com.riotapps.word.billing.Purchase) -> a
+    701:705:void consumeAsync(com.riotapps.word.billing.Purchase,com.riotapps.word.billing.IabHelper$OnConsumeFinishedListener) -> consumeAsync
+    713:715:void consumeAsync(java.util.List,com.riotapps.word.billing.IabHelper$OnConsumeMultiFinishedListener) -> consumeAsync
+    725:748:java.lang.String getResponseDesc(int) -> getResponseDesc
+    754:758:void checkSetupDone(java.lang.String) -> a
+    762:772:int getResponseCodeFromBundle(android.os.Bundle) -> a
+    778:788:int getResponseCodeFromIntent(android.content.Intent) -> a
+    793:798:void flagStartAsync(java.lang.String) -> b
+    801:804:void flagEndAsync() -> a
+    809:867:int queryPurchases(com.riotapps.word.billing.Inventory,java.lang.String) -> a
+    872:907:int querySkuDetails(java.lang.String,com.riotapps.word.billing.Inventory,java.util.List) -> a
+    914:946:void consumeAsyncInternal(java.util.List,com.riotapps.word.billing.IabHelper$OnConsumeFinishedListener,com.riotapps.word.billing.IabHelper$OnConsumeMultiFinishedListener) -> a
+    949:950:void logDebug(java.lang.String) -> c
+    953:954:void logError(java.lang.String) -> d
+    957:958:void logWarn(java.lang.String) -> e
+com.riotapps.word.billing.IabHelper$1 -> ou:
+    com.riotapps.word.billing.IabHelper this$0 -> a
+    com.riotapps.word.billing.IabHelper$OnIabSetupFinishedListener val$listener -> b
+    208:210:void onServiceDisconnected(android.content.ComponentName) -> onServiceDisconnected
+    214:256:void onServiceConnected(android.content.ComponentName,android.os.IBinder) -> onServiceConnected
+com.riotapps.word.billing.IabHelper$2 -> ov:
+    com.riotapps.word.billing.IabHelper this$0 -> a
+    boolean val$querySkuDetails -> b
+    java.util.List val$moreSkus -> c
+    android.os.Handler val$handler -> d
+    com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener val$listener -> e
+    593:611:void run() -> run
+com.riotapps.word.billing.IabHelper$2$1 -> ow:
+    com.riotapps.word.billing.IabHelper$2 this$1 -> a
+    com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener val$listener -> b
+    com.riotapps.word.billing.IabResult val$result_f -> c
+    com.riotapps.word.billing.Inventory val$inv_f -> d
+    608:609:void run() -> run
+com.riotapps.word.billing.IabHelper$3 -> ox:
+    com.riotapps.word.billing.IabHelper this$0 -> a
+    java.util.List val$purchases -> b
+    com.riotapps.word.billing.IabHelper$OnConsumeFinishedListener val$singleListener -> c
+    android.os.Handler val$handler -> d
+    com.riotapps.word.billing.IabHelper$OnConsumeMultiFinishedListener val$multiListener -> e
+    918:944:void run() -> run
+com.riotapps.word.billing.IabHelper$3$1 -> oy:
+    com.riotapps.word.billing.IabHelper$3 this$1 -> a
+    com.riotapps.word.billing.IabHelper$OnConsumeFinishedListener val$singleListener -> b
+    java.util.List val$purchases -> c
+    java.util.List val$results -> d
+    933:934:void run() -> run
+com.riotapps.word.billing.IabHelper$3$2 -> oz:
+    com.riotapps.word.billing.IabHelper$3 this$1 -> a
+    com.riotapps.word.billing.IabHelper$OnConsumeMultiFinishedListener val$multiListener -> b
+    java.util.List val$purchases -> c
+    java.util.List val$results -> d
+    940:941:void run() -> run
+com.riotapps.word.billing.IabHelper$OnConsumeFinishedListener -> com.riotapps.word.billing.IabHelper$OnConsumeFinishedListener:
+    void onConsumeFinished(com.riotapps.word.billing.Purchase,com.riotapps.word.billing.IabResult) -> onConsumeFinished
+com.riotapps.word.billing.IabHelper$OnConsumeMultiFinishedListener -> com.riotapps.word.billing.IabHelper$OnConsumeMultiFinishedListener:
+    void onConsumeMultiFinished(java.util.List,java.util.List) -> onConsumeMultiFinished
+com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener -> com.riotapps.word.billing.IabHelper$OnIabPurchaseFinishedListener:
+    void onIabPurchaseFinished(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Purchase) -> onIabPurchaseFinished
+com.riotapps.word.billing.IabHelper$OnIabSetupFinishedListener -> com.riotapps.word.billing.IabHelper$OnIabSetupFinishedListener:
+    void onIabSetupFinished(com.riotapps.word.billing.IabResult) -> onIabSetupFinished
+com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener -> com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener:
+    void onQueryInventoryFinished(com.riotapps.word.billing.IabResult,com.riotapps.word.billing.Inventory) -> onQueryInventoryFinished
+com.riotapps.word.billing.IabResult -> com.riotapps.word.billing.IabResult:
+    int mResponse -> a
+    java.lang.String mMessage -> b
+    39:39:int getResponse() -> getResponse
+    40:40:java.lang.String getMessage() -> getMessage
+    41:41:boolean isSuccess() -> isSuccess
+    42:42:boolean isFailure() -> isFailure
+    43:43:java.lang.String toString() -> toString
+com.riotapps.word.billing.Inventory -> com.riotapps.word.billing.Inventory:
+    java.util.Map mSkuMap -> a
+    java.util.Map mPurchaseMap -> b
+    35:35:com.riotapps.word.billing.SkuDetails getSkuDetails(java.lang.String) -> getSkuDetails
+    40:40:com.riotapps.word.billing.Purchase getPurchase(java.lang.String) -> getPurchase
+    45:45:boolean hasPurchase(java.lang.String) -> hasPurchase
+    50:50:boolean hasDetails(java.lang.String) -> hasDetails
+    62:63:void erasePurchase(java.lang.String) -> erasePurchase
+    72:76:java.util.List getAllOwnedSkus(java.lang.String) -> a
+    85:86:void addSkuDetails(com.riotapps.word.billing.SkuDetails) -> a
+    89:90:void addPurchase(com.riotapps.word.billing.Purchase) -> a
+com.riotapps.word.billing.Purchase -> com.riotapps.word.billing.Purchase:
+    java.lang.String mItemType -> a
+    java.lang.String mOrderId -> b
+    java.lang.String mPackageName -> c
+    java.lang.String mSku -> d
+    long mPurchaseTime -> e
+    int mPurchaseState -> f
+    java.lang.String mDeveloperPayload -> g
+    java.lang.String mToken -> h
+    java.lang.String mOriginalJson -> i
+    java.lang.String mSignature -> j
+    50:50:java.lang.String getItemType() -> getItemType
+    51:51:java.lang.String getOrderId() -> getOrderId
+    52:52:java.lang.String getPackageName() -> getPackageName
+    53:53:java.lang.String getSku() -> getSku
+    54:54:long getPurchaseTime() -> getPurchaseTime
+    55:55:int getPurchaseState() -> getPurchaseState
+    56:56:java.lang.String getDeveloperPayload() -> getDeveloperPayload
+    57:57:java.lang.String getToken() -> getToken
+    58:58:java.lang.String getOriginalJson() -> getOriginalJson
+    59:59:java.lang.String getSignature() -> getSignature
+    62:62:java.lang.String toString() -> toString
+com.riotapps.word.billing.Security -> com.riotapps.word.billing.Security:
+    59:73:boolean verifyPurchase(java.lang.String,java.lang.String,java.lang.String) -> verifyPurchase
+    85:95:java.security.PublicKey generatePublicKey(java.lang.String) -> generatePublicKey
+    111:128:boolean verify(java.security.PublicKey,java.lang.String,java.lang.String) -> verify
+com.riotapps.word.billing.SkuDetails -> com.riotapps.word.billing.SkuDetails:
+    java.lang.String mItemType -> a
+    java.lang.String mSku -> b
+    java.lang.String mType -> c
+    java.lang.String mPrice -> d
+    java.lang.String mTitle -> e
+    java.lang.String mDescription -> f
+    java.lang.String mJson -> g
+    48:48:java.lang.String getSku() -> getSku
+    49:49:java.lang.String getType() -> getType
+    50:50:java.lang.String getPrice() -> getPrice
+    51:51:java.lang.String getTitle() -> getTitle
+    52:52:java.lang.String getDescription() -> getDescription
+    56:56:java.lang.String toString() -> toString
 com.riotapps.word.data.GameData -> com.riotapps.word.data.GameData:
     22:39:java.util.List getLocalActiveGames() -> getLocalActiveGames
     46:52:java.util.List getLocalCompletedGames() -> getLocalCompletedGames
@@ -9390,7 +9422,8 @@ com.riotapps.word.data.PlayerData$1 -> pi:
 com.riotapps.word.data.StoreData -> com.riotapps.word.data.StoreData:
     24:37:com.riotapps.word.hooks.Purchase getPurchaseBySku(java.lang.String) -> getPurchaseBySku
     42:58:void savePurchase(com.riotapps.word.hooks.Purchase) -> savePurchase
-    62:74:java.util.List getStoreItems() -> getStoreItems
+    61:74:void removePurchase(java.lang.String) -> removePurchase
+    80:92:java.util.List getStoreItems() -> getStoreItems
 com.riotapps.word.data.StoreData$1 -> pj:
 com.riotapps.word.data.StoreData$2 -> pk:
 com.riotapps.word.data.WordData -> com.riotapps.word.data.WordData:
@@ -9857,18 +9890,21 @@ com.riotapps.word.hooks.StoreItem -> com.riotapps.word.hooks.StoreItem:
     66:66:java.lang.String getSku() -> getSku
     69:70:void setSku(java.lang.String) -> setSku
 com.riotapps.word.hooks.StoreService -> com.riotapps.word.hooks.StoreService:
-    13:13:com.riotapps.word.hooks.Purchase getPurchaseBySku(java.lang.String) -> getPurchaseBySku
-    18:18:java.util.List getStoreItems() -> getStoreItems
-    22:29:java.util.List getAllSkus() -> getAllSkus
-    34:35:boolean isHideInterstitialAdPurchased() -> isHideInterstitialAdPurchased
-    40:41:boolean isPremiumUpgradePurchased() -> isPremiumUpgradePurchased
-    50:51:boolean isHopperPeekPurchased() -> isHopperPeekPurchased
-    57:58:boolean isWordDefinitionLookupPurchased() -> isWordDefinitionLookupPurchased
-    64:65:boolean isWordHintsPurchased() -> isWordHintsPurchased
-    70:70:boolean isHideWordLookupAdPurchased() -> isHideWordLookupAdPurchased
-    74:74:boolean isHideBannerAdsPurchased() -> isHideBannerAdsPurchased
-    78:78:java.lang.String getIABPublicKey() -> getIABPublicKey
-    86:91:void savePurchase(java.lang.String,java.lang.String) -> savePurchase
+    java.lang.String TAG -> a
+    16:16:com.riotapps.word.hooks.Purchase getPurchaseBySku(java.lang.String) -> getPurchaseBySku
+    21:21:java.util.List getStoreItems() -> getStoreItems
+    25:32:java.util.List getAllSkus() -> getAllSkus
+    37:38:boolean isHideInterstitialAdPurchased() -> isHideInterstitialAdPurchased
+    43:44:boolean isPremiumUpgradePurchased() -> isPremiumUpgradePurchased
+    53:54:boolean isHopperPeekPurchased() -> isHopperPeekPurchased
+    60:61:boolean isWordDefinitionLookupPurchased() -> isWordDefinitionLookupPurchased
+    67:68:boolean isWordHintsPurchased() -> isWordHintsPurchased
+    73:73:boolean isHideWordLookupAdPurchased() -> isHideWordLookupAdPurchased
+    77:77:boolean isHideBannerAdsPurchased() -> isHideBannerAdsPurchased
+    81:81:java.lang.String getIABPublicKey() -> getIABPublicKey
+    89:96:void savePurchase(java.lang.String,java.lang.String) -> savePurchase
+    100:101:void clearPurchase(java.lang.String) -> clearPurchase
+    105:144:void syncPurchases(com.riotapps.word.billing.Inventory) -> syncPurchases
 com.riotapps.word.hooks.TileLayout -> com.riotapps.word.hooks.TileLayout:
     java.util.List StarterTiles -> StarterTiles
     java.util.List BonusTiles -> BonusTiles
@@ -10575,6 +10611,7 @@ com.riotapps.word.ui.RowCol -> com.riotapps.word.ui.RowCol:
     24:25:void setColumn(int) -> setColumn
 com.riotapps.word.ui.ScoreboardButton -> com.riotapps.word.ui.ScoreboardButton:
 com.riotapps.word.ui.ScoreboardFontTextView -> com.riotapps.word.ui.ScoreboardFontTextView:
+com.riotapps.word.ui.StoreItemPriceButton -> com.riotapps.word.ui.StoreItemPriceButton:
 com.riotapps.word.ui.TrayTile -> com.riotapps.word.ui.TrayTile:
     int id -> a
     int xPosition -> b
