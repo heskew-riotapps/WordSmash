@@ -105,7 +105,9 @@
 	<string name="validation_cannot_add_yourself">You cannot add yourself as an opponent.</string>
 	<string name="validation_opponent_already_added">%s has already been added as an opponent.</string>
 	<string name="validation_must_have_between_2_and_4_players">The game must have either 2, 3, or 4 players.</string>
-		
+	
+	<string name="go_to_store">go to store</string>
+	<string name="no_thanks">no thanks</string>		
 	<string name="ok">ok</string>
 	<string name="thank_you">thank you</string>
 	<string name="yes">yes</string>
@@ -574,7 +576,10 @@
 		<string name="gameboard_hopper_peek_dialog_decription">there are %1$s remaining letters in the hopper and %2$s\'s tray</string>
 		<string name="share_subject">WordSmash</string>
 		<string name="share_message">Check out WordSmash for Android in the Google Play store.  Test your crossword skills against the character of your choice.  Always play at your own pace, as fast as you desire.</string>
-		<string name="hopper_peek_preview">Peeking at the hopper requires a Peek at the Hopper Upgrade or a Premium Upgrade.</string>
+		<string name="hopper_peek_purchase_offer">Now that the free previews are over, peeking at the hopper requires a Peek at the Hopper Upgrade or a Premium Upgrade.  Just tap the button to go to the store to get unlimited usage of hopper peeks.</string>
+		<string name="hopper_peek_preview">%1$s\nYou have %2$s more free uses before needing a Peek at the Hopper upgrade.</string>
+		<string name="hopper_peek_preview_1_preview_left">%1$s\nYou have 1 more free use before needing a Peek at the Hopper upgrade.</string>
+		<string name="hopper_peek_no_previews_left">%s\n\nTo keep using hopper peeks, you\'ll need a Peek at the Hopper upgrade!\n</string>
 		<string name="purchase_thanks_hopper_peek">We hope you enjoy your unlimited usage of Hopper Peeks!</string>	
 		<string name="purchase_thanks_word_hints">We hope you enjoy your unlimited usage of Word Hints!</string>
 		<string name="purchase_thanks_word_definitions">We hope you enjoy your unlimited usage of Word Definitions!</string>			

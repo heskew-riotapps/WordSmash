@@ -81,7 +81,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private RelativeLayout scoreboard;
 	 private SurfaceView surfaceView;
 	 private PopupMenu popupMenu;
- 
+	 
 	 private Button bRecall;
 	 private Button bPlay;
 	 private Button bSkip;
@@ -226,7 +226,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	 
 	 	//Logger.d(TAG, "Game about to be fetched from extra");
 	 	Intent i = getIntent();
-	 	String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
+	 	//String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
 	 	boolean fromCompletedGameList = i.getBooleanExtra(Constants.EXTRA_FROM_COMPLETED_GAME_LIST, false);
 	 	
 	 	//do this so that back button does not get crazy if one navigates to game from completed game list continuously
@@ -236,6 +236,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	//this.game = (Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 	 	
 	 	this.captureTime("get game from local starting");
+	 	
+	 	String gameId = this.player.getActiveGameId();
 	 	this.game = GameService.getGame(gameId); //(Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 		Logger.d(TAG, "onCreate game turn=" + game.getTurn());
 	 	this.captureTime("get game from local ended");	 	
@@ -678,16 +680,12 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 		if (this.game.getPlayedWords().size() == 0){ 
 	 			bPlayedWords.setVisibility(View.GONE);
 	 		}
+	 	}
+	 	
+	 //	if (!StoreService.isHopperPeekPurchased() && PlayerService.getRemainingFreeUsesHopperPeek() == 0){
+	 //	 	bHopperPeek.setVisibility(View.GONE);
+	 //	}
 
-	 	}
-	 	
-	 	if (!StoreService.isHopperPeekPurchased() && PlayerService.getRemainingFreeUsesHopperPeek() == 0){
-	 	 	bHopperPeek.setVisibility(View.GONE);
-	 	}
-	 
-	 	
-	 	
-	 //	Logger.d(TAG, "setupButtons bRecall visible=" + bRecall.getVisibility() + " bShuffle=" + bShuffle.getVisibility());
 	}
 	    
 	    

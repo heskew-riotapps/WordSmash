@@ -305,11 +305,11 @@ public class GameService {
 			game.getPlayerGames().get(0).setTurn(isOpponent);
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
-		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed starting");
-		Logger.d(TAG, "is aaaabenn indexed? " + WordService.isWordIndexed("aaaabenn"));
-		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 1 ended");
-		Logger.d(TAG, "is ehiinooopstz indexed? " + WordService.isWordIndexed("ehiinooopstz"));
-		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 2 ended");
+//		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed starting");
+//		Logger.d(TAG, "is aaaabenn indexed? " + WordService.isWordIndexed("aaaabenn"));
+//		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 1 ended");
+//		Logger.d(TAG, "is ehiinooopstz indexed? " + WordService.isWordIndexed("ehiinooopstz"));
+//		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 2 ended");
 		
 		GameService.saveGame(game);
 		return game;	

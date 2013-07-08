@@ -364,8 +364,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	}
 	*/
 	public boolean isContextPlayerTurn(){
-		return !this.playedTurns.get(this.playedTurns.size() - 1).isOpponentPlay();
-		
+		return this.turn == 1 || this.getLastPlayedTurn().isOpponentPlay();	
 	}
 	
 	/*
@@ -711,7 +710,7 @@ public class Game implements Parcelable, Comparable<Game> {
 	private boolean isContextPlayerPerformedLastTurn(){
 		
 		try{
-			return !this.getPlayedTurns().get(this.getPlayedTurns().size() - 1).isOpponentPlay();
+			return !this.getLastPlayedTurn().isOpponentPlay();
 		}
 		catch(Exception e){
 			// Logger.d(TAG, "isContextPlayerPerformedLastTurn  this.lastTurnPlayerId=" +  this.lastTurnPlayerId == null ? "null" : this.lastTurnPlayerId  + " contextPlayerId= " + contextPlayerId == null ? "null" : contextPlayerId + " error=" + e.getMessage());

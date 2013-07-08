@@ -3,16 +3,21 @@ package com.riotapps.word.ui;
 import java.util.List;
 
 import com.riotapps.word.GameSurface;
+import com.riotapps.word.Main;
 import com.riotapps.word.R;
 import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.Letter;
+import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.utils.Constants;
+import com.riotapps.word.utils.Logger;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,14 +28,17 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 
 public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
-
+	private static final String TAG = HopperPeekDialog.class.getSimpleName();
+	
 	private Game game;
 	private GameSurface parent;
 	private View layout;
+	private TextView peek_description;
 	
 	public HopperPeekDialog(GameSurface context, Game game){
 		super(context);
@@ -66,10 +74,45 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
      //   this.setContentView(this.layout);
 
 		LinearLayout llOK = (LinearLayout) this.layout.findViewById(R.id.llOK);
-		llOK.setOnClickListener(this);
+		TextView tvOK = (TextView) this.layout.findViewById(R.id.tvOK);
+		Button bNoThanks = (Button)this.layout.findViewById(R.id.bNoThanks);
+		Button bStore = (Button)this.layout.findViewById(R.id.bStore);
+
 		
-		this.loadLetters();
+		Logger.d(TAG, "free hopper peeks=" + PlayerService.getRemainingFreeUsesHopperPeek());
 		
+		if (!StoreService.isHopperPeekPurchased() && PlayerService.getRemainingFreeUsesHopperPeek() == 0){
+			this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
+			this.peek_description.setText(this.parent.getString(R.string.hopper_peek_purchase_offer));
+			TableLayout tblLetters =  (TableLayout)this.layout.findViewById(R.id.tblLetters);
+			tblLetters.setVisibility(View.GONE);
+			tvOK.setVisibility(View.GONE);
+		}
+		else{
+			this.loadLetters();	
+			
+			if (!StoreService.isHopperPeekPurchased()){
+				tvOK.setVisibility(View.GONE);
+				bStore.setOnClickListener(this);
+				bNoThanks.setOnClickListener(this);
+				int remainingFreeUses  = PlayerService.removeAFreeUseFromHopperPeek();
+				if (remainingFreeUses > 1){
+					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_preview), this.peek_description.getText(), String.valueOf(remainingFreeUses)));
+				}
+				else if (remainingFreeUses == 1){{
+					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_preview_1_preview_left), this.peek_description.getText()));					
+				}
+				else{
+					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_no_previews_left), this.peek_description.getText()));					
+				}
+			}
+			else{
+				
+				llOK.setOnClickListener(this);
+				bStore.setVisibility(View.GONE);
+				bNoThanks.setVisibility(View.GONE);
+			}
+		}
 		 
 
 		ImageView close = (ImageView) this.layout.findViewById(R.id.img_close);
@@ -114,7 +157,19 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		dismiss();
+		switch (v.getId()){
+			case R.id.llOK:
+				this.dismiss();
+				break;
+			case R.id.bStore:
+				this.dismiss(); 
+				Intent intent = new Intent(this.parent, com.riotapps.word.Store.class);
+				this.parent.startActivity(intent); 
+				break;
+			case R.id.bNoThanks:
+				this.dismiss();
+				break;
+		}
 	}
 	
 	private void loadLetters(){
@@ -146,7 +201,7 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 		TextView tvLetter24 = (TextView)this.layout.findViewById(R.id.tvLetter24);
 		TextView tvLetter25 = (TextView)this.layout.findViewById(R.id.tvLetter25);
 		TextView tvLetter26 = (TextView)this.layout.findViewById(R.id.tvLetter26);
-		TextView peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
+		this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
 		
 		String baseText = parent.getString(R.string.hopper_peek_letter);
 		peek_description.setText(String.format(parent.getString(R.string.gameboard_hopper_peek_dialog_decription), this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray(), this.game.getOpponent().getName()));

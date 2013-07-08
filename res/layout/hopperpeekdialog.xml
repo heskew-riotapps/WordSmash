@@ -208,7 +208,7 @@
 	        style="@style/FormButtonAreaStyle"
 	        android:layout_below="@+id/header_wrapper" 
  			android:id="@+id/llOK"
- 		 
+ 		   android:gravity="center"
 	        >
  
 		<com.riotapps.word.ui.MainFontTextView
@@ -223,6 +223,21 @@
 				android:textColor="@color/sub_text_color"
 			 
 		    />
+		<com.riotapps.word.utils.TypefaceButton 
+	  	    style="@style/ButtonStyle"
+	  	    android:id="@+id/bStore"
+	        android:layout_width="150dp" 
+	       
+	        android:text="@string/go_to_store"
+	    />
+		<com.riotapps.word.utils.TypefaceButton 
+	  	    style="@style/ButtonStyle"
+	  	    android:id="@+id/bNoThanks"
+	        android:layout_width="150dp" 
+	        android:layout_marginLeft="4dp"
+	        android:text="@string/no_thanks"
+	    />
+		
 	    </LinearLayout>
     
   </RelativeLayout>
