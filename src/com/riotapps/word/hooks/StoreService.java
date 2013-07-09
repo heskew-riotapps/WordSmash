@@ -68,11 +68,6 @@ public class StoreService {
 		return purchase.isPurchased() || isPremiumUpgradePurchased();
 	}
 	
-	public static boolean isHideWordLookupAdPurchased(){
-
-		return isHideBannerAdsPurchased();
-	}
-	
 	public static boolean isHideBannerAdsPurchased(){
 		return isPremiumUpgradePurchased();	
 	}

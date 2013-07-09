@@ -577,9 +577,15 @@
 		<string name="share_subject">WordSmash</string>
 		<string name="share_message">Check out WordSmash for Android in the Google Play store.  Test your crossword skills against the character of your choice.  Always play at your own pace, as fast as you desire.</string>
 		<string name="hopper_peek_purchase_offer">Now that the free previews are over, peeking at the hopper requires a Peek at the Hopper Upgrade or a Premium Upgrade.  Just tap the button to go to the store to get unlimited usage of hopper peeks.</string>
-		<string name="hopper_peek_preview">%1$s\nYou have %2$s more free uses before needing a Peek at the Hopper upgrade.</string>
-		<string name="hopper_peek_preview_1_preview_left">%1$s\nYou have 1 more free use before needing a Peek at the Hopper upgrade.</string>
-		<string name="hopper_peek_no_previews_left">%s\n\nTo keep using hopper peeks, you\'ll need a Peek at the Hopper upgrade!\n</string>
+		<string name="hopper_peek_preview">%1$s\nYou have %2$s more free uses before needing a Peek at the Hopper upgrade or a Premium Upgrade.</string>
+		<string name="hopper_peek_1_preview_left">%1$s\nYou have 1 more free use before needing a Peek at the Hopper upgrade or a Premium Upgrade.</string>
+		<string name="hopper_peek_no_previews_left">%s\n\nTo keep using hopper peeks, you\'ll need a Peek at the Hopper upgrade or a Premium Upgrade!\n</string>
+
+		<string name="word_definition_purchase_offer">Now that the free previews are over, looking up word definitions requires a Word Definition Lookups upgrage or a Premium Upgrade.  Just tap the button to go to the store to get unlimited lookups of word definitions.  It\'s a great way to learn as you play!</string>
+		<string name="word_definition_preview">You have %s more free uses before needing a Word Definition Lookups upgrade or a Premium Upgrade.</string>
+		<string name="word_definition_1_preview_left">You have 1 more free use before needing a Word Definition Lookups upgrade or a Premium Upgrade.</string>
+		<string name="word_definition_no_previews_left">To keep using hopper peeks, you\'ll need a Word Definition Lookups upgrade or a Premium Upgrade!\n</string>
+	
 		<string name="purchase_thanks_hopper_peek">We hope you enjoy your unlimited usage of Hopper Peeks!</string>	
 		<string name="purchase_thanks_word_hints">We hope you enjoy your unlimited usage of Word Hints!</string>
 		<string name="purchase_thanks_word_definitions">We hope you enjoy your unlimited usage of Word Definitions!</string>			

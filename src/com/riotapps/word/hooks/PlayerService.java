@@ -220,7 +220,7 @@ public class PlayerService {
 		return PlayerData.removeAFreeUseFromHopperPeek();
 	}
 	
-	public int removeAFreeUseFromWordDefinition(){
+	public static int removeAFreeUseFromWordDefinition(){
 		return PlayerData.removeAFreeUseFromWordDefinition();
 	}	
 	

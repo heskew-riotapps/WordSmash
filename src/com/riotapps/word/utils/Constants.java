@@ -49,14 +49,9 @@ public class Constants {
 	public static final long GAME_SURFACE_CHECK_START_AFTER_RESTART_IN_MILLISECONDS = 18000;// 2 seconds;
 	public static final long GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MILLISECONDS = 7000;// = 7 seconds;
 	public static final long BACKGROUND_GAME_LIST_DELAY_IN_MILLISECONDS = 2000;// = 300000;
-	
-	public static final String FACEBOOK_PERMISSIONS = "email";
-	public static final int NUM_LOCAL_COMPLETED_GAMES_TO_STORE = 10;
-	public static final int DEFAULT_AVATAR_SIZE = 34;
-	public static final int LARGE_AVATAR_SIZE = 54;
-	public static final int BADGE_SIZE = 10;
-	public static final int MAX_ACTIVE_GAMES = 40;
-	
+	 
+	public static final int NUM_LOCAL_COMPLETED_GAMES_TO_STORE = 12;
+	 
 	/**============================================
 	 * tracker constants
 	 *=============================================*/
@@ -344,6 +339,7 @@ public class Constants {
 	public static final String SKU_GOOGLE_PLAY_WORD_DEFINITIONS = "riotapps_wordsmash_word_definitions.a";
 	public static final String SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL = "riotapps_wordsmash_hide_interstitial.a";
 	public static final String SKU_GOOGLE_PLAY_WORD_HINTS = "riotapps_wordsmash_word_hints.a";
+	
 	
 }//end class Constants
  

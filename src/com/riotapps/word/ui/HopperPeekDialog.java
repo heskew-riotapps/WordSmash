@@ -99,8 +99,8 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 				if (remainingFreeUses > 1){
 					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_preview), this.peek_description.getText(), String.valueOf(remainingFreeUses)));
 				}
-				else if (remainingFreeUses == 1){{
-					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_preview_1_preview_left), this.peek_description.getText()));					
+				else if (remainingFreeUses == 1){
+					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_1_preview_left), this.peek_description.getText()));					
 				}
 				else{
 					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_no_previews_left), this.peek_description.getText()));					

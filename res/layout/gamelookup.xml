@@ -58,9 +58,9 @@
 					android:paddingRight="5dp"
 					android:orientation="vertical"
 	 			>    
-	 			<com.riotapps.word.ui.ScoreboardFontTextView
-				         style="@style/TextStyle"
-				         android:textSize="18dp"
+	 				<com.riotapps.word.ui.ScoreboardFontTextView
+				        style="@style/TextStyle"
+				        android:textSize="18dp"
 				     	android:id="@+id/tvWord"
 				     	android:layout_marginLeft="2.0dip"
 				     	android:layout_marginBottom="3.0dip"
@@ -74,9 +74,19 @@
 					    android:src="@drawable/wordnik_badge_a1"
 					    android:layout_alignParentRight="true"
 					 />
+	 			      <com.riotapps.word.ui.MainFontTextView 
+					     style="@style/TextStyle"
+					     android:textSize="16sp"
+					  	 android:id="@+id/tvPreviewMessage"
+					     android:layout_width="fill_parent"
+					     android:layout_height="wrap_content"
+					     android:layout_below="@id/tvWord"
+					     android:layout_marginBottom="5dp"
+					     
+					     />
 	 				  <com.riotapps.word.ui.MainFontTextView 
 					     style="@style/TextStyle"
-					     android:textSize="16dp"
+					     android:textSize="16sp"
 					  	 android:id="@+id/tvNotFound"
 					     android:layout_width="fill_parent"
 					     android:layout_height="wrap_content"

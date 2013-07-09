@@ -619,6 +619,16 @@ public static Game skip(boolean isOpponent, Game game){
 		 //put game at the beginning so that it saves in descending order
 		 games.add(0, new  GameListItem(game.getId(), game.getCompletionDate()));
 		 
+		 //only store 10 games in this list.  clean out game storage and list for 11 and above
+		 if (games.size() > Constants.NUM_LOCAL_COMPLETED_GAMES_TO_STORE){
+			 for (int i = games.size() - 1; i <= Constants.NUM_LOCAL_COMPLETED_GAMES_TO_STORE - 1; i--){
+				 
+				 removeGame(games.get(i).getGameId());
+				 games.remove(i);
+			 }
+			 
+		 }
+		 
 		 GameData.saveCompletedGameList(games);
 	}
 	

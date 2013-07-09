@@ -1,11 +1,13 @@
 package com.riotapps.word;
 
+import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerGame;
 import com.riotapps.word.hooks.PlayerService;
+import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
@@ -47,11 +49,11 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	private static final String TAG = GameLookup.class.getSimpleName();
 	private Game game;
 	private Player player;
-	private ImageFetcher imageLoader;
 	private Context context = this;
 	private WordnikLookup task;
 	private LinearLayout llDefs;
 	private TextView tvNotFound;
+	private TextView tvPreviewMessage;
 	private CustomProgressDialog spinner;
 	private String word;
 	ApplicationContext appContext;
@@ -71,12 +73,6 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	 	this.appContext = (ApplicationContext)this.getApplicationContext(); 
 	    this.player = this.appContext.getPlayer(); 
 	 	GameService.loadScoreboard(this, this.game);
-	 	
-	 	 this.imageLoader = new ImageFetcher(this, Constants.DEFAULT_AVATAR_SIZE, Constants.DEFAULT_AVATAR_SIZE, 0);
-	     this.imageLoader.setImageCache(ImageCache.findOrCreateCache(this, Constants.IMAGE_CACHE_DIR));
-	 	
-	    // Toast toast = Toast.makeText(this, word, 1000);
-	    // toast.show();
 	     
 	     TextView tvWord = (TextView)this.findViewById(R.id.tvWord);
 	     tvWord.setText(word);
@@ -86,19 +82,49 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	 
 	     this.llDefs = (LinearLayout)this.findViewById(R.id.llDefs);
 	     this.tvNotFound = (TextView)this.findViewById(R.id.tvNotFound);
+	     this.tvPreviewMessage = (TextView) this.findViewById(R.id.tvPreviewMessage);
 	     //tvNotFound.setText(context.getString(R.string.lookup_definition_not_found));
 	     
 	     MenuUtils.hideMenu(this);
 	     
-	     System.setProperty("WORDNIK_API_KEY", this.getString(R.string.wordnik_apiKey));
-	 
-	     this.spinner = new CustomProgressDialog(this);
-		 this.spinner.setMessage(this.getString(R.string.progress_looking_up));
-		 this.spinner.show();
+	     if (StoreService.isHideBannerAdsPurchased()){
+				AdView adView = (AdView)this.findViewById(R.id.adView);
+				adView.setVisibility(View.GONE);
+			}
+	     
+	     if (!StoreService.isWordDefinitionLookupPurchased() && PlayerService.getRemainingFreeUsesWordDefinition() == 0){
+	    	 this.tvPreviewMessage.setText(this.getString(R.string.word_definition_purchase_offer));
+	   		 this.llDefs.setVisibility(View.GONE);
+	   		 this.tvNotFound.setVisibility(View.GONE);
+	     }
+	     else {
+	    	 if (!StoreService.isWordDefinitionLookupPurchased()){
+					//bStore.setOnClickListener(this);
+					//bNoThanks.setOnClickListener(this);
+					int remainingFreeUses  = PlayerService.removeAFreeUseFromWordDefinition();
+					if (remainingFreeUses > 1){
+						this.tvPreviewMessage.setText(String.format(this.getString(R.string.word_definition_preview), String.valueOf(remainingFreeUses)));
+					}
+					else if (remainingFreeUses == 1){
+						this.tvPreviewMessage.setText(this.getString(R.string.word_definition_1_preview_left));					
+					}
+					else{
+						this.tvPreviewMessage.setText(this.getString(R.string.word_definition_no_previews_left));					
+					}
+				}
+	    	 
+	    	 
+		     System.setProperty("WORDNIK_API_KEY", this.getString(R.string.wordnik_apiKey));
 		 
-	     task = new WordnikLookup(word.toLowerCase());
-	     task.execute("");
+		     this.spinner = new CustomProgressDialog(this);
+			 this.spinner.setMessage(this.getString(R.string.progress_looking_up));
+			 this.spinner.show();
+			 
+		     task = new WordnikLookup(word.toLowerCase());
+		     task.execute("");
+	     }
 	}
+	
 	@Override
 	protected void onStart() {
 		 
