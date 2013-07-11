@@ -100,6 +100,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 //	 private RevMobFullscreen revMobFullScreen;
 	 private boolean hasPostAdRun = false;
 	 private boolean isBoundToGCMService = false;
+	 private boolean isCompletedThisSession = false;
 	 
 	 private String postTurnMessage = "";
 	 private String postTurnTitle = "";
@@ -596,7 +597,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	bCancel.setTextColor(Color.parseColor(btnTextColor));
 	 	bResign.setTextColor(Color.parseColor(btnTextColor));
 	 	bSwap.setTextColor(Color.parseColor(btnTextColor));
-	 	bPlayedWords.setTextColor(Color.parseColor(btnTextColor));
+	 	bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_on)));
 	 	
 	 	//bRecall.setVisibility(View.GONE);
 	 	bShuffle.setVisibility(View.VISIBLE);
@@ -862,6 +863,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				break;
 			default:
 				this.unfreezeButtons();
+    		 	Logger.d(TAG, "unfreeze onResume");
 				//	this.captureTime("gameSurfaceview resume starting");
 				this.gameSurfaceView.onResume();
 				//	this.captureTime("setup timer_ starting");
@@ -883,7 +885,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		if (this.isChartBoostActive && this.cb.onBackPressed())
 			// If a Chartboost view exists, close it and return
 			return;
-		else if (this.game.isCompleted()){
+		else if (this.game.isCompleted() && !this.isCompletedThisSession){
 			//if game is completed, just go back to whatever activity is in the stack
 			this.gameSurfaceView.onStop();
 			this.game = null;
@@ -924,16 +926,26 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					GameStateService.setGameState(this.getGameState());
 				}
 				
+				boolean backToMain = false;
+				if (this.game.isCompleted()) {backToMain = true;}
+				
 				this.gameSurfaceView.onStop();
 				this.game = null;
 				this.player = null;
 				this.gameState = null;
 				
-				Intent startMain = new Intent(Intent.ACTION_MAIN);
-				startMain.addCategory(Intent.CATEGORY_HOME);
-				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(startMain);
-				this.finish(); 	
+				if (backToMain){
+					//in this case the game was completed in this session so lets just send player to main activity
+					Intent intent = new Intent(this, com.riotapps.word.Main.class);
+		    		this.startActivity(intent); 
+				}	
+				else{
+					Intent startMain = new Intent(Intent.ACTION_MAIN);
+					startMain.addCategory(Intent.CATEGORY_HOME);
+					startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(startMain);
+					this.finish(); 	
+				}
 	 	
 		}
 
@@ -1095,6 +1107,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				        			Constants.TRACKER_LABEL_SHUFFLE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.gameSurfaceView.shuffleTray();
 			        	this.unfreezeButtons();
+		    		 	Logger.d(TAG, "unfreeze shuffle");
 			        	break;
 			        case R.id.bHopperPeek:  
 			        	this.isButtonActive = true;
@@ -1120,6 +1133,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        			Constants.TRACKER_LABEL_RECALL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			        	this.gameSurfaceView.recallLetters();
 			        	this.unfreezeButtons();
+		    		 	Logger.d(TAG, "unfreeze recall");
 						break;
 			        case R.id.bPlay:
 			        	this.isButtonActive = true;
@@ -1198,6 +1212,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        	
 		        	openAlertDialog(context.getString(R.string.sorry), message);
 					unfreezeButtons();
+	    		 	Logger.d(TAG, "unfreeze onFinishPlayErrors");
 		        }
 		    });
 		}
@@ -1311,7 +1326,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//try { 
 				 
 	    		game = GameService.resign(false, this.game);
-	    		
+	    		this.isCompletedThisSession = true;
 	    		DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 				setupButtons();
 				GameStateService.removeGameState(game.getId());
@@ -1338,6 +1353,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
 				{
+					this.isCompletedThisSession = true;
 					//display
 					this.postTurnTitle = context.getString(R.string.game_over);
 					this.postTurnMessage = 	game.getLastActionText(context); 
@@ -1345,7 +1361,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					//DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 					setupButtons();
 					setupGame();
-		 			gameSurfaceView.resetGameAfterPlay();
+		 			gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
 
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
@@ -1365,10 +1381,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					setupButtons();
 
 					setupGame();
-		 			gameSurfaceView.resetGameAfterPlay();
+		 			gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
 		 			setPointsAfterPlayView();
 		 			
 					if (game.isCompleted()) {
+						this.isCompletedThisSession = true;
 						//perhaps replace play, skip
 						GameStateService.removeGameState(game.getId());
 						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
@@ -1395,13 +1412,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
 				{
+					this.isCompletedThisSession = true;
 					//display
 					this.postTurnTitle = context.getString(R.string.game_over);
 					this.postTurnMessage = 	game.getLastActionText(context); 
 					//DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 					setupButtons();
 					setupGame();
-		 			gameSurfaceView.resetGameAfterPlay();
+		 			gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
 
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
@@ -1420,10 +1438,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					//DialogManager.SetupAlert(context, context.getString(R.string.post_turn_title_with_auto_play), String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction));					
 					setupButtons();
 					setupGame();
-		 			gameSurfaceView.resetGameAfterPlay();
+		 			gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
 		 			setPointsAfterPlayView();
 					
 					if (game.isCompleted()) {
+						this.isCompletedThisSession = true;
 						//perhaps replace play, skip
 						GameStateService.removeGameState(game.getId());
 						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
@@ -1462,7 +1481,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			//	DialogManager.SetupAlert(context, context.getString(R.string.post_turn_title_with_auto_play), String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction));
 				setupButtons();
 				setupGame();
-	 			gameSurfaceView.resetGameAfterPlay();
+	 			gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
 	 			setPointsAfterPlayView();
 				
 
@@ -1485,6 +1504,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
     		 	this.hasPostAdRun = true;
     		 	this.unfreezeButtons();
+    		 	Logger.d(TAG, "unfreeze handlePostAdServer");
     		 	DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
 	    	}
 	    }
@@ -1656,6 +1676,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    				trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_SWAP_DISMISS_OUTSIDE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 	    				unfreezeButtons();
+	        		 
 	    				dismiss();
 	    			}
 	    		});
@@ -2285,7 +2306,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		   
 		public void trackEvent(String category, String action, String label, long value){
 			try{
-				this.tracker.sendEvent(category, action,label, value);
+				this.getTracker().sendEvent(category, action,label, value);
 			}
 			catch (Exception e){
 	  			Logger.d(TAG, "trackEvent category=" + (category == null ? "null" : category) + " action=" + (action == null ? "null" : action) 

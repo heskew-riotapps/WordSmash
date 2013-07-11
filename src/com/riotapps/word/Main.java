@@ -431,6 +431,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     	//start game and go to game surface
     	try {
 			Game game = GameService.createGame(context, player, chosenOpponentId);
+
+			this.trackEvent(Constants.TRACKER_ACTION_GAME_STARTED, Constants.TRACKER_LABEL_OPPONENT, chosenOpponentId);
 			
 			Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
     		intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());

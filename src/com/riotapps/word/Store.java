@@ -3,6 +3,8 @@ package com.riotapps.word;
 import java.util.Arrays;
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.riotapps.word.billing.IabHelper;
 import com.riotapps.word.billing.IabResult;
 import com.riotapps.word.billing.Inventory;
@@ -36,7 +38,14 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	private ApplicationContext appContext;
 	private	LayoutInflater inflater;
 	private IabHelper mHelper;
- 
+	private Tracker tracker;
+	
+	public Tracker getTracker() {
+		if (this.tracker == null){
+			this.tracker = EasyTracker.getTracker();
+		}
+		return tracker;
+	}
 	
 	 @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +117,32 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 			}
 	 	};
 	 
+ 	@Override
+ 	protected void onStart() {
+ 		 
+ 		super.onStart();
+ 		 EasyTracker.getInstance().activityStart(this);
+ 	}
+
+
+ 	@Override
+ 	protected void onStop() {
+ 	 
+ 		super.onStop();
+ 		EasyTracker.getInstance().activityStop(this);
+ 	}
+	 	
+ 	private void trackEvent(String action, String label, long value){
+		try{
+			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_STORE, action,label, value);
+		}
+		catch (Exception e){
+  			Logger.d(TAG, "trackEvent action=" + (action == null ? "null" : action) 
+  					 + " label=" + (label == null ? "null" : label)  + " value=" + value +" e=" + e.toString());
+  			
+		}
+	}
+ 	
 	 public void onPurchaseCheck(IabResult result, Inventory inventory){
 		  Logger.d(TAG, "onPurchaseCheck failed=" + result.isFailure());
 		 
@@ -222,6 +257,8 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	 
 	 
 	 private void purchaseItem(String sku){
+		 this.trackEvent(Constants.TRACKER_ACTION_PURCHASE, sku, Constants.TRACKER_SINGLE_VALUE);
+		 
 		 mHelper.launchPurchaseFlow(this, sku, 10001,   
 				   mPurchaseFinishedListener, "bGoa+V7g/yqDXvKRqq+JTFn4uQZbPiQJo4pf9RzJ");
 	 }

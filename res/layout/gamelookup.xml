@@ -54,11 +54,13 @@
 	 			    android:layout_width="fill_parent"
 	 			    style="@style/ContentAreaTextBottomStyle"
 	 			    android:drawablePadding="0dp"
-	 			    android:paddingLeft="5dp"
-					android:paddingRight="5dp"
+	 			    android:paddingLeft="0dp"
+					android:paddingRight="0dp"
+					android:paddingBottom="0dp"
 					android:orientation="vertical"
 	 			>    
 	 				<com.riotapps.word.ui.ScoreboardFontTextView
+ 						android:paddingLeft="5dp"
 				        style="@style/TextStyle"
 				        android:textSize="18dp"
 				     	android:id="@+id/tvWord"
@@ -68,6 +70,7 @@
 				        android:layout_height="wrap_content" />
 	 			
 	 			    <ImageView 
+ 						android:paddingRight="5dp"
 					   	android:layout_width="wrap_content"
 				   		android:layout_height="wrap_content"
 					    android:id="@+id/ivWordnik"	
@@ -76,12 +79,13 @@
 					 />
 	 			      <com.riotapps.word.ui.MainFontTextView 
 					     style="@style/TextStyle"
-					     android:textSize="16sp"
+					     android:textSize="14sp"
 					  	 android:id="@+id/tvPreviewMessage"
 					     android:layout_width="fill_parent"
 					     android:layout_height="wrap_content"
 					     android:layout_below="@id/tvWord"
-					     android:layout_marginBottom="5dp"
+						android:paddingLeft="5dp"
+						android:paddingRight="5dp"		  
 					     
 					     />
 	 				  <com.riotapps.word.ui.MainFontTextView 
@@ -91,14 +95,20 @@
 					     android:layout_width="fill_parent"
 					     android:layout_height="wrap_content"
 					     android:layout_below="@id/tvWord"
-					     
-					     />	 
+					     android:paddingLeft="5dp"
+							android:paddingRight="5dp"
+					     />
+	 				
+	 				  	 
 		    		  <ScrollView   
-				    	android:layout_below="@id/tvWord"
+				    	android:layout_below="@id/tvPreviewMessage"
 				    	android:layout_width="fill_parent"
 				    	android:layout_height="fill_parent" 
 				    	android:fadingEdge="none"
-				    	 >
+				    	android:layout_marginRight="5dp"  
+ 				    	android:layout_marginLeft="5dp"  
+ 				    	android:layout_marginBottom="50dp"  
+ 				    	 >
 				   
 				    	 <LinearLayout
 						    android:layout_width="fill_parent"
@@ -109,8 +119,45 @@
 						    
 				    	   </LinearLayout>  
 		    		  </ScrollView>
-		     </RelativeLayout>
-				 
+			  <LinearLayout
+			        style="@style/FormButtonAreaStyle"
+			 	   android:id="@+id/llOK"
+		 		   android:gravity="center"
+			        android:layout_height="50dp"
+					android:layout_width="fill_parent"
+					android:layout_alignParentBottom="true"
+	        	>
+ 
+				<com.riotapps.word.ui.MainFontTextView
+				  
+				        android:id="@+id/tvOK"
+				        android:layout_width="fill_parent"
+				        android:layout_height="wrap_content"
+						style="@style/TextStyle"
+						android:gravity="center"
+						android:text="@string/ok"
+						android:textSize="20sp"
+						android:textColor="@color/sub_text_color"
+					 
+				    />
+					<com.riotapps.word.utils.TypefaceButton 
+				  	    style="@style/ButtonStyle"
+				  	    android:id="@+id/bStore"
+				        android:layout_width="120dp" 
+				       
+				        android:text="@string/go_to_store"
+				    />
+					<com.riotapps.word.utils.TypefaceButton 
+				  	    style="@style/ButtonStyle"
+				  	    android:id="@+id/bNoThanks"
+				        android:layout_width="120dp" 
+				        android:layout_marginLeft="4dp"
+				        android:text="@string/no_thanks"
+				    />
+		
+	    			</LinearLayout>		    		  
+			     </RelativeLayout>
+	 
 		    </LinearLayout>
 	</LinearLayout>   
 </LinearLayout>

@@ -55,9 +55,12 @@ public class Constants {
 	/**============================================
 	 * tracker constants
 	 *=============================================*/
+	
+	public static final String TRACKER_CATEGORY_STORE = "store";
+	public static final String TRACKER_CATEGORY_GAME_LOOKUP = "game_lookup";
 	public static final String TRACKER_CATEGORY_GAMEBOARD = "game_surface";
 	public static final String TRACKER_CATEGORY_START_GAME = "start_game";
-	public static final String TRACKER_CATEGORY_MAIN_LANDING = "main_landing";
+	public static final String TRACKER_CATEGORY_MAIN_LANDING = "main";
 	public static final String TRACKER_CATEGORY_ADD_OPPONENTS = "add_opponents";
 	public static final String TRACKER_LABEL_START_GAME = "start_game";
 	public static final String TRACKER_LABEL_START_GAME_MAX_REACHED = "start_game_max_reached";
@@ -68,8 +71,14 @@ public class Constants {
 	public static final String TRACKER_LABEL_FIND_BY_FACEBOOK = "by_facebook";
 	public static final String TRACKER_LABEL_FIND_BY_OPPONENT = "by_opponent";
 	public static final String TRACKER_ACTION_BUTTON_TAPPED = "button_click";
+	public static final String TRACKER_ACTION_WORD_LOOKED_UP = "word_looked_up";
+	public static final String TRACKER_ACTION_GAME_STARTED = "game_started";
+	public static final String TRACKER_ACTION_PURCHASE = "purchase";
+	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
+	public static final String TRACKER_LABEL_OPPONENT = "opponent";
 	public static final String TRACKER_LABEL_RECALL = "recall_letters";
 	public static final String TRACKER_LABEL_SHUFFLE = "shuffle";
+	public static final String TRACKER_LABEL_WORD = "word";
 	public static final String TRACKER_LABEL_PLAY_INITIAL = "play_initial";
 	public static final String TRACKER_LABEL_PLAY_CANCEL = "play_cancel";
 	public static final String TRACKER_LABEL_PLAY_DISMISS = "play_dismiss";
@@ -102,7 +111,7 @@ public class Constants {
 	public static final String TRACKER_LABEL_CANCEL_OK = "cancel_ok";
 	public static final String TRACKER_LABEL_PLAY_WITH_ERRORS = "play_with_errors";
 	public static final long TRACKER_DEFAULT_OPTION_VALUE = 0;
-	
+	public static final long TRACKER_SINGLE_VALUE = 1;
 	
 	/**============================================
 	 * error codes. can change to eum later

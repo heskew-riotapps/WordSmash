@@ -10,7 +10,9 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.PlayedWord;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.StoreService;
+import com.riotapps.word.ui.HopperPeekDialog;
 import com.riotapps.word.ui.MenuUtils;
+import com.riotapps.word.ui.WordLookupDialog;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
@@ -104,8 +106,13 @@ private void loadList(){
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                 long id) {
+        	
+        //	final WordLookupDialog dialog = new WordLookupDialog(GameHistory.this, view.getTag().toString());
+	       	 
+	    //	dialog.show();
+        	
         	//this will eventually call wordnik for definition lookup
-        	Intent intent = new Intent(context, GameLookup.class);
+         	Intent intent = new Intent(context, GameLookup.class);
         	intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
         	intent.putExtra(Constants.EXTRA_WORD_LOOKUP, view.getTag().toString());
 			startActivity(intent);

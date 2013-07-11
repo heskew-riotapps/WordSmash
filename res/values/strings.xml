@@ -584,7 +584,7 @@
 		<string name="word_definition_purchase_offer">Now that the free previews are over, looking up word definitions requires a Word Definition Lookups upgrage or a Premium Upgrade.  Just tap the button to go to the store to get unlimited lookups of word definitions.  It\'s a great way to learn as you play!</string>
 		<string name="word_definition_preview">You have %s more free uses before needing a Word Definition Lookups upgrade or a Premium Upgrade.</string>
 		<string name="word_definition_1_preview_left">You have 1 more free use before needing a Word Definition Lookups upgrade or a Premium Upgrade.</string>
-		<string name="word_definition_no_previews_left">To keep using hopper peeks, you\'ll need a Word Definition Lookups upgrade or a Premium Upgrade!\n</string>
+		<string name="word_definition_no_previews_left">To keep looking up word definitions, you\'ll need a Word Definition Lookups upgrade or a Premium Upgrade!</string>
 	
 		<string name="purchase_thanks_hopper_peek">We hope you enjoy your unlimited usage of Hopper Peeks!</string>	
 		<string name="purchase_thanks_word_hints">We hope you enjoy your unlimited usage of Word Hints!</string>

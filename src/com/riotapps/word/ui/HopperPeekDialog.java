@@ -2,6 +2,8 @@ package com.riotapps.word.ui;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.riotapps.word.GameSurface;
 import com.riotapps.word.Main;
 import com.riotapps.word.R;
@@ -39,6 +41,14 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 	private GameSurface parent;
 	private View layout;
 	private TextView peek_description;
+private Tracker tracker;
+	
+	public Tracker getTracker() {
+		if (this.tracker == null){
+			this.tracker = EasyTracker.getTracker();
+		}
+		return tracker;
+	}
 	
 	public HopperPeekDialog(GameSurface context, Game game){
 		super(context);
@@ -93,8 +103,7 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 			
 			if (!StoreService.isHopperPeekPurchased()){
 				tvOK.setVisibility(View.GONE);
-				bStore.setOnClickListener(this);
-				bNoThanks.setOnClickListener(this);
+			
 				int remainingFreeUses  = PlayerService.removeAFreeUseFromHopperPeek();
 				if (remainingFreeUses > 1){
 					this.peek_description.setText(String.format(this.parent.getString(R.string.hopper_peek_preview), this.peek_description.getText(), String.valueOf(remainingFreeUses)));
@@ -142,8 +151,26 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 		
 		//LayoutParams params = new LayoutParams();
 		//params.horizontalMargin = 10f;
-		
+		 if (bNoThanks.getVisibility() == View.VISIBLE){
+    		 bStore.setOnClickListener(this);
+		     bNoThanks.setOnClickListener(this);
+    	 }
+		 
 		this.setContentView(this.layout);
+		 
+		this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, String.valueOf(this.game.getTurn()), this.game.getHopper().size());
+	     
+	 }
+			
+	private void trackEvent(String action, String label, long value){
+		try{
+			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_GAME_LOOKUP, action,label, value);
+		}
+		catch (Exception e){
+  			Logger.d(TAG, "trackEvent action=" + (action == null ? "null" : action) 
+  					 + " label=" + (label == null ? "null" : label)  + " value=" + value +" e=" + e.toString());
+  			
+		}
 	}
 		
 	
@@ -167,6 +194,9 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 				this.parent.startActivity(intent); 
 				break;
 			case R.id.bNoThanks:
+				this.dismiss();
+				break;
+			default:
 				this.dismiss();
 				break;
 		}

@@ -2,6 +2,7 @@ package com.riotapps.word;
 
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Tracker;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Player;
@@ -26,6 +27,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -57,6 +59,14 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	private CustomProgressDialog spinner;
 	private String word;
 	ApplicationContext appContext;
+	private Tracker tracker;
+	
+	public Tracker getTracker() {
+		if (this.tracker == null){
+			this.tracker = EasyTracker.getTracker();
+		}
+		return tracker;
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +94,9 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	     this.tvNotFound = (TextView)this.findViewById(R.id.tvNotFound);
 	     this.tvPreviewMessage = (TextView) this.findViewById(R.id.tvPreviewMessage);
 	     //tvNotFound.setText(context.getString(R.string.lookup_definition_not_found));
+	     TextView tvOK = (TextView)this.findViewById(R.id.tvOK);
+	     Button bNoThanks = (Button)this.findViewById(R.id.bNoThanks);
+	     Button bStore = (Button)this.findViewById(R.id.bStore);
 	     
 	     MenuUtils.hideMenu(this);
 	     
@@ -96,11 +109,12 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	    	 this.tvPreviewMessage.setText(this.getString(R.string.word_definition_purchase_offer));
 	   		 this.llDefs.setVisibility(View.GONE);
 	   		 this.tvNotFound.setVisibility(View.GONE);
+	   		tvOK.setVisibility(View.GONE);
+	   		ivWordnik.setVisibility(View.GONE);
 	     }
 	     else {
 	    	 if (!StoreService.isWordDefinitionLookupPurchased()){
-					//bStore.setOnClickListener(this);
-					//bNoThanks.setOnClickListener(this);
+					
 					int remainingFreeUses  = PlayerService.removeAFreeUseFromWordDefinition();
 					if (remainingFreeUses > 1){
 						this.tvPreviewMessage.setText(String.format(this.getString(R.string.word_definition_preview), String.valueOf(remainingFreeUses)));
@@ -111,9 +125,20 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 					else{
 						this.tvPreviewMessage.setText(this.getString(R.string.word_definition_no_previews_left));					
 					}
+					
+					tvOK.setVisibility(View.GONE);
 				}
+	    	 else {
+		    		bNoThanks.setVisibility(View.GONE);
+	    		    bStore.setVisibility(View.GONE); 
+	    		    //change margin of definition area?
+	    		    tvOK.setOnClickListener(this);
+	    		    tvPreviewMessage.setVisibility(View.GONE);
+	    		    this.tvPreviewMessage.setVisibility(View.GONE);
+	    		    
+	    	 }
 	    	 
-	    	 
+	    	
 		     System.setProperty("WORDNIK_API_KEY", this.getString(R.string.wordnik_apiKey));
 		 
 		     this.spinner = new CustomProgressDialog(this);
@@ -123,6 +148,24 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 		     task = new WordnikLookup(word.toLowerCase());
 		     task.execute("");
 	     }
+	     
+	     if (bNoThanks.getVisibility() == View.VISIBLE){
+    		 bStore.setOnClickListener(this);
+		     bNoThanks.setOnClickListener(this);
+    	 }
+	     this.trackEvent(Constants.TRACKER_ACTION_WORD_LOOKED_UP, this.word, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	     
+	}
+	
+	public void trackEvent(String action, String label, long value){
+		try{
+			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_GAME_LOOKUP, action,label, value);
+		}
+		catch (Exception e){
+  			Logger.d(TAG, "trackEvent action=" + (action == null ? "null" : action) 
+  					 + " label=" + (label == null ? "null" : label)  + " value=" + value +" e=" + e.toString());
+  			
+		}
 	}
 	
 	@Override
@@ -245,6 +288,19 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
         	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.format(Constants.WORDNIK_WORD_URL, this.word.toLowerCase())));
 	   		startActivity(browserIntent);
         	break;
+        case R.id.llOK:
+        	this.finish();
+			break;
+		case R.id.bStore: 
+			Intent intent = new Intent(this, com.riotapps.word.Store.class);
+			this.startActivity(intent); 
+			break;
+		case R.id.bNoThanks:
+			this.finish();
+			break;
+		default:
+			this.finish();
+			break;
 		}
 		
 	}

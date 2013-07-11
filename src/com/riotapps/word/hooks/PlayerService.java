@@ -213,7 +213,8 @@ public class PlayerService {
 	
 	public static int getRemainingFreeUsesWordDefinition(){
 		
-		 return PlayerData.getRemainingFreeUsesWordDefinition();	}
+		 return PlayerData.getRemainingFreeUsesWordDefinition();	
+	}
 	
 	public static int removeAFreeUseFromHopperPeek(){
 		//remain number of free uses is returned
