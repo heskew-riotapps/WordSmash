@@ -60,4 +60,6 @@
 	<color name="main_label_background_color">#3366dd</color>
 	<color name="header_text_color">#fff5ee</color>
 	<color name="store_item_divider_color">#f62222</color>
+	<color name="header_bottom_border_color">#3366dd</color>
+	<color name="store_item_title_color">#f62222</color>
 </resources>

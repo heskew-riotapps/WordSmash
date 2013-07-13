@@ -306,9 +306,9 @@ public class GameService {
 			game.getPlayerGames().get(1).setTurn(!isOpponent);	
 		}
 //		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed starting");
-//		Logger.d(TAG, "is aaaabenn indexed? " + WordService.isWordIndexed("aaaabenn"));
+ //		Logger.d(TAG, "is aaaabenn indexed? " + WordService.isWordIndexed("aaaabenn"));
 //		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 1 ended");
-//		Logger.d(TAG, "is ehiinooopstz indexed? " + WordService.isWordIndexed("ehiinooopstz"));
+	//	Logger.d(TAG, "is ehiinooopstz indexed? " + WordService.isWordIndexed("ehiinooopstz"));
 //		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 2 ended");
 		
 		GameService.saveGame(game);
@@ -666,11 +666,11 @@ public static Game skip(boolean isOpponent, Game game){
 		 ivOpponent.setImageResource(opponentImageId);
 
 		 TextView tvLettersLeft = (TextView)context.findViewById(R.id.tvLettersLeft);
-		 if (game.getNumLettersLeft() == 1){
+		 if (game.getHopper().size() == 1){
 			 tvLettersLeft.setText(R.string.scoreboard_1_letter_left);
 		 }
 		 else{
-			 tvLettersLeft.setText(String.format(context.getString(R.string.scoreboard_letters_left), game.getNumLettersLeft()));
+			 tvLettersLeft.setText(String.format(context.getString(R.string.scoreboard_letters_left), game.getHopper().size()));
 		 }
  
 	 }

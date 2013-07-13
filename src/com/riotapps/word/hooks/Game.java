@@ -454,9 +454,9 @@ public class Game implements Parcelable, Comparable<Game> {
 		this.playerGames = playerGames;
 	}
  
-	public int getNumLettersLeft() {
-		return this.hopper.size();
-	}
+	//public int getNumLettersLeft() {
+	//	return this.hopper.size();
+	//}
 
 	 
  

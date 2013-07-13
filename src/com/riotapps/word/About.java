@@ -9,6 +9,8 @@ import com.riotapps.word.utils.Constants;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -31,13 +33,35 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        TextView tvSupportText = (TextView)this.findViewById(R.id.tvSupportText);
 	        TextView tvSupportLink = (TextView)this.findViewById(R.id.tvSupportLink);
 	        TextView tvVersion = (TextView)this.findViewById(R.id.tvVersion);
+	        TextView tvVersionName = (TextView)this.findViewById(R.id.tvVersionName);
 	        TextView tvBuildNumber = (TextView)this.findViewById(R.id.tvBuildNumber);
+	        TextView tvSmileyAttribution = (TextView)this.findViewById(R.id.tvSmileyAttribution);
+	        TextView tvSmileyAttributionLink = (TextView)this.findViewById(R.id.tvSmileyAttributionLink);
+	        
+	        String versionCode = this.getString(R.string.version);
+	        String versionName = this.getString(R.string.versionName);
+	      
+	        /*
+	        try {
+				PackageInfo pinfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+				versionCode = pinfo.versionCode;
+				versionName = pinfo.versionName;
+				
+			} catch (NameNotFoundException e) {
+				versionCode = 2;
+				versionName = "x";
+			}
+			*/
 	        
 	        tvBuildNumber.setText(String.format(this.getString(R.string.about_build_number), this.getString(R.string.build)));
-	        tvVersion.setText(String.format(this.getString(R.string.about_version), this.getString(R.string.version)));	        
+	        tvVersion.setText(String.format(this.getString(R.string.about_version), versionCode));	
+	        tvVersionName.setText(String.format(this.getString(R.string.version_name_display),versionName));
 	
 	        tvSupportLink.setOnClickListener(this);
 	        tvSupportText.setOnClickListener(this);
+	        tvSupportText.setOnClickListener(this);
+	        tvSmileyAttribution.setOnClickListener(this);
+	        tvSmileyAttributionLink.setOnClickListener(this);
 	        
 	        MenuUtils.hideMenu(this);
 	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_about));
@@ -51,10 +75,17 @@ public class About extends FragmentActivity implements View.OnClickListener{
 
 	@Override
 	public void onClick(View v) {
+		Intent browserIntent;
+		
 		switch(v.getId()){  
         case R.id.tvSupportLink:  
         case R.id.tvSupportText:  
-        	Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SUPPORT_SITE_URL));
+        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SUPPORT_SITE_URL));
+	   		startActivity(browserIntent);
+			break;
+        case R.id.tvSmileyAttributionLink:
+        case R.id.tvSmileyAttribution:
+        	browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.CODICODE_URL));
 	   		startActivity(browserIntent);
 			break;
 		}

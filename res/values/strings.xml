@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="version">.9</string>
+    <string name="version">1.0</string>
+    <string name="versionName">Apple Pie</string>
     <string name="build">101</string>
     
     
@@ -29,6 +30,7 @@
     <string name="app_name">WordSmash</string>
     <string name="anonymous_player_name">You</string>
     
+    <string name="version_name_display">(%s)</string>
     <string name="join_via_facebook">connect with facebook</string>
 	<string name="join_via_native">connect with your email address</string>
 	<string name="join_title">Join WordSmash to get started</string>
@@ -152,10 +154,9 @@
  	<string name="about_option">about WordSmash</string>
  	<string name="full_rules_title">full set of rules</string>
  	<string name="full_rules_subtitle">all the details</string>
- 	<string name="full_rules_1">The idea is to score more points than your opponent (or opponents) by forming valid words out of the letters in your tray. 
-                   Letters must be placed on the board in a single axis, either horizontally or vertically.  As you win more games, 
-                   you\'ll earn new badges.</string>
-   	<string name="full_rules_2">To start the game, the letters of the first word must placed on at least one of the smiley faces.  All words must contain 2 or more letters. 
+ 	<string name="full_rules_1">The idea is to score more points than your opponent by forming valid words out of the letters in your tray combined with the letters 
+ 	    		   on the board.  Letters must be placed on the board in a single axis, either horizontally or vertically.</string>
+   	<string name="full_rules_2">To start the game, the letters of the first word must placed on at least one of the four smiley faces n the middle of the board.  All words must contain 2 or more letters. 
                        The players alternate turns. Each turn after the first (with the exception of skips and swaps) must 
                        place at least one letter next to a previously placed letter on the board, either to the left or right or above or below, OR overlaying 
                        a previously played letter.</string>                
@@ -165,6 +166,7 @@
  	<string name="full_rules_4">A player can skip a turn or swap letters.  
                        Swapped letters are returned to the hopper, the hopper is reshuffled, and the amount of swapped letters are pulled out of the hopper
                        and given to the player.  The player\'s turn is then skipped.  Swapping is not allowed after the hopper is empty.</string>  
+ 	<string name="full_rules_letters_0">The Basics</string>
  	<string name="full_rules_letters_1">The Letters</string>
  	<string name="full_rules_letters_2">105 letters are shuffled and stored in the hopper until they are dispersed into the player\'s trays.  The mix of the first 100 letters is as follows:</string>                      
  	<string name="full_rules_letters_3">The final 5 letters are made up of 4 randomly chosen consonants and 1 randomly chosen vowel (A, E, I, O, or U).  The random letters will 
@@ -191,18 +193,15 @@
     <string name="full_rules_finish_1">Win, Lose, or Draw</string>                        
     <string name="full_rules_finish_2">Normally, the game ends when a player uses all of the letters in his or her tray after the hopper has been emptied. 
                             The first player to finish his or her letters gets a bonus value added to his or her score.
-                            The bonus is equal to the accumulated value of all of the letters left in all of the opponents\' trays.  For instance, in a two-player game, if a player finished out the 
-                            letters (and the hopper was empty) and the opponent still had a "K", a "U", and a "B" left in the tray, a bonus of 15 points would be awarded
+                            The bonus is equal to the accumulated value of all of the letters left in all of the opponent\'s tray.  For instance, if you finished out the 
+                            letters in your tray (and the hopper was empty) and your opponent still had a "K", a "U", and a "B" left in the tray, a bonus of 15 points would be awarded
                             to the player in addition to the points that the turn earned.  The player with the most points after the bonus is awarded is declared the 
-                            winner.  If any players have the same high score, a draw is declared.</string>
+                            winner.  If you and your opponent have the same score, a draw is declared.</string>
     <string name="full_rules_finish_3">If 2 skips in a row happen by each player, the game is automatically stopped and a winner is determined based on the 
-                                points already earned by the players.  No bonus points are awarded in this situation.  If any players have the same high score, a draw is declared.</string>
-    <string name="full_rules_finish_4">In a two-player game, if a player concedes, the opponent automatically wins, even if the player was leading at the time or the score was tied.  
-                               If the player was leading (or the score was tied) when the concede button was clicked, the opponent\'s score is adjusted to be 1 point higher
-                               than the player\'s score, making the opponent the winner.  In a three-player or four-player game, the game continues even after a player concedes as long as 
-                               there are at least two active players in the game.  When there are only two players left in the game and one of the players concedes,
-                               the rules for a two-player game applies in terms of conceding.</string>
-    <string name="full_rules_finish_5">If a turn has not been taken for 10 days (or so), the player whose turn is pending will automatically "concede".</string>                            
+                                points already earned by the players.  No bonus points are awarded in this situation.  Again, if you and your opponent have the same score, a draw is declared.</string>
+    <string name="full_rules_finish_4">If you concede, your opponent automatically wins, even if you were leading at the time or the score was tied.  
+                               If you were leading leading (or the score was tied) when the concede button was clicked, the opponent\'s score is adjusted to be 1 point higher
+                               than the your score, making your opponent the winner.  The same is true in the opposite.  If your opponent concedes, you automatically win, even if your opponent is leading at the time.</string>
     <string name="full_rules_dictionary_1">The Dictionary</string>                                                                 		
     <string name="full_rules_dictionary_2">The original source for the dictionary is 
                         <a href="http://code.google.com/p/dotnetperls-controls/downloads/detail?name=enable1.txt">Enhanced North American Benchmark Lexicon (ENABLE)</a>. 
@@ -545,6 +544,7 @@
 		<string name="about_build_number">build: %s</string>		
 		<string name="about_support">Need support? Have comments? Want to report a bug?</string>	 
 		<string name="about_support_link">http://www.getsatisfaction.com/wordsmash</string>	 
+		<string name="smiley_attribution_link">http://www.codicode.com</string>	 
 		
 		<string name="main_your_record_label">Your record vs. %s</string>	 
 		<string name="main_wins">%s wins</string>
@@ -606,5 +606,6 @@
 		<string name="store_item_no_ads_description">Want to get rid of the ads between moves?  This is the upgrade for you.</string>
 	    <string name="store_item_hopper_peek_title">Peek at the Hopper</string>
 		<string name="store_item_hopper_peek_description">At any time, you will be able to see which letters are left in play in the hopper
-		     as well as in your opponent\'s tray.  Unlimited usage.</string>			
+		     as well as in your opponent\'s tray.  Unlimited usage.</string>		
+		<string name="smiley_attribution">Thanks to Codicode for the cool smiley characters!</string>     	
 </resources>

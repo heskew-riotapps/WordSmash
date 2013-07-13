@@ -277,19 +277,16 @@ com.google.gson.stream.JsonReader:
 com.riotapps.word.GameSurface:
     private com.riotapps.word.utils.ImageFetcher imageLoader
     private android.view.SurfaceView surfaceView
-    1170:1173:private void loadPlaySpinner()
-    1803:1815:private void setupRunawayAdTimer()
-    1853:1863:private void loadAdMobInterstitialAd()
-    2285:2286:private void trackEvent(java.lang.String,java.lang.String,int)
+    1174:1177:private void loadPlaySpinner()
+    1814:1826:private void setupRunawayAdTimer()
+    1864:1874:private void loadAdMobInterstitialAd()
+    2296:2297:private void trackEvent(java.lang.String,java.lang.String,int)
     92:92:static synthetic boolean access$9(com.riotapps.word.GameSurface)
-    112:112:static synthetic com.google.ads.InterstitialAd access$10(com.riotapps.word.GameSurface)
-    112:112:static synthetic void access$11(com.riotapps.word.GameSurface,com.google.ads.InterstitialAd)
-    114:114:static synthetic com.riotapps.word.utils.CustomProgressDialog access$12(com.riotapps.word.GameSurface)
+    113:113:static synthetic com.google.ads.InterstitialAd access$10(com.riotapps.word.GameSurface)
+    113:113:static synthetic void access$11(com.riotapps.word.GameSurface,com.google.ads.InterstitialAd)
+    115:115:static synthetic com.riotapps.word.utils.CustomProgressDialog access$12(com.riotapps.word.GameSurface)
 com.riotapps.word.GameSurface$checkRunawayAdTask
 com.riotapps.word.GameSurface$checkRunawayAdTaskRunnable
-com.riotapps.word.Main:
-    176:177:private void trackEvent(java.lang.String,java.lang.String,int)
-    181:187:private void trackEvent(java.lang.String,java.lang.String,long)
 com.riotapps.word.Splash:
     android.os.Handler handler
     private com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
@@ -348,6 +345,8 @@ com.riotapps.word.ui.GameSurfaceView:
     2781:2782:private void onBoardClear()
 com.riotapps.word.ui.GameThread:
     long sleepTime
+com.riotapps.word.ui.WordLookupDialog:
+    com.riotapps.word.utils.ApplicationContext appContext
 com.riotapps.word.utils.DiskLruCache:
     private static final java.lang.String TAG
     private static final java.lang.String CACHE_FILENAME_PREFIX

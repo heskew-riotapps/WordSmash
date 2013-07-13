@@ -27,7 +27,7 @@
 		<com.riotapps.word.ui.MainFontTextView
 		        style="@style/ContentAreaTextTopStyle"
 		        android:paddingTop="0dp"
-		        android:layout_height="15dp"
+		        android:layout_height="12dp"
 		        />
 		 
 		<LinearLayout 
@@ -56,9 +56,9 @@
 			> 
 		 
 				 <com.riotapps.word.ui.MainFontTextView
-				        style="@style/ContentAreaTextStyle"
+				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvPremiumUpgradeTitle"
-				        android:textSize="18sp" 
+				  
 				        />
  				  <com.riotapps.word.ui.StoreItemPriceButton 
 				  	    style="@style/StoreItemPriceButtonStyle"
@@ -74,7 +74,7 @@
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvPremiumUpgradeDescription"
-				        android:textSize="16sp" 
+				
 				        android:layout_below="@id/tvPremiumUpgradeTitle"
 				        android:layout_toLeftOf="@id/bPremiumUpgradePrice"
 				        />
@@ -95,9 +95,9 @@
 					android:layout_marginTop="5dp"
 				> 
 				<com.riotapps.word.ui.MainFontTextView
-				        style="@style/ContentAreaTextStyle"
+				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvNoAdsTitle"
-				        android:textSize="18sp" 
+				
 				        />
  				  <com.riotapps.word.ui.StoreItemPriceButton 
 				  	    style="@style/StoreItemPriceButtonStyle"
@@ -113,7 +113,7 @@
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvNoAdsDescription"
-				        android:textSize="16sp" 
+				       
 				        android:layout_below="@id/tvNoAdsTitle"
 				        android:layout_toLeftOf="@id/bNoAdsPrice"
 				        />
@@ -134,9 +134,9 @@
 					android:layout_marginTop="5dp"
 				> 
 				<com.riotapps.word.ui.MainFontTextView
-				        style="@style/ContentAreaTextStyle"
+				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvWordDefinitionsTitle"
-				        android:textSize="18sp" 
+				 
 				        />
  				  <com.riotapps.word.ui.StoreItemPriceButton 
 				  	    style="@style/StoreItemPriceButtonStyle"
@@ -152,7 +152,7 @@
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvWordDefinitionsDescription"
-				        android:textSize="16sp" 
+			
 				        android:layout_below="@id/tvWordDefinitionsTitle"
 				       android:layout_toLeftOf="@id/bWordDefinitionsPrice"
 				        />
@@ -175,9 +175,8 @@
 					 android:layout_marginTop="5dp" 
 				> 
 				<com.riotapps.word.ui.MainFontTextView
-				        style="@style/ContentAreaTextStyle"
+				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvHopperPeekTitle"
-				        android:textSize="18sp" 
 				        />
  				  <com.riotapps.word.ui.StoreItemPriceButton 
 				  	    style="@style/StoreItemPriceButtonStyle"
@@ -193,7 +192,6 @@
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvHopperPeekDescription"
-				        android:textSize="16sp" 
 				        android:layout_below="@id/tvHopperPeekTitle"
 				       android:layout_toLeftOf="@id/bHopperPeekPrice"
 				      

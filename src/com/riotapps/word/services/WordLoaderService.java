@@ -1,9 +1,6 @@
 package com.riotapps.word.services;
 
-import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.WordService;
-import com.riotapps.word.utils.ApplicationContext;
-import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
@@ -67,6 +64,10 @@ public class WordLoaderService extends Service {
          protected String doInBackground(String... params) {
         	//   ApplicationContext appContext = (ApplicationContext)getApplicationContext();
         	   try{
+        		   captureTime("index - load started");
+        		   WordService.isWordIndexed("aaaabenn");
+        		   captureTime("index - loaded");
+        		   
         		   WordService.isWordValid("aaa"); 
         		  // appContext.getWordService().isWordValid("aaa");     			  
         		   captureTime("letter a - loaded");

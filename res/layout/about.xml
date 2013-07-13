@@ -38,22 +38,10 @@
 	>
 		<com.riotapps.word.ui.MainFontTextView
 		        style="@style/ContentAreaTextTopStyle"
+		           android:paddingTop="0dp"
+		        android:layout_height="12dp"
 		        />
-		    <com.riotapps.word.ui.MainFontTextView
-		 		android:layout_marginTop="-32dp"
-		        android:background="@drawable/form_item_top"
-		        android:textSize="14dp"
-		        android:text="@string/about_title" 
-		        android:id="@+id/header"
-		        android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textColor="@color/button_text_color"
-	 
-				android:paddingBottom="5dp"
-				android:paddingLeft="16dp"
-				android:paddingRight="16dp"
-				android:paddingTop="5dp"
-		        /><LinearLayout 
+		   <LinearLayout 
             style="@style/ContentAreaTextBottomStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -65,48 +53,77 @@
     	android:fadingEdge="none"
     	
     	 >
-	<LinearLayout 
+	<RelativeLayout 
 	   	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent" 
-		android:orientation="vertical"
+    	android:layout_height="wrap_content" 
+	 
 	    > 
 
 
 <com.riotapps.word.ui.MainFontTextView
         style="@style/ContentAreaTextStyle"
         android:text="@string/about_main"
-        android:textSize="14dp" 
+     android:id="@+id/about_main"
         />
    
  
    <com.riotapps.word.ui.MainFontTextView
         style="@style/ContentAreaTextStyle" 
         android:id="@+id/tvVersion"
-        android:textSize="14dp"
+       android:layout_below="@id/about_main"
+       android:layout_width="wrap_content" 
+        />
+   
+     <com.riotapps.word.ui.MainFontTextView
+        style="@style/ContentAreaTextStyle" 
+        android:id="@+id/tvVersionName"
+       android:layout_toRightOf="@id/tvVersion"
+            android:layout_width="wrap_content" 
+            android:layout_below="@id/about_main"
         />
    
     <com.riotapps.word.ui.MainFontTextView
         style="@style/ContentAreaTextStyle"
         android:id="@+id/tvBuildNumber"
-        android:textSize="14dp"
+         android:layout_below="@id/tvVersion"
+    
         />
      <com.riotapps.word.ui.MainFontTextView
         style="@style/ContentAreaTextStyle"
         android:text="@string/about_support" 
         android:id="@+id/tvSupportText"
-        android:textSize="14dp"
+        android:layout_below="@id/tvBuildNumber"
+      	android:paddingBottom="0dp"       
+       
         />
      <com.riotapps.word.ui.MainFontTextView
-        style="@style/ContentAreaTextStyle"
+        style="@style/ContentAreaLinkStyle"
         android:id="@+id/tvSupportLink"
         android:text="@string/about_support_link" 
-         android:background="@drawable/text_selector_bottom"
-        android:textSize="14dp"
+      	android:layout_below="@id/tvSupportText"
+      	android:layout_marginLeft="10dp"
+      	android:paddingTop="2dp"
         />
   	
+      <com.riotapps.word.ui.MainFontTextView
+        style="@style/ContentAreaTextStyle"
+        android:id="@+id/tvSmileyAttribution"
+         android:text="@string/smiley_attribution" 
+     	 android:layout_below="@id/tvSupportLink"
+  		android:paddingBottom="0dp"   
+        />
 
+      <com.riotapps.word.ui.MainFontTextView
+        style="@style/ContentAreaLinkStyle"
+        android:id="@+id/tvSmileyAttributionLink"
+         android:background="@drawable/text_selector_bottom"
+      	android:layout_below="@id/tvSmileyAttribution"
+      	android:paddingTop="2dp"
+  		android:text="@string/smiley_attribution_link" 
+  		android:layout_marginLeft="10dp"
+        />
  
-</LinearLayout>
+</RelativeLayout>
  </ScrollView> 
 </LinearLayout>
 </LinearLayout> 

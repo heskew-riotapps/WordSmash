@@ -265,6 +265,7 @@ public class Constants {
 	public static final String GRAVATAR_SITE_URL = "http://en.gravatar.com";
 	public static final String SUPPORT_SITE_URL = "http://www.getsatisfaction.com/wordsmash";
 	public static final String WORDNIK_WORD_URL = "http://www.wordnik.com/word/%s";
+	public static final String CODICODE_URL = "http://www.codicode.com/";
 	
 	/**=============================================
 	 * rails
@@ -326,6 +327,7 @@ public class Constants {
 	/**=============================================
 	 * opponent image modes 
 	 *==============================================*/
+	public static final String OPPONENT_IMAGE_MODE_MAIN_X_LARGE = "main_xl";
 	public static final String OPPONENT_IMAGE_MODE_MAIN = "main";
 	public static final String OPPONENT_IMAGE_MODE_SMALL = "small";
 

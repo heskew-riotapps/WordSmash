@@ -607,7 +607,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	
 	 	bPlay.setClickable(this.game.isContextPlayerTurn());
 	 	
-	 	Logger.d(TAG, "getNumLettersLeft=" + this.game.getNumLettersLeft());
+//	 	Logger.d(TAG, "getNumLettersLeft=" + this.game.getHopper().size());
 	 	
 	 	if (this.game.getPlayedWords().size() > 0){
 	 		bPlayedWords.setOnClickListener(this);
@@ -617,7 +617,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 		bPlayedWords.setClickable(false);
 	 		bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));	 		
 	 	}
-	  	if (this.game.getNumLettersLeft() > 0){
+	  	if (this.game.getHopper().size() > 0){
 	 		bSwap.setOnClickListener(this);
 	 		bSwap.setClickable(this.game.isContextPlayerTurn());
  		//	Logger.d(TAG, "bSwap clickable");
@@ -638,17 +638,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	//by default recall button will be hidden, it will be switched with shuffle button when a letter is dropped on the board
 	 	this.bRecall.setVisibility(View.GONE); 
 	 	
-	 	
-	 //	Logger.d(TAG, "setupButtons this.game.getNumActiveOpponents()=" + this.game.getNumActiveOpponents());
-	 //	Logger.d(TAG, "setupButtons this.game.getTurn()=" + this.game.getTurn());
-	 //	Logger.d(TAG, "setupButtons this.game.isContextPlayerStarter()=" + this.game.isContextPlayerStarter(this.player));
-	 //	Logger.d(TAG, "setupButtons this.game.getStatus()=" + this.game.getStatus());
-	 	
-	 	
-	 	 
 	 	//set cancel button area mode:
 	 	//if it's the first play of the game by starting player, it should be "CANCEL" mode
-	 	//if it's the first play of the game by a non-starting player, it should be in "DECLINE" mode
 	 	//if it's not the first play of the game, it should be in "RESIGN" mode
 	 	
 	 	Logger.d(TAG, "setupButtons game status=" + this.game.getStatus());
@@ -667,6 +658,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 		bResign.setVisibility(View.VISIBLE);
 		 		bResign.setClickable(this.game.isContextPlayerTurn());
 		 	}
+		 	
 
 	 	}
 	 	else if(this.game.isCompleted()){  

@@ -3,10 +3,12 @@ package com.riotapps.word.hooks;
 import java.lang.reflect.Type;
 
 import java.net.URLEncoder;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONException;
 import android.annotation.SuppressLint;
@@ -124,24 +126,23 @@ public class PlayerService {
 	public static void loadPlayerInHeader(final FragmentActivity context, Player player) { //, Boolean activateGravatarOnClick){
 	//	 Player player = PlayerService.getPlayerFromLocal();
 
-	/*
-		Logger.d(TAG, "player.getBadgeDrawable()=" + player.getBadgeDrawable());
-		ImageView ivContextPlayerBadge = (ImageView) context.findViewById(R.id.ivHeaderContextPlayerBadge);
-		int contextPlayerBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + player.getBadgeDrawable(), null, null);
-		ivContextPlayerBadge.setImageResource(contextPlayerBadgeId);
+		TextView tvNumWins = (TextView)context.findViewById(R.id.tvNumWins);
 
-		TextView tvHeaderContextPlayerName = (TextView) context.findViewById(R.id.tvHeaderContextPlayerName);
-		tvHeaderContextPlayerName.setText(player.getNameWithMaxLength(25));
-		
-		TextView tvHeaderContextPlayerWins = (TextView) context.findViewById(R.id.tvHeaderContextPlayerWins); 
-		if (player.getNumWins() == 1){
-			tvHeaderContextPlayerWins.setText(context.getString(R.string.header_1_win));
+		if (player.getId() != Constants.EMPTY_STRING){
+			if (player.getNumWins() == 0){
+				tvNumWins.setText("101 wins");
+				//temp tvNumWins.setVisibility(View.GONE);
+			}
+			else if (player.getNumWins() == 1) {
+				tvNumWins.setText(context.getString(R.string.header_1_win));
+			}
+			else{
+				tvNumWins.setText(String.format(context.getString(R.string.header_num_wins), NumberFormat.getNumberInstance(Locale.US).format(player.getNumWins())));
+			}
 		}
-		else { 			
-			tvHeaderContextPlayerWins.setText(String.format(context.getString(R.string.header_num_wins), player.getNumWins())); 
+		else{
+			tvNumWins.setVisibility(View.GONE);	
 		}
-		*/
-		player = null;
 	}
 	
 	public static void addWinToPlayerRecord(){

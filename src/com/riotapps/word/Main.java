@@ -93,10 +93,10 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 		this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		//this.inflatedView = this.inflater.inflate(R.layout.gameyourturnlistitem, null);
 
-        Logger.d(TAG, "onCreate appContent.getplayer about to be called");
+        //Logger.d(TAG, "onCreate appContent.getplayer about to be called");
 		this.player = appContext.getPlayer(); //PlayerService.getPlayerFromLocal();
 		
-        Logger.d(TAG, "player is null =" + (this.player == null)); 
+       // Logger.d(TAG, "player is null =" + (this.player == null)); 
 		PlayerService.loadPlayerInHeader(this, this.player);
 		MenuUtils.hideHeaderTitle(this);
 		
@@ -267,6 +267,9 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	    
 	    
 	    int itemWidth = Math.round(screenWidth / 2) - 1;
+	    
+	    //if (itemWidth > 380){itemWidth = 380;}
+	    
 	   LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 	  //	int w  = displaymetrics.widthPixels;
     	//if opponents lists is empty, something is screwy
@@ -340,17 +343,23 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	//	int opponentBadgeId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getBadgeDrawable(), null, null);
 	//	ivOpponentBadge.setImageResource(opponentBadgeId);
 
+	 	RelativeLayout.LayoutParams paramsImage = new RelativeLayout.LayoutParams(width, height);
+		ivOpponent.setLayoutParams(paramsImage);
+		
 		int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + opponent.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
-//		ivOpponent.setImageResource(opponentImageId);
+		ivOpponent.setImageResource(opponentImageId);
+		
 		
 		 
 		
 		// if (Main.bgOpponentGroup1_Opponent1 == null) {
-			Bitmap bm = GameSurfaceView.decodeSampledBitmapFromResource(getResources(), opponentImageId, width, height);
-			bm = Bitmap.createScaledBitmap(bm, width, height, false);
+		//	Bitmap bm = GameSurfaceView.decodeSampledBitmapFromResource(getResources(), opponentImageId, width, height);
+		//	bm = Bitmap.createScaledBitmap(bm, width, height, false);
 		// }
 			
-			ivOpponent.setImageBitmap(bm);
+		// 	ivOpponent.setImageBitmap(bm);
+			
+			//ivOpponent.setBackgroundResource(opponentImageId);
 		
 		//ApplicationContext.captureTime(TAG, "getGameView almost over starting");
 	 	view.setTag(opponent.getId());
