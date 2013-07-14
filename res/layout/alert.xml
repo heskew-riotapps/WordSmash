@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="275dp"
-    android:layout_height="wrap_content"
-    android:padding="2dp"
- 
-    android:id="@+id/progress_root"
+     android:id="@+id/progress_root"
     style="@style/DialogStyle"
     android:background="@drawable/dialog_background"
 	>
  <RelativeLayout  
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/progress_inner_background"
+    style="@style/DialogInnerStyle"
     android:id="@+id/alert_top"
 	>
 	
@@ -19,6 +13,7 @@
 		android:orientation="vertical"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:padding="0dp"
 		android:background="@drawable/alert_background"
 		android:id="@+id/header"
 	>
@@ -27,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		style="@style/TextStyle"
-		android:textSize="14dp"
         android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dp"
     />
@@ -37,12 +31,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/close_button"
         android:layout_alignParentRight="true"
-        android:paddingRight="3dp"
+         android:paddingRight="3dp"
         android:paddingTop="3dp"
 		/>
     <com.riotapps.word.ui.MainFontTextView
-        style="@style/TextStyle"
-		android:textSize="16dp"
+        style="@style/TextLargeStyle"
      	android:id="@+id/alert_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,18 +49,9 @@
  		
  	/>
      <com.riotapps.word.ui.MainFontTextView
-         android:textColor="#ffffff"
-		android:textSize="14dp"
+        style="@style/AlertButtonAreaStyle"
      	android:id="@+id/alert_ok"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_below="@id/alert_text"
- 		android:layout_marginTop="10dp"  
- 		android:layout_marginBottom="10dp" 
- 		android:paddingTop="10dp"
- 		android:paddingBottom="10dp"
- 		android:background="@drawable/alert_bottom_selector"
+
  	/>
   </RelativeLayout>
    </RelativeLayout>

@@ -3,61 +3,31 @@
  	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"    
     >
-<RelativeLayout
-    android:id="@+id/scoreboard"
-    android:layout_width="fill_parent"
-	android:layout_height="30dp"
-	android:background="@drawable/sbd_bg"
- 
-    >
+	<RelativeLayout
+	    android:id="@+id/scoreboard"
+		style="@style/ScoreboardLayoutStyle"
+	 >
     	<ImageView 
 		    android:id="@+id/ivOpponent"
-		    android:layout_height="30dp"
-		    android:layout_width="30dp"
-		    android:layout_marginRight="3dp"
- 
-		    />	
+		    style="@style/ScoreboardImageStyle"
+	    />	
 		   
 		 <com.riotapps.word.ui.ScoreboardFontTextView
 	        android:id="@+id/tvOpponentName"
-	        android:layout_width="wrap_content"
-	   	 	android:layout_height="30dp" 
-	   	    android:gravity="center_vertical"
-	   	 	android:layout_toRightOf="@id/ivOpponent"
-	   	 	android:layout_marginRight="5dp"
-	  
-	 
-	   	 	android:textSize="16sp"
+	        style="@style/ScoreboardOpponentNameStyle"	        
 	    /> 
 	      <com.riotapps.word.ui.ScoreboardFontTextView
 	        android:id="@+id/tvOpponentScore"
-	        android:layout_width="wrap_content"
-	   	 	android:layout_height="wrap_content" 
-	   	  	android:layout_marginTop="0dp"
-	   	 	android:textSize="24sp"
-	   	 	android:layout_toRightOf="@id/tvOpponentName"
-	   	 	android:layout_marginRight="16dp"
+			style="@style/ScoreboardOpponentScoreStyle"
 	   	  
  	    />
 	    <com.riotapps.word.ui.ScoreboardFontTextView
-	        android:text="@string/anonymous_player_name"
+	        style="@style/ScoreboardPlayerNameStyle"
 	        android:id="@+id/tvPlayerName"
-	        android:layout_marginRight="5dp"
-	        android:layout_width="wrap_content"
-	   	 	android:layout_height="30dp" 
-	   	    android:gravity="center_vertical"
-	   	 	android:layout_toRightOf="@id/tvOpponentScore"
- 			
-	   	 	android:textSize="16sp"
 	    />
-	      
 	    <com.riotapps.word.ui.ScoreboardFontTextView
 	        android:id="@+id/tvPlayerScore"
-	        android:layout_width="wrap_content"
-	   	 	android:layout_height="wrap_content" 
- 			android:textSize="24sp"
- 			android:layout_toRightOf="@id/tvPlayerName"
-	   	    android:layout_marginTop="0dp"
+			style="@style/ScoreboardPlayerScoreStyle"
 	    />
  	    <RelativeLayout
 	       android:id="@+id/scoreboardNumbers"
@@ -74,25 +44,18 @@
 		 		  android:layout_centerVertical="true"
 		          android:src="@drawable/options_sb" 
 		          android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		        android:layout_height="fill_parent"
 		         android:background="@drawable/options"  
 				/>
  	        
 	     	<com.riotapps.word.ui.ScoreboardFontTextView
 	            android:id="@+id/tvLettersLeft"
-	            android:textColor="@color/scoreboard_text_color"
-	            android:textSize="10sp"
-	            android:layout_toLeftOf="@id/options"
-	            android:gravity="right"
+				style="@style/ScoreboardLettersLeftStyle"
 	          
 	         />
 	     	<com.riotapps.word.ui.ScoreboardFontTextView
 	            android:id="@+id/tvNumPoints"
-	            android:textColor="@color/scoreboard_text_color"
-	            android:textSize="10sp"
-	            android:layout_below="@id/tvLettersLeft"
-	            android:layout_toLeftOf="@id/options"             
-	       		android:gravity="right"
+				style="@style/ScoreboardNumPointsStyle"
 	         />
 	    </RelativeLayout>
 </RelativeLayout>

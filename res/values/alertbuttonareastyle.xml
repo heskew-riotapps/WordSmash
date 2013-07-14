@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style
+    name="AlertButtonAreaStyle"
+  >
+  	<item name="android:textSize">18sp</item>
+    <item name="android:layout_width">fill_parent</item>
+	<item name="android:layout_height">wrap_content</item>    
+    <item name="android:textColor">@color/alert_text_button_color</item>
+    <item name="android:gravity">center</item>
+    <item name="android:layout_below">@id/alert_text</item>
+    <item name="android:layout_marginTop">10dp</item>
+    <item name="android:layout_marginBottom">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:background">@drawable/alert_bottom_selector</item>
+ </style>
+</resources>

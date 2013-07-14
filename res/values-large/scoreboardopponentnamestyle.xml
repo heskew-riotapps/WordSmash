@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style
+    name="ScoreboardOpponentNameStyle" >
+   	<item name="android:layout_width">wrap_content</item>
+   	<item name="android:layout_height">42dp</item>
+   	<item name="android:layout_toRightOf">@id/ivOpponent</item>
+   	<item name="android:layout_marginRight">5dp</item>   	
+   	<item name="android:textSize">22sp</item> 
+   	<item name="android:gravity">center_vertical</item> 
+</style>
+</resources>

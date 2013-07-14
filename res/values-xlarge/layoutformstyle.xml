@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LayoutFormStyle" >
+        <item name="android:orientation">vertical</item>
+    	<item name="android:paddingLeft">16dp</item>
+    	<item name="android:paddingRight">16dp</item>
+    	<item name="android:layout_marginTop">10dp</item>
+    	<item name="android:paddingBottom">10dp</item>   
+   </style>
+</resources>

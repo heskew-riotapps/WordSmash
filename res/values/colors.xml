@@ -55,11 +55,13 @@
 	<color name="player_image_border_color">#000000</color>
 	<color name="player_image_background_color">#d2bfa6</color>
 	<color name="game_surface_fill_color">#eec591</color>
-	<color name="list_text_background">#20000000</color>
+	<color name="list_text_background_color">#20000000</color>
 	<color name="main_label_text_color">#fff5ee</color>
 	<color name="main_label_background_color">#3366dd</color>
 	<color name="header_text_color">#fff5ee</color>
 	<color name="store_item_divider_color">#f62222</color>
 	<color name="header_bottom_border_color">#3366dd</color>
 	<color name="store_item_title_color">#f62222</color>
+	<color name="alert_text_button_color">#fff5ee</color> 
+	<color name="alert_background_color">#fff5ee</color> 
 </resources>

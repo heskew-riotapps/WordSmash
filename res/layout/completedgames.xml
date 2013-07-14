@@ -17,7 +17,7 @@
 <LinearLayout  
     android:layout_above="@id/adView" 
     style="@style/LayoutStyle"
-    android:layout_marginBottom="5dp"
+   
     android:orientation="vertical" >
    
      <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />

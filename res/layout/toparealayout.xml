@@ -27,14 +27,11 @@
        
     <com.riotapps.word.ui.MainFontTextView
  			android:id="@+id/tvNumWins"
-        	android:textSize="14sp" 
-        	  
+        	  style="@style/MainWinsStyle"
 		 android:layout_toLeftOf="@id/options"
- 		  android:layout_marginRight="8dp"
  		  	android:layout_centerVertical="true"
  		    android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:textColor="@color/header_text_color"
         />
        <ImageButton 
          

@@ -5,24 +5,22 @@
 
 <LinearLayout  
     style="@style/LayoutStyle"
-    android:layout_marginBottom="5dp"
+  
     android:orientation="vertical" >
    
      <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
 
    <LinearLayout
          style="@style/LayoutFormStyle"
-                android:layout_height="fill_parent"
-     
-         >
+         android:layout_height="fill_parent"
+    >
 	<LinearLayout
 		style="@style/FormBackgroundStyle"
-				android:layout_marginTop="5dp"
-				 android:layout_marginBottom="5dp"
-				 android:orientation="vertical"
-				 android:layout_width="fill_parent"
-				 android:layout_height="wrap_content"
-		
+		android:layout_marginTop="5dp"
+		 android:layout_marginBottom="5dp"
+		 android:orientation="vertical"
+		 android:layout_width="fill_parent"
+		 android:layout_height="wrap_content"
 	>
 		<com.riotapps.word.ui.MainFontTextView
 		        style="@style/ContentAreaTextTopStyle"
@@ -58,25 +56,26 @@
 				 <com.riotapps.word.ui.MainFontTextView
 				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvPremiumUpgradeTitle"
-				  
-				        />
- 				  <com.riotapps.word.ui.StoreItemPriceButton 
-				  	    style="@style/StoreItemPriceButtonStyle"
-				  	    android:id="@+id/bPremiumUpgradePrice"
-				  	    android:layout_alignParentRight="true"
-				  	    android:layout_alignParentTop="true"
-				  	    android:layout_marginRight="3dp"
-				    />
- 				  <ImageView
- 				      style="@style/StoreItemCheckStyle"
- 				      android:id="@+id/ivPremiumUpgradePurchased"
- 				   />
+				  />
+				 <LinearLayout 
+			  	    android:id="@+id/llPremiumUpgradePriceWrapper"	
+			  	    style="@style/StoreItemPriceWrapperStyle"  	    
+				 >
+	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+					  	    style="@style/StoreItemPriceButtonStyle"
+					  	    android:id="@+id/bPremiumUpgradePrice"
+					    />
+	 				  <ImageView
+	 				      style="@style/StoreItemCheckStyle"
+	 				      android:id="@+id/ivPremiumUpgradePurchased"
+	 				   />
+ 				  </LinearLayout>
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvPremiumUpgradeDescription"
 				
 				        android:layout_below="@id/tvPremiumUpgradeTitle"
-				        android:layout_toLeftOf="@id/bPremiumUpgradePrice"
+				        android:layout_toLeftOf="@id/llPremiumUpgradePriceWrapper"
 				        />
 				  <View
 				      android:layout_width="fill_parent"
@@ -99,23 +98,25 @@
 						android:id="@+id/tvNoAdsTitle"
 				
 				        />
- 				  <com.riotapps.word.ui.StoreItemPriceButton 
-				  	    style="@style/StoreItemPriceButtonStyle"
-				  	    android:id="@+id/bNoAdsPrice"
-				  	    android:layout_alignParentRight="true"
-				  	    android:layout_alignParentTop="true"
-				  	    android:layout_marginRight="3dp"
-				    />
- 				  <ImageView
- 				     style="@style/StoreItemCheckStyle"
- 				      android:id="@+id/ivNoAdsPurchased"
- 				   />
+				<LinearLayout 
+			  	    android:id="@+id/llNoAdsPriceWrapper"	
+			  	    style="@style/StoreItemPriceWrapperStyle"  	    
+				 >
+	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+					  	    style="@style/StoreItemPriceButtonStyle"
+					  	    android:id="@+id/bNoAdsPrice"
+					    />
+	 				  <ImageView
+	 				     style="@style/StoreItemCheckStyle"
+	 				      android:id="@+id/ivNoAdsPurchased"
+	 				   />
+ 				  </LinearLayout>
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvNoAdsDescription"
 				       
 				        android:layout_below="@id/tvNoAdsTitle"
-				        android:layout_toLeftOf="@id/bNoAdsPrice"
+				        android:layout_toLeftOf="@id/llNoAdsPriceWrapper"
 				        />
 				  <View
 				      android:layout_width="fill_parent"
@@ -138,24 +139,27 @@
 						android:id="@+id/tvWordDefinitionsTitle"
 				 
 				        />
- 				  <com.riotapps.word.ui.StoreItemPriceButton 
-				  	    style="@style/StoreItemPriceButtonStyle"
-				  	    android:id="@+id/bWordDefinitionsPrice"
-				  	    android:layout_alignParentRight="true"
-				  	    android:layout_alignParentTop="true"
-				  	    android:layout_marginRight="3dp"
-				  	    />
- 				  <ImageView
- 				      style="@style/StoreItemCheckStyle"
- 				      android:id="@+id/ivWordDefinitionsPurchased"
- 				   />
+				 <LinearLayout 
+			  	    android:id="@+id/llWordDefinitionsPriceWrapper"	
+			  	    style="@style/StoreItemPriceWrapperStyle"  	    
+				 >
+	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+					  	    style="@style/StoreItemPriceButtonStyle"
+					  	    android:id="@+id/bWordDefinitionsPrice"
+					  	    />
+	 				  <ImageView
+	 				      style="@style/StoreItemCheckStyle"
+	 				      android:id="@+id/ivWordDefinitionsPurchased"
+	 				   />
+ 				    </LinearLayout>
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvWordDefinitionsDescription"
 			
 				        android:layout_below="@id/tvWordDefinitionsTitle"
-				       android:layout_toLeftOf="@id/bWordDefinitionsPrice"
+				       android:layout_toLeftOf="@id/llWordDefinitionsPriceWrapper"
 				        />
+				
 				  <View
 				      android:layout_width="fill_parent"
 				      android:layout_height="2dp" 
@@ -178,22 +182,24 @@
 				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvHopperPeekTitle"
 				        />
- 				  <com.riotapps.word.ui.StoreItemPriceButton 
-				  	    style="@style/StoreItemPriceButtonStyle"
-				  	    android:id="@+id/bHopperPeekPrice"
-				  	    android:layout_alignParentRight="true"
-				  		 android:layout_alignParentTop="true"
-				  	    android:layout_marginRight="3dp"
- 				    />
- 				  <ImageView
- 				      style="@style/StoreItemCheckStyle"
- 				      android:id="@+id/ivHopperPeekPurchased"
- 				   />
+				<LinearLayout 
+			  	    android:id="@+id/llHopperPeekPriceWrapper"	
+			  	    style="@style/StoreItemPriceWrapperStyle"  	    
+				 >
+	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+					  	    style="@style/StoreItemPriceButtonStyle"
+					  	    android:id="@+id/bHopperPeekPrice"
+	 				    />
+	 				  <ImageView
+	 				      style="@style/StoreItemCheckStyle"
+	 				      android:id="@+id/ivHopperPeekPurchased"
+	 				   />
+ 				  </LinearLayout>
 				  <com.riotapps.word.ui.MainFontTextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvHopperPeekDescription"
 				        android:layout_below="@id/tvHopperPeekTitle"
-				       android:layout_toLeftOf="@id/bHopperPeekPrice"
+				       android:layout_toLeftOf="@id/llHopperPeekPriceWrapper"
 				      
 				        />
 

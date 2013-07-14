@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="275dp"
-    android:layout_height="wrap_content"
-    android:padding="2dp"
- 
     android:id="@+id/progress_root"
     style="@style/DialogStyle"
     android:background="@drawable/dialog_background"
 	>
  <RelativeLayout  
-     android:layout_width="275dp"
-    android:layout_height="wrap_content"
-    android:background="@drawable/progress_inner_background"
+	style="@style/DialogInnerStyle"
     android:id="@+id/alert_top"
 	>
 	
@@ -27,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		style="@style/TextStyle"
-		android:textSize="14dp"
         android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dp"
     />
@@ -42,7 +35,6 @@
 		/>
     <com.riotapps.word.ui.MainFontTextView
         style="@style/TextStyle"
-		android:textSize="16dp"
      	android:id="@+id/alert_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +48,6 @@
  	/>
      <com.riotapps.word.ui.MainFontTextView
         style="@style/TextStyle"
-		android:textSize="14dp"
      	android:id="@+id/alert_confirmation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -35,9 +35,9 @@
 		        style="@style/ContentAreaTextTopStyle"
 		        />
 		    <com.riotapps.word.ui.MainFontTextView
-		 		android:layout_marginTop="-32dp"
+		 		android:layout_marginTop="-34dp"
 		        android:background="@drawable/form_item_top"
-		        android:textSize="14dp"
+		        style="@style/TextStyle"
 		        android:text="@string/game_history_title" 
 		        android:id="@+id/header"
 		        android:layout_width="wrap_content"

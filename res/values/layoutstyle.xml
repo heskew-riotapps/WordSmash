@@ -4,6 +4,6 @@
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:background">@drawable/bg_11</item>
-  
+  		<item name="android:layout_marginBottom">5dp</item>
    </style>
 </resources>

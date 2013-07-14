@@ -61,8 +61,7 @@
 	 			>    
 	 				<com.riotapps.word.ui.ScoreboardFontTextView
  						android:paddingLeft="5dp"
-				        style="@style/TextStyle"
-				        android:textSize="18dp"
+				        style="@style/TextLargeStyle"
 				     	android:id="@+id/tvWord"
 				     	android:layout_marginLeft="2.0dip"
 				     	android:layout_marginBottom="3.0dip"
@@ -79,7 +78,6 @@
 					 />
 	 			      <com.riotapps.word.ui.MainFontTextView 
 					     style="@style/TextStyle"
-					     android:textSize="14sp"
 					  	 android:id="@+id/tvPreviewMessage"
 					     android:layout_width="fill_parent"
 					     android:layout_height="wrap_content"
@@ -90,7 +88,6 @@
 					     />
 	 				  <com.riotapps.word.ui.MainFontTextView 
 					     style="@style/TextStyle"
-					     android:textSize="16sp"
 					  	 android:id="@+id/tvNotFound"
 					     android:layout_width="fill_parent"
 					     android:layout_height="wrap_content"

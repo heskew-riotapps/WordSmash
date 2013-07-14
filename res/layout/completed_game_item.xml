@@ -12,17 +12,12 @@
 	    android:id="@+id/rlItem"		 
 	 >
 		<ImageView 
-			 android:layout_width="64dp"
-			 android:layout_height="64dp"
 			 android:id="@+id/ivOpponent"	
-			 android:background="@drawable/image_border"
-			 android:padding="1dp"
-		     android:scaleType="fitXY"    
+			 style="@style/OpponentImageListStyle"   
 			 />
 		<com.riotapps.word.ui.MainFontTextView
             android:id="@+id/tvOpponent"
             style="@style/TextStyle"
-            android:textSize="16sp"
             android:paddingLeft="4dp"
             android:layout_alignTop="@id/ivOpponent"
             android:layout_toRightOf="@id/ivOpponent"
@@ -31,8 +26,7 @@
          />
 		 <com.riotapps.word.ui.MainFontTextView
 	     	android:id="@+id/tvSkillLevel"
-	        style="@style/TextStyle"
-	        android:textSize="14sp"
+	        style="@style/TextMiniStyle"
 	        android:paddingLeft="3dp"
 	        android:layout_toRightOf="@id/tvOpponent"
 	        android:layout_height="wrap_content"
@@ -41,8 +35,7 @@
 	     />
   		 <com.riotapps.word.ui.MainFontTextView
 	        android:id="@+id/tvSummary"
-	        style="@style/TextStyle"
-	        android:textSize="14sp"
+	        style="@style/TextMiniStyle"
 	        android:paddingLeft="4dp"
 	        android:layout_toRightOf="@id/ivOpponent"
 	        android:layout_below="@id/tvOpponent"
@@ -51,6 +44,7 @@
 	      />
 	</RelativeLayout>
 	<LinearLayout 
+	    android:orientation="horizontal"
 		android:paddingLeft="0dp"
 		android:paddingRight="0dp"
 	    android:layout_marginTop="0dp"

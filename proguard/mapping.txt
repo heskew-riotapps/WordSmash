@@ -8029,6 +8029,8 @@ com.riotapps.word.R$bool -> com.riotapps.word.R$bool:
     int ga_reportUncaughtExceptions -> ga_reportUncaughtExceptions
     int isTablet -> isTablet
 com.riotapps.word.R$color -> com.riotapps.word.R$color:
+    int alert_background_color -> alert_background_color
+    int alert_text_button_color -> alert_text_button_color
     int button_area_background_color -> button_area_background_color
     int button_background_color -> button_background_color
     int button_text_color -> button_text_color
@@ -8068,7 +8070,7 @@ com.riotapps.word.R$color -> com.riotapps.word.R$color:
     int game_surface_fill_color -> game_surface_fill_color
     int header_bottom_border_color -> header_bottom_border_color
     int header_text_color -> header_text_color
-    int list_text_background -> list_text_background
+    int list_text_background_color -> list_text_background_color
     int logo_area_bottom_background_color -> logo_area_bottom_background_color
     int logo_background_color -> logo_background_color
     int main_label_background_color -> main_label_background_color
@@ -8282,26 +8284,24 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int img_close -> img_close
     int inner_form -> inner_form
     int ivBadge -> ivBadge
-    int ivChatAlert -> ivChatAlert
     int ivHopperPeekPurchased -> ivHopperPeekPurchased
     int ivNoAdsPurchased -> ivNoAdsPurchased
     int ivOpponent -> ivOpponent
     int ivOpponent1 -> ivOpponent1
-    int ivOpponent2 -> ivOpponent2
-    int ivOpponent3 -> ivOpponent3
-    int ivOpponentBadge_1 -> ivOpponentBadge_1
-    int ivOpponentBadge_2 -> ivOpponentBadge_2
-    int ivOpponentBadge_3 -> ivOpponentBadge_3
     int ivPlayer -> ivPlayer
     int ivPremiumUpgradePurchased -> ivPremiumUpgradePurchased
     int ivWordDefinitionsPurchased -> ivWordDefinitionsPurchased
     int ivWordnik -> ivWordnik
     int llBottomBorder -> llBottomBorder
     int llDefs -> llDefs
+    int llHopperPeekPriceWrapper -> llHopperPeekPriceWrapper
     int llItem -> llItem
-    int llLastAction -> llLastAction
+    int llNoAdsPriceWrapper -> llNoAdsPriceWrapper
     int llOK -> llOK
+    int llOpponentRecordWrapper -> llOpponentRecordWrapper
     int llOpponents -> llOpponents
+    int llPremiumUpgradePriceWrapper -> llPremiumUpgradePriceWrapper
+    int llWordDefinitionsPriceWrapper -> llWordDefinitionsPriceWrapper
     int logo -> logo
     int logoArea -> logoArea
     int logoAreaBottom -> logoAreaBottom
@@ -8312,8 +8312,6 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int peek_description -> peek_description
     int progress_root -> progress_root
     int progress_spinner -> progress_spinner
-    int rlAvatars -> rlAvatars
-    int rlGame -> rlGame
     int rlHopperPeek -> rlHopperPeek
     int rlItem -> rlItem
     int rlLetter1 -> rlLetter1
@@ -8326,9 +8324,6 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int rlLetters -> rlLetters
     int rlLineItem -> rlLineItem
     int rlNoAds -> rlNoAds
-    int rlPlayer_1 -> rlPlayer_1
-    int rlPlayer_2 -> rlPlayer_2
-    int rlPlayer_3 -> rlPlayer_3
     int rlPremiumUpgrade -> rlPremiumUpgrade
     int rlWordDefinitions -> rlWordDefinitions
     int scoreboard -> scoreboard
@@ -8342,12 +8337,9 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int tvAttribution -> tvAttribution
     int tvBuildNumber -> tvBuildNumber
     int tvCharacter -> tvCharacter
-    int tvChat -> tvChat
-    int tvChatDate -> tvChatDate
     int tvDefinition -> tvDefinition
     int tvHopperPeekDescription -> tvHopperPeekDescription
     int tvHopperPeekTitle -> tvHopperPeekTitle
-    int tvLastAction -> tvLastAction
     int tvLetter1 -> tvLetter1
     int tvLetter10 -> tvLetter10
     int tvLetter11 -> tvLetter11
@@ -8385,9 +8377,6 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int tvOpponent -> tvOpponent
     int tvOpponentName -> tvOpponentName
     int tvOpponentScore -> tvOpponentScore
-    int tvOpponent_1 -> tvOpponent_1
-    int tvOpponent_2 -> tvOpponent_2
-    int tvOpponent_3 -> tvOpponent_3
     int tvPlayerName -> tvPlayerName
     int tvPlayerScore -> tvPlayerScore
     int tvPlayerWins -> tvPlayerWins
@@ -8435,25 +8424,24 @@ com.riotapps.word.R$layout -> com.riotapps.word.R$layout:
     int completedgames -> completedgames
     int dialog -> dialog
     int fullrules -> fullrules
-    int gamechatitem -> gamechatitem
     int gamecompletedlistitem -> gamecompletedlistitem
     int gamehistory -> gamehistory
     int gamehistoryitem -> gamehistoryitem
     int gamelookup -> gamelookup
     int gamelookupitem -> gamelookupitem
     int gamesurface -> gamesurface
-    int gameyourturnlistitem -> gameyourturnlistitem
     int hopperpeek -> hopperpeek
     int hopperpeekdialog -> hopperpeekdialog
     int interstitialad -> interstitialad
     int main -> main
-    int main_opponent_item -> main_opponent_item
     int opponent_item -> opponent_item
     int played_word_dialog -> played_word_dialog
     int playerlistitem -> playerlistitem
     int progress -> progress
     int scoreboardlayout -> scoreboardlayout
+    int scoreboardlayout_ -> scoreboardlayout_
     int splash -> splash
+    int splash_ -> splash_
     int store -> store
     int swapdialog -> swapdialog
     int tablayout -> tablayout
@@ -9056,6 +9044,7 @@ com.riotapps.word.R$string -> com.riotapps.word.R$string:
     int yes -> yes
 com.riotapps.word.R$style -> com.riotapps.word.R$style:
     int ActivityTitleStyle -> ActivityTitleStyle
+    int AlertButtonAreaStyle -> AlertButtonAreaStyle
     int BadgeLineStyle -> BadgeLineStyle
     int ButtonStyle -> ButtonStyle
     int ContentAreaLinkStyle -> ContentAreaLinkStyle
@@ -9067,6 +9056,7 @@ com.riotapps.word.R$style -> com.riotapps.word.R$style:
     int ContentAreaTitleStyle -> ContentAreaTitleStyle
     int ContentAreaTopStyle -> ContentAreaTopStyle
     int CustomProgressStyle -> CustomProgressStyle
+    int DialogInnerStyle -> DialogInnerStyle
     int DialogStyle -> DialogStyle
     int DialogTitleStyle -> DialogTitleStyle
     int FormBackgroundStyle -> FormBackgroundStyle
@@ -9089,21 +9079,40 @@ com.riotapps.word.R$style -> com.riotapps.word.R$style:
     int MainLandingButtonStyle -> MainLandingButtonStyle
     int MainScrollStyle -> MainScrollStyle
     int MainStyle -> MainStyle
+    int MainWinsStyle -> MainWinsStyle
     int MiniTextStyle -> MiniTextStyle
+    int OpponentChooseStyle -> OpponentChooseStyle
+    int OpponentImageListStyle -> OpponentImageListStyle
+    int OpponentNameStyle -> OpponentNameStyle
+    int OpponentRecordStyle -> OpponentRecordStyle
+    int OpponentRecordWrapperStyle -> OpponentRecordWrapperStyle
+    int OpponentSkillLevelStyle -> OpponentSkillLevelStyle
+    int PlayedWordPlayerImageStyle -> PlayedWordPlayerImageStyle
     int RulesTableRowStyle -> RulesTableRowStyle
     int ScoreboardBadgeStyle -> ScoreboardBadgeStyle
+    int ScoreboardImageStyle -> ScoreboardImageStyle
+    int ScoreboardLayoutStyle -> ScoreboardLayoutStyle
+    int ScoreboardLettersLeftStyle -> ScoreboardLettersLeftStyle
+    int ScoreboardNumPointsStyle -> ScoreboardNumPointsStyle
+    int ScoreboardOpponentNameStyle -> ScoreboardOpponentNameStyle
+    int ScoreboardOpponentScoreStyle -> ScoreboardOpponentScoreStyle
+    int ScoreboardPlayerNameStyle -> ScoreboardPlayerNameStyle
+    int ScoreboardPlayerScoreStyle -> ScoreboardPlayerScoreStyle
     int ScoreboardPlayerStyle -> ScoreboardPlayerStyle
     int ScoreboardScoreStyle -> ScoreboardScoreStyle
     int ScoreboardTurnStyle -> ScoreboardTurnStyle
     int StoreItemCheckStyle -> StoreItemCheckStyle
     int StoreItemPriceButtonStyle -> StoreItemPriceButtonStyle
+    int StoreItemPriceWrapperStyle -> StoreItemPriceWrapperStyle
     int StoreItemTitleStyle -> StoreItemTitleStyle
     int SubTextStyle -> SubTextStyle
     int TabContentBackgroundStyle -> TabContentBackgroundStyle
     int TabFormBackgroundStyle -> TabFormBackgroundStyle
     int TextClickableStyle -> TextClickableStyle
+    int TextLargeStyle -> TextLargeStyle
     int TextLineItemCenteredStyle -> TextLineItemCenteredStyle
     int TextLineItemStyle -> TextLineItemStyle
+    int TextMiniStyle -> TextMiniStyle
     int TextStyle -> TextStyle
     int TopLogoAreaBottomStyle -> TopLogoAreaBottomStyle
     int TopLogoAreaStyle -> TopLogoAreaStyle

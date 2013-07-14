@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style
+    name="MainWinsStyle" >
+	<item name="android:textSize">18sp</item>
+	<item name="android:layout_marginRight">10dp</item>
+	<item name="android:textColor">@color/header_text_color</item>
+</style>
+</resources>
