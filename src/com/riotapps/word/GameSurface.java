@@ -55,6 +55,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -239,6 +240,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	this.captureTime("get game from local starting");
 	 	
 	 	String gameId = this.player.getActiveGameId();
+	 	
+	 	if (fromCompletedGameList){
+	 		gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
+	 	}
+	 	
 	 	this.game = GameService.getGame(gameId); //(Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 		Logger.d(TAG, "onCreate game turn=" + game.getTurn());
 	 	this.captureTime("get game from local ended");	 	
@@ -672,6 +678,22 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 		bShuffle.setVisibility(View.GONE);
 	 		if (this.game.getPlayedWords().size() == 0){ 
 	 			bPlayedWords.setVisibility(View.GONE);
+	 		}
+	 		else {
+	 			//LinearLayout llButtons = (LinearLayout)this.findViewById(R.id.llButtons);
+	 			
+	 			// LinearLayout.LayoutParams llParams = (LinearLayout.LayoutParams)llButtons.getLayoutParams();
+	 			 LinearLayout.LayoutParams buttonParams = (LinearLayout.LayoutParams)bPlayedWords.getLayoutParams();
+	 			
+	 		     buttonParams.width = R.integer.gameboard_lookup_words_width;
+	 		     buttonParams.height = R.integer.gameboard_lookup_words_height;
+	 		   //  buttonParams.weight = 0.5f;
+	 		     buttonParams.setMargins(30, 0, 30, 0);
+	 		    
+
+	 		   
+	 			 bPlayedWords.setLayoutParams(buttonParams);
+	 			 //bPlayedWords.setLayoutParams(new LinearLayout.LayoutParams(R.integer.gameboard_lookup_words_width, R.integer.gameboard_lookup_words_height));
 	 		}
 	 	}
 	 	

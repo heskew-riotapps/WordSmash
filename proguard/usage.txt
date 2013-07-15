@@ -277,14 +277,14 @@ com.google.gson.stream.JsonReader:
 com.riotapps.word.GameSurface:
     private com.riotapps.word.utils.ImageFetcher imageLoader
     private android.view.SurfaceView surfaceView
-    1174:1177:private void loadPlaySpinner()
-    1814:1826:private void setupRunawayAdTimer()
-    1864:1874:private void loadAdMobInterstitialAd()
-    2296:2297:private void trackEvent(java.lang.String,java.lang.String,int)
-    92:92:static synthetic boolean access$9(com.riotapps.word.GameSurface)
-    113:113:static synthetic com.google.ads.InterstitialAd access$10(com.riotapps.word.GameSurface)
-    113:113:static synthetic void access$11(com.riotapps.word.GameSurface,com.google.ads.InterstitialAd)
-    115:115:static synthetic com.riotapps.word.utils.CustomProgressDialog access$12(com.riotapps.word.GameSurface)
+    1196:1199:private void loadPlaySpinner()
+    1836:1848:private void setupRunawayAdTimer()
+    1886:1896:private void loadAdMobInterstitialAd()
+    2318:2319:private void trackEvent(java.lang.String,java.lang.String,int)
+    93:93:static synthetic boolean access$9(com.riotapps.word.GameSurface)
+    114:114:static synthetic com.google.ads.InterstitialAd access$10(com.riotapps.word.GameSurface)
+    114:114:static synthetic void access$11(com.riotapps.word.GameSurface,com.google.ads.InterstitialAd)
+    116:116:static synthetic com.riotapps.word.utils.CustomProgressDialog access$12(com.riotapps.word.GameSurface)
 com.riotapps.word.GameSurface$checkRunawayAdTask
 com.riotapps.word.GameSurface$checkRunawayAdTaskRunnable
 com.riotapps.word.Splash:

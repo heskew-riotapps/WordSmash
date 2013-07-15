@@ -5,7 +5,6 @@
      <ImageView 
        android:id="@+id/logo"
        android:contentDescription="@string/logo"
-       android:src="@drawable/wordsmash_logo8"
-	    style="@style/TopLogoNoContextStyle" 
+	    style="@style/SplashLogoStyle" 
 	  />
 </RelativeLayout>

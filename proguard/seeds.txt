@@ -5008,6 +5008,7 @@ com.riotapps.word.R$color: int game_board_tray_tile_value
 com.riotapps.word.R$color: int game_surface_fill_color
 com.riotapps.word.R$color: int header_bottom_border_color
 com.riotapps.word.R$color: int header_text_color
+com.riotapps.word.R$color: int inline_header_text_color
 com.riotapps.word.R$color: int list_text_background_color
 com.riotapps.word.R$color: int logo_area_bottom_background_color
 com.riotapps.word.R$color: int logo_background_color
@@ -5233,6 +5234,7 @@ com.riotapps.word.R$id: int ivPremiumUpgradePurchased
 com.riotapps.word.R$id: int ivWordDefinitionsPurchased
 com.riotapps.word.R$id: int ivWordnik
 com.riotapps.word.R$id: int llBottomBorder
+com.riotapps.word.R$id: int llButtons
 com.riotapps.word.R$id: int llDefs
 com.riotapps.word.R$id: int llHopperPeekPriceWrapper
 com.riotapps.word.R$id: int llItem
@@ -5268,6 +5270,7 @@ com.riotapps.word.R$id: int rlPremiumUpgrade
 com.riotapps.word.R$id: int rlWordDefinitions
 com.riotapps.word.R$id: int scoreboard
 com.riotapps.word.R$id: int scoreboardNumbers
+com.riotapps.word.R$id: int scroller
 com.riotapps.word.R$id: int tabsLayout
 com.riotapps.word.R$id: int tabsSubText
 com.riotapps.word.R$id: int tabsText
@@ -5350,6 +5353,8 @@ com.riotapps.word.R$id: int vBottomBorder
 com.riotapps.word.R$id: R$id()
 com.riotapps.word.R$integer
 com.riotapps.word.R$integer: int gameboard_button_area_height
+com.riotapps.word.R$integer: int gameboard_lookup_words_height
+com.riotapps.word.R$integer: int gameboard_lookup_words_width
 com.riotapps.word.R$integer: int main_landing_1_opponent_text_size
 com.riotapps.word.R$integer: int main_landing_2_opponents_text_size
 com.riotapps.word.R$integer: int main_landing_3_opponents_text_size
@@ -6017,6 +6022,7 @@ com.riotapps.word.R$style: int GameBoardButtonStyle
 com.riotapps.word.R$style: int HeaderSubTextStyle
 com.riotapps.word.R$style: int HeaderTextStyle
 com.riotapps.word.R$style: int HeaderTopLayoutStyle
+com.riotapps.word.R$style: int InlineHeaderStyle
 com.riotapps.word.R$style: int LayoutFormStyle
 com.riotapps.word.R$style: int LayoutStyle
 com.riotapps.word.R$style: int LayoutStyleThin
@@ -6047,6 +6053,7 @@ com.riotapps.word.R$style: int ScoreboardPlayerScoreStyle
 com.riotapps.word.R$style: int ScoreboardPlayerStyle
 com.riotapps.word.R$style: int ScoreboardScoreStyle
 com.riotapps.word.R$style: int ScoreboardTurnStyle
+com.riotapps.word.R$style: int SplashLogoStyle
 com.riotapps.word.R$style: int StoreItemCheckStyle
 com.riotapps.word.R$style: int StoreItemPriceButtonStyle
 com.riotapps.word.R$style: int StoreItemPriceWrapperStyle

@@ -6,5 +6,7 @@
    	<item name="android:textColor">@color/scoreboard_text_color</item>   	
    	<item name="android:textSize">18sp</item> 
    	<item name="android:gravity">right</item> 
+   	 	<item name="android:layout_marginTop">3dp</item> 
+   	<item name="android:layout_marginRight">3dp</item>
 </style>
 </resources>

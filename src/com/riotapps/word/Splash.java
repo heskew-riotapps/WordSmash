@@ -136,7 +136,7 @@ public class Splash  extends FragmentActivity {
 		  Intent intent;
 	      	if (appContext.getPlayer().getActiveGameId().length() > 0){
 	      		intent = new Intent(Splash.this, com.riotapps.word.GameSurface.class);
-	      		intent.putExtra(Constants.EXTRA_GAME_ID, appContext.getPlayer().getActiveGameId());
+	      		//intent.putExtra(Constants.EXTRA_GAME_ID, appContext.getPlayer().getActiveGameId());
 	      	}
 	      	else{
 	      		intent = new Intent(Splash.this, com.riotapps.word.Main.class);

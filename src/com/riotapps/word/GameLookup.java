@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -132,9 +133,21 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 		    		bNoThanks.setVisibility(View.GONE);
 	    		    bStore.setVisibility(View.GONE); 
 	    		    //change margin of definition area?
-	    		    tvOK.setOnClickListener(this);
+	    		//    tvOK.setOnClickListener(this);
 	    		    tvPreviewMessage.setVisibility(View.GONE);
 	    		    this.tvPreviewMessage.setVisibility(View.GONE);
+	    		    
+	    		    //remove bottom margin and
+	    		    ScrollView scoller = (ScrollView)findViewById(R.id.scroller);
+	    	  
+	    	        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) scoller.getLayoutParams();
+
+	    	            layoutParams.bottomMargin = 10;
+	    	            //layoutParams.setMargins(0, 0, 0, 100);
+	    	            scoller.setLayoutParams(layoutParams);
+	    		    
+	    	            LinearLayout llOK = (LinearLayout)findViewById(R.id.llOK);
+	    	            llOK.setVisibility(View.GONE);
 	    		    
 	    	 }
 	    	 

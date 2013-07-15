@@ -64,4 +64,5 @@
 	<color name="store_item_title_color">#f62222</color>
 	<color name="alert_text_button_color">#fff5ee</color> 
 	<color name="alert_background_color">#fff5ee</color> 
+	<color name="inline_header_text_color">#fff5ee</color> 
 </resources>

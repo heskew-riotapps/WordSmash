@@ -204,6 +204,12 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	protected void onResume() {
 		super.onResume();
 	 
+		//check to see if there is an active game first, occasionally the app might 
+		//get into this odd state where the main activity comes into focus without being redirected first to game surface via splash
+		if (this.player.getActiveGameId().length() > 0){
+			Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
+    		Main.this.startActivity(intent); 
+		}
 	}
 
  
@@ -214,6 +220,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 		 EasyTracker.getInstance().activityStart(this);
 	}
 
+	
+	
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
@@ -439,16 +447,19 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     private void handleGameStartOnClick(){
     	//start game and go to game surface
     	try {
+		
+    		
 			Game game = GameService.createGame(context, player, chosenOpponentId);
 
 			this.trackEvent(Constants.TRACKER_ACTION_GAME_STARTED, Constants.TRACKER_LABEL_OPPONENT, chosenOpponentId);
 			
 			Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
-    		intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
+    		//intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
     		Main.this.startActivity(intent); 
 			
 		} catch (DesignByContractException e) {
 			// TODO Auto-generated catch block
+			
 			DialogManager.SetupAlert(this, this.getString(R.string.sorry), e.getMessage());
 		}
 
