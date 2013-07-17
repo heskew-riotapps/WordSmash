@@ -501,6 +501,9 @@ public static Game skip(boolean isOpponent, Game game){
 		//append / get next
 			//add to H or V collection at end
 			//is it part of a H/V word that ive already hit? Ignore for axis (not for cross) see opposite
+			// -- to this point need way to check existing list 
+			//so for every tile check H then V .. if either continues then becomes part of one workd
+			//while up then while right then while down then while left, but skip if already counted
 		//add single tile to opposite h/v collection regardless for single cross build
 		}
 		
