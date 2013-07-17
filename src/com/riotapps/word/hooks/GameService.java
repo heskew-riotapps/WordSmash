@@ -483,6 +483,8 @@ public static Game skip(boolean isOpponent, Game game){
 			
 		//	Logger.d(TAG,"played tile loop" + tile.getBoardPosition());
 			
+			
+		//CanAIPlayOnTile(tile);	
 		//get left/right/up/down -
 			//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot
 			//int uTile = TileLayoutService.getTileIdAbove(tile.getBoardPosition());
