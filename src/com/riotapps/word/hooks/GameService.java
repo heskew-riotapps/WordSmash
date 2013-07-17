@@ -495,10 +495,12 @@ public static Game skip(boolean isOpponent, Game game){
 			catch (IndexOutOfBoundsException iEx){
 				//played tile does not exist at that location
 			}
+			//??GameService.getLettersAlongOnAxis might help 
 			//if nextTile null to another direction. if not, also go opposite direction
 			//need to take precaution to not process multiple tiles of the same string in the same axis
 		//append / get next
 			//add to H or V collection at end
+			//is it part of a H/V word that ive already hit? Ignore for axis (not for cross) see opposite
 		//add single tile to opposite h/v collection regardless for single cross build
 		}
 		
