@@ -277,10 +277,10 @@ com.google.gson.stream.JsonReader:
 com.riotapps.word.GameSurface:
     private com.riotapps.word.utils.ImageFetcher imageLoader
     private android.view.SurfaceView surfaceView
-    1196:1199:private void loadPlaySpinner()
-    1836:1848:private void setupRunawayAdTimer()
-    1886:1896:private void loadAdMobInterstitialAd()
-    2318:2319:private void trackEvent(java.lang.String,java.lang.String,int)
+    1199:1202:private void loadPlaySpinner()
+    1840:1852:private void setupRunawayAdTimer()
+    1890:1900:private void loadAdMobInterstitialAd()
+    2322:2323:private void trackEvent(java.lang.String,java.lang.String,int)
     93:93:static synthetic boolean access$9(com.riotapps.word.GameSurface)
     114:114:static synthetic com.google.ads.InterstitialAd access$10(com.riotapps.word.GameSurface)
     114:114:static synthetic void access$11(com.riotapps.word.GameSurface,com.google.ads.InterstitialAd)

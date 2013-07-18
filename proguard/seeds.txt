@@ -6910,7 +6910,7 @@ com.riotapps.word.ui.GameTileComparator: int compare(com.riotapps.word.ui.GameTi
 com.riotapps.word.ui.GameTileComparator: int compare(java.lang.Object,java.lang.Object)
 com.riotapps.word.ui.HopperPeekDialog
 com.riotapps.word.ui.HopperPeekDialog: com.google.analytics.tracking.android.Tracker getTracker()
-com.riotapps.word.ui.HopperPeekDialog: HopperPeekDialog(com.riotapps.word.GameSurface,com.riotapps.word.hooks.Game)
+com.riotapps.word.ui.HopperPeekDialog: HopperPeekDialog(android.content.Context,com.riotapps.word.hooks.Game)
 com.riotapps.word.ui.HopperPeekDialog: void onCreate(android.os.Bundle)
 com.riotapps.word.ui.HopperPeekDialog: void onStart()
 com.riotapps.word.ui.HopperPeekDialog: void dismiss()
@@ -7333,6 +7333,7 @@ com.riotapps.word.utils.Constants: java.lang.String SKU_GOOGLE_PLAY_PREMIUM_UPGR
 com.riotapps.word.utils.Constants: java.lang.String SKU_GOOGLE_PLAY_WORD_DEFINITIONS
 com.riotapps.word.utils.Constants: java.lang.String SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL
 com.riotapps.word.utils.Constants: java.lang.String SKU_GOOGLE_PLAY_WORD_HINTS
+com.riotapps.word.utils.Constants: int RETURN_CODE_HOPPER_PEEK_CLOSE
 com.riotapps.word.utils.Constants: Constants()
 com.riotapps.word.utils.CustomProgressDialog
 com.riotapps.word.utils.CustomProgressDialog: CustomProgressDialog(android.content.Context)

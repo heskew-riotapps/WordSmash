@@ -7816,30 +7816,30 @@ com.riotapps.word.GameSurface -> com.riotapps.word.GameSurface:
     917:922:void setupMenu() -> j
     927:929:boolean onMenuItemClick(android.view.MenuItem) -> onMenuItemClick
     935:964:void handleBack() -> k
-    969:987:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    991:1056:void onStart() -> onStart
-    1061:1102:void onRestart() -> onRestart
-    1107:1192:void onClick(android.view.View) -> onClick
-    1202:1205:void unloadPlaySpinner() -> unloadPlaySpinner
-    1208:1215:void onFinishPlayNoErrors(com.riotapps.word.ui.PlacedResult) -> onFinishPlayNoErrors
-    1218:1232:void onFinishPlayErrors(java.lang.String,int) -> onFinishPlayErrors
-    1236:1275:void handleCancel() -> l
-    1279:1289:void handleGameCancelOnClick() -> m
-    1292:1334:void handleResign() -> n
-    1339:1355:void handleGameResignOnClick() -> o
-    1365:1415:void handleGamePlayOnClick(com.riotapps.word.ui.PlacedResult) -> handleGamePlayOnClick
-    1424:1471:void handleGameSkipOnClick() -> handleGameSkipOnClick
-    1474:1476:void onSwapClick() -> p
-    1484:1515:void handleGameSwapOnClick(java.util.List) -> handleGameSwapOnClick
-    1518:1524:void handlePostAdServer() -> handlePostAdServer
-    1527:1550:void handleInterstitialAd() -> q
-    1851:1857:void stopRunawayAdTimer() -> r
-    1901:1906:void onDismissScreen(com.google.ads.Ad) -> onDismissScreen
-    1910:1915:void onFailedToReceiveAd(com.google.ads.Ad,com.google.ads.AdRequest$ErrorCode) -> onFailedToReceiveAd
-    1919:1924:void onLeaveApplication(com.google.ads.Ad) -> onLeaveApplication
-    1928:1929:void onPresentScreen(com.google.ads.Ad) -> onPresentScreen
-    1933:1938:void onReceiveAd(com.google.ads.Ad) -> onReceiveAd
-    2323:2330:void trackEvent(java.lang.String,java.lang.String,java.lang.String,long) -> trackEvent
+    969:990:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    994:1059:void onStart() -> onStart
+    1064:1105:void onRestart() -> onRestart
+    1110:1195:void onClick(android.view.View) -> onClick
+    1205:1208:void unloadPlaySpinner() -> unloadPlaySpinner
+    1211:1218:void onFinishPlayNoErrors(com.riotapps.word.ui.PlacedResult) -> onFinishPlayNoErrors
+    1221:1235:void onFinishPlayErrors(java.lang.String,int) -> onFinishPlayErrors
+    1239:1279:void handleCancel() -> l
+    1283:1293:void handleGameCancelOnClick() -> m
+    1296:1338:void handleResign() -> n
+    1343:1359:void handleGameResignOnClick() -> o
+    1369:1419:void handleGamePlayOnClick(com.riotapps.word.ui.PlacedResult) -> handleGamePlayOnClick
+    1428:1475:void handleGameSkipOnClick() -> handleGameSkipOnClick
+    1478:1480:void onSwapClick() -> p
+    1488:1519:void handleGameSwapOnClick(java.util.List) -> handleGameSwapOnClick
+    1522:1528:void handlePostAdServer() -> handlePostAdServer
+    1531:1554:void handleInterstitialAd() -> q
+    1855:1861:void stopRunawayAdTimer() -> r
+    1905:1910:void onDismissScreen(com.google.ads.Ad) -> onDismissScreen
+    1914:1919:void onFailedToReceiveAd(com.google.ads.Ad,com.google.ads.AdRequest$ErrorCode) -> onFailedToReceiveAd
+    1923:1928:void onLeaveApplication(com.google.ads.Ad) -> onLeaveApplication
+    1932:1933:void onPresentScreen(com.google.ads.Ad) -> onPresentScreen
+    1937:1942:void onReceiveAd(com.google.ads.Ad) -> onReceiveAd
+    2327:2334:void trackEvent(java.lang.String,java.lang.String,java.lang.String,long) -> trackEvent
     76:76:java.lang.String access$0() -> b
     78:78:com.chartboost.sdk.Chartboost access$1(com.riotapps.word.GameSurface) -> a
     127:127:com.riotapps.word.hooks.Game access$2(com.riotapps.word.GameSurface) -> b
@@ -7851,65 +7851,65 @@ com.riotapps.word.GameSurface -> com.riotapps.word.GameSurface:
     79:79:com.riotapps.word.GameSurface access$8(com.riotapps.word.GameSurface) -> h
     75:75:int[] $SWITCH_TABLE$com$riotapps$word$ui$GameAction$GameActionType() -> c
     80:80:com.riotapps.word.ui.GameSurfaceView access$14(com.riotapps.word.GameSurface) -> i
-    1277:1277:void access$15(com.riotapps.word.GameSurface) -> j
-    1337:1337:void access$16(com.riotapps.word.GameSurface) -> k
+    1281:1281:void access$15(com.riotapps.word.GameSurface) -> j
+    1341:1341:void access$16(com.riotapps.word.GameSurface) -> k
 com.riotapps.word.GameSurface$1 -> nv:
     com.riotapps.word.GameSurface this$0 -> a
     428:434:void handleMessage(android.os.Message) -> handleMessage
 com.riotapps.word.GameSurface$10 -> nw:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
-    1313:1318:void onClick(android.view.View) -> onClick
+    1317:1322:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$11 -> nx:
     com.riotapps.word.GameSurface this$0 -> a
-    1324:1329:void onCancel(android.content.DialogInterface) -> onCancel
+    1328:1333:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.GameSurface$2 -> ny:
     com.riotapps.word.GameSurface this$0 -> a
-    1966:1967:boolean shouldDisplayInterstitial(java.lang.String) -> shouldDisplayInterstitial
-    1988:1989:boolean shouldRequestInterstitial(java.lang.String) -> shouldRequestInterstitial
-    2007:2008:void didCacheInterstitial(java.lang.String) -> didCacheInterstitial
-    2027:2032:void didFailToLoadInterstitial(java.lang.String) -> didFailToLoadInterstitial
-    2049:2058:void didDismissInterstitial(java.lang.String) -> didDismissInterstitial
-    2070:2075:void didCloseInterstitial(java.lang.String) -> didCloseInterstitial
-    2087:2092:void didClickInterstitial(java.lang.String) -> didClickInterstitial
-    2104:2111:void didShowInterstitial(java.lang.String) -> didShowInterstitial
-    2127:2127:boolean shouldDisplayLoadingViewForMoreApps() -> shouldDisplayLoadingViewForMoreApps
-    2142:2142:boolean shouldRequestMoreApps() -> shouldRequestMoreApps
-    2156:2157:boolean shouldDisplayMoreApps() -> shouldDisplayMoreApps
-    2175:2178:void didFailToLoadMoreApps() -> didFailToLoadMoreApps
-    2189:2190:void didCacheMoreApps() -> didCacheMoreApps
-    2203:2206:void didDismissMoreApps() -> didDismissMoreApps
-    2218:2221:void didCloseMoreApps() -> didCloseMoreApps
-    2233:2236:void didClickMoreApps() -> didClickMoreApps
-    2248:2249:void didShowMoreApps() -> didShowMoreApps
-    2259:2259:boolean shouldRequestInterstitialsInFirstSession() -> shouldRequestInterstitialsInFirstSession
+    1970:1971:boolean shouldDisplayInterstitial(java.lang.String) -> shouldDisplayInterstitial
+    1992:1993:boolean shouldRequestInterstitial(java.lang.String) -> shouldRequestInterstitial
+    2011:2012:void didCacheInterstitial(java.lang.String) -> didCacheInterstitial
+    2031:2036:void didFailToLoadInterstitial(java.lang.String) -> didFailToLoadInterstitial
+    2053:2062:void didDismissInterstitial(java.lang.String) -> didDismissInterstitial
+    2074:2079:void didCloseInterstitial(java.lang.String) -> didCloseInterstitial
+    2091:2096:void didClickInterstitial(java.lang.String) -> didClickInterstitial
+    2108:2115:void didShowInterstitial(java.lang.String) -> didShowInterstitial
+    2131:2131:boolean shouldDisplayLoadingViewForMoreApps() -> shouldDisplayLoadingViewForMoreApps
+    2146:2146:boolean shouldRequestMoreApps() -> shouldRequestMoreApps
+    2160:2161:boolean shouldDisplayMoreApps() -> shouldDisplayMoreApps
+    2179:2182:void didFailToLoadMoreApps() -> didFailToLoadMoreApps
+    2193:2194:void didCacheMoreApps() -> didCacheMoreApps
+    2207:2210:void didDismissMoreApps() -> didDismissMoreApps
+    2222:2225:void didCloseMoreApps() -> didCloseMoreApps
+    2237:2240:void didClickMoreApps() -> didClickMoreApps
+    2252:2253:void didShowMoreApps() -> didShowMoreApps
+    2263:2263:boolean shouldRequestInterstitialsInFirstSession() -> shouldRequestInterstitialsInFirstSession
 com.riotapps.word.GameSurface$3 -> nz:
     com.riotapps.word.GameSurface this$0 -> a
-    1160:1161:void run() -> run
+    1163:1164:void run() -> run
 com.riotapps.word.GameSurface$4 -> oa:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.PlacedResult val$placedResult -> b
-    1212:1213:void run() -> run
+    1215:1216:void run() -> run
 com.riotapps.word.GameSurface$5 -> ob:
     com.riotapps.word.GameSurface this$0 -> a
     int val$code -> b
     java.lang.String val$message -> c
-    1224:1230:void run() -> run
+    1227:1233:void run() -> run
 com.riotapps.word.GameSurface$6 -> oc:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
-    1245:1251:void onClick(android.view.View) -> onClick
+    1248:1254:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$7 -> od:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
-    1257:1262:void onClick(android.view.View) -> onClick
+    1260:1266:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$8 -> oe:
     com.riotapps.word.GameSurface this$0 -> a
-    1268:1272:void onCancel(android.content.DialogInterface) -> onCancel
+    1272:1276:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.GameSurface$9 -> of:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.CustomButtonDialog val$dialog -> b
-    1301:1307:void onClick(android.view.View) -> onClick
+    1305:1311:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$SwapDialog -> og:
     android.widget.Button bOK -> f
     android.widget.Button bCancel -> g
@@ -7935,21 +7935,21 @@ com.riotapps.word.GameSurface$SwapDialog -> og:
     int tileSize -> c
     int textSize -> d
     com.riotapps.word.GameSurface this$0 -> e
-    1617:1621:void onCreate(android.os.Bundle) -> onCreate
-    1626:1724:void onStart() -> onStart
-    1729:1731:void dismiss() -> dismiss
-    1735:1757:void handleOKClick() -> a
-    1761:1829:void onClick(android.view.View) -> onClick
-    1553:1553:com.riotapps.word.GameSurface access$0(com.riotapps.word.GameSurface$SwapDialog) -> a
+    1621:1625:void onCreate(android.os.Bundle) -> onCreate
+    1630:1728:void onStart() -> onStart
+    1733:1735:void dismiss() -> dismiss
+    1739:1761:void handleOKClick() -> a
+    1765:1833:void onClick(android.view.View) -> onClick
+    1557:1557:com.riotapps.word.GameSurface access$0(com.riotapps.word.GameSurface$SwapDialog) -> a
 com.riotapps.word.GameSurface$SwapDialog$1 -> oh:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
-    1690:1695:void onClick(android.view.View) -> onClick
+    1694:1699:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$SwapDialog$2 -> oi:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
-    1704:1709:void onClick(android.view.View) -> onClick
+    1708:1713:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$SwapDialog$3 -> oj:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
-    1715:1720:void onCancel(android.content.DialogInterface) -> onCancel
+    1719:1724:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.GameSurface$handleButtonSwitchRunnable -> ok:
     int activeButton -> b
     com.riotapps.word.GameSurface this$0 -> a
@@ -10542,23 +10542,23 @@ com.riotapps.word.ui.GameTileComparator -> com.riotapps.word.ui.GameTileComparat
 com.riotapps.word.ui.HopperPeekDialog -> com.riotapps.word.ui.HopperPeekDialog:
     java.lang.String TAG -> a
     com.riotapps.word.hooks.Game game -> b
-    com.riotapps.word.GameSurface parent -> c
+    android.content.Context parent -> c
     android.view.View layout -> d
     android.widget.TextView peek_description -> e
     com.google.analytics.tracking.android.Tracker tracker -> f
-    47:50:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
-    67:71:void onCreate(android.os.Bundle) -> onCreate
-    76:163:void onStart() -> onStart
-    167:174:void trackEvent(java.lang.String,java.lang.String,long) -> a
-    179:181:void dismiss() -> dismiss
-    187:203:void onClick(android.view.View) -> onClick
-    206:266:void loadLetters() -> a
+    48:51:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
+    68:72:void onCreate(android.os.Bundle) -> onCreate
+    77:164:void onStart() -> onStart
+    168:175:void trackEvent(java.lang.String,java.lang.String,long) -> a
+    181:191:void dismiss() -> dismiss
+    197:213:void onClick(android.view.View) -> onClick
+    216:276:void loadLetters() -> a
 com.riotapps.word.ui.HopperPeekDialog$1 -> ro:
     com.riotapps.word.ui.HopperPeekDialog this$0 -> a
-    137:138:void onClick(android.view.View) -> onClick
+    138:139:void onClick(android.view.View) -> onClick
 com.riotapps.word.ui.HopperPeekDialog$2 -> rp:
     com.riotapps.word.ui.HopperPeekDialog this$0 -> a
-    147:149:void onCancel(android.content.DialogInterface) -> onCancel
+    148:150:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.ui.MainFontTextView -> com.riotapps.word.ui.MainFontTextView:
 com.riotapps.word.ui.MenuUtils -> com.riotapps.word.ui.MenuUtils:
     java.lang.String TAG -> a
@@ -11034,6 +11034,7 @@ com.riotapps.word.utils.Constants -> com.riotapps.word.utils.Constants:
     java.lang.String SKU_GOOGLE_PLAY_WORD_DEFINITIONS -> SKU_GOOGLE_PLAY_WORD_DEFINITIONS
     java.lang.String SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL -> SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL
     java.lang.String SKU_GOOGLE_PLAY_WORD_HINTS -> SKU_GOOGLE_PLAY_WORD_HINTS
+    int RETURN_CODE_HOPPER_PEEK_CLOSE -> RETURN_CODE_HOPPER_PEEK_CLOSE
 com.riotapps.word.utils.CustomProgressDialog -> com.riotapps.word.utils.CustomProgressDialog:
     java.lang.String dialogText -> a
     31:34:void onCreate(android.os.Bundle) -> onCreate

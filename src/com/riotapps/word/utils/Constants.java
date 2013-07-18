@@ -109,7 +109,10 @@ public class Constants {
 	public static final String TRACKER_LABEL_CANCEL_CANCEL = "cancel_cancel";
 	public static final String TRACKER_LABEL_CANCEL_DISMISS = "cancel_dismiss";
 	public static final String TRACKER_LABEL_CANCEL_OK = "cancel_ok";
-	public static final String TRACKER_LABEL_PLAY_WITH_ERRORS = "play_with_errors";
+	public static final String TRACKER_LABEL_START_GAME_OK = "start_game_ok";
+	public static final String TRACKER_LABEL_START_GAME_CANCEL = "start_game_cancel";
+	public static final String TRACKER_LABEL_START_GAME_DISMISS = "start_game_dismiss";
+	 public static final String TRACKER_LABEL_PLAY_WITH_ERRORS = "play_with_errors";
 	public static final long TRACKER_DEFAULT_OPTION_VALUE = 0;
 	public static final long TRACKER_SINGLE_VALUE = 1;
 	
@@ -351,6 +354,28 @@ public class Constants {
 	public static final String SKU_GOOGLE_PLAY_HIDE_INTERSTITIAL = "riotapps_wordsmash_hide_interstitial.a";
 	public static final String SKU_GOOGLE_PLAY_WORD_HINTS = "riotapps_wordsmash_word_hints.a";
 	
+	/**=============================================
+	 * return code 
+	 *==============================================*/
+	public static final int RETURN_CODE_HOPPER_PEEK_CLOSE = 100;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_OK_CLICKED = 101;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLICKED = 102;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_CLOSE_CLICKED = 103;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED = 104;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_SKIP_CANCEL_CLICKED = 105;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED = 106;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_PLAY_CANCEL_CLICKED = 107;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_SKIP_CLOSE_CLICKED = 108;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED = 109;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED = 110;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLOSE_CLICKED = 111;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED = 112;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED = 113;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED = 114;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED = 115;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED = 116;	
+	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED = 117;
+	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED = 118;	
 	
 }//end class Constants
  

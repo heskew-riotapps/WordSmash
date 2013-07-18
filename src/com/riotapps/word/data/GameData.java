@@ -85,6 +85,8 @@ public class GameData {
 		editor.putString(String.format(Constants.USER_PREFS_GAME_JSON, game.getId()), gson.toJson(game));
 		editor.apply();
         
+		editor = null;
+		settings = null;
 		gson = null;
 	}
 	

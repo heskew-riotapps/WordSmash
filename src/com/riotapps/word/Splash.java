@@ -146,7 +146,7 @@ public class Splash  extends FragmentActivity {
 	 }
 	    
     private void startBackgroundService(){
-     	this.startService(new Intent(this, WordLoaderService.class));
+    // 	this.startService(new Intent(this, WordLoaderService.class));
     }
    
     

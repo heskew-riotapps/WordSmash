@@ -69,12 +69,16 @@ import java.util.TimerTask;
 //Import the Chartboost SDK
 import com.chartboost.sdk.Chartboost;
 import com.chartboost.sdk.ChartboostDelegate;
+import com.riotapps.word.interfaces.ICloseDialog;
 
 //import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
-public class GameSurface extends FragmentActivity implements View.OnClickListener, AdListener, PopupMenu.OnMenuItemClickListener{
+public class GameSurface extends FragmentActivity implements View.OnClickListener, AdListener, PopupMenu.OnMenuItemClickListener, ICloseDialog{
 	private static final String TAG = GameSurface.class.getSimpleName();
 	
+	private PlacedResult placedResult = null;
+	private CustomButtonDialog customDialog = null;
+	private HopperPeekDialog hopperPeekdialog = null;
 	private Chartboost cb;
 	private GameSurface context = this;
 	private GameSurfaceView gameSurfaceView;
@@ -793,7 +797,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	//		this.wordLoaderThread.interrupt();
 	//		this.wordLoaderThread = null;
 	//	}
-		
+		 this.dismissHopperPeekDialog();
 	//	try{
 	//		this.spinner.dismiss();
 	//	}
@@ -836,6 +840,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		
 	///	this.stopTimer();
 		this.stopRunawayAdTimer();
+		this.dismissHopperPeekDialog();
 
 	//	try{
 	//		this.spinner.dismiss();
@@ -970,7 +975,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		
 		Logger.d(TAG, "onActivityResult called requestCode=" + requestCode + "  resultCode=" + resultCode);
 		 switch(requestCode) { 
-		    case (1) : { 
+		    case (1) :   
 		      if (resultCode == Activity.RESULT_OK) { 
 		    	  boolean hasGameBeenUpdated = intent.getBooleanExtra(Constants.EXTRA_IS_GAME_UPDATED, false);
 		    	  if (hasGameBeenUpdated){
@@ -981,11 +986,189 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					  this.gameSurfaceView.resetGameAfterRefresh();
 		    	  }
 		      } 
-		      break; 
-		    } 
-		  } 
+		      break;
+		   case Constants.RETURN_CODE_HOPPER_PEEK_CLOSE:
+			   this.unfreezeButtons();
+			   this.dismissHopperPeekDialog();
+			   break; 
+		   
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED:
+			 	this.dismissCustomDialog();
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_SKIP_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGameSkipOnClick(); 
+			 break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLOSE_CLICKED:
+			    this.dismissCustomDialog();
+	 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_SKIP_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			this.unfreezeButtons();
+	 			break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CANCEL_CLICKED:
+			    this.dismissCustomDialog();
+				this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_SKIP_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				
+				this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED:
+			   this.dismissCustomDialog();
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_PLAY_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGamePlayOnClick(this.placedResult);
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED:
+			    this.dismissCustomDialog();
+	 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_PLAY_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			this.unfreezeButtons();
+	 			break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CANCEL_CLICKED:
+			    this.dismissCustomDialog();
+				this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_PLAY_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				
+				this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_RESIGN_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGameResignOnClick();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_RESIGN_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED:	
+			    this.dismissCustomDialog(); 
+
+			    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_RESIGN_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+
+			    this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGameCancelOnClick();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLOSE_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED:	
+			    this.dismissCustomDialog(); 
+
+			    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			    
+			    this.unfreezeButtons();
+
+	 		}
+		 
+
+	}
+	
+	public void closeCustomDialog(int resultCode){
+		 switch(resultCode) { 
+		   case Constants.RETURN_CODE_HOPPER_PEEK_CLOSE:
+			   this.unfreezeButtons();
+			   this.dismissHopperPeekDialog();
+			   break; 
+		   
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED:
+			 	this.dismissCustomDialog();
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_SKIP_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGameSkipOnClick(); 
+			 break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLOSE_CLICKED:
+			    this.dismissCustomDialog();
+	 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_SKIP_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			this.unfreezeButtons();
+	 			break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CANCEL_CLICKED:
+			    this.dismissCustomDialog();
+				this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_SKIP_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				
+				this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED:
+			   this.dismissCustomDialog();
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_PLAY_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGamePlayOnClick(this.placedResult);
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED:
+			    this.dismissCustomDialog();
+	 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_PLAY_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			this.unfreezeButtons();
+	 			break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CANCEL_CLICKED:
+			    this.dismissCustomDialog();
+				this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_PLAY_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				
+				this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_RESIGN_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGameResignOnClick();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_RESIGN_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED:	
+			    this.dismissCustomDialog(); 
+
+			    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_RESIGN_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+
+			    this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.handleGameCancelOnClick();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLOSE_CLICKED:
+			    this.dismissCustomDialog(); 
+	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+	 			
+	 			this.unfreezeButtons();
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED:	
+			    this.dismissCustomDialog(); 
+
+			    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+	        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			    
+			    this.unfreezeButtons();
+
+	 		}
+		 
 	}
 
+	private void dismissHopperPeekDialog(){
+		if (this.hopperPeekdialog != null){
+			if (this.hopperPeekdialog.isShowing()){
+				this.hopperPeekdialog.dismiss();
+			}
+			this.hopperPeekdialog = null;
+		}
+	}
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -1125,9 +1308,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	break;
 			        case R.id.bHopperPeek:  
 			        	this.isButtonActive = true;
-			        	final HopperPeekDialog dialog = new HopperPeekDialog(context, this.game);
+			        	this.hopperPeekdialog = new HopperPeekDialog(this, this.game.getId());
 			       	 
-				    	dialog.show();
+				    	this.hopperPeekdialog.show();
 			        	//intent = new Intent(this, HopperPeek.class);
 			        	//intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
 						//startActivity(intent);
@@ -1209,7 +1392,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        public void run() {
 		            // use data here
 		        //	unloadPlaySpinner();
-		            gameSurfaceView.postPlayNoErrors(placedResult);
+		            postPlayNoErrors(placedResult);
 		        }
 		    });
 		}
@@ -1233,45 +1416,17 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 
 	    private void handleCancel(){
-	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
+	    	this.customDialog = new CustomButtonDialog(this, 
 	    			this.getString(R.string.game_surface_cancel_game_confirmation_title), 
 	    			this.getString(R.string.game_surface_cancel_game_confirmation_text),
 	    			this.getString(R.string.yes),
-	    			this.getString(R.string.no));
+	    			this.getString(R.string.no),
+	    			Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED,
+	    			Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED,
+	    			Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLOSE_CLICKED);
 	    	
-	    	dialog.setOnOKClickListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-		 			
-		 			handleGameCancelOnClick();
-		 		
-		 		}
-			});
-
-	    	dialog.setOnDismissListener(new View.OnClickListener() {
-			 		@Override
-					public void onClick(View v) {
-			 			dialog.dismiss(); 
-			 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			 			
-			 			unfreezeButtons();
-			 		}
-				});
 	    	
-	     	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-					
-					unfreezeButtons();
-				}
-			});  
-	    	dialog.show();	
+	    	this.customDialog.show();	
 	    }
 	    
 	    private void handleGameCancelOnClick(){
@@ -1289,48 +1444,18 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    }
 
 	    private void handleResign(){
-	    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
+	    	this.customDialog = new CustomButtonDialog(this, 
 	    			this.getString(R.string.game_surface_resign_game_confirmation_title), 
 	    			this.getString(R.string.game_surface_resign_game_confirmation_text),
 	    			this.getString(R.string.yes),
-	    			this.getString(R.string.no));
+	    			this.getString(R.string.no),
+	    			Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED,
+					Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED,
+					Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED);
 	    	
-	    	dialog.setOnOKClickListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_RESIGN_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-		 			
-		 			handleGameResignOnClick();
-		 		
-		 		}
-			});
 	    	
-	    	dialog.setOnDismissListener(new View.OnClickListener() {
-			 		@Override
-					public void onClick(View v) {
-			 			dialog.dismiss(); 
-			 			 trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-				        			Constants.TRACKER_LABEL_RESIGN_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			 			
-			 			unfreezeButtons();
-			 		}
-				});
- 
-	    	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-		 			 trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-			        			Constants.TRACKER_LABEL_RESIGN_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-
-					unfreezeButtons();
-					
-				}
-			});
-			
 			 
-	    	dialog.show();	
+	    	this.customDialog.show();	
 	    }
 
 	    
@@ -1354,6 +1479,50 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		//	}
 	    }
 	    
+	    private void dismissCustomDialog(){
+			if (this.customDialog != null){
+				customDialog.dismiss();
+				customDialog = null;
+			}
+		}
+	    public void postPlayNoErrors(final PlacedResult placedResult ){
+			this.setPointsView(placedResult.getTotalPoints());
+			
+			//this.parent.handleGamePlayOnClick(placedResult);
+			
+			//if (placedResult.getPlacedTiles().size() == 800){
+			if (placedResult.getPlacedTiles().size() == 0){
+				
+					//user is skipping this turn
+					this.customDialog = new CustomButtonDialog(this, 
+							this.getString(R.string.game_play_skip_title), 
+							this.getString(R.string.game_play_skip_confirmation_text),
+							this.getString(R.string.yes),
+							this.getString(R.string.no), 
+							Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED,
+							Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CANCEL_CLICKED,
+							Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLOSE_CLICKED);
+		 	    	
+					this.customDialog.show();
+				}
+				else{
+					//loop through placed words and show confirmation messages 
+					this.placedResult = placedResult;
+					this.customDialog = new CustomButtonDialog(this, 
+							this.getString(R.string.game_play_title), 
+							GameService.getPlacedWordsMessage(this, placedResult.getPlacedWords()),
+							this.getString(R.string.yes),
+							this.getString(R.string.no), 
+							Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED,
+							Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CANCEL_CLICKED,
+							Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED,
+							R.layout.played_word_dialog);
+		 	    	
+					this.customDialog.show();
+	
+				}
+			//}
+		}
 	    
 	    public void handleGamePlayOnClick(PlacedResult placedResult){
 	    	//stop thread first
@@ -1362,7 +1531,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	//this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
 	    	 
-	    		game = GameService.play(false, game, placedResult);
+	    		GameService.play(false, game, placedResult);
 	    		gameState = GameStateService.clearGameState(game.getId());
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
@@ -2327,5 +2496,96 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	  					 + " label=" + (label == null ? "null" : label)  + " value=" + value +" e=" + e.toString());
 	  			
 			}
+		}
+
+		@Override
+		public void dialogClose(int resultCode) {
+			
+			
+			Logger.d(TAG, "dialogClose resultCode=" + resultCode);
+			 switch(resultCode) { 
+			   case Constants.RETURN_CODE_HOPPER_PEEK_CLOSE:
+				   this.unfreezeButtons();
+				   this.dismissHopperPeekDialog();
+				   break; 
+			   
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED:
+				 	this.dismissCustomDialog();
+		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_SKIP_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			this.handleGameSkipOnClick(); 
+				 break;
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLOSE_CLICKED:
+				    this.dismissCustomDialog();
+		 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_SKIP_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			this.unfreezeButtons();
+		 			break;
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CANCEL_CLICKED:
+				    this.dismissCustomDialog();
+					this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_SKIP_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+					
+					this.unfreezeButtons();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED:
+				   this.dismissCustomDialog();
+		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_PLAY_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			this.handleGamePlayOnClick(this.placedResult);
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED:
+				    this.dismissCustomDialog();
+		 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_PLAY_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			this.unfreezeButtons();
+		 			break;
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CANCEL_CLICKED:
+				    this.dismissCustomDialog();
+					this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_PLAY_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+					
+					this.unfreezeButtons();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED:
+				    this.dismissCustomDialog(); 
+		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+			        			Constants.TRACKER_LABEL_RESIGN_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			this.handleGameResignOnClick();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED:
+				    this.dismissCustomDialog(); 
+		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+			        			Constants.TRACKER_LABEL_RESIGN_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			this.unfreezeButtons();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED:	
+				    this.dismissCustomDialog(); 
+
+				    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_RESIGN_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+
+				    this.unfreezeButtons();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED:
+				    this.dismissCustomDialog(); 
+		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			this.handleGameCancelOnClick();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLOSE_CLICKED:
+				    this.dismissCustomDialog(); 
+		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		 			
+		 			this.unfreezeButtons();
+			   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED:	
+				    this.dismissCustomDialog(); 
+
+				    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				    
+				    this.unfreezeButtons();
+
+		 		}
+			
 		}
 }

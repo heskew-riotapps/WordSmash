@@ -31,7 +31,7 @@ public class DialogManager {
 	
 	public static void SetupAlert(Context context, String dialogTitle, String dialogMessage, String okText, boolean onOkClickFinishActivity, int closeAfterMilliseconds){
     	final Dialog dialog = new Dialog(context, R.style.DialogStyle);
-    	final boolean onClickFinishActivity = onOkClickFinishActivity;
+    	//final boolean onClickFinishActivity = onOkClickFinishActivity;
     	final Context ctx = context;
     	final Timer t = new Timer();
 		dialog.setContentView(R.layout.alert);
@@ -51,9 +51,9 @@ public class DialogManager {
 			public void onClick(View v) {
 				dialog.dismiss();
 				t.cancel();
-				if(onClickFinishActivity){
-	            	((Activity)ctx).finish();
-	            }
+			//	if(onClickFinishActivity){
+	         //   	((Activity)ctx).finish();
+	         //   }
 			}
 		});
 
@@ -64,9 +64,9 @@ public class DialogManager {
 			public void onClick(View v) {
 				dialog.dismiss();
 				t.cancel();
-				if(onClickFinishActivity){
-	            	((Activity)ctx).finish();
-	            }
+			//	if(onClickFinishActivity){
+	         //   	((Activity)ctx).finish();
+	          //  }
 			}
 		});
 		

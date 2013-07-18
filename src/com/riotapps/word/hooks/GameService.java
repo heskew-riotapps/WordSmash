@@ -201,7 +201,7 @@ public class GameService {
 	}
 	
 	
-	public static Game play(boolean isOpponent, Game game, PlacedResult placedResult){
+	public static void play(boolean isOpponent, Game game, PlacedResult placedResult){
 		Logger.d(TAG, "GameService.play called.  isOpponent=" + isOpponent);		
 		Date now = new Date();
 
@@ -312,7 +312,7 @@ public class GameService {
 //		ApplicationContext.captureTime(TAG, "WordService.isWordIndexed 2 ended");
 		
 		GameService.saveGame(game);
-		return game;	
+		//return game;	
 	}
 	
  

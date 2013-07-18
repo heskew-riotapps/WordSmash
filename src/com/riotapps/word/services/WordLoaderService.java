@@ -64,6 +64,7 @@ public class WordLoaderService extends Service {
          protected String doInBackground(String... params) {
         	//   ApplicationContext appContext = (ApplicationContext)getApplicationContext();
         	   try{
+        		   
         		   captureTime("index - load started");
         		   WordService.isWordIndexed("aaaabenn");
         		   captureTime("index - loaded");

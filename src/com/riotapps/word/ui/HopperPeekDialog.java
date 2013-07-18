@@ -9,12 +9,14 @@ import com.riotapps.word.Main;
 import com.riotapps.word.R;
 import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
+import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Letter;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -38,7 +40,7 @@ public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
 	private static final String TAG = HopperPeekDialog.class.getSimpleName();
 	
 	private Game game;
-	private GameSurface parent;
+	private Context parent;
 	private View layout;
 	private TextView peek_description;
 private Tracker tracker;
@@ -50,10 +52,12 @@ private Tracker tracker;
 		return tracker;
 	}
 	
-	public HopperPeekDialog(GameSurface context, Game game){
+	public HopperPeekDialog(Context context, String gameId){ //Game game){
+		
 		super(context);
-		this.game = game;
+		this.game = GameService.getGame(gameId);
 		this.parent = context;
+	
 	//	WindowManager.LayoutParams params = new WindowManager.LayoutParams();
 	//	params.horizontalMargin = 10f;
 		
@@ -176,8 +180,18 @@ private Tracker tracker;
 	
 	@Override
 	public void dismiss(){
-		parent.unfreezeButtons();
+		
+		this.game = null;
+ 		this.layout = null;
+		this.peek_description = null;
+		this.tracker = null;
+		
+		
+		//parent.unfreezeButtons();
 		super.dismiss();	
+		((Activity) this.parent).setResult(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE, new Intent());
+		this.parent = null;
+		
 	}
 
 	 

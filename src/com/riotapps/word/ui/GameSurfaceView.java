@@ -48,7 +48,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	}
 	
 //	ApplicationContext appContext;
-	
+	private CustomButtonDialog dialog = null;
 	 private static Bitmap bgPlacedTileFull;
 	private static Bitmap bgPlacedTileZoomed;
 	private static Bitmap bgPlayedTileFull;
@@ -794,14 +794,23 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    this.parent.captureTime("surfaceDestroyed ending");
 	}
 	
+	private void dismissDialog(){
+		if (this.dialog != null){
+			dialog.dismiss();
+			dialog = null;
+		}
+	}
+	
 	public void onPause() {
 		Log.w(TAG, "onPause called");
+		this.dismissDialog();
 		this.gameThread.onPause();
 	//	 this.stopThread();
 	}
 	
 	public void onStop() {
 		Log.w(TAG, "onStop called");
+		this.dismissDialog();
 		 this.stopThread();
 	}
 	
@@ -2675,9 +2684,12 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		}
 	}
 	
-	public void postPlayNoErrors(final PlacedResult placedResult ){
+	public void postPlayNoErrors_____(final PlacedResult placedResult ){
 		this.parent.setPointsView(placedResult.getTotalPoints());
 		
+		//this.parent.handleGamePlayOnClick(placedResult);
+		
+		//if (placedResult.getPlacedTiles().size() == 800){
 		if (placedResult.getPlacedTiles().size() == 0){
 			
 			/*	View view = getLayoutInflater().inflate(R.layout.custom_dialog, null);
@@ -2688,16 +2700,17 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 				    .create();
 				*/
 				//user is skipping this turn
-				final CustomButtonDialog dialog = new CustomButtonDialog(parent, 
+				this.dialog = new CustomButtonDialog(parent, 
 						parent.getString(R.string.game_play_skip_title), 
 						parent.getString(R.string.game_play_skip_confirmation_text),
 						parent.getString(R.string.yes),
 						parent.getString(R.string.no));
-		    	
+		    	/*
 		    	dialog.setOnOKClickListener(new View.OnClickListener() {
 			 		@Override
 					public void onClick(View v) {
-			 			dialog.dismiss(); 
+			 			//dialog.dismiss(); 
+			 			dismissDialog();
 			 			parent.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_SKIP_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			 			
@@ -2708,8 +2721,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		    	dialog.setOnDismissListener(new View.OnClickListener() {
 			 		@Override
 					public void onClick(View v) {
-			 			dialog.dismiss(); 
-			 			parent.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+			 			//dialog.dismiss();
+			 			dismissDialog();
+			 	 		parent.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_SKIP_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			 			parent.unfreezeButtons();
 			 			
@@ -2727,22 +2741,23 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 						
 					}
 				});
-				 
+				 */
 		    	dialog.show();
 			}
 			else{
 				//loop through placed words and show confirmation messages 
-				final CustomButtonDialog dialog = new CustomButtonDialog(parent, 
+				this.dialog = new CustomButtonDialog(parent, 
 						parent.getString(R.string.game_play_title), 
 		    			GameService.getPlacedWordsMessage(parent, placedResult.getPlacedWords()),
 		    			parent.getString(R.string.yes),
 		    			parent.getString(R.string.no),
 		    			R.layout.played_word_dialog);
-		    	
+		    	/*
 		    	dialog.setOnOKClickListener(new View.OnClickListener() {
 			 		@Override
 					public void onClick(View v) {
-			 			dialog.dismiss(); 
+			 			//dialog.dismiss(); 
+			 			dismissDialog();
 			 			parent.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_PLAY_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			 			
@@ -2753,7 +2768,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		    	dialog.setOnDismissListener(new View.OnClickListener() {
 			 		@Override
 					public void onClick(View v) {
-			 			dialog.dismiss(); 
+			 			//dialog.dismiss();
+			 			dismissDialog();
 			 			parent.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_PLAY_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 			 			
@@ -2771,9 +2787,10 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 						
 					}
 				});
-		    	
+		    	*/
 		    	dialog.show();
 			}
+		//}
 	}
 	
 	private void onBoardClear(){

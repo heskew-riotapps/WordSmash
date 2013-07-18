@@ -20,6 +20,8 @@ import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
 import com.riotapps.word.utils.Logger;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,9 +44,10 @@ import android.graphics.BitmapFactory;
 public class Main extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
 	private static final String TAG = Main.class.getSimpleName();
  
-	Context context = this;
-	Player player;
+	private Context context = this;
+	private Player player;
 	 private PopupMenu popupMenu;
+	 private CustomButtonDialog customDialog;
         
      private int chosenOpponentId = 0;
 	//Timer timer = null;
@@ -172,9 +175,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
           findViewById(R.id.options).setOnClickListener(this);
     }
     
-    private void trackEvent(String action, String label, int value){
-    	this.trackEvent(action, label, (long)value);
-    }
+  
     
     private void trackEvent(String action, String label, long value){
   		try{
@@ -399,50 +400,57 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     public boolean onMenuItemClick(MenuItem item) {
     	return MenuUtils.handleMenuClick(this, item.getItemId());
     }
-
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, intent);
+		
+		Logger.d(TAG, "onActivityResult called requestCode=" + requestCode + "  resultCode=" + resultCode);
+		 switch(requestCode) { 
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED:
+			   this.dismissCustomDialog();
+	 
+			   this.handleGameStartOnClick();
+			   break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED:
+			   this.dismissCustomDialog();
+			   this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED,
+					     			Constants.TRACKER_LABEL_START_GAME_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			   break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED:
+			   this.dismissCustomDialog();
+			   this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED,
+					     			Constants.TRACKER_LABEL_START_GAME_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			   break;
+			   
+		 }
+    }
+    
+    private void dismissCustomDialog(){
+		if (this.customDialog != null){
+			customDialog.dismiss();
+			customDialog = null;
+		}
+	}
+    
     private void handleGameStartPrompt(int opponentId){
 		Opponent o = OpponentService.getOpponent(opponentId);
     	this.chosenOpponentId = opponentId;
     	
-    	final CustomButtonDialog dialog = new CustomButtonDialog(this, 
+    	this.customDialog = new CustomButtonDialog(this, 
     			this.getString(R.string.main_game_start_prompt_title), 
     			String.format(this.getString(R.string.main_game_start_prompt), o.getName()),
     			this.getString(R.string.yes),
-    			this.getString(R.string.no));
+    			this.getString(R.string.no),
+    			Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED,
+    			Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED,
+    			Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED);	
     	
-    	dialog.setOnOKClickListener(new View.OnClickListener() {
-	 		@Override
-			public void onClick(View v) {
-	 			dialog.dismiss(); 
-	 			
-	 			handleGameStartOnClick();
-	 			//open game surface activity
-	 		//	trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        //			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 		
-	 		}
-		});
-
-    	dialog.setOnDismissListener(new View.OnClickListener() {
-		 		@Override
-				public void onClick(View v) {
-		 			dialog.dismiss(); 
-		 	//		trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		     //   			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			 		}
-			});
-    	
-     	dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-			@Override
-			public void onCancel(DialogInterface dialog) {
-	//			trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	  //      			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-				
-			}
-		});  
-    	dialog.show();	
+     
+    	this.customDialog.show();	
     }
+    
+    
 
     private void handleGameStartOnClick(){
     	//start game and go to game surface
