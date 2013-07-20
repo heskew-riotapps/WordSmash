@@ -1,5 +1,7 @@
 package com.riotapps.word;
 
+import java.io.IOException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +12,11 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.billing.IabHelper;
 import com.riotapps.word.billing.IabResult;
 import com.riotapps.word.billing.Inventory;
+import com.riotapps.word.data.DatabaseHelper;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
+import com.riotapps.word.hooks.WordService;
 import com.riotapps.word.services.WordLoaderService;
 import com.riotapps.word.utils.*;
 
@@ -146,7 +150,52 @@ public class Splash  extends FragmentActivity {
 	 }
 	    
     private void startBackgroundService(){
-    // 	this.startService(new Intent(this, WordLoaderService.class));
+    	/*
+    	this.captureTime("sqlite initialize (copy database) starting"); 
+    	WordService.createDatabase(this);
+        this.captureTime("sqlite initialize (copy database) ended");
+    	
+    	WordService wordService = new WordService(this);
+    	//DatabaseHelper db = new DatabaseHelper(this);
+     //   this.captureTime("sqlite initialize (copy database) starting");   
+    //	wordService.initialize(this);
+       // this.captureTime("sqlite initialize (copy database) ended");
+    	
+  
+    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExistInSql("cast"));
+        this.captureTime("sqlite check for cast ended");
+    	   
+    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExistInSql("castcc"));
+        this.captureTime("sqlite check for castcc ended");
+          
+    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExistInSql("ghilnoos"));
+        this.captureTime("sqlite check for ghilnoos ended");
+           
+    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExistInSql("ssuwyddddddd"));
+        this.captureTime("sqlite check for ssuwyddddddd ended");
+        
+      //  wordService.tempAddIndexes();
+      //  this.captureTime("sqlite adding indexes ended");
+        
+        
+    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExistInSql("cast"));
+        this.captureTime("sqlite check for cast ended");
+    	   
+    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExistInSql("castcc"));
+        this.captureTime("sqlite check for castcc ended");
+          
+    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExistInSql("ghilnoos"));
+        this.captureTime("sqlite check for ghilnoos ended");
+           
+    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExistInSql("ssuwyddddddd"));
+        this.captureTime("sqlite check for ssuwyddddddd ended");
+        
+    	wordService.finish();
+    	wordService = null;
+    	*/
+    	
+    	
+     	this.startService(new Intent(this, WordLoaderService.class));
     }
    
     

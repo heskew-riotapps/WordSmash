@@ -5,6 +5,9 @@ public class Constants {
 	/**============================================
 	 * misc
 	 *=============================================*/
+	public static final int WORD_DATABASE_VERSION =  3; 
+	public static final int DEFAULT_WORD_DATABASE_VERSION =  0; 
+	
  	public static final String MAIN_FONT =  "fonts/mplus_2c_bold.ttf"; //"fonts/Capriola-Regular.ttf"; //"fonts/FullDeceSans1.0.ttf";
  	//public static final String GAME_BOARD_FONT = "fonts/Asap_Bold.ttf";//"fonts/banksia.ttf"; 
  	public static final String GAME_BOARD_FONT = "fonts/Asap_Bold.ttf";//"fonts/banksia.ttf"; //"fonts/Crushed.ttf";//"fonts/MILFCD_B.ttf";  //"fonts/Vegur_B_0.602.otf";
@@ -167,6 +170,7 @@ public class Constants {
  	public static final String USER_PREFS_OPPONENT_GROUPS = "_opp_groups";
 	public static final String USER_PREFS_COMPLETED_GAMES = "c_games";
 	public static final String USER_PREFS_PLAYER_JSON = "player_json";
+	public static final String USER_PREFS_WORD_DATABASE_VERSION = "wdb_v";
 	public static final String USER_PREFS_FREE_REMAINING_USES_HOPPER_PEEK = "fu_hp";
 	public static final String USER_PREFS_FREE_REMAINING_USES_WORD_DEFINITION = "fu_wd";
  	public static final String USER_PREFS_GAME_JSON = "game_json_%s";

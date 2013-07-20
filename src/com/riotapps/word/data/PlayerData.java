@@ -51,6 +51,27 @@ public class PlayerData {
 		gson = null;
 	}
 	
+	public static int getWordDatabaseVersion(){
+		
+	    SharedPreferences settings = Storage.getSharedPreferences();
+	    int version = settings.getInt(Constants.USER_PREFS_WORD_DATABASE_VERSION, Constants.DEFAULT_WORD_DATABASE_VERSION);
+	    
+	    settings = null;
+	    
+	    return version;
+	}
+	
+	public static void saveWordDatabaseVersion(int version){
+	    SharedPreferences settings = Storage.getSharedPreferences();
+    	SharedPreferences.Editor editor = settings.edit();
+	
+  		editor.putInt(Constants.USER_PREFS_WORD_DATABASE_VERSION, version);
+  		editor.apply();
+	  
+	    settings = null;
+	 
+	}	
+	
 	public static int getRemainingFreeUsesHopperPeek(){
 		
 	    SharedPreferences settings = Storage.getSharedPreferences();

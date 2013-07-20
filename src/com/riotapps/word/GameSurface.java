@@ -2528,12 +2528,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        			Constants.TRACKER_LABEL_SKIP_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 					
 					this.unfreezeButtons();
+					break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED:
 				   this.dismissCustomDialog();
 		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 		        			Constants.TRACKER_LABEL_PLAY_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 		 			
 		 			this.handleGamePlayOnClick(this.placedResult);
+		 			break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED:
 				    this.dismissCustomDialog();
 		 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
@@ -2546,18 +2548,22 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        			Constants.TRACKER_LABEL_PLAY_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 					
 					this.unfreezeButtons();
+					break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED:
 				    this.dismissCustomDialog(); 
 		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_RESIGN_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 		 			
 		 			this.handleGameResignOnClick();
+		 			break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED:
 				    this.dismissCustomDialog(); 
 		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
 			        			Constants.TRACKER_LABEL_RESIGN_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 		 			
 		 			this.unfreezeButtons();
+		 			
+		 			break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED:	
 				    this.dismissCustomDialog(); 
 
@@ -2565,6 +2571,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        			Constants.TRACKER_LABEL_RESIGN_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 
 				    this.unfreezeButtons();
+				    break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED:
 				    this.dismissCustomDialog(); 
 		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
@@ -2577,6 +2584,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 		 			
 		 			this.unfreezeButtons();
+		 			break;
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED:	
 				    this.dismissCustomDialog(); 
 
@@ -2584,7 +2592,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 				    
 				    this.unfreezeButtons();
-
+				    break;
 		 		}
 			
 		}

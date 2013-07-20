@@ -1,8 +1,11 @@
 package com.riotapps.word.hooks;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.SortedSet;
 
 import android.content.Context;
@@ -10,6 +13,8 @@ import android.content.Context;
 import com.riotapps.word.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.riotapps.word.data.DatabaseHelper;
+import com.riotapps.word.data.WordData;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Logger;
 
@@ -137,9 +142,74 @@ public class WordService {
 	Type type = new TypeToken<HashSet<String>>() {}.getType();
 	//Context context;
 	
+	private WordData data;
 	
-	public WordService(){
+ 
+	public WordService(Context context){
 		//this.context = context;
+
+		this.data = new WordData(context);
+		
+		this.data.open();
+		
+	}
+	/*public void initialize(Context context){
+		//this.createDatabase(context);
+		
+		this.data = new WordData(context);
+		
+		this.data.open();
+		
+		
+	}
+	*/
+	
+	//public void tempAddIndexes(){
+	//	this.data.tempAddIndexes();
+	//}
+	
+	public void finish(){
+	
+		this.data.close();
+		
+	}
+	
+	public List<String> getMatchingWords(String index){
+		
+		return this.data.getMatchingWords(index);
+	}
+	
+	
+	public boolean doesWordExistInSql(String word){
+	
+		return data.doesWordExist(word);
+		
+	}
+	
+	public boolean doesIndexExistInSql(String index){
+		
+		return data.doesIndexExist(index);
+		
+	}
+ 
+	public List<String> getMatchingIndexes(String index){
+		
+		return this.data.getMatchingIndexes(index);
+	}
+	
+	
+	public static void createDatabase(Context context){
+		DatabaseHelper db = new DatabaseHelper(context);
+		
+		try {
+			db.createDataBase();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			Logger.d(TAG, "createDatabase " + e.getMessage());
+		}
+		
+		db = null;
 	}
 	
 	public static boolean isWordIndexed(String word){

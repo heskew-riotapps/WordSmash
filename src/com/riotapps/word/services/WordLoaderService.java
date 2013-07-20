@@ -1,10 +1,12 @@
 package com.riotapps.word.services;
 
 import com.riotapps.word.hooks.WordService;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
@@ -17,6 +19,7 @@ public class WordLoaderService extends Service {
 	private boolean wordsLoaded = false;
 	private LoadWordsTask runningTask;
 	private boolean isProcessing = false;
+	private Context context = this;
 	
    @Override
    public IBinder onBind(Intent intent) {
@@ -64,8 +67,48 @@ public class WordLoaderService extends Service {
          protected String doInBackground(String... params) {
         	//   ApplicationContext appContext = (ApplicationContext)getApplicationContext();
         	   try{
-        		   
-        		   captureTime("index - load started");
+        		    captureTime("sqlite initialize (copy database) starting"); 
+        	    	WordService.createDatabase(context);
+        	        captureTime("sqlite initialize (copy database) ended");
+        	    	
+        	    	WordService wordService = new WordService(context);
+        	    	//DatabaseHelper db = new DatabaseHelper(this);
+        	     //   this.captureTime("sqlite initialize (copy database) starting");   
+        	    //	wordService.initialize(this);
+        	       // this.captureTime("sqlite initialize (copy database) ended");
+        	    	
+        	  
+        	    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExistInSql("cast"));
+        	        captureTime("sqlite check for cast ended");
+        	    	   
+        	    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExistInSql("castcc"));
+        	        captureTime("sqlite check for castcc ended");
+        	          
+        	    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExistInSql("ghilnoos"));
+        	        captureTime("sqlite check for ghilnoos ended");
+        	           
+        	    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExistInSql("ssuwyddddddd"));
+        	        captureTime("sqlite check for ssuwyddddddd ended");
+        	        
+        	      //  wordService.tempAddIndexes();
+        	      //  this.captureTime("sqlite adding indexes ended");
+        	        
+        	        
+        	    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExistInSql("cast"));
+        	        captureTime("sqlite check for cast ended");
+        	    	   
+        	    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExistInSql("castcc"));
+        	        captureTime("sqlite check for castcc ended");
+        	          
+        	    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExistInSql("ghilnoos"));
+        	        captureTime("sqlite check for ghilnoos ended");
+        	           
+        	    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExistInSql("ssuwyddddddd"));
+        	        captureTime("sqlite check for ssuwyddddddd ended");
+        	        
+        	    	wordService.finish();
+        	    	wordService = null;
+        		  /* captureTime("index - load started");
         		   WordService.isWordIndexed("aaaabenn");
         		   captureTime("index - loaded");
         		   
@@ -171,7 +214,7 @@ public class WordLoaderService extends Service {
         		   WordService.isWordValid("zzz");
         		///   appContext.getWordService().isWordValid("zzz");     			  
         		   captureTime("letter z - loaded");  		   
-        	   
+        	   */
         	   }
         	   catch (Exception e){
         		   Logger.d(TAG, e.toString());

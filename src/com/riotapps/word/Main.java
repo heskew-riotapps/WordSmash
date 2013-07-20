@@ -12,6 +12,7 @@ import com.riotapps.word.hooks.OpponentService;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
+import com.riotapps.word.interfaces.ICloseDialog;
 import com.riotapps.word.ui.CustomButtonDialog;
 import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.GameSurfaceView;
@@ -41,7 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.graphics.BitmapFactory;
 
-public class Main extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener{
+public class Main extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener, ICloseDialog{
 	private static final String TAG = Main.class.getSimpleName();
  
 	private Context context = this;
@@ -472,6 +473,31 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 		}
 
     }
+
+	@Override
+	public void dialogClose(int resultCode) {
+		// TODO Auto-generated method stub
+		Logger.d(TAG, "onActivityResult called resultCode=" + resultCode);
+		 switch(resultCode) { 
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED:
+			   this.dismissCustomDialog();
+	 
+			   this.handleGameStartOnClick();
+			   break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED:
+			   this.dismissCustomDialog();
+			   this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED,
+					     			Constants.TRACKER_LABEL_START_GAME_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			   break;
+		   case Constants.RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED:
+			   this.dismissCustomDialog();
+			   this.trackEvent(Constants.TRACKER_ACTION_BUTTON_TAPPED,
+					     			Constants.TRACKER_LABEL_START_GAME_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+			   break;
+			   
+		 }
+		
+	}
     
  	
 

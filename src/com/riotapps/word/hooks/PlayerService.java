@@ -114,7 +114,15 @@ public class PlayerService {
 	 
 	 
 	
+	public static int getWordDatabaseVersion(){
+		
+	    return PlayerData.getWordDatabaseVersion();
+	}
 	
+	public static void saveWordDatabaseVersion(int version){
+	   PlayerData.saveWordDatabaseVersion(version);
+	 
+	}	
 	public static void loadPlayerInHeader(final FragmentActivity context, Boolean activateGravatarOnClick){
 		loadPlayerInHeader(context, new Player());
 	}
