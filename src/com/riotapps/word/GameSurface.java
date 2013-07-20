@@ -73,7 +73,7 @@ import com.riotapps.word.interfaces.ICloseDialog;
 
 //import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
-public class GameSurface extends FragmentActivity implements View.OnClickListener, AdListener, PopupMenu.OnMenuItemClickListener, ICloseDialog{
+public class GameSurface extends FragmentActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener, ICloseDialog{
 	private static final String TAG = GameSurface.class.getSimpleName();
 	
 	private PlacedResult placedResult = null;
@@ -791,7 +791,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		}
 		
 	///	this.stopTimer();
-		this.stopRunawayAdTimer();
+	//	this.stopRunawayAdTimer();
 		this.gameSurfaceView.onStop();
 	//	if (this.wordLoaderThread != null){
 	//		this.wordLoaderThread.interrupt();
@@ -839,9 +839,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		}
 		
 	///	this.stopTimer();
-		this.stopRunawayAdTimer();
+		//this.stopRunawayAdTimer();
 		this.dismissHopperPeekDialog();
 
+		
 	//	try{
 	//		this.spinner.dismiss();
 	//	}
@@ -850,6 +851,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		
 		if (this.spinner != null){
 			this.spinner.dismiss();
+			this.spinner = null;
 		}
 		
 		
@@ -987,86 +989,6 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    	  }
 		      } 
 		      break;
-		   case Constants.RETURN_CODE_HOPPER_PEEK_CLOSE:
-			   this.unfreezeButtons();
-			   this.dismissHopperPeekDialog();
-			   break; 
-		   
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED:
-			 	this.dismissCustomDialog();
-	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_SKIP_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 			this.handleGameSkipOnClick(); 
-			 break;
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLOSE_CLICKED:
-			    this.dismissCustomDialog();
-	 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_SKIP_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			this.unfreezeButtons();
-	 			break;
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CANCEL_CLICKED:
-			    this.dismissCustomDialog();
-				this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_SKIP_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-				
-				this.unfreezeButtons();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLICKED:
-			   this.dismissCustomDialog();
-	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_PLAY_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 			this.handleGamePlayOnClick(this.placedResult);
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CLOSE_CLICKED:
-			    this.dismissCustomDialog();
-	 	 		this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_PLAY_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			this.unfreezeButtons();
-	 			break;
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_PLAY_CANCEL_CLICKED:
-			    this.dismissCustomDialog();
-				this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_PLAY_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-				
-				this.unfreezeButtons();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_OK_CLICKED:
-			    this.dismissCustomDialog(); 
-	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_RESIGN_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 			this.handleGameResignOnClick();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CLOSE_CLICKED:
-			    this.dismissCustomDialog(); 
-	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_RESIGN_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 			this.unfreezeButtons();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_CLICKED:	
-			    this.dismissCustomDialog(); 
-
-			    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_RESIGN_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-
-			    this.unfreezeButtons();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_OK_CLICKED:
-			    this.dismissCustomDialog(); 
-	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_CANCEL_OK, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 			this.handleGameCancelOnClick();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CLOSE_CLICKED:
-			    this.dismissCustomDialog(); 
-	 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_CANCEL_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			
-	 			this.unfreezeButtons();
-		   case Constants.RETURN_CODE_CUSTOM_DIALOG_CANCEL_CANCEL_CLICKED:	
-			    this.dismissCustomDialog(); 
-
-			    this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-			    
-			    this.unfreezeButtons();
 
 	 		}
 		 
@@ -1374,7 +1296,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	}	
 	 }
 	
-	 private void loadPlaySpinner(){
+	 /*private void loadPlaySpinner(){
 		// Toast.makeText(this, "checking spinner loading", Toast.LENGTH_LONG).show();
 			this.spinner = new CustomProgressDialog(this);
 			this.spinner.setMessage(this.getString(R.string.progress_checking));
@@ -1386,7 +1308,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				spinner.dismiss();
 			}
 	 }
-	 
+	 */
 	 public void onFinishPlayNoErrors(final PlacedResult placedResult) {
 		    runOnUiThread(new Runnable() {
 		        public void run() {
@@ -1688,6 +1610,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
     		 	this.hasPostAdRun = true;
     		 	this.unfreezeButtons();
     		 	Logger.d(TAG, "unfreeze handlePostAdServer");
+    		 	if (spinner != null) {
+    		 		spinner.dismiss();
+    		 		spinner = null;
+    		 	}
     		 	DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
 	    	}
 	    }
@@ -1699,6 +1625,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 			}
 	 		else{
 	 			if (this.isChartBoostActive) {
+	 				spinner = new CustomProgressDialog(this);
+	 			    spinner.setMessage(this.getString(R.string.progress_wait));
+	 			    spinner.show();
+	 				
+	 				
 		 			this.cb.setTimeout((int)Constants.GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MILLISECONDS);
 		 			this.cb.showInterstitial();
 			    	Logger.d(TAG, "showInterstitial from Chartboost");
@@ -1999,7 +1930,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    }
 
-	  
+	 /* 
 	    
 	    private void setupRunawayAdTimer(){
 	    	Logger.d(TAG, "setupRunawayAdTimer called");
@@ -2105,7 +2036,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			    interstitial.show();
 			  }
 		}
-
+*/
 		
 		private ChartboostDelegate chartBoostDelegate = new ChartboostDelegate() { 
 
@@ -2237,7 +2168,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			@Override
 			public void didCloseInterstitial(String location) {
 				Logger.i(TAG, "ChartBoost INSTERSTITIAL '"+location+"' CLOSED");
-				handlePostAdServer();
+				//handlePostAdServer();
 				//handlePostTurnFinalAction(postTurnAction);
 				//Toast.makeText(context, "Closed Interstitial '"+location+"'",
 				//		Toast.LENGTH_SHORT).show();

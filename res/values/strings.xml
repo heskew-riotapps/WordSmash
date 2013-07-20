@@ -133,6 +133,7 @@
  	<string name="start_game_by_random">add a random opponent</string>
  	<string name="progress_looking_up">looking up&#8230;</string>
  	<string name="progress_loading">loading&#8230;</string>
+ 	<string name="progress_wait">please wait&#8230;</string>
  	<string name="progress_sending">sending&#8230;</string>
  	<string name="progress_saving">saving&#8230;</string>
  	<string name="progress_checking">checking&#8230;</string>
