@@ -78,32 +78,32 @@ public class WordLoaderService extends Service {
         	       // this.captureTime("sqlite initialize (copy database) ended");
         	    	
         	  
-        	    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExistInSql("cast"));
+        	    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExist("cast"));
         	        captureTime("sqlite check for cast ended");
         	    	   
-        	    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExistInSql("castcc"));
+        	    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExist("castcc"));
         	        captureTime("sqlite check for castcc ended");
         	          
-        	    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExistInSql("ghilnoos"));
+        	    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExist("ghilnoos"));
         	        captureTime("sqlite check for ghilnoos ended");
         	           
-        	    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExistInSql("ssuwyddddddd"));
+        	    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExist("ssuwyddddddd"));
         	        captureTime("sqlite check for ssuwyddddddd ended");
         	        
         	      //  wordService.tempAddIndexes();
         	      //  this.captureTime("sqlite adding indexes ended");
         	        
         	        
-        	    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExistInSql("cast"));
+        	    	Logger.d(TAG, "does cast exist as a word? " + wordService.doesWordExist("cast"));
         	        captureTime("sqlite check for cast ended");
         	    	   
-        	    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExistInSql("castcc"));
+        	    	Logger.d(TAG, "does castcc exist as a word? " + wordService.doesWordExist("castcc"));
         	        captureTime("sqlite check for castcc ended");
         	          
-        	    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExistInSql("ghilnoos"));
+        	    	Logger.d(TAG, "does ghilnoos exist as an index? " + wordService.doesIndexExist("ghilnoos"));
         	        captureTime("sqlite check for ghilnoos ended");
         	           
-        	    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExistInSql("ssuwyddddddd"));
+        	    	Logger.d(TAG, "does ssuwyddddddd exist as an index? " + wordService.doesIndexExist("ssuwyddddddd"));
         	        captureTime("sqlite check for ssuwyddddddd ended");
         	        
         	    	wordService.finish();

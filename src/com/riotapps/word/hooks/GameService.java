@@ -555,6 +555,13 @@ public static Game skip(boolean isOpponent, Game game){
 		//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot 
 		//if any of them return 255 that means the tile position being requested is outside of the board boundaries
 		
+		 WordService wordService = new WordService(context);
+	        
+		 //put word lookup calls here
+ 	            
+	     wordService.finish();
+	     wordService = null;
+ 		
 		//temp
 		Logger.d(TAG,"before skip");
 		GameService.skip(true, game);
@@ -801,18 +808,22 @@ public static Game skip(boolean isOpponent, Game game){
 
 		//ApplicationContext appContext = (ApplicationContext)context.getApplicationContext();
         
+        WordService wordService = new WordService(context);
+        
+        
         for (PlacedWord word : words)
         {
             totalPoints += word.getTotalPoints();
             if (!bypassValidWordCheck){
-            	if (WordService.isWordValid(word.getWord().toLowerCase()) == false)
-            	//if (WordService.isWordValid(word.getWord().toLowerCase()) == false)
-            	{
-            	//	Logger.d(TAG, "checkPlayRules invalid word=" + word.getWord());
+            	if (!wordService.doesWordExist(word.getWord())){
+            	 	Logger.d(TAG, "checkPlayRules invalid word=" + word.getWord());
             		invalidWords.add(word);
             	}
             }
         }
+            
+        wordService.finish();
+        wordService = null;
         
         
         Logger.d(TAG, String.format("%1$s - time since last capture=%2$s", "getTotalPoints ended", Utils.convertNanosecondsToMilliseconds(System.nanoTime() - runningTime)));

@@ -44,9 +44,9 @@ public class WordLoaderThread extends Thread {
 	 @Override
 	 public void run() {
 		 
-		 for(PlayedTile tile : this.game.getPlayedTiles()){
-			 this.wordService.loadList(tile.getLatestPlayedLetter().getLetter());
-		 }
+	//	 for(PlayedTile tile : this.game.getPlayedTiles()){
+	//		 this.wordService.loadList(tile.getLatestPlayedLetter().getLetter());
+	//	 }
 		 
 	//	 for(String letter : this.game.getContextPlayerGame().getTrayLetters()){
 	//		 this.wordService.loadList(letter);

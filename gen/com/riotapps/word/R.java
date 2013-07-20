@@ -482,34 +482,6 @@ containing a value of this type.
         public static final int opponents=0x7f050002;
         public static final int store=0x7f050003;
         public static final int tile_layout=0x7f050004;
-        public static final int word_index_1=0x7f050005;
-        public static final int word_index_2=0x7f050006;
-        public static final int words_a=0x7f050007;
-        public static final int words_b=0x7f050008;
-        public static final int words_c=0x7f050009;
-        public static final int words_d=0x7f05000a;
-        public static final int words_e=0x7f05000b;
-        public static final int words_f=0x7f05000c;
-        public static final int words_g=0x7f05000d;
-        public static final int words_h=0x7f05000e;
-        public static final int words_i=0x7f05000f;
-        public static final int words_j=0x7f050010;
-        public static final int words_k=0x7f050011;
-        public static final int words_l=0x7f050012;
-        public static final int words_m=0x7f050013;
-        public static final int words_n=0x7f050014;
-        public static final int words_o=0x7f050015;
-        public static final int words_p=0x7f050016;
-        public static final int words_q=0x7f050017;
-        public static final int words_r=0x7f050018;
-        public static final int words_s=0x7f050019;
-        public static final int words_t=0x7f05001a;
-        public static final int words_u=0x7f05001b;
-        public static final int words_v=0x7f05001c;
-        public static final int words_w=0x7f05001d;
-        public static final int words_x=0x7f05001e;
-        public static final int words_y=0x7f05001f;
-        public static final int words_z=0x7f050020;
     }
     public static final class string {
         public static final int a_day_ago=0x7f070166;

@@ -59,7 +59,7 @@ public class WordData {
 			        c.close();
 			        return true;
 			    }
-		  }
+		}
 	  
 	  
 	  public List<String> getMatchingWords(String index) {

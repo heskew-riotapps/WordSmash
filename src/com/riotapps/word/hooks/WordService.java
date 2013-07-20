@@ -176,25 +176,25 @@ public class WordService {
 	
 	public List<String> getMatchingWords(String index){
 		
-		return this.data.getMatchingWords(index);
+		return this.data.getMatchingWords(index.toLowerCase());
 	}
 	
 	
-	public boolean doesWordExistInSql(String word){
+	public boolean doesWordExist(String word){
 	
-		return data.doesWordExist(word);
+		return data.doesWordExist(word.toLowerCase());
 		
 	}
 	
-	public boolean doesIndexExistInSql(String index){
+	public boolean doesIndexExist(String index){
 		
-		return data.doesIndexExist(index);
+		return data.doesIndexExist(index.toLowerCase());
 		
 	}
  
 	public List<String> getMatchingIndexes(String index){
 		
-		return this.data.getMatchingIndexes(index);
+		return this.data.getMatchingIndexes(index.toLowerCase());
 	}
 	
 	
@@ -211,7 +211,7 @@ public class WordService {
 		
 		db = null;
 	}
-	
+	/*
 	public static boolean isWordIndexed(String word){
 		word = word.toLowerCase();
 		if (word_index == null){
@@ -223,8 +223,8 @@ public class WordService {
 		}
 		return word_index.contains(word);
 	}
-
-
+*/
+/*
 	public static boolean isWordValid(String word){
 		word = word.toLowerCase();
 		String startWith = (word.substring(0, 1));
@@ -260,7 +260,7 @@ public class WordService {
 
 		return false;
 	}
-	
+	*/
 	/*
 	public void loadAll(){
 		
@@ -295,7 +295,7 @@ public class WordService {
 	}
 	*/
 	
-	
+	/*
 	public static void loadList(String letter){
 	//	Context context = ApplicationContext.getAppContext();
 	//	Type type = new TypeToken<HashSet<String>>() {}.getType();
@@ -586,9 +586,9 @@ public class WordService {
 			
 			return;
 		}
-		 
+		
  
 	 
 	}
-
+*/ 
 }
