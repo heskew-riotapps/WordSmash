@@ -103,7 +103,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
        // Logger.d(TAG, "player is null =" + (this.player == null)); 
 		PlayerService.loadPlayerInHeader(this, this.player);
 		MenuUtils.hideHeaderTitle(this);
-		
+		this.setupFonts();
 		//SharedPreferences settings = Storage.getSharedPreferences();
 	    //String completedDate = settings.getString(Constants.USER_PREFS_LATEST_COMPLETED_GAME_DATE, Constants.DEFAULT_COMPLETED_GAMES_DATE);
 
@@ -165,14 +165,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     	  popupMenu = new PopupMenu(this, findViewById(R.id.options));
 
     	  MenuUtils.fillMenu(this, popupMenu);
-    	  //if player has any completed games show completed games menu option
-/*    	  popupMenu.getMenu().add(Menu.NONE, MENU_COMPLETED_GAMES, Menu.NONE, this.getString(R.string.main_menu_completed_games));
-          popupMenu.getMenu().add(Menu.NONE,  MENU_RULES, Menu.NONE, this.getString(R.string.main_menu_rules));
-          popupMenu.getMenu().add(Menu.NONE,  MENU_STORE, Menu.NONE, this.getString(R.string.main_menu_store));
-          popupMenu.getMenu().add(Menu.NONE,  MENU_SHARE, Menu.NONE, this.getString(R.string.main_menu_share));
-          popupMenu.getMenu().add(Menu.NONE,  MENU_ABOUT, Menu.NONE, this.getString(R.string.main_menu_about));
-  */    
-          popupMenu.setOnMenuItemClickListener(this);
+   
+    	  popupMenu.setOnMenuItemClickListener(this);
           findViewById(R.id.options).setOnClickListener(this);
     }
     
@@ -333,6 +327,12 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	  	TextView tvYourLosses = (TextView)view.findViewById(R.id.tvYourLosses);
 	  	TextView tvYourDraws = (TextView)view.findViewById(R.id.tvYourDraws);
 	 	TextView tvSkillLevel = (TextView)view.findViewById(R.id.tvSkillLevel);
+	 	
+	 	tvOpponent.setTypeface(ApplicationContext.getMainFontTypeface());
+	 	tvYourWins.setTypeface(ApplicationContext.getMainFontTypeface());
+	 	tvYourLosses.setTypeface(ApplicationContext.getMainFontTypeface());
+	 	tvYourDraws.setTypeface(ApplicationContext.getMainFontTypeface());
+	 	tvSkillLevel.setTypeface(ApplicationContext.getMainFontTypeface());
 	 	
 	 	
 	 	rlLineItem.setLayoutParams(params);
@@ -499,6 +499,12 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 		
 	}
     
+	private void setupFonts(){
+		
+		TextView txtMainLabel = (TextView)findViewById(R.id.txtMainLabel);
+
+		txtMainLabel.setTypeface(ApplicationContext.getMainFontTypeface());
+	}
  	
 
     

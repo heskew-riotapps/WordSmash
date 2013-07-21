@@ -2,6 +2,7 @@ package com.riotapps.word.ui;
 
 import com.riotapps.word.GameSurface;
 import com.riotapps.word.R;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 
@@ -114,16 +115,26 @@ public class CustomButtonDialog extends AlertDialog{
                                         (ViewGroup) findViewById(R.id.progress_root));
 
 		TextView title = (TextView) layout.findViewById(R.id.alert_title);  
+		title.setTypeface(ApplicationContext.getMainFontTypeface());
 		title.setText(this.dialogTitle);
+
 		TextView text = (TextView) layout.findViewById(R.id.alert_text);
+		text.setTypeface(ApplicationContext.getMainFontTypeface());
 		text.setText(this.dialogText);
 
+		TextView alert_confirmation = (TextView) layout.findViewById(R.id.alert_confirmation);
+		if (alert_confirmation != null){
+			alert_confirmation.setTypeface(ApplicationContext.getMainFontTypeface());
+		}
+		
 		this.bOK = (Button) layout.findViewById(R.id.bOK);
+		this.bOK.setTypeface(ApplicationContext.getMainFontTypeface());
 		this.bOK.setText(okText);
 		
 	//	this.bOK.setOnClickListener(this.onOK);
 		
 		this.bCancel = (Button) layout.findViewById(R.id.bCancel);
+		this.bCancel.setTypeface(ApplicationContext.getMainFontTypeface());
 		this.bCancel.setText(cancelText);
 		
 		this.close = (ImageView) layout.findViewById(R.id.img_close);

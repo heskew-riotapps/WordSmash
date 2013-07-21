@@ -14,7 +14,7 @@
 	   	style="@style/PlayedWordPlayerImageStyle"
 	    android:id="@+id/ivPlayer"	
 	 />
-	<com.riotapps.word.ui.ScoreboardFontTextView
+	<TextView
          style="@style/TextStyle"
      	android:id="@+id/tvWord"
      	android:layout_marginLeft="2.0dip"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content" 
         android:layout_toRightOf="@id/ivPlayer"/>
  
-     <com.riotapps.word.ui.ScoreboardFontTextView 
+     <TextView 
         style="@style/TextMiniStyle"
      	android:id="@+id/tvTurnInfo"
         android:layout_width="wrap_content"

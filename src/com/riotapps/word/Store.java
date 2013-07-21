@@ -58,7 +58,8 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
 	       
 	        MenuUtils.hideMenu(this);
 	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_store));
-	   
+	        this.setupFonts();
+	        
 	        // compute your public key and store it in base64EncodedPublicKey
 	        mHelper = new IabHelper(this, StoreService.getIABPublicKey());
 	        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
@@ -350,7 +351,40 @@ public class Store  extends FragmentActivity implements View.OnClickListener{
  
 	}
 	
-	
+	private void setupFonts(){
+		TextView tvPremiumUpgradeTitle = (TextView)findViewById(R.id.tvPremiumUpgradeTitle);	
+		TextView tvPremiumUpgradeDescription = (TextView)findViewById(R.id.tvPremiumUpgradeDescription);	
+		TextView tvNoAdsTitle = (TextView)findViewById(R.id.tvNoAdsTitle);
+		TextView tvNoAdsDescription = (TextView)findViewById(R.id.tvNoAdsDescription);
+		TextView tvWordDefinitionsTitle = (TextView)findViewById(R.id.tvWordDefinitionsTitle);
+		TextView tvWordDefinitionsDescription = (TextView)findViewById(R.id.tvWordDefinitionsDescription);
+		TextView tvHopperPeekTitle = (TextView)findViewById(R.id.tvHopperPeekTitle);
+		TextView tvHopperPeekDescription = (TextView)findViewById(R.id.tvHopperPeekDescription);
+
+	 	
+
+		tvPremiumUpgradeTitle.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvPremiumUpgradeDescription.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvNoAdsTitle.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvNoAdsDescription.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvWordDefinitionsTitle.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvWordDefinitionsDescription.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvHopperPeekTitle.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvHopperPeekDescription.setTypeface(ApplicationContext.getMainFontTypeface());
+
+		
+		
+		Button bPremiumUpgradePrice = (Button)findViewById(R.id.bPremiumUpgradePrice);
+		Button bNoAdsPrice = (Button)findViewById(R.id.bNoAdsPrice);
+		Button bWordDefinitionsPrice = (Button)findViewById(R.id.bWordDefinitionsPrice);
+		Button bHopperPeekPrice = (Button)findViewById(R.id.bHopperPeekPrice);
+ 		
+		bPremiumUpgradePrice.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+		bNoAdsPrice.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+		bWordDefinitionsPrice.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+		bHopperPeekPrice.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+	 	
+	}
 	
 
 }

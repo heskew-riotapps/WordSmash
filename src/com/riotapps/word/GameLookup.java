@@ -100,6 +100,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	     Button bStore = (Button)this.findViewById(R.id.bStore);
 	     
 	     MenuUtils.hideMenu(this);
+	     this.setupFonts();
 	     
 	     if (StoreService.isHideBannerAdsPurchased()){
 				AdView adView = (AdView)this.findViewById(R.id.adView);
@@ -284,6 +285,10 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 		 //TextView tvPartOfSpeech = (TextView)view.findViewById(R.id.tvPartOfSpeech);
 		 	TextView tvDefinition = (TextView)view.findViewById(R.id.tvDefinition);
 		 	TextView tvAttribution = (TextView)view.findViewById(R.id.tvAttribution);
+
+		 	tvNum.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 	tvDefinition.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 	tvAttribution.setTypeface(ApplicationContext.getScoreboardFontTypeface());
 		 	
 		 	tvNum.setText(String.format(this.getString(R.string.lookup_definition_num), num));
 		 	tvDefinition.setText(String.format(this.getString(R.string.lookup_definition), definition.getPartOfSpeech(), definition.getText()));
@@ -318,4 +323,23 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 		
 	}
 	
+	private void setupFonts(){
+		TextView tvWord = (TextView)findViewById(R.id.tvWord);
+		TextView header = (TextView)findViewById(R.id.header);
+		TextView tvPreviewMessage = (TextView)findViewById(R.id.tvPreviewMessage);
+		TextView tvNotFound = (TextView)findViewById(R.id.tvNotFound);
+			 
+		Button bStore = (Button)findViewById(R.id.bStore);
+		Button bNoThanks = (Button)findViewById(R.id.bNoThanks);
+		
+		bNoThanks.setTypeface(ApplicationContext.getMainFontTypeface());
+		bStore.setTypeface(ApplicationContext.getMainFontTypeface());
+		
+		tvWord.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		
+		header.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvPreviewMessage.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvNotFound.setTypeface(ApplicationContext.getMainFontTypeface());		
+		
+	}
 }

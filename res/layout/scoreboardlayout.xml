@@ -12,20 +12,20 @@
 		    style="@style/ScoreboardImageStyle"
 	    />	
 		   
-		 <com.riotapps.word.ui.ScoreboardFontTextView
+		 <TextView
 	        android:id="@+id/tvOpponentName"
 	        style="@style/ScoreboardOpponentNameStyle"	        
 	    /> 
-	      <com.riotapps.word.ui.ScoreboardFontTextView
+	      <TextView
 	        android:id="@+id/tvOpponentScore"
 			style="@style/ScoreboardOpponentScoreStyle"
 	   	  
  	    />
-	    <com.riotapps.word.ui.ScoreboardFontTextView
+	    <TextView
 	        style="@style/ScoreboardPlayerNameStyle"
 	        android:id="@+id/tvPlayerName"
 	    />
-	    <com.riotapps.word.ui.ScoreboardFontTextView
+	    <TextView
 	        android:id="@+id/tvPlayerScore"
 			style="@style/ScoreboardPlayerScoreStyle"
 	    />
@@ -48,12 +48,12 @@
 		         android:background="@drawable/options"  
 				/>
  	        
-	     	<com.riotapps.word.ui.ScoreboardFontTextView
+	     	<TextView
 	            android:id="@+id/tvLettersLeft"
 				style="@style/ScoreboardLettersLeftStyle"
 	          
 	         />
-	     	<com.riotapps.word.ui.ScoreboardFontTextView
+	     	<TextView
 	            android:id="@+id/tvNumPoints"
 				style="@style/ScoreboardNumPointsStyle"
 	         />

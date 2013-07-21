@@ -418,6 +418,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		//}
 	 	
 	 	this.setupButtons();
+	 	this.setupFonts();
 
 	}
 	
@@ -2513,5 +2514,26 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				    break;
 		 		}
 			
+		}
+		
+		private void setupFonts(){
+			
+			//buttons
+			Button bHopperPeek = (Button) findViewById(R.id.bHopperPeek);
+			Button bSwap = (Button) findViewById(R.id.bSwap);
+			Button bPlayedWords = (Button) findViewById(R.id.bPlayedWords);
+			Button bCancel = (Button) findViewById(R.id.bCancel);
+			Button bResign = (Button) findViewById(R.id.bResign);
+			
+			this.bRecall.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			this.bPlay.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			this.bSkip.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			this.bShuffle.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			bHopperPeek.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			bSwap.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			bPlayedWords.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			bCancel.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			bResign.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+				
 		}
 }

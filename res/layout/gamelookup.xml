@@ -31,10 +31,10 @@
 				 android:layout_width="fill_parent"
 				 android:layout_height="fill_parent"
 			>
-			<com.riotapps.word.ui.MainFontTextView
+			<TextView
 		        style="@style/ContentAreaTextTopStyle"
 		        />
-		    <com.riotapps.word.ui.MainFontTextView
+		    <TextView
 		        style="@style/InlineHeaderStyle"
 		        android:text="@string/game_lookup_title" 
 		        android:id="@+id/header"    
@@ -49,7 +49,7 @@
 					android:paddingBottom="0dp"
 					android:orientation="vertical"
 	 			>    
-	 				<com.riotapps.word.ui.ScoreboardFontTextView
+	 				<TextView
  						android:paddingLeft="5dp"
 				        style="@style/TextLargeStyle"
 				     	android:id="@+id/tvWord"
@@ -66,7 +66,7 @@
 					    android:src="@drawable/wordnik_badge_a1"
 					    android:layout_alignParentRight="true"
 					 />
-	 			      <com.riotapps.word.ui.MainFontTextView 
+	 			      <TextView 
 					     style="@style/TextStyle"
 					  	 android:id="@+id/tvPreviewMessage"
 					     android:layout_width="fill_parent"
@@ -76,7 +76,7 @@
 						android:paddingRight="5dp"		  
 					     
 					     />
-	 				  <com.riotapps.word.ui.MainFontTextView 
+	 				  <TextView 
 					     style="@style/TextStyle"
 					  	 android:id="@+id/tvNotFound"
 					     android:layout_width="fill_parent"
@@ -116,7 +116,7 @@
 					android:layout_alignParentBottom="true"
 	        	>
  
-				<com.riotapps.word.ui.MainFontTextView
+				<TextView
 				  
 				        android:id="@+id/tvOK"
 				        android:layout_width="fill_parent"
@@ -128,14 +128,14 @@
 						android:textColor="@color/sub_text_color"
 					 
 				    />
-					<com.riotapps.word.utils.TypefaceButton 
+					<Button 
 				  	    style="@style/ButtonStyle"
 				  	    android:id="@+id/bStore"
 				        android:layout_width="120dp" 
 				       
 				        android:text="@string/go_to_store"
 				    />
-					<com.riotapps.word.utils.TypefaceButton 
+					<Button 
 				  	    style="@style/ButtonStyle"
 				  	    android:id="@+id/bNoThanks"
 				        android:layout_width="120dp" 

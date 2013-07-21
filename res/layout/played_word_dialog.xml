@@ -16,7 +16,7 @@
 		android:background="@drawable/alert_background"
 		android:id="@+id/header"
 	>
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
          android:id="@+id/alert_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:paddingRight="3dp"
         android:paddingTop="3dp"
 		/>
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
         style="@style/TextStyle"
      	android:id="@+id/alert_text"
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
  		android:layout_marginBottom="10dp"  
  		
  	/>
-     <com.riotapps.word.ui.MainFontTextView
+     <TextView
         style="@style/TextStyle"
      	android:id="@+id/alert_confirmation"
         android:layout_width="wrap_content"
@@ -67,14 +67,14 @@
 	         
 	        >
 		 
-		<com.riotapps.word.utils.TypefaceButton 
+		<Button 
 	  	    style="@style/ButtonStyle"
 	  	    android:id="@+id/bOK"
 	        android:layout_width="0dp" 
 	        android:layout_weight="1.0"
 	        android:text="@string/ok"
 	    />
-	    <com.riotapps.word.utils.TypefaceButton 
+	    <Button 
 	  	    style="@style/ButtonStyle"
 	  	    android:id="@+id/bCancel"
 	        android:layout_width="0dp" 

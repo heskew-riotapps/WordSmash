@@ -22,7 +22,7 @@
 		 android:layout_width="fill_parent"
 		 android:layout_height="wrap_content"
 	>
-		<com.riotapps.word.ui.MainFontTextView
+		<TextView
 		        style="@style/ContentAreaTextTopStyle"
 		        android:paddingTop="0dp"
 		        android:layout_height="12dp"
@@ -53,7 +53,7 @@
 					android:id="@+id/rlPremiumUpgrade"
 			> 
 		 
-				 <com.riotapps.word.ui.MainFontTextView
+				 <TextView
 				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvPremiumUpgradeTitle"
 				  />
@@ -61,7 +61,7 @@
 			  	    android:id="@+id/llPremiumUpgradePriceWrapper"	
 			  	    style="@style/StoreItemPriceWrapperStyle"  	    
 				 >
-	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+	 				  <Button 
 					  	    style="@style/StoreItemPriceButtonStyle"
 					  	    android:id="@+id/bPremiumUpgradePrice"
 					    />
@@ -70,7 +70,7 @@
 	 				      android:id="@+id/ivPremiumUpgradePurchased"
 	 				   />
  				  </LinearLayout>
-				  <com.riotapps.word.ui.MainFontTextView
+				  <TextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvPremiumUpgradeDescription"
 				
@@ -93,7 +93,7 @@
 					android:id="@+id/rlNoAds"
 					android:layout_marginTop="5dp"
 				> 
-				<com.riotapps.word.ui.MainFontTextView
+				<TextView
 				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvNoAdsTitle"
 				
@@ -102,7 +102,7 @@
 			  	    android:id="@+id/llNoAdsPriceWrapper"	
 			  	    style="@style/StoreItemPriceWrapperStyle"  	    
 				 >
-	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+	 				  <Button 
 					  	    style="@style/StoreItemPriceButtonStyle"
 					  	    android:id="@+id/bNoAdsPrice"
 					    />
@@ -111,7 +111,7 @@
 	 				      android:id="@+id/ivNoAdsPurchased"
 	 				   />
  				  </LinearLayout>
-				  <com.riotapps.word.ui.MainFontTextView
+				  <TextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvNoAdsDescription"
 				       
@@ -134,7 +134,7 @@
 					android:id="@+id/rlWordDefinitions"
 					android:layout_marginTop="5dp"
 				> 
-				<com.riotapps.word.ui.MainFontTextView
+				<TextView
 				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvWordDefinitionsTitle"
 				 
@@ -143,7 +143,7 @@
 			  	    android:id="@+id/llWordDefinitionsPriceWrapper"	
 			  	    style="@style/StoreItemPriceWrapperStyle"  	    
 				 >
-	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+	 				  <Button 
 					  	    style="@style/StoreItemPriceButtonStyle"
 					  	    android:id="@+id/bWordDefinitionsPrice"
 					  	    />
@@ -152,7 +152,7 @@
 	 				      android:id="@+id/ivWordDefinitionsPurchased"
 	 				   />
  				    </LinearLayout>
-				  <com.riotapps.word.ui.MainFontTextView
+				  <TextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvWordDefinitionsDescription"
 			
@@ -178,7 +178,7 @@
 					android:id="@+id/rlHopperPeek"
 					 android:layout_marginTop="5dp" 
 				> 
-				<com.riotapps.word.ui.MainFontTextView
+				<TextView
 				        style="@style/StoreItemTitleStyle"
 						android:id="@+id/tvHopperPeekTitle"
 				        />
@@ -186,7 +186,7 @@
 			  	    android:id="@+id/llHopperPeekPriceWrapper"	
 			  	    style="@style/StoreItemPriceWrapperStyle"  	    
 				 >
-	 				  <com.riotapps.word.ui.StoreItemPriceButton 
+	 				  <Button 
 					  	    style="@style/StoreItemPriceButtonStyle"
 					  	    android:id="@+id/bHopperPeekPrice"
 	 				    />
@@ -195,7 +195,7 @@
 	 				      android:id="@+id/ivHopperPeekPurchased"
 	 				   />
  				  </LinearLayout>
-				  <com.riotapps.word.ui.MainFontTextView
+				  <TextView
 				        style="@style/ContentAreaTextStyle"
 						android:id="@+id/tvHopperPeekDescription"
 				        android:layout_below="@id/tvHopperPeekTitle"

@@ -35,7 +35,7 @@
 				 android:layout_height="wrap_content"
 		
 	>
-		<com.riotapps.word.ui.MainFontTextView
+		<TextView
 		        style="@style/ContentAreaTextTopStyle"
 		           android:paddingTop="0dp"
 		        android:layout_height="12dp"
@@ -59,21 +59,21 @@
 	    > 
 
 
-<com.riotapps.word.ui.MainFontTextView
+	<TextView
         style="@style/ContentAreaTextStyle"
         android:text="@string/about_main"
      android:id="@+id/about_main"
         />
    
  
-   <com.riotapps.word.ui.MainFontTextView
+   <TextView
         style="@style/ContentAreaTextStyle" 
         android:id="@+id/tvVersion"
        android:layout_below="@id/about_main"
        android:layout_width="wrap_content" 
         />
    
-     <com.riotapps.word.ui.MainFontTextView
+     <TextView
         style="@style/ContentAreaTextStyle" 
         android:id="@+id/tvVersionName"
        android:layout_toRightOf="@id/tvVersion"
@@ -81,13 +81,13 @@
             android:layout_below="@id/about_main"
         />
    
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
         style="@style/ContentAreaTextStyle"
         android:id="@+id/tvBuildNumber"
          android:layout_below="@id/tvVersion"
     
         />
-     <com.riotapps.word.ui.MainFontTextView
+     <TextView
         style="@style/ContentAreaTextStyle"
         android:text="@string/about_support" 
         android:id="@+id/tvSupportText"
@@ -95,7 +95,7 @@
       	android:paddingBottom="0dp"       
        
         />
-     <com.riotapps.word.ui.MainFontTextView
+     <TextView
         style="@style/ContentAreaLinkStyle"
         android:id="@+id/tvSupportLink"
         android:text="@string/about_support_link" 
@@ -104,7 +104,7 @@
       	android:paddingTop="2dp"
         />
   	
-      <com.riotapps.word.ui.MainFontTextView
+      <TextView
         style="@style/ContentAreaTextStyle"
         android:id="@+id/tvSmileyAttribution"
          android:text="@string/smiley_attribution" 
@@ -112,7 +112,7 @@
   		android:paddingBottom="0dp"   
         />
 
-      <com.riotapps.word.ui.MainFontTextView
+      <TextView
         style="@style/ContentAreaLinkStyle"
         android:id="@+id/tvSmileyAttributionLink"
          android:background="@drawable/text_selector_bottom"

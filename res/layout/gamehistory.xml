@@ -31,10 +31,10 @@
 				 android:layout_width="fill_parent"
 				 android:layout_height="fill_parent"
 			>
-			<com.riotapps.word.ui.MainFontTextView
+			<TextView
 		        style="@style/ContentAreaTextTopStyle"
 		        />
-		    <com.riotapps.word.ui.MainFontTextView
+		    <TextView
 		        style="@style/InlineHeaderStyle"
 		        android:text="@string/game_history_title" 
 		        android:id="@+id/header"     

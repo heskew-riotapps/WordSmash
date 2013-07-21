@@ -17,7 +17,7 @@
 		android:background="@drawable/alert_background"
 		android:id="@+id/header"
 	>
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
          android:id="@+id/alert_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
          android:paddingRight="3dp"
         android:paddingTop="3dp"
 		/>
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
         style="@style/TextLargeStyle"
      	android:id="@+id/alert_text"
         android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
  		android:layout_marginBottom="10dp"  
  		
  	/>
-     <com.riotapps.word.ui.MainFontTextView
+     <TextView
         style="@style/AlertButtonAreaStyle"
      	android:id="@+id/alert_ok"
 

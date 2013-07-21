@@ -16,7 +16,7 @@
 		        android:scaleType="fitXY"    
 			 />
 		
-          <com.riotapps.word.ui.MainFontTextView
+          <TextView
             android:id="@+id/tvOpponent"
             style="@style/OpponentNameStyle"
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
              android:layout_alignTop="@id/ivOpponent"
            />
   
-               <com.riotapps.word.ui.MainFontTextView
+               <TextView
 	            android:id="@+id/tvSkillLevel"
 	            style="@style/OpponentSkillLevelStyle"
  	            android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
  			   style="@style/OpponentRecordWrapperStyle"
  			    >
 		          
-		          <com.riotapps.word.ui.MainFontTextView
+		          <TextView
 		            android:layout_width="wrap_content"
 		            android:id="@+id/tvYourWins"
 		            style="@style/OpponentRecordStyle"
@@ -49,7 +49,7 @@
 		 
 		           
 		               />
-		            <com.riotapps.word.ui.MainFontTextView
+		            <TextView
 		                android:layout_width="wrap_content"
 		            android:id="@+id/tvYourLosses"
 		            style="@style/OpponentRecordStyle"
@@ -62,7 +62,7 @@
 		               style="@style/OpponentRecordStyle"
 		               android:text="@string/win_loss_draw_separator" 
 		            />
-		          <com.riotapps.word.ui.MainFontTextView
+		          <TextView
 		            android:layout_width="wrap_content" 
 		            android:id="@+id/tvYourDraws"
 		            style="@style/OpponentRecordStyle" 

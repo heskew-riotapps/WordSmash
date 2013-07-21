@@ -14,6 +14,7 @@ import com.riotapps.word.FullRules;
 import com.riotapps.word.R;
 import com.riotapps.word.Store;
 import com.riotapps.word.hooks.GameService;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 
@@ -44,7 +45,8 @@ public class MenuUtils {
 			tvActivityTitle.setVisibility(View.GONE);
 		}
 		public static void setHeaderTitle(FragmentActivity context, String title){
-			TextView tvActivityTitle = (TextView)context.findViewById(R.id.tvActivityTitle);	
+			TextView tvActivityTitle = (TextView)context.findViewById(R.id.tvActivityTitle);
+			tvActivityTitle.setTypeface(ApplicationContext.getMainFontTypeface());
 			tvActivityTitle.setText(title);
 		}
 

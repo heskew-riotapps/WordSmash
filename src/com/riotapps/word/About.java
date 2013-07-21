@@ -5,6 +5,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
 import com.riotapps.word.ui.MenuUtils;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 
 import android.content.Context;
@@ -65,6 +66,7 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        
 	        MenuUtils.hideMenu(this);
 	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_about));
+	        this.setupFonts();
 	        
 	    	if (StoreService.isHideBannerAdsPurchased()){
 				AdView adView = (AdView)this.findViewById(R.id.adView);
@@ -108,5 +110,25 @@ public class About extends FragmentActivity implements View.OnClickListener{
 		EasyTracker.getInstance().activityStop(this);
 	}
 	
-	
+	private void setupFonts(){
+		TextView about_main = (TextView)findViewById(R.id.about_main);	
+		TextView tvVersion = (TextView)findViewById(R.id.tvVersion);	
+		TextView tvVersionName = (TextView)findViewById(R.id.tvVersionName);
+		TextView tvBuildNumber = (TextView)findViewById(R.id.tvBuildNumber);
+		TextView tvSupportText = (TextView)findViewById(R.id.tvSupportText);
+		TextView tvSupportLink = (TextView)findViewById(R.id.tvSupportLink);
+		TextView tvSmileyAttribution = (TextView)findViewById(R.id.tvSmileyAttribution);
+		TextView tvSmileyAttributionLink = (TextView)findViewById(R.id.tvSmileyAttributionLink);
+
+		about_main.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvVersion.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvVersionName.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvBuildNumber.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvSupportText.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvSupportLink.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvSmileyAttribution.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvSmileyAttributionLink.setTypeface(ApplicationContext.getMainFontTypeface());
+		
+	}
+
 }

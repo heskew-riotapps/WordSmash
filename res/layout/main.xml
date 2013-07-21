@@ -17,7 +17,7 @@
            ads:testDevices="TEST_EMULATOR"
            ads:loadAdOnCreate="true"/>
   
-      <com.riotapps.word.ui.MainFontTextView
+      <TextView
           android:layout_below="@id/topAreaLayout"
           android:background="@drawable/logo_bg"
           android:paddingTop="2dp"

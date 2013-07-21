@@ -129,6 +129,10 @@ public class CompletedGames extends FragmentActivity {
 	    		  TextView tvSkillLevel = (TextView) rowView.findViewById(R.id.tvSkillLevel);
 	    		  LinearLayout llBottomBorder = (LinearLayout)rowView.findViewById(R.id.llBottomBorder);
 	    		   
+	    		  tvOpponent.setTypeface(ApplicationContext.getMainFontTypeface());
+	    		  tvSummary.setTypeface(ApplicationContext.getMainFontTypeface());
+	    		  tvSkillLevel.setTypeface(ApplicationContext.getMainFontTypeface());
+	    		  
 		    	  Game game = values.get(position);// values[position];
 		    	  Opponent opponent = game.getOpponent();
 		    	  

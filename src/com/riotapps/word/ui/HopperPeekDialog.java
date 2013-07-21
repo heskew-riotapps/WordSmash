@@ -13,6 +13,7 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Letter;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
+import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 
@@ -89,14 +90,24 @@ private Tracker tracker;
 
 		LinearLayout llOK = (LinearLayout) this.layout.findViewById(R.id.llOK);
 		TextView tvOK = (TextView) this.layout.findViewById(R.id.tvOK);
+		TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);
+
 		Button bNoThanks = (Button)this.layout.findViewById(R.id.bNoThanks);
 		Button bStore = (Button)this.layout.findViewById(R.id.bStore);
-
+		
+		
+		tvOK.setTypeface(ApplicationContext.getMainFontTypeface());
+		bNoThanks.setTypeface(ApplicationContext.getMainFontTypeface());
+		bStore.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvAlertTitle.setTypeface(ApplicationContext.getMainFontTypeface());
 		
 		Logger.d(TAG, "free hopper peeks=" + PlayerService.getRemainingFreeUsesHopperPeek());
 		
+		this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
+		this.peek_description.setTypeface(ApplicationContext.getMainFontTypeface());
+		
 		if (!StoreService.isHopperPeekPurchased() && PlayerService.getRemainingFreeUsesHopperPeek() == 0){
-			this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
+		
 			this.peek_description.setText(this.parent.getString(R.string.hopper_peek_purchase_offer));
 			TableLayout tblLetters =  (TableLayout)this.layout.findViewById(R.id.tblLetters);
 			tblLetters.setVisibility(View.GONE);
@@ -247,8 +258,34 @@ private Tracker tracker;
 		TextView tvLetter26 = (TextView)this.layout.findViewById(R.id.tvLetter26);
 		this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
 		
+		tvLetter1.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter2.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter3.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter4.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter5.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter6.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter7.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter8.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter9.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter10.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter11.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter12.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter13.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter14.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter15.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter16.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter17.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter18.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter19.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter20.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter21.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter22.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter23.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter24.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter25.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvLetter26.setTypeface(ApplicationContext.getMainFontTypeface());
+		
 		String baseText = parent.getString(R.string.hopper_peek_letter);
-		peek_description.setText(String.format(parent.getString(R.string.gameboard_hopper_peek_dialog_decription), this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray(), this.game.getOpponent().getName()));
 		
 		tvLetter1.setText(String.format(baseText, letters.get(0).getCharacter(), this.game.getNumLettersLeftInHopperAndOpponentTray(letters.get(0).getCharacter())));
 		tvLetter2.setText(String.format(baseText, letters.get(1).getCharacter(), this.game.getNumLettersLeftInHopperAndOpponentTray(letters.get(1).getCharacter())));
@@ -278,5 +315,7 @@ private Tracker tracker;
 		tvLetter26.setText(String.format(baseText, letters.get(25).getCharacter(), this.game.getNumLettersLeftInHopperAndOpponentTray(letters.get(25).getCharacter())));
 		 		
 	}
+	
+	
 	
 }

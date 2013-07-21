@@ -1,6 +1,8 @@
 package com.riotapps.word.ui;
 
 import com.riotapps.word.R;
+import com.riotapps.word.utils.ApplicationContext;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ public class CustomProgressDialog extends AlertDialog{
 	     
 	        
 	     	TextView text = (TextView) layout.findViewById(R.id.dialog_text);
+	     	text.setTypeface(ApplicationContext.getMainFontTypeface());
 	     	if (this.dialogText.length() > 0) {
 	     		text.setText(this.dialogText);
 	     	}

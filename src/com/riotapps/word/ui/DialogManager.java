@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.riotapps.word.R;
+import com.riotapps.word.utils.ApplicationContext;
 
 public class DialogManager {
 	public static void SetupAlert(Context context, String dialogTitle, String dialogMessage){
@@ -38,12 +39,15 @@ public class DialogManager {
  
 		// set the custom dialog components - text, image and button
 		TextView text = (TextView) dialog.findViewById(R.id.alert_text);
+		text.setTypeface(ApplicationContext.getMainFontTypeface());
 		text.setText(dialogMessage);
 
 		TextView title = (TextView) dialog.findViewById(R.id.alert_title);
+		title.setTypeface(ApplicationContext.getMainFontTypeface());
 		title.setText(dialogTitle);
 
 		TextView ok = (TextView) dialog.findViewById(R.id.alert_ok);
+		ok.setTypeface(ApplicationContext.getMainFontTypeface());
 		ok.setText(okText);
 
 		ok.setOnClickListener(new View.OnClickListener() {

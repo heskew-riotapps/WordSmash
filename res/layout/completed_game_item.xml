@@ -15,7 +15,7 @@
 			 android:id="@+id/ivOpponent"	
 			 style="@style/OpponentImageListStyle"   
 			 />
-		<com.riotapps.word.ui.MainFontTextView
+		<TextView
             android:id="@+id/tvOpponent"
             style="@style/TextStyle"
             android:paddingLeft="4dp"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
          />
-		 <com.riotapps.word.ui.MainFontTextView
+		 <TextView
 	     	android:id="@+id/tvSkillLevel"
 	        style="@style/TextMiniStyle"
 	        android:paddingLeft="3dp"
@@ -33,7 +33,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_marginTop="2dp"
 	     />
-  		 <com.riotapps.word.ui.MainFontTextView
+  		 <TextView
 	        android:id="@+id/tvSummary"
 	        style="@style/TextMiniStyle"
 	        android:paddingLeft="4dp"

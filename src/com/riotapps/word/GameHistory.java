@@ -62,6 +62,7 @@ public class GameHistory extends FragmentActivity{
 
 	 	this.loadList();
 	 	MenuUtils.hideMenu(this);
+	 	this.setupFonts();
 	 	
 		if (StoreService.isHideBannerAdsPurchased()){
 			AdView adView = (AdView)this.findViewById(R.id.adView);
@@ -121,7 +122,12 @@ private void loadList(){
 
 }
 
-private class PlayedWordArrayAdapter extends ArrayAdapter<PlayedWord> {
+	private void setupFonts(){
+		TextView header = (TextView)findViewById(R.id.header);	
+		header.setTypeface(ApplicationContext.getMainFontTypeface());
+	}
+
+	private class PlayedWordArrayAdapter extends ArrayAdapter<PlayedWord> {
    	  private final GameHistory context;
    	  private final PlayedWord[] values;
    	  private final int wordCount;
@@ -150,6 +156,8 @@ private class PlayedWordArrayAdapter extends ArrayAdapter<PlayedWord> {
 	    	   TextView tvWord = (TextView) rowView.findViewById(R.id.tvWord);
 	    	   TextView tvTurnInfo = (TextView) rowView.findViewById(R.id.tvTurnInfo);
 	    	   
+	    	   tvWord.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    	   tvTurnInfo.setTypeface(ApplicationContext.getScoreboardFontTypeface());
  
 	     	   ImageView ivPlayer = (ImageView)rowView.findViewById(R.id.ivPlayer);
 	    //	   imageLoader.loadImage(player.getImageUrl(), ivPlayer); 
@@ -182,6 +190,6 @@ private class PlayedWordArrayAdapter extends ArrayAdapter<PlayedWord> {
 	    	   rowView.setTag(word.getWord());
 	    	   return rowView;
     	  } 
-} 		  
+		} 		  
  
     }

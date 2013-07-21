@@ -30,8 +30,8 @@
 		android:layout_height="wrap_content"
 	 	android:id="@+id/header"
 	>
-    <com.riotapps.word.ui.MainFontTextView
-         android:id="@+id/alert_title"
+    <TextView
+         android:id="@+id/tvAlertTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		style="@style/TextStyle"
@@ -49,7 +49,7 @@
         android:paddingTop="3dp"
 		/>
   </RelativeLayout>
-   <com.riotapps.word.ui.MainFontTextView
+   <TextView
        android:layout_below="@id/header"
         android:id="@+id/peek_description"
         android:layout_width="fill_parent"
@@ -71,19 +71,19 @@
     android:stretchColumns="*">
     <TableRow style="@style/RulesTableRowStyle" >
 
-        <com.riotapps.word.ui.MainFontTextView
+        <TextView
             android:id="@+id/tvLetter1"
       		style="@style/LetterValueStyle"
 		/>
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
            android:id="@+id/tvLetter2"
       		style="@style/LetterValueStyle"       
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter3"
       		style="@style/LetterValueStyle"          
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter4"
       		style="@style/LetterValueStyle"
         />
@@ -91,19 +91,19 @@
     </TableRow>
     <TableRow style="@style/RulesTableRowStyle" >
 
-        <com.riotapps.word.ui.MainFontTextView
+        <TextView
             android:id="@+id/tvLetter5"
       		style="@style/LetterValueStyle"
         />
-        <com.riotapps.word.ui.MainFontTextView
+        <TextView
             android:id="@+id/tvLetter6"
             style="@style/LetterValueStyle"
 		/>
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter7"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter8"
             style="@style/LetterValueStyle"
  
@@ -111,95 +111,94 @@
      </TableRow>
     <TableRow style="@style/RulesTableRowStyle" >
 
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter9"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter10"
             style="@style/LetterValueStyle"
 		/>
-        <com.riotapps.word.ui.MainFontTextView
+        <TextView
             android:id="@+id/tvLetter11"
             style="@style/LetterValueStyle"
 		/>
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter12"
             style="@style/LetterValueStyle"
         />
     </TableRow>
     <TableRow style="@style/RulesTableRowStyle" >
 
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter13"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter14"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
            android:id="@+id/tvLetter15"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter16"
             style="@style/LetterValueStyle"
         />
     </TableRow>
     <TableRow style="@style/RulesTableRowStyle" >
 
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter17"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
            android:id="@+id/tvLetter18"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
            android:id="@+id/tvLetter19"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter20"
             style="@style/LetterValueStyle"
         />
     </TableRow>
     <TableRow style="@style/RulesTableRowStyle" >
 
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter21"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
            android:id="@+id/tvLetter22"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter23"
             style="@style/LetterValueStyle"
         />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
            android:id="@+id/tvLetter24"
             style="@style/LetterValueStyle"
         />
     </TableRow>
     <TableRow style="@style/RulesTableRowStyle" >
 
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
  		    style="@style/LetterValueStyle"
             android:id="@+id/tvLetter25"
          />
- 		<com.riotapps.word.ui.MainFontTextView
+ 		<TextView
             android:id="@+id/tvLetter26"
             style="@style/LetterValueStyle"
         />
 
     </TableRow>
  	</TableLayout>   
-           
- 
+
 </RelativeLayout>   
   
 	    <LinearLayout
@@ -209,7 +208,7 @@
  		   android:gravity="center"
 	        >
  
-		<com.riotapps.word.ui.MainFontTextView
+		<TextView
 		  
 		        android:id="@+id/tvOK"
 		        android:layout_width="fill_parent"
@@ -221,14 +220,14 @@
 				android:textColor="@color/sub_text_color"
 			 
 		    />
-		<com.riotapps.word.utils.TypefaceButton 
+		<Button 
 	  	    style="@style/ButtonStyle"
 	  	    android:id="@+id/bStore"
 	        android:layout_width="120dp" 
 	       
 	        android:text="@string/go_to_store"
 	    />
-		<com.riotapps.word.utils.TypefaceButton 
+		<Button 
 	  	    style="@style/ButtonStyle"
 	  	    android:id="@+id/bNoThanks"
 	        android:layout_width="120dp" 

@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -669,6 +670,17 @@ public static Game skip(boolean isOpponent, Game game){
 		 TextView tvOpponentName = (TextView)context.findViewById(R.id.tvOpponentName);
 		 TextView tvOpponentScore = (TextView)context.findViewById(R.id.tvOpponentScore);
 		 ImageView ivOpponent = (ImageView)context.findViewById(R.id.ivOpponent);
+		 
+		 TextView tvPlayerName = (TextView)context.findViewById(R.id.tvPlayerName);
+		 TextView tvLettersLeft = (TextView)context.findViewById(R.id.tvLettersLeft);
+		 TextView tvNumPoints = (TextView)context.findViewById(R.id.tvNumPoints);
+		 
+		 tvPlayerScore.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 tvOpponentName.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 tvOpponentScore.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 tvPlayerName.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 tvLettersLeft.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+		 tvNumPoints.setTypeface(ApplicationContext.getScoreboardFontTypeface());
 	 
 		 tvPlayerScore.setText(String.valueOf(game.getPlayerGames().get(0).getScore()));
 		 tvOpponentScore.setText(String.valueOf(game.getPlayerGames().get(1).getScore())); 
@@ -680,7 +692,7 @@ public static Game skip(boolean isOpponent, Game game){
 		 int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + o.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
 		 ivOpponent.setImageResource(opponentImageId);
 
-		 TextView tvLettersLeft = (TextView)context.findViewById(R.id.tvLettersLeft);
+		 
 		 if (game.getHopper().size() == 1){
 			 tvLettersLeft.setText(R.string.scoreboard_1_letter_left);
 		 }

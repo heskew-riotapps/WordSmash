@@ -136,15 +136,18 @@ public class PlayerService {
 
 		TextView tvNumWins = (TextView)context.findViewById(R.id.tvNumWins);
 
+				
 		if (player.getId() != Constants.EMPTY_STRING){
 			if (player.getNumWins() == 0){
 				tvNumWins.setText("101 wins");
 				//temp tvNumWins.setVisibility(View.GONE);
 			}
 			else if (player.getNumWins() == 1) {
+				tvNumWins.setTypeface(ApplicationContext.getMainFontTypeface());
 				tvNumWins.setText(context.getString(R.string.header_1_win));
 			}
 			else{
+				tvNumWins.setTypeface(ApplicationContext.getMainFontTypeface());
 				tvNumWins.setText(String.format(context.getString(R.string.header_num_wins), NumberFormat.getNumberInstance(Locale.US).format(player.getNumWins())));
 			}
 		}
