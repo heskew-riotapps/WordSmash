@@ -8,6 +8,7 @@ public class Constants {
 	public static final int WORD_DATABASE_VERSION =  3; 
 	public static final int DEFAULT_WORD_DATABASE_VERSION =  0; 
 	
+	public static final String DATABASE_PATH = "/databases/";
  	public static final String MAIN_FONT =  "fonts/mplus_2c_bold.ttf"; //"fonts/Capriola-Regular.ttf"; //"fonts/FullDeceSans1.0.ttf";
  	//public static final String GAME_BOARD_FONT = "fonts/Asap_Bold.ttf";//"fonts/banksia.ttf"; 
  	public static final String GAME_BOARD_FONT = "fonts/Asap_Bold.ttf";//"fonts/banksia.ttf"; //"fonts/Crushed.ttf";//"fonts/MILFCD_B.ttf";  //"fonts/Vegur_B_0.602.otf";

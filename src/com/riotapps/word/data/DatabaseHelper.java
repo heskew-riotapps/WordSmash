@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper{
 	 private static final String TAG = DatabaseHelper.class.getSimpleName();
     //The Android's default system path of your application database.
-    private static String DB_PATH = "/data/data/com.riotapps.word/databases/";
+    private static String DB_PATH; // = "/data/data/com.riotapps.word/databases/";
  
     private static String DB_NAME = "wordsmash.db";
  
@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
  
     	super(context, DB_NAME, null, 1);
         this.myContext = context;
-        
+        DB_PATH = context.getFilesDir().getParentFile().getPath() + Constants.DATABASE_PATH;
     }	
  
   /**

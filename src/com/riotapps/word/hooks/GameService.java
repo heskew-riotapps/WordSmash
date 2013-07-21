@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -86,7 +87,7 @@ public class GameService {
 		
 		Game game = new Game();
     	
-		DateFormat df = new SimpleDateFormat("MMddyyyyHHmmss");
+		DateFormat df = new SimpleDateFormat("MMddyyyyHHmmss", Locale.US);
 		Date now = Calendar.getInstance().getTime();        
 	 
 		game.setId(df.format(now));
@@ -1262,28 +1263,28 @@ public static Game skip(boolean isOpponent, Game game){
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(), 
 					words.get(8).getWord(),	words.get(9).getWord());
 		case 11:
-			return String.format(context.getString(R.string.game_play_10_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
+			return String.format(context.getString(R.string.game_play_11_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(),
 					words.get(8).getWord(), words.get(9).getWord(), words.get(10).getWord());
 		case 12:
-			return String.format(context.getString(R.string.game_play_10_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
+			return String.format(context.getString(R.string.game_play_12_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(), 
 					words.get(8).getWord(), words.get(9).getWord(), words.get(10).getWord(), words.get(11).getWord());
 		case 13:
-			return String.format(context.getString(R.string.game_play_10_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
+			return String.format(context.getString(R.string.game_play_13_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(), 
 					words.get(8).getWord(), words.get(9).getWord(), words.get(10).getWord(), words.get(11).getWord(), words.get(12).getWord());
 		case 14:
-			return String.format(context.getString(R.string.game_play_10_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
+			return String.format(context.getString(R.string.game_play_14_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(), words.get(8).getWord(),
 					words.get(9).getWord(), words.get(10).getWord(), words.get(11).getWord(), words.get(12).getWord(), words.get(13).getWord());
 		case 15:
-			return String.format(context.getString(R.string.game_play_10_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
+			return String.format(context.getString(R.string.game_play_15_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(), words.get(8).getWord(),
 					words.get(9).getWord(), words.get(10).getWord(), words.get(11).getWord(), words.get(12).getWord(), words.get(13).getWord(), 
 					words.get(14).getWord());
 		default:
-			return String.format(context.getString(R.string.game_play_10_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
+			return String.format(context.getString(R.string.game_play_16_words), words.get(0).getWord(), words.get(1).getWord(), words.get(2).getWord(),
 					words.get(3).getWord(), words.get(4).getWord(), words.get(5).getWord(), words.get(6).getWord(), words.get(7).getWord(), 
 					words.get(8).getWord(), words.get(9).getWord(), words.get(10).getWord(), words.get(11).getWord(), words.get(12).getWord(), 
 					words.get(13).getWord(), words.get(14).getWord(), words.get(15).getWord());

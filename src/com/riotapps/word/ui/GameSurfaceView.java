@@ -17,6 +17,7 @@ import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
 import android.util.Log;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -1745,6 +1746,12 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		 }
 		 //Logger.d(TAG, "findClosestOpenTile closestTile.Id=" + dropTargetTile.getId());
 		 return new DropTarget(dropTargetTileId,smallestSummedDifference);
+	 }
+	 
+	 //Lint made me do it
+	 @SuppressLint("WrongCall")
+	protected void drawFromThread(Canvas canvas) {
+		 onDraw(canvas);
 	 }
 	 
 	 @Override

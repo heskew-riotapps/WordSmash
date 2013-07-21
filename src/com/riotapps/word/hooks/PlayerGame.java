@@ -3,15 +3,9 @@ package com.riotapps.word.hooks;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeMap;
-
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.method.DateTimeKeyListener;
-
 import com.google.gson.annotations.SerializedName;
-import com.riotapps.word.hooks.Error.ErrorType;
-import com.riotapps.word.utils.Logger;
 
 public class PlayerGame implements Parcelable{
 	private static final String TAG = PlayerGame.class.getSimpleName();

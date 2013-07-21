@@ -465,7 +465,7 @@
  			/>
  		<com.riotapps.word.ui.MainFontTextView
  		  	style="@style/ContentAreaTextStyle"
- 		  	android:id="@+id/bonus3l_text"
+ 		  	android:id="@+id/bonus4l_text"
         	android:text="@string/full_rules_scoring_bonus_4l" 
         	android:paddingLeft="10dp"
         	android:paddingBottom="1dp"

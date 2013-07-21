@@ -735,7 +735,6 @@ public class Game implements Parcelable, Comparable<Game> {
 		 }
 		 else if (contextPlayerGame.isDraw()){ 
 			 return String.format(context.getString(R.string.game_list_game_over_draw), timeSince,
-					 contextPlayerGame.getScore(),
 					 contextPlayerGame.getScore());
 		 }
 		 else { 
@@ -780,16 +779,16 @@ public class Game implements Parcelable, Comparable<Game> {
 	  static {
 		_map = new TreeMap<Integer, LastAction>();
 	    for (LastAction num: LastAction.values()) {
-	    	_map.put(new Integer(num.value()), num);
+	    	_map.put(Integer.valueOf(num.value()), num);
 	    }
 	    //no translation
 	    if (_map.size() == 0){
-	    	_map.put(new Integer(0), NO_TRANSLATION);
+	    	_map.put(Integer.valueOf(0), NO_TRANSLATION);
 	    }
 	  }
 	  
 	  public static LastAction lookup(int value) {
-		  return _map.get(new Integer(value));
+		  return _map.get(Integer.valueOf(value));
 	  	}
 	}
 	

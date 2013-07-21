@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="scoreboard_height">54</integer>
+  
     <integer name="gameboard_button_area_height">60</integer>
     <integer name="gameboard_lookup_words_width">400</integer>
     <integer name="gameboard_lookup_words_height">42</integer>

@@ -25,8 +25,6 @@
         android:versionName="ApplePie" >
  
 
-	    <service android:enabled="true" android:name="com.riotapps.word.services.ProcessBridge"  />
-	    <service android:enabled="true" android:name="com.riotapps.word.services.BackgroundService"  android:process=":bkgdSvc"/>
         <service android:enabled="true" android:name="com.riotapps.word.services.WordLoaderService" />  
         
        <activity android:name=".Splash" android:label="@string/app_name" android:noHistory="true" android:screenOrientation="portrait">
@@ -43,14 +41,6 @@
 			</intent-filter>
 		</activity>
 	
-		<activity android:name=".Badges" android:label="@string/app_name" android:screenOrientation="portrait">
-		   <intent-filter>
-    			<category android:name="android.intent.category.DEFAULT" />
-    			<action android:name="android.intent.action.VIEW" />
-    			<data  android:scheme="com.riotapps.word" />  
-			</intent-filter>
-		</activity> 
-        <activity android:name=".Welcome" android:label="@string/app_name" android:screenOrientation="portrait"/>
   		<activity android:name=".CompletedGames" android:label="@string/app_name" android:screenOrientation="portrait"/>
  		<activity android:name=".Main" android:label="@string/app_name" android:screenOrientation="portrait" />
 		<activity android:name=".GameSurface" android:label="@string/app_name" android:screenOrientation="portrait"/>
@@ -59,16 +49,13 @@
 	 	<activity android:name=".About" android:label="@string/app_name" android:screenOrientation="portrait"/>
 	 	<activity android:name=".Store" android:label="@string/app_name" android:screenOrientation="portrait"/>
 	 	<activity android:name=".InterstitialAd" android:label="@string/app_name" android:screenOrientation="portrait"/>
-	 	<activity android:name=".HopperPeek" android:label="@string/app_name" android:screenOrientation="portrait"/>
+ 
 	 	
  	 	 <activity android:name="com.chartboost.sdk.CBImpressionActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:excludeFromRecents="true" />
 	 	 <activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-	 	<meta-data android:value="@string/app_id" android:name="com.facebook.sdk.ApplicationId"/>
-	 	<activity
-            android:name="com.revmob.ads.fullscreen.FullscreenActivity"
-            android:configChanges="keyboardHidden|orientation" >
-    	</activity>
+	 
+	 	
     </application>
 
 </manifest>

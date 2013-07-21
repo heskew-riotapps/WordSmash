@@ -424,20 +424,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	public void onInitialRenderComplete(){
 	//	this.spinner.dismiss();
 	}
-	
-	 public Handler updateHandler = new Handler(){
-	        /** Gets called on every message that is received */
-	        // @Override
-	        public void handleMessage(Message msg) {
-	            switch (msg.what){
-	            case GameSurface.MSG_POINTS_SCORED:
-	            
-	            	break;
-	            }
-	            super.handleMessage(msg);
-	        }
-	    };
-
+ 
 	 public void switchToRecall(){
 		//by default recall button will be hidden, it will be switched with shuffle button when a letter is dropped on the board
 		 context.runOnUiThread(new handleButtonSwitchRunnable(2));

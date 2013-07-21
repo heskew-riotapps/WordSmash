@@ -1,9 +1,11 @@
 package com.riotapps.word.ui;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
+@SuppressLint("WrongCall")
 public class GameThread extends Thread {
 	 private SurfaceHolder surfaceHolder;
 	 volatile boolean running = false;
@@ -53,7 +55,8 @@ public class GameThread extends Thread {
 		    }
 		}
 	  
-	 @Override
+	 @SuppressLint("WrongCall")
+	@Override
 	 public void run() {
 		 Canvas c;
 		// this.parent.parent.captureTime("gamethread run started");
@@ -74,7 +77,7 @@ public class GameThread extends Thread {
 			            c = this.surfaceHolder.lockCanvas(null);
 			            synchronized (this.surfaceHolder) {
 			            //	this.parent.parent.captureTime("gamethread draw started");
-			            	 parent.onDraw(c); 
+			            	 parent.drawFromThread(c); 
 			            	
 			            }  
 			        } 

@@ -71,7 +71,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue1" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter1"   
+         
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -98,7 +98,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue2" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter2"   
+         
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -125,7 +125,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue3" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter3"   
+         
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -152,7 +152,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue4" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter4"   
+         
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -179,7 +179,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue5" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter5"   
+          
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -206,7 +206,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue6" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter6"   
+         
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -234,7 +234,7 @@
         	android:layout_height="wrap_content"  
         	android:id="@+id/tvValue7" 
         	android:textSize="12dp"
-        	android:layout_alignTop="@id/rlLetter7"   
+          
         	android:layout_marginRight="3dp"
         	android:layout_marginTop=".5dp"
             android:layout_alignParentRight="true" 
@@ -252,7 +252,7 @@
 	    <LinearLayout
 	        style="@style/FormButtonAreaStyle"
  
-	        android:layout_below="@+id/inner_form" >
+	          >
 		 
 		<com.riotapps.word.utils.TypefaceButton 
 	  	    style="@style/ButtonStyle"

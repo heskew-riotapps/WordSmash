@@ -29,16 +29,16 @@ public class GameAction {
 	  static {
 		_map = new TreeMap<Integer, GameActionType>();
 	    for (GameActionType num: GameActionType.values()) {
-	    	_map.put(new Integer(num.value()), num);
+	    	_map.put(Integer.valueOf(num.value()), num);
 	    }
 	    //no translation
 	    if (_map.size() == 0){
-	    	_map.put(new Integer(0), NO_TRANSLATION);
+	    	_map.put(Integer.valueOf(0), NO_TRANSLATION);
 	    }
 	  }
 	  
 	  public static GameActionType lookup(int value) {
-		  return _map.get(new Integer(value));
+		  return _map.get(Integer.valueOf(value));
 	  	}
 	}
 	
