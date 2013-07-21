@@ -13,6 +13,7 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.Letter;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
+import com.riotapps.word.interfaces.ICloseDialog;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
@@ -200,9 +201,10 @@ private Tracker tracker;
 		
 		//parent.unfreezeButtons();
 		super.dismiss();	
-		((Activity) this.parent).setResult(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE, new Intent());
-		this.parent = null;
-		
+		//((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
+		//((Activity) this.parent).setResult(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE, new Intent());
+		//this.parent = null;
+
 	}
 
 	 
@@ -212,6 +214,7 @@ private Tracker tracker;
 		switch (v.getId()){
 			case R.id.llOK:
 				this.dismiss();
+				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
 				break;
 			case R.id.bStore:
 				this.dismiss(); 
@@ -220,9 +223,11 @@ private Tracker tracker;
 				break;
 			case R.id.bNoThanks:
 				this.dismiss();
+				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
 				break;
 			default:
 				this.dismiss();
+				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
 				break;
 		}
 	}

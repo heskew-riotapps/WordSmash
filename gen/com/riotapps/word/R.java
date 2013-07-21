@@ -437,7 +437,6 @@ containing a value of this type.
         public static final int swapdialog=0x7f030012;
         public static final int toparealayout=0x7f030013;
         public static final int twobuttondialog=0x7f030014;
-        public static final int wordlookupdialog=0x7f030015;
     }
     public static final class raw {
         public static final int alphabet=0x7f040000;

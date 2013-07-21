@@ -22,7 +22,7 @@
 		android:background="@drawable/alert_background"
 		android:id="@+id/header"
 	>
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
          android:id="@+id/alert_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:id="@+id/rlLetter1"   
         android:layout_marginLeft="0dp"     
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -84,7 +84,7 @@
         android:layout_toRightOf="@id/rlLetter1"   
         android:layout_marginLeft="2dp"
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -111,7 +111,7 @@
         android:layout_toRightOf="@id/rlLetter2"   
         android:layout_marginLeft="2dp"
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -138,7 +138,7 @@
         android:layout_toRightOf="@id/rlLetter3"   
         android:layout_marginLeft="2dp"
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -165,7 +165,7 @@
         android:layout_toRightOf="@id/rlLetter4"   
         android:layout_marginLeft="2dp"
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -192,7 +192,7 @@
         android:layout_toRightOf="@id/rlLetter5"   
         android:layout_marginLeft="2dp"
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -220,7 +220,7 @@
         android:layout_toRightOf="@id/rlLetter6"   
         android:layout_marginLeft="2dp"
      >
-         <com.riotapps.word.ui.ScoreboardFontTextView 
+         <TextView 
               android:layout_width="fill_parent"
              android:layout_height="fill_parent"
               android:background="@drawable/tray_tile_bg"
@@ -254,14 +254,14 @@
  
 	          >
 		 
-		<com.riotapps.word.utils.TypefaceButton 
+		<Button 
 	  	    style="@style/ButtonStyle"
 	  	    android:id="@+id/bOK"
 	        android:layout_width="0dp" 
 	        android:layout_weight="1.0"
 	        android:text="@string/gameboard_swap_dialog_button_text"
 	    />
-	    <com.riotapps.word.utils.TypefaceButton 
+	    <Button 
 	  	    style="@style/ButtonStyle"
 	  	    android:id="@+id/bCancel"
 	        android:layout_width="0dp" 

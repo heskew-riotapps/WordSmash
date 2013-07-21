@@ -1737,6 +1737,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		//tvLetter6.setTextSize(this.textSize);
 	    		tvLetter7 = (TextView) this.layout.findViewById(R.id.tvLetter7);
 	    		//tvLetter7.setTextSize(this.textSize);
+	    		TextView alert_title = (TextView) this.layout.findViewById(R.id.alert_title);
 	    		
 	    		TextView tvValue1 = (TextView) this.layout.findViewById(R.id.tvValue1);
 	    		TextView tvValue2 = (TextView) this.layout.findViewById(R.id.tvValue2);
@@ -1753,6 +1754,17 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		tvLetter5.setText(letters.get(4));
 	    		tvLetter6.setText(letters.get(5));
 	    		tvLetter7.setText(letters.get(6));
+	    		
+	    		bOK.setTypeface(ApplicationContext.getMainFontTypeface());
+	    		bCancel.setTypeface(ApplicationContext.getMainFontTypeface());
+	    		alert_title.setTypeface(ApplicationContext.getMainFontTypeface());
+	    		tvLetter1.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    		tvLetter2.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    		tvLetter3.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    		tvLetter4.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    		tvLetter5.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    		tvLetter6.setTypeface(ApplicationContext.getScoreboardFontTypeface());
+	    		tvLetter7.setTypeface(ApplicationContext.getScoreboardFontTypeface());
 	    		
 	    		tvValue1.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(0))));
 	    		tvValue2.setText(Integer.toString(AlphabetService.getLetterValue(letters.get(1))));
