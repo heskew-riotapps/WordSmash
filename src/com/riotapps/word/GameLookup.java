@@ -105,6 +105,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	     if (StoreService.isHideBannerAdsPurchased()){
 				AdView adView = (AdView)this.findViewById(R.id.adView);
 				adView.setVisibility(View.GONE);
+		 
 			}
 	     
 	     if (!StoreService.isWordDefinitionLookupPurchased() && PlayerService.getRemainingFreeUsesWordDefinition() == 0){

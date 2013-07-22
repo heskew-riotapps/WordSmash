@@ -277,20 +277,12 @@ com.google.gson.stream.JsonReader:
 com.riotapps.word.GameSurface:
     private com.riotapps.word.utils.ImageFetcher imageLoader
     private android.view.SurfaceView surfaceView
-    1199:1202:private void loadPlaySpinner()
-    1840:1852:private void setupRunawayAdTimer()
-    1890:1900:private void loadAdMobInterstitialAd()
-    2322:2323:private void trackEvent(java.lang.String,java.lang.String,int)
-    93:93:static synthetic boolean access$9(com.riotapps.word.GameSurface)
-    114:114:static synthetic com.google.ads.InterstitialAd access$10(com.riotapps.word.GameSurface)
-    114:114:static synthetic void access$11(com.riotapps.word.GameSurface,com.google.ads.InterstitialAd)
-    116:116:static synthetic com.riotapps.word.utils.CustomProgressDialog access$12(com.riotapps.word.GameSurface)
-com.riotapps.word.GameSurface$checkRunawayAdTask
-com.riotapps.word.GameSurface$checkRunawayAdTaskRunnable
+    private com.google.ads.InterstitialAd interstitial
+    2418:2419:private void trackEvent(java.lang.String,java.lang.String,int)
 com.riotapps.word.Splash:
     android.os.Handler handler
     private com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
-    174:188:private void handleRouting()
+    223:237:private void handleRouting()
 com.riotapps.word.billing.Base64:
     private static final byte EQUALS_SIGN
     private static final byte NEW_LINE
@@ -316,19 +308,6 @@ com.riotapps.word.hooks.TileLayout$StarterTile:
 com.riotapps.word.hooks.WordIndex:
     private java.lang.String index
     private java.lang.String word
-com.riotapps.word.ui.CustomButtonDialogView:
-    private android.widget.Button bOK
-    private android.widget.Button bCancel
-    private android.widget.ImageView close
-    private android.content.Context context
-    private java.lang.String dialogTitle
-    private java.lang.String dialogText
-    private java.lang.String okText
-    private java.lang.String cancelText
-    private android.view.View layout
-    private boolean onCancelClickFinishActivity
-com.riotapps.word.ui.CustomDialog:
-    private android.app.AlertDialog alert
 com.riotapps.word.ui.GameSurfaceView:
     private static final int TRAY_TILE_GAP
     private static final int TRAY_VERTICAL_MARGIN
@@ -342,11 +321,9 @@ com.riotapps.word.ui.GameSurfaceView:
     private static final float MAX_TEXT_WIDTH
     private static final int NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING
     private static final int NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED
-    2781:2782:private void onBoardClear()
+    2805:2806:private void onBoardClear()
 com.riotapps.word.ui.GameThread:
     long sleepTime
-com.riotapps.word.ui.WordLookupDialog:
-    com.riotapps.word.utils.ApplicationContext appContext
 com.riotapps.word.utils.DiskLruCache:
     private static final java.lang.String TAG
     private static final java.lang.String CACHE_FILENAME_PREFIX

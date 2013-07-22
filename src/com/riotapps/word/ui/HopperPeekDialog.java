@@ -102,7 +102,7 @@ private Tracker tracker;
 		bStore.setTypeface(ApplicationContext.getMainFontTypeface());
 		tvAlertTitle.setTypeface(ApplicationContext.getMainFontTypeface());
 		
-		Logger.d(TAG, "free hopper peeks=" + PlayerService.getRemainingFreeUsesHopperPeek());
+		//Logger.d(TAG, "free hopper peeks=" + PlayerService.getRemainingFreeUsesHopperPeek());
 		
 		this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
 		this.peek_description.setTypeface(ApplicationContext.getMainFontTypeface());
@@ -115,10 +115,13 @@ private Tracker tracker;
 			tvOK.setVisibility(View.GONE);
 		}
 		else{
+			this.peek_description.setTag(String.format(this.parent.getString(R.string.gameboard_hopper_peek_dialog_decription), String.valueOf(this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray()), this.game.getOpponent().getName()));
+			
 			this.loadLetters();	
 			
 			if (!StoreService.isHopperPeekPurchased()){
 				tvOK.setVisibility(View.GONE);
+			
 			
 				int remainingFreeUses  = PlayerService.removeAFreeUseFromHopperPeek();
 				if (remainingFreeUses > 1){
@@ -146,21 +149,15 @@ private Tracker tracker;
 	 		@Override
 			public void onClick(View v) {
 	 			
-	 			//trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        	//		Constants.TRACKER_LABEL_SWAP_DISMISS, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-	 			//
-	 			
-				dismiss();
+				HopperPeekDialog.this.close();
 			}
 		});
 		
 		this.setOnCancelListener(new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {
-				//(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-	        	//		Constants.TRACKER_LABEL_SWAP_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
-				
-				dismiss();
+ 
+				HopperPeekDialog.this.close();
 				
 			}
 		});
@@ -180,7 +177,7 @@ private Tracker tracker;
 			
 	private void trackEvent(String action, String label, long value){
 		try{
-			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_GAME_LOOKUP, action,label, value);
+			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_GAME_HINTS, action,label, value);
 		}
 		catch (Exception e){
   			Logger.d(TAG, "trackEvent action=" + (action == null ? "null" : action) 
@@ -197,37 +194,39 @@ private Tracker tracker;
  		this.layout = null;
 		this.peek_description = null;
 		this.tracker = null;
-		
-		
-		//parent.unfreezeButtons();
+			
 		super.dismiss();	
-		//((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
-		//((Activity) this.parent).setResult(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE, new Intent());
-		//this.parent = null;
-
 	}
 
+	private void close(){
+		this.dismiss();
+		this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, Constants.TRACKER_LABEL_HOPPER_PEEK_CLOSE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+		((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
+	}
+	
 	 
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.llOK:
-				this.dismiss();
-				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
+				this.close();
 				break;
 			case R.id.bStore:
 				this.dismiss(); 
 				Intent intent = new Intent(this.parent, com.riotapps.word.Store.class);
+				this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, Constants.TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+
 				this.parent.startActivity(intent); 
 				break;
 			case R.id.bNoThanks:
 				this.dismiss();
+				this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, Constants.TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+
 				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
 				break;
 			default:
-				this.dismiss();
-				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
+				this.close();	
+				
 				break;
 		}
 	}

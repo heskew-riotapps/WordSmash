@@ -61,6 +61,7 @@ public class Constants {
 	 *=============================================*/
 	
 	public static final String TRACKER_CATEGORY_STORE = "store";
+	public static final String TRACKER_CATEGORY_GAME_HINTS = "game_hints";
 	public static final String TRACKER_CATEGORY_GAME_LOOKUP = "game_lookup";
 	public static final String TRACKER_CATEGORY_GAMEBOARD = "game_surface";
 	public static final String TRACKER_CATEGORY_START_GAME = "start_game";
@@ -83,6 +84,10 @@ public class Constants {
 	public static final String TRACKER_LABEL_RECALL = "recall_letters";
 	public static final String TRACKER_LABEL_SHUFFLE = "shuffle";
 	public static final String TRACKER_LABEL_WORD = "word";
+	public static final String TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE = "hopper_peek_go_to_store";
+	public static final String TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE = "hopper_peek_decline_store";
+	public static final String TRACKER_LABEL_HOPPER_PEEK_CLOSE = "hopper_peek_close";
+
 	public static final String TRACKER_LABEL_PLAY_INITIAL = "play_initial";
 	public static final String TRACKER_LABEL_PLAY_CANCEL = "play_cancel";
 	public static final String TRACKER_LABEL_PLAY_DISMISS = "play_dismiss";

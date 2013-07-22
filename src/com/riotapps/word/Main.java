@@ -49,6 +49,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	private Player player;
 	 private PopupMenu popupMenu;
 	 private CustomButtonDialog customDialog;
+	 private LinearLayout llOpponents = null;
         
      private int chosenOpponentId = 0;
 	//Timer timer = null;
@@ -244,7 +245,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
  
 		ApplicationContext.captureTime(TAG, "loadList starting");
  
-    	LinearLayout llOpponents = (LinearLayout)findViewById(R.id.llOpponents);
+    	this.llOpponents = (LinearLayout)findViewById(R.id.llOpponents);
     //	LinearLayout llOpponentsWrapper = (LinearLayout)findViewById(R.id.llOpponentsWrapper);
     	
    // 	ApplicationContext.captureTime(TAG, "loadList view clears starting");
@@ -462,9 +463,13 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
 			this.trackEvent(Constants.TRACKER_ACTION_GAME_STARTED, Constants.TRACKER_LABEL_OPPONENT, chosenOpponentId);
 			
-			Intent intent = new Intent(Main.this, com.riotapps.word.GameSurface.class);
+			this.llOpponents.removeAllViews();
+			this.llOpponents = null;
+			
+			Intent intent = new Intent(this, com.riotapps.word.GameSurface.class);
     		//intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
-    		Main.this.startActivity(intent); 
+    		this.startActivity(intent); 
+    		this.finish();
 			
 		} catch (DesignByContractException e) {
 			// TODO Auto-generated catch block

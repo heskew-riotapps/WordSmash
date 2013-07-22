@@ -22,7 +22,7 @@
          style="@android:style/Widget.ProgressBar.Small"
          android:indeterminate="true"
          />
-    <com.riotapps.word.ui.MainFontTextView
+    <TextView
          android:id="@+id/dialog_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
