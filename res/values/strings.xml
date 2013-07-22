@@ -36,8 +36,8 @@
  	<string name="progress_saving">saving&#8230;</string>
 
  	<string name="full_rules_1">The idea is to score more points than your opponent by forming valid words out of the letters in your tray combined with the letters 
- 	    		   on the board.  Letters must be placed on the board in a single axis, either horizontally or vertically.</string>
-   	<string name="full_rules_2">To start the game, the letters of the first word must placed on at least one of the four smiley faces n the middle of the board.  All words must contain 2 or more letters. 
+ 	    		   on the board.  Letters must be placed on the board in a single axis, either horizontally or vertically.  Letters can played played on top of previously played letters.</string>
+   	<string name="full_rules_2">To start the game, the letters of the first word must placed on at least one of the four smiley faces in the middle of the board.  All words must contain 2 or more letters. 
                        The players alternate turns. Each turn after the first (with the exception of skips and swaps) must 
                        place at least one letter next to a previously placed letter on the board, either to the left or right or above or below, OR overlaying 
                        a previously played letter.</string>                
@@ -51,7 +51,7 @@
  	<string name="full_rules_letters_1">The Letters</string>
  	<string name="full_rules_letters_2">105 letters are shuffled and stored in the hopper until they are dispersed into the player\'s trays.  The mix of the first 100 letters is as follows:</string>                      
  	<string name="full_rules_letters_3">The final 5 letters are made up of 4 randomly chosen consonants and 1 randomly chosen vowel (A, E, I, O, or U).  The random letters will 
-                        be unique, meaning that the random consonants chosen might be "P", "R", "K" and "C", but would never be "P", "K", "R", and "R".</string>   
+                        be unique, meaning that the random consonants chosen might be, for example, "P", "R", "K" and "C", but would never be "P", "K", "R", and "R".</string>   
 	<string name="full_rules_scoring_1">Scoring</string>
 	<string name="full_rules_scoring_2">Each letter has an assigned value as follows:</string>	
 	<string name="full_rules_scoring_3">Bonuses</string>	
@@ -286,7 +286,7 @@
 		<string name="hopper_peek_purchase_offer">Now that the free previews are over, peeking at the hopper requires a Peek at the Hopper Upgrade or a Premium Upgrade.  Just tap the button to go to the store to get unlimited usage of hopper peeks.</string>
 		<string name="hopper_peek_preview">%1$s\n\nYou have %2$s more free uses before needing a Peek at the Hopper upgrade or a Premium Upgrade.</string>
 		<string name="hopper_peek_1_preview_left">%1$s\n\nYou have 1 more free use before needing a Peek at the Hopper upgrade or a Premium Upgrade.</string>
-		<string name="hopper_peek_no_previews_left">%s\n\nTo keep using hopper peeks, you\'ll need a Peek at the Hopper upgrade or a Premium Upgrade!\n</string>
+		<string name="hopper_peek_no_previews_left">%s\n\nTo keep using hopper peeks, you\'ll need a Peek at the Hopper upgrade or a Premium Upgrade!</string>
 
 		<string name="word_definition_purchase_offer">Now that the free previews are over, looking up word definitions requires a Word Definition Lookups upgrage or a Premium Upgrade.  Just tap the button to go to the store to get unlimited lookups of word definitions.  It\'s a great way to learn as you play!</string>
 		<string name="word_definition_preview">You have %s more free uses before needing a Word Definition Lookups upgrade or a Premium Upgrade.</string>

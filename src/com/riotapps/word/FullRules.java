@@ -35,7 +35,9 @@ public class FullRules extends FragmentActivity{
 	        
 	        if (StoreService.isHideBannerAdsPurchased()){
 				AdView adView = (AdView)this.findViewById(R.id.adView);
+				//adView.destroy(); //experiment
 				adView.setVisibility(View.GONE);
+				adView.setActivated(false);
 			}
 	 }
 	@Override
