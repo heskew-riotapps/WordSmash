@@ -17,6 +17,8 @@ import com.riotapps.word.utils.Logger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -37,6 +39,8 @@ public class GameHistory extends FragmentActivity{
 	private ListView lvWords;
 	private Context context = this;
 	private int opponentImageId;
+ 	  Bitmap playerBM = null;
+ 	  Bitmap opponentBM = null;
 
 	ApplicationContext appContext;
 	
@@ -56,8 +60,11 @@ public class GameHistory extends FragmentActivity{
 	 	GameService.loadScoreboard(this, this.game);
 	 	
 	  	
-	     this.opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + this.game.getOpponent().getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
-
+	    this.opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + this.game.getOpponent().getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
+	    	
+	    this.opponentBM = BitmapFactory.decodeResource(getResources(), this.opponentImageId); 
+	    this.playerBM = BitmapFactory.decodeResource(getResources(), R.drawable.you);
+	     
 	 	this.loadList();
 	 	MenuUtils.hideMenu(this);
 	 	this.setupFonts();
@@ -71,6 +78,9 @@ public class GameHistory extends FragmentActivity{
 @Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		
+		playerBM = null;
+		opponentBM = null;
 		lvWords = null;
 		super.onBackPressed();
 	}
@@ -130,6 +140,8 @@ private void loadList(){
    	  private final PlayedWord[] values;
    	  private final int wordCount;
    	  LayoutInflater inflater;
+
+   	  
    	//  public ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 
    	  public PlayedWordArrayAdapter(GameHistory context, PlayedWord[] values) {
@@ -163,28 +175,19 @@ private void loadList(){
 	    	   String name = word.isOpponentPlay() ? game.getOpponent().getName() : player.getName(context);
 	    	   
 	    	   if ( word.isOpponentPlay()){
-	    		   ivPlayer.setImageResource(GameHistory.this.opponentImageId);
+	    		   ivPlayer.setImageBitmap(GameHistory.this.opponentBM);
+	    		   //ivPlayer.setImageResource(GameHistory.this.opponentImageId);
 	    	   }
+	    	   else{
+	    		   ivPlayer.setImageBitmap(GameHistory.this.playerBM);
+	    	   }
+	    	   
 	    	  
 	    	   tvWord.setText(word.getWord());
 	    	   tvTurnInfo.setText(String.format(this.context.getString(R.string.game_history_turn_info), name, word.getTurn(), word.getPointsScored()));
  
 	    	   Logger.d(TAG, "adapter position=" + position + " count=" + this.wordCount); 
-	    	//   LinearLayout llBottomBorder = (LinearLayout)rowView.findViewById(R.id.llBottomBorder);
-	    	 
-	    	    
-	    	  /* if (position == this.wordCount - 1){ //last item
-	    		   Logger.d(TAG, "position=wordCount");
-		   			RelativeLayout rlLineItem = (RelativeLayout)rowView.findViewById(R.id.rlItem);
-		   			int bgLineItem = context.getResources().getIdentifier("com.riotapps.word:drawable/text_selector_bottom", null, null);
-		   			rlLineItem.setBackgroundResource(bgLineItem);
-		   			//LinearLayout llBottomBorder = (LinearLayout)rowView.findViewById(R.id.llBottomBorder);
-		   			llBottomBorder.setVisibility(View.INVISIBLE);
-	    	   }
-	    	   else{
-	    		   llBottomBorder.setVisibility(View.VISIBLE);
-	    	   }
-	    	  */
+	     	   
 	    	   rowView.setTag(word.getWord());
 	    	   return rowView;
     	  } 

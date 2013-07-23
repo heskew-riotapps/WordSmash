@@ -2972,7 +2972,31 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 				 this.tiles.add(tile);
 			 }
 		 }
+		 
+	//	 this.loadTileNeighbors();//??????
 	 }
+	 /*
+	 private void loadTileNeighbors(){
+		 int i = 0;
+		 for(int y = 0; y < 15; y++){
+			 
+			 for(int x = 0; x < 15; x++){
+				 int above = TileLayoutService.getTileIdAbove(i);
+				 int below = TileLayoutService.getTileIdBelow(i);
+				 int left = TileLayoutService.getTileIdToTheLeft(i);
+				 int right = TileLayoutService.getTileIdToTheRight(i);
+				 
+				 if (below < 255) {this.tiles.get(i).setTileBelow(this.tiles.get(below));}
+				 if (above < 255) {this.tiles.get(i).setTileAbove(this.tiles.get(above));}
+				 if (right < 255) {this.tiles.get(i).setTileToRight(this.tiles.get(left));}
+				 if (left < 255) {this.tiles.get(i).setTileToLeft(this.tiles.get(right));}
+				 
+				 i += 1;
+			 }
+		 }
+
+	 }
+	 */
 	 
 	 private void setFullViewRegionPosition(GameTile tile){
 		 //region1 top left third

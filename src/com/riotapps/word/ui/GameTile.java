@@ -1,5 +1,7 @@
 package com.riotapps.word.ui;
 
+import com.riotapps.word.hooks.TileLayoutService;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
@@ -36,7 +38,17 @@ public class GameTile {
     private int yPositionCenterRelativeZoomed = 0;
 	private boolean isConnected = false;
 
-
+//	private GameTile tileToLeft = null;
+//	private GameTile tileToRight = null;
+//	private GameTile tileAbove = null;
+//	private GameTile tileBelow = null;
+	
+	private int tileIdAbove = -1;
+	private int tileIdBelow = -1;
+	private int tileIdToTheLeft = -1;
+	private int tileIdToTheRight = -1;
+	
+	
 	
 	public GameTile(){
 		
@@ -174,7 +186,87 @@ public class GameTile {
 		return (this.placedLetter.length() > 0 ? this.placedLetter : this.originalLetter);
 	}
 
- 
+	
+	public int getTileIdAbove() {
+		 if (tileIdAbove == -1){
+			 tileIdAbove = TileLayoutService.getTileIdAbove(id);
+		 }
+		return tileIdAbove;
+	}
+
+	public void setTileIdAbove(int tileIdAbove) {
+		this.tileIdAbove = tileIdAbove;
+	}
+
+	public int getTileIdBelow() {
+		if (tileIdBelow == -1){
+			 tileIdBelow = TileLayoutService.getTileIdBelow(id);
+		 }
+
+		return tileIdBelow;
+	}
+
+	public void setTileIdBelow(int tileIdBelow) {
+		this.tileIdBelow = tileIdBelow;
+	}
+
+	public int getTileIdToTheLeft() {
+		if (tileIdToTheLeft == -1){
+			 tileIdToTheLeft = TileLayoutService.getTileIdToTheLeft(id);
+		 }
+
+		return tileIdToTheLeft;
+	}
+
+	public void setTileIdToTheLeft(int tileIdToTheLeft) {
+		this.tileIdToTheLeft = tileIdToTheLeft;
+	}
+
+	public int getTileIdToTheRight() {
+		if (tileIdToTheRight == -1){
+			 tileIdToTheRight = TileLayoutService.getTileIdToTheRight(id);
+		 }
+
+		return tileIdToTheRight;
+	}
+
+	public void setTileIdToTheRight(int tileIdToTheRight) {
+		this.tileIdToTheRight = tileIdToTheRight;
+	}
+
+/*
+	public GameTile getTileToLeft() {
+		return tileToLeft;
+	}
+
+	public void setTileToLeft(GameTile tileToLeft) {
+		this.tileToLeft = tileToLeft;
+	}
+
+	public GameTile getTileToRight() {
+		return tileToRight;
+	}
+
+	public void setTileToRight(GameTile tileToRight) {
+		this.tileToRight = tileToRight;
+	}
+
+	public GameTile getTileAbove() {
+		return tileAbove;
+	}
+
+	public void setTileAbove(GameTile tileAbove) {
+		this.tileAbove = tileAbove;
+	}
+
+	public GameTile getTileBelow() {
+		return tileBelow;
+	}
+
+	public void setTileBelow(GameTile tileBelow) {
+		this.tileBelow = tileBelow;
+	}
+*/
 public String getOriginalText() {
 		return originalText;
 	}

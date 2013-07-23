@@ -473,9 +473,18 @@ public static Game skip(boolean isOpponent, Game game){
 		Logger.d(TAG,"before getPlayedTiles");
 		List<PlayedTile> tiles = game.getPlayedTiles();
 		
+	
+		
 		//create collections for H/V tiles/sets. 
 		//object in collection must contain letter(s),len , x, y
 		
+		
+		//to get the neighboring playedTiles do this: (example...i assume it would be done in some AI loop for real)
+		//if there is not a played tile, you can assume its a blank tile
+		PlayedTile above = game.getPlayedTileAbove(game.getPlayedTiles().get(0));
+		PlayedTile below = game.getPlayedTileBelow(game.getPlayedTiles().get(0));
+		PlayedTile right = game.getPlayedTileToTheRight(game.getPlayedTiles().get(0));
+		PlayedTile left = game.getPlayedTileToTheLeft(game.getPlayedTiles().get(0));
 		
 		Logger.d(TAG,"before played tile loop");
 		//for each tile
@@ -492,13 +501,17 @@ public static Game skip(boolean isOpponent, Game game){
 			//int uTile = TileLayoutService.getTileIdAbove(tile.getBoardPosition());
 			PlayedTile nextTile;
 			
+			/*
 			//have to have a null check here
+			//wrong
 			try{
-			nextTile = tiles.get(TileLayoutService.getTileIdAbove(tile.getBoardPosition()));
+				
+				nextTile = tiles.get(TileLayoutService.getTileIdAbove(tile.getBoardPosition()));
 			}
 			catch (IndexOutOfBoundsException iEx){
 				//played tile does not exist at that location
 			}
+			*/
 			//??GameService.getLettersAlongOnAxis might help 
 			//if nextTile null to another direction. if not, also go opposite direction
 			//need to take precaution to not process multiple tiles of the same string in the same axis
@@ -572,7 +585,7 @@ public static Game skip(boolean isOpponent, Game game){
 		//just call this after determining played words, passing PlacedResults to it
 		//return GameService.play(true, game, placedResult);
 		//return GameService.skip(true, game);
-		//return GameService.swap(true, game, placedResult);
+	 	//return GameService.swap(true, game, placedResult);
 	}
 	
 	
@@ -952,7 +965,7 @@ public static Game skip(boolean isOpponent, Game game){
 		
 		for (GameTile tile : placedTiles){
 			if (tile.getOriginalLetter().length() > 0){ return true;}
-			
+/*			
 			int above = TileLayoutService.getTileIdAbove(tile.getId());
             int below = TileLayoutService.getTileIdBelow(tile.getId());
             int left = TileLayoutService.getTileIdToTheLeft(tile.getId());
@@ -962,6 +975,12 @@ public static Game skip(boolean isOpponent, Game game){
             boolean isPlayedTileBelow = below == 255 ? false : (containsPlayedTileId(playedTiles, below) ? true : false);
             boolean isPlayedTileToTheLeft = left == 255 ? false : (containsPlayedTileId(playedTiles, left) ? true : false);
             boolean isPlayedTileToTheRight = right == 255 ? false : (containsPlayedTileId(playedTiles, right) ? true : false);
+*/
+
+            boolean isPlayedTileAbove = tile.getTileIdAbove() == 255 ? false : (containsPlayedTileId(playedTiles, tile.getTileIdAbove()) ? true : false);
+            boolean isPlayedTileBelow = tile.getTileIdBelow() == 255 ? false : (containsPlayedTileId(playedTiles, tile.getTileIdBelow()) ? true : false);
+            boolean isPlayedTileToTheLeft = tile.getTileIdToTheLeft() == 255 ? false : (containsPlayedTileId(playedTiles, tile.getTileIdToTheLeft()) ? true : false);
+            boolean isPlayedTileToTheRight = tile.getTileIdToTheRight() == 255 ? false : (containsPlayedTileId(playedTiles, tile.getTileIdToTheRight()) ? true : false);
 
             
             if ( isPlayedTileAbove || isPlayedTileBelow || isPlayedTileToTheLeft || isPlayedTileToTheRight )

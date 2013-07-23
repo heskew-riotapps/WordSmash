@@ -18,6 +18,11 @@ public class PlayedTile {
 	@SerializedName("l_")
 	private List<PlayedLetter> letters = new ArrayList<PlayedLetter>();
 	 
+	private int tileIdAbove = -1;
+	private int tileIdBelow = -1;
+	private int tileIdToTheLeft = -1;
+	private int tileIdToTheRight = -1;
+	
 	public int getBoardPosition() {
 		return boardPosition;
 	}
@@ -46,4 +51,48 @@ public class PlayedTile {
 		return TileLayoutService.getRowCol(this.getBoardPosition());
 		
 	}
+	
+	public int getTileIdAbove() {
+		 if (tileIdAbove == -1){
+			 tileIdAbove = TileLayoutService.getTileIdAbove(boardPosition);
+		 }
+		return tileIdAbove;
+	}
+
+	public void setTileIdAbove(int tileIdAbove) {
+		this.tileIdAbove = tileIdAbove;
+	}
+
+	public int getTileIdBelow() {
+		if (tileIdBelow == -1){
+			 tileIdBelow = TileLayoutService.getTileIdBelow(boardPosition);
+		 }
+
+		return tileIdBelow;
+	}
+
+	public void setTileIdBelow(int tileIdBelow) {
+		this.tileIdBelow = tileIdBelow;
+	}
+
+	public int getTileIdToTheLeft() {
+		if (tileIdToTheLeft == -1){
+			 tileIdToTheLeft = TileLayoutService.getTileIdToTheLeft(boardPosition);
+		 }
+
+		return tileIdToTheLeft;
+	}
+
+	public void setTileIdToTheLeft(int tileIdToTheLeft) {
+		this.tileIdToTheLeft = tileIdToTheLeft;
+	}
+
+	public int getTileIdToTheRight() {
+		if (tileIdToTheRight == -1){
+			 tileIdToTheRight = TileLayoutService.getTileIdToTheRight(boardPosition);
+		 }
+
+		return tileIdToTheRight;
+	}
+
 }

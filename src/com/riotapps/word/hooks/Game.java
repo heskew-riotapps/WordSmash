@@ -873,6 +873,33 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 	}
 	
+	public PlayedTile getPlayedTileAbove(PlayedTile playedTile){
+		for (PlayedTile tile : this.playedTiles){
+			if (tile.getBoardPosition() == playedTile.getTileIdAbove()) {return tile;}
+		}
+		return null;
+	}
+	
+	public PlayedTile getPlayedTileBelow(PlayedTile playedTile){
+		for (PlayedTile tile : this.playedTiles){
+			if (tile.getBoardPosition() == playedTile.getTileIdBelow()) {return tile;}
+		}
+		return null;
+	}
+	
+	public PlayedTile getPlayedTileToTheRight(PlayedTile playedTile){
+		for (PlayedTile tile : this.playedTiles){
+			if (tile.getBoardPosition() == playedTile.getTileIdToTheRight()) {return tile;}
+		}
+		return null;
+	}
+	
+	public PlayedTile getPlayedTileToTheLeft(PlayedTile playedTile){
+		for (PlayedTile tile : this.playedTiles){
+			if (tile.getBoardPosition() == playedTile.getTileIdToTheLeft()) {return tile;}
+		}
+		return null;
+	}
 	public int getNumLettersLeftInHopperAndOpponentTray(String letter){
 		int count = 0;
 		
