@@ -7669,10 +7669,10 @@ com.riotapps.word.CompletedGames$CompletedGameArrayAdapter -> nr:
     com.riotapps.word.CompletedGames this$0 -> b
     120:163:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.riotapps.word.FullRules -> com.riotapps.word.FullRules:
-    21:40:void onCreate(android.os.Bundle) -> onCreate
-    44:46:void onStart() -> onStart
-    52:54:void onStop() -> onStop
-    58:224:void setupFonts() -> b
+    21:42:void onCreate(android.os.Bundle) -> onCreate
+    46:48:void onStart() -> onStart
+    54:56:void onStop() -> onStop
+    60:226:void setupFonts() -> b
 com.riotapps.word.GameHistory -> com.riotapps.word.GameHistory:
     java.lang.String TAG -> n
     com.riotapps.word.hooks.Game game -> o
@@ -8702,6 +8702,7 @@ com.riotapps.word.R$style -> com.riotapps.word.R$style:
     int ScoreboardNumPointsStyle -> ScoreboardNumPointsStyle
     int ScoreboardOpponentNameStyle -> ScoreboardOpponentNameStyle
     int ScoreboardOpponentScoreStyle -> ScoreboardOpponentScoreStyle
+    int ScoreboardOptionStyle -> ScoreboardOptionStyle
     int ScoreboardPlayerNameStyle -> ScoreboardPlayerNameStyle
     int ScoreboardPlayerScoreStyle -> ScoreboardPlayerScoreStyle
     int ScoreboardPlayerStyle -> ScoreboardPlayerStyle
@@ -10076,17 +10077,19 @@ com.riotapps.word.ui.HopperPeekDialog -> com.riotapps.word.ui.HopperPeekDialog:
     com.google.analytics.tracking.android.Tracker tracker -> f
     51:54:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
     73:77:void onCreate(android.os.Bundle) -> onCreate
-    82:182:void onStart() -> onStart
-    186:193:void trackEvent(java.lang.String,java.lang.String,long) -> a
-    199:211:void dismiss() -> dismiss
-    217:236:void onClick(android.view.View) -> onClick
-    239:325:void loadLetters() -> a
+    82:176:void onStart() -> onStart
+    180:187:void trackEvent(java.lang.String,java.lang.String,long) -> a
+    193:199:void dismiss() -> dismiss
+    202:205:void close() -> a
+    210:232:void onClick(android.view.View) -> onClick
+    235:321:void loadLetters() -> b
+    201:201:void access$0(com.riotapps.word.ui.HopperPeekDialog) -> a
 com.riotapps.word.ui.HopperPeekDialog$1 -> pu:
     com.riotapps.word.ui.HopperPeekDialog this$0 -> a
-    156:157:void onClick(android.view.View) -> onClick
+    152:153:void onClick(android.view.View) -> onClick
 com.riotapps.word.ui.HopperPeekDialog$2 -> pv:
     com.riotapps.word.ui.HopperPeekDialog this$0 -> a
-    166:168:void onCancel(android.content.DialogInterface) -> onCancel
+    160:162:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.ui.MenuUtils -> com.riotapps.word.ui.MenuUtils:
     java.lang.String TAG -> a
     28:36:void fillMenu(android.support.v4.app.FragmentActivity,android.widget.PopupMenu) -> fillMenu
@@ -10308,6 +10311,7 @@ com.riotapps.word.utils.Constants -> com.riotapps.word.utils.Constants:
     long BACKGROUND_GAME_LIST_DELAY_IN_MILLISECONDS -> BACKGROUND_GAME_LIST_DELAY_IN_MILLISECONDS
     int NUM_LOCAL_COMPLETED_GAMES_TO_STORE -> NUM_LOCAL_COMPLETED_GAMES_TO_STORE
     java.lang.String TRACKER_CATEGORY_STORE -> TRACKER_CATEGORY_STORE
+    java.lang.String TRACKER_CATEGORY_GAME_HINTS -> TRACKER_CATEGORY_GAME_HINTS
     java.lang.String TRACKER_CATEGORY_GAME_LOOKUP -> TRACKER_CATEGORY_GAME_LOOKUP
     java.lang.String TRACKER_CATEGORY_GAMEBOARD -> TRACKER_CATEGORY_GAMEBOARD
     java.lang.String TRACKER_CATEGORY_START_GAME -> TRACKER_CATEGORY_START_GAME
@@ -10330,6 +10334,9 @@ com.riotapps.word.utils.Constants -> com.riotapps.word.utils.Constants:
     java.lang.String TRACKER_LABEL_RECALL -> TRACKER_LABEL_RECALL
     java.lang.String TRACKER_LABEL_SHUFFLE -> TRACKER_LABEL_SHUFFLE
     java.lang.String TRACKER_LABEL_WORD -> TRACKER_LABEL_WORD
+    java.lang.String TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE -> TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE
+    java.lang.String TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE -> TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE
+    java.lang.String TRACKER_LABEL_HOPPER_PEEK_CLOSE -> TRACKER_LABEL_HOPPER_PEEK_CLOSE
     java.lang.String TRACKER_LABEL_PLAY_INITIAL -> TRACKER_LABEL_PLAY_INITIAL
     java.lang.String TRACKER_LABEL_PLAY_CANCEL -> TRACKER_LABEL_PLAY_CANCEL
     java.lang.String TRACKER_LABEL_PLAY_DISMISS -> TRACKER_LABEL_PLAY_DISMISS

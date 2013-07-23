@@ -5679,6 +5679,7 @@ com.riotapps.word.R$style: int ScoreboardLettersLeftStyle
 com.riotapps.word.R$style: int ScoreboardNumPointsStyle
 com.riotapps.word.R$style: int ScoreboardOpponentNameStyle
 com.riotapps.word.R$style: int ScoreboardOpponentScoreStyle
+com.riotapps.word.R$style: int ScoreboardOptionStyle
 com.riotapps.word.R$style: int ScoreboardPlayerNameStyle
 com.riotapps.word.R$style: int ScoreboardPlayerScoreStyle
 com.riotapps.word.R$style: int ScoreboardPlayerStyle
@@ -6706,6 +6707,7 @@ com.riotapps.word.utils.Constants: long GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MI
 com.riotapps.word.utils.Constants: long BACKGROUND_GAME_LIST_DELAY_IN_MILLISECONDS
 com.riotapps.word.utils.Constants: int NUM_LOCAL_COMPLETED_GAMES_TO_STORE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_CATEGORY_STORE
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_CATEGORY_GAME_HINTS
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_CATEGORY_GAME_LOOKUP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_CATEGORY_GAMEBOARD
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_CATEGORY_START_GAME
@@ -6728,6 +6730,9 @@ com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_RECALL
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_SHUFFLE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_WORD
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_HOPPER_PEEK_CLOSE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_PLAY_INITIAL
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_PLAY_CANCEL
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_PLAY_DISMISS
