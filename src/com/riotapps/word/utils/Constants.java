@@ -386,6 +386,16 @@ public class Constants {
 	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED = 116;	
 	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED = 117;
 	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED = 118;	
+
+	
+	/**=============================================
+	 * directions 
+	 *==============================================*/
+	public static final String DIRECTION_ABOVE = "above";
+	public static final String DIRECTION_BELOW = "below";
+	public static final String DIRECTION_LEFT = "left";
+	public static final String DIRECTION_RIGHT = "right";
+	
 	
 }//end class Constants
  

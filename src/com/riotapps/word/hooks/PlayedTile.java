@@ -23,6 +23,8 @@ public class PlayedTile {
 	private int tileIdToTheLeft = -1;
 	private int tileIdToTheRight = -1;
 	
+	private boolean border = false;
+	
 	public int getBoardPosition() {
 		return boardPosition;
 	}
@@ -94,5 +96,31 @@ public class PlayedTile {
 
 		return tileIdToTheRight;
 	}
+
+	public void setTileIdToTheRight(int tileIdToTheRight) {
+		this.tileIdToTheRight = tileIdToTheRight;
+	}
+	
+	public boolean isBorder() {
+		if (TileLayoutService.isTileOnBottomRow(this.boardPosition)){
+			this.border = true;
+		}
+		else if (TileLayoutService.isTileOnTopRow(this.boardPosition)){
+			this.border = true;
+		}
+		else if (TileLayoutService.isTileOnLeftBorder(this.boardPosition)){
+			this.border = true;
+		}
+		else if (TileLayoutService.isTileOnRightBorder(this.boardPosition)){
+			this.border = true;
+		}
+		return border;
+	}
+
+	public void setBorder(boolean isBorder) {
+		this.border = isBorder;
+	}
+	
+	
 
 }

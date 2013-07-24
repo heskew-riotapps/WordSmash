@@ -14,6 +14,7 @@ import com.google.gson.annotations.SerializedName;
 import com.riotapps.word.R;
 import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.PlacedTile;
+import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
@@ -900,6 +901,53 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 		return null;
 	}
+	
+	public boolean isBoardTilePlayed(int boardPosition){
+		for (PlayedTile tile : this.playedTiles){
+			if (tile.getBoardPosition() == boardPosition) {return true;}
+		}
+		return false;
+	}
+	
+	public int getNumConsecutivePlayableEmptyTilesInADirection(PlayedTile playedTile, String direction){
+		int i = 0;
+		int loopRegulator = 1;
+		boolean loop = true;
+		PlayedTile loopTile = playedTile;
+		while(loop){
+			loopRegulator += 1;
+			if (loopRegulator > 15) { loop = false; break; }
+			
+			int loopId = -1;
+			
+			if (direction == Constants.DIRECTION_BELOW){
+				loopId = loopTile.getTileIdBelow(); 
+			}
+			else if (direction == Constants.DIRECTION_ABOVE){
+				loopId = loopTile.getTileIdAbove(); 
+			}
+			if (direction == Constants.DIRECTION_LEFT){
+				loopId = loopTile.getTileIdToTheLeft(); 
+			}
+			if (direction == Constants.DIRECTION_RIGHT){
+				loopId = loopTile.getTileIdToTheRight(); 
+			}
+			
+			if (loopId == 255){ //border
+				loop = false; //don't add any more to i
+			}
+			else if (this.isBoardTilePlayed(loopId)){ //we have come to a played tile, remove 1 from i because we are looking for empty playable tiles in an axis
+				loop = false;
+				i -= 1;
+			}
+			else { i += 1; }
+		}
+	 
+		return i;
+
+	}
+	
+	
 	public int getNumLettersLeftInHopperAndOpponentTray(String letter){
 		int count = 0;
 		

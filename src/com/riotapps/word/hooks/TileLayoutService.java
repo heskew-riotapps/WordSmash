@@ -73,32 +73,51 @@ public class TileLayoutService {
 	}
 	
 	
+	public static boolean isTileOnTopRow(int tileId){
+		if (tileId < 15) { return true; } else { return false; }
+	}
+
+	public static boolean isTileOnBottomRow(int tileId){
+		if (tileId > 209) { return true; } else { return false; }
+	}
+	
+	public static boolean isTileOnLeftBorder(int tileId){
+		 if (tileId == 0) { return true; }
+		 else if ((tileId % 15) == 0) { return true; }
+		 else {return false;}
+	}
+
+	public static boolean isTileOnRightBorder(int tileId){
+		 if (((tileId + 1) % 15) == 0) { return true; }
+		 else {return false;}
+	}
+
+	
 	 public static int getTileIdAbove(int tileId)
      {
          //if already on the top row, can't get any lower
-         if (tileId < 15) { return 255; }
+         if (isTileOnTopRow(tileId)) { return 255; }
          return tileId - 15;
      }
 
      public static int getTileIdBelow(int tileId)
      {
          //if already on the bottom row, can't get any lower
-         if (tileId > 209) { return 255; }
+         if (isTileOnBottomRow(tileId)) { return 255; }
          return tileId + 15;
      }
     
      public static int getTileIdToTheRight(int tileId)
      {
          //if already on the far right, can't get any farther right
-         if (((tileId + 1) % 15) == 0){ return 255; }
+         if (isTileOnRightBorder(tileId)){ return 255; }
          return tileId + 1;
      }
 
      public static int getTileIdToTheLeft(int tileId)
      {
          //if already on the far left, can't get any farther left
-         if (tileId == 0) { return 255; }
-         if ((tileId % 15) == 0) { return 255; }
+         if (isTileOnLeftBorder(tileId)) { return 255; }
          return tileId - 1;
      }
      
