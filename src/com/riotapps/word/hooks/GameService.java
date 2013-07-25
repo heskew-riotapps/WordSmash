@@ -583,15 +583,19 @@ public static Game skip(boolean isOpponent, Game game){
 	     //call setPlacedLetter on each board tile played
 	     //put all options in a list of PlacedResults 
 	     //for each option, reset list of boardTiles 
-	     /*
+	     
 	     try {
-	    	  	placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false));
+	    	 	//this is the real one
+	    	 	//placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false)); 	
+	    	 
+	    	 	//this is the placeholder
+	    	 	PlacedResult pr = GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false);
 		 }
 	     catch (DesignByContractException e){
 
 	    	 //there was a problem, do not add to list
 	     }
-	     */
+	      
 	     
 		
 		if (placedResults.size() == 0){
@@ -603,6 +607,8 @@ public static Game skip(boolean isOpponent, Game game){
 		else {
 			//we have a play to handle
 			//for the moment, let's just take the first placedResult
+			
+			//this can be enhanced based on the skill level of the opponent perhaps
 			GameService.play(true, game, placedResults.get(0));
 		}
 			
