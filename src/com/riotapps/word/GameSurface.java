@@ -1463,9 +1463,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				else{
 					// show player his score, then kick off auto play
 					String playerAction = game.getLastActionText(context);
-					game = GameService.autoPlay(this, game);
-
-					String opponentAction = game.getLastActionText(context);
+					 GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+					 
+					 String opponentAction = game.getLastActionText(context);
 
 					this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
 					this.postTurnMessage = 	String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction); 
@@ -1521,7 +1521,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				else{
 					// show player his score, then kick off auto play
 					String playerAction = game.getLastActionText(context);
-					game = GameService.autoPlay(this, game);
+					GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
 
 					String opponentAction = game.getLastActionText(context);
 					
@@ -1564,7 +1564,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		gameState = GameStateService.clearGameState(game.getId());
 	    		
 	    		String playerAction = game.getLastActionText(context);
-				game = GameService.autoPlay(this, game);
+	    		GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
 
 				String opponentAction = game.getLastActionText(context);
 				

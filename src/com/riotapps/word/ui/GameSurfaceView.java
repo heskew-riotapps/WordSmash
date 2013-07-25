@@ -287,7 +287,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	List<Coordinate> coordinates = new ArrayList<Coordinate>();
 	List<GameTile> tiles = new ArrayList<GameTile>();
 	List<TrayTile> trayTiles = new ArrayList<TrayTile>();
-    TileLayout defaultLayout;
+    private TileLayout defaultLayout;
     //TileLayoutService layoutService;
    // AlphabetService alphabetService;
   //  WordService wordService;
@@ -307,6 +307,16 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		//this.construct(context);
 	 
 	}
+
+	public List<GameTile> getTiles() {
+		return tiles;
+	}
+
+	public void setTiles(List<GameTile> tiles) {
+		this.tiles = tiles;
+	}
+
+ 
 
 	public GameSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -1532,7 +1542,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	 private void resetPointsView(){
 		 if (!this.parent.getGame().isCompleted()){
 			 try{
-					PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, this.trayTiles, true);
+				 	//PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, this.trayTiles, true);
+					PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, true);
 					this.parent.setPointsView(placedResult.getTotalPoints());
 				}
 				catch (DesignByContractException e){
@@ -2678,8 +2689,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	public void onPlayClick(){
 		try{
 			this.parent.captureTime("onPlayClick checkPlayRules starting");
-			final PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, this.trayTiles, false);
-
+			//final PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, this.trayTiles, false);
+			final PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, false);
+			
 			this.parent.onFinishPlayNoErrors(placedResult);
 
 		}

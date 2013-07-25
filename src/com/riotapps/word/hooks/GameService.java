@@ -459,7 +459,7 @@ public static Game skip(boolean isOpponent, Game game){
 
 	}
 	
-	public static Game autoPlay(Context context, Game game){
+	public static void autoPlay(Context context, Game game, List<GameTile> boardTiles){
 		PlacedResult placedResult = new PlacedResult();
 		
 		Logger.d(TAG,"before getDefaultLayout");
@@ -577,10 +577,51 @@ public static Game skip(boolean isOpponent, Game game){
 	     wordService.finish();
 	     wordService = null;
  		
-		//temp
-		Logger.d(TAG,"before skip");
-		GameService.skip(true, game);
-		return game;
+	     List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
+	     
+	     //for each placedResult option use a new List<GameTile> based on boardTiles passed in
+	     //call setPlacedLetter on each board tile played
+	     //put all options in a list of PlacedResults 
+	     //for each option, reset list of boardTiles 
+	     /*
+	     try {
+	    	  	placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false));
+		 }
+	     catch (DesignByContractException e){
+
+	    	 //there was a problem, do not add to list
+	     }
+	     */
+	     
+		
+		if (placedResults.size() == 0){
+			//we have a skip or swap or resign
+			//how to determine which, perhaps a simple flag
+			GameService.skip(true, game);
+
+		}
+		else {
+			//we have a play to handle
+			//for the moment, let's just take the first placedResult
+			GameService.play(true, game, placedResults.get(0));
+		}
+			
+		
+		
+		
+		//derive points  and placedResult
+	//	PlacedResult placedResult = GameService.checkPlayRules(parent, this.defaultLayout, this.parent.getGame(), this.tiles, this.trayTiles, true);
+	 
+      //  placedResult.setTotalPoints(totalPoints);
+      //  placedResult.setPlacedTiles(placedTiles);
+      //  placedResult.setPlacedWords(words);
+        
+      //  return placedResult;
+		
+		
+		//for placedTiles, we just need Letter and BoardPosition
+		//for playedWords, we just need word and points
+		
 		
 		//just call this after determining played words, passing PlacedResults to it
 		//return GameService.play(true, game, placedResult);
@@ -716,9 +757,9 @@ public static Game skip(boolean isOpponent, Game game){
 	 }
 	
 	//return int that represents the display message
-	public static PlacedResult checkPlayRules(Context context, TileLayout layout, Game game, List<GameTile> boardTiles, 
-					List<com.riotapps.word.ui.TrayTile> trayTiles, //AlphabetService alphabetService, // WordService wordService,
-					boolean bypassValidWordCheck) throws DesignByContractException{
+	public static PlacedResult checkPlayRules(Context context, TileLayout layout, Game game, List<GameTile> boardTiles, boolean bypassValidWordCheck) throws DesignByContractException{
+				//	List<com.riotapps.word.ui.TrayTile> trayTiles, //AlphabetService alphabetService, // WordService wordService,
+				//	boolean bypassValidWordCheck) throws DesignByContractException{
 		
 		long runningTime = System.nanoTime();
 		
