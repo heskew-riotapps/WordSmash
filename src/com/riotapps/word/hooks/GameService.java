@@ -319,7 +319,7 @@ public class GameService {
 	
  
 	
-public static Game skip(boolean isOpponent, Game game){
+public static void skip(boolean isOpponent, Game game){
 		Logger.d(TAG, "GameService.skip called.  isOpponent=" + isOpponent);
 		Date now = new Date();
 
@@ -384,10 +384,10 @@ public static Game skip(boolean isOpponent, Game game){
 		}
 
 		GameService.saveGame(game);
-		return game;	
+		//return game;	
 	}
 	
-	public static Game swap(boolean isOpponent, Game game, List<String> swappedLetters){
+	public static void swap(boolean isOpponent, Game game, List<String> swappedLetters){
 		Logger.d(TAG, "GameService.swap called.  isOpponent=" + isOpponent);
 		Date now = new Date();
 	
@@ -445,7 +445,7 @@ public static Game skip(boolean isOpponent, Game game){
 		game.getPlayerGames().get(1).setTurn(!isOpponent);	
 	
 		GameService.saveGame(game);
-		return game;	
+		//return game;	
 	}	
 	
 	public static int calculateBonusScore(PlayerGame playerGame){

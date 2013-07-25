@@ -1500,7 +1500,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	//this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
 	    	 
-	    		game = GameService.skip(false, game);
+	    		GameService.skip(false, game);
 	    		gameState = GameStateService.clearGameState(game.getId());
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
