@@ -460,8 +460,12 @@ public static Game skip(boolean isOpponent, Game game){
 	}
 	
 	public static void autoPlay(Context context, Game game, List<GameTile> boardTiles){
-		PlacedResult placedResult = new PlacedResult();
-		
+	    List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
+	     
+	    boolean skip = false;
+	    boolean concede = false;
+	    boolean swap = false;
+	    
 		Logger.d(TAG,"before getDefaultLayout");
 		TileLayout defaultLayout = TileLayoutService.getDefaultLayout(context);
 		//autoplay logic kicked off here
@@ -473,7 +477,22 @@ public static Game skip(boolean isOpponent, Game game){
 		Logger.d(TAG,"before getPlayedTiles");
 		List<PlayedTile> tiles = game.getPlayedTiles();
 		
-	
+		PlayerGame opponentGame = game.getPlayerGames().get(1);
+		
+		//just to get a little low percentage logic out of the way
+		//if the player skips to start the game and the opponent has no vowels in his tray
+		//nothing can be done except to skip or swap.  in this case, let's swap 3 letters
+		if (game.getPlayedWords().size() ==0 && !opponentGame.doesTrayContainAVowel()){
+			swap = true;
+			//just grab first 3 letters for now
+			List<String> swappedLetters = new ArrayList<String>();
+			swappedLetters.add(opponentGame.getTrayLetters().get(0));
+			swappedLetters.add(opponentGame.getTrayLetters().get(1));
+			swappedLetters.add(opponentGame.getTrayLetters().get(2));
+			GameService.swap(true, game, swappedLetters);
+			
+			return;
+		}
 		
 		//create collections for H/V tiles/sets. 
 		//object in collection must contain letter(s),len , x, y
@@ -485,6 +504,11 @@ public static Game skip(boolean isOpponent, Game game){
 		PlayedTile below = game.getPlayedTileBelow(game.getPlayedTiles().get(0));
 		PlayedTile right = game.getPlayedTileToTheRight(game.getPlayedTiles().get(0));
 		PlayedTile left = game.getPlayedTileToTheLeft(game.getPlayedTiles().get(0));
+		
+		
+		//dont forget logic to start game if game.getPlayedWords.size() == 0) , this means the player skipped his turn
+		//and you will have to play on one or more of the starter tiles, using only the letters in your tray.
+		//if you can't form a 2 letter word (no vowels), you will have to swap or skip
 		
 		Logger.d(TAG,"before played tile loop");
 		//for each tile
@@ -577,8 +601,6 @@ public static Game skip(boolean isOpponent, Game game){
 	     wordService.finish();
 	     wordService = null;
  		
-	     List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
-	     
 	     //for each placedResult option use a new List<GameTile> based on boardTiles passed in
 	     //call setPlacedLetter on each board tile played
 	     //put all options in a list of PlacedResults 

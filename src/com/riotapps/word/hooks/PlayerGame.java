@@ -284,5 +284,19 @@ public class PlayerGame implements Parcelable{
 		this.trayLetters.add(letter);
  
 	}
+	
+	public boolean doesTrayContainAVowel(){
+		String vowels[] = AlphabetService.getVowels();
+		
+		for (String trayLetter : this.trayLetters){
+			for (String vowel : vowels){
+				if (trayLetter.equals(vowel)){
+					return true;
+				}
+			}
+		}
+		return false;
+ 
+	}
 
 }

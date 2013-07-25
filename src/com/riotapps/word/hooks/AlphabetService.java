@@ -55,12 +55,26 @@ public class AlphabetService {
 		return ["A","E","I","O","U"].shuffle.first(1) 
 	end
 	*/
+	private static String[] vowels = null;
+	
+	public static String[] getVowels(){
+		if (vowels == null){
+	 	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+		
+		vowels = appContext.getResources().getStringArray(R.array.alphabet_vowels);
+ 
+		}
+		
+		return vowels;		
+	}
+	
 	
 	public static String getRandomVowel(){
 	 	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 		
-		String[] letters = appContext.getResources().getStringArray(R.array.alphabet_vowels);
-	 
+		String[] letters = getVowels(); //appContext.getResources().getStringArray(R.array.alphabet_vowels);
+		
+		
 		Utils.shuffleArray(letters);
 		
 		return letters[0];		
