@@ -465,6 +465,7 @@ public static Game skip(boolean isOpponent, Game game){
 	    boolean skip = false;
 	    boolean concede = false;
 	    boolean swap = false;
+	    List<String> swappedLetters = new ArrayList<String>();
 	    
 		Logger.d(TAG,"before getDefaultLayout");
 		TileLayout defaultLayout = TileLayoutService.getDefaultLayout(context);
@@ -483,9 +484,8 @@ public static Game skip(boolean isOpponent, Game game){
 		//if the player skips to start the game and the opponent has no vowels in his tray
 		//nothing can be done except to skip or swap.  in this case, let's swap 3 letters
 		if (game.getPlayedWords().size() ==0 && !opponentGame.doesTrayContainAVowel()){
-			swap = true;
+
 			//just grab first 3 letters for now
-			List<String> swappedLetters = new ArrayList<String>();
 			swappedLetters.add(opponentGame.getTrayLetters().get(0));
 			swappedLetters.add(opponentGame.getTrayLetters().get(1));
 			swappedLetters.add(opponentGame.getTrayLetters().get(2));
