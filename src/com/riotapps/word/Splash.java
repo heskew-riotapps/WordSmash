@@ -54,12 +54,18 @@ public class Splash  extends FragmentActivity {
 
 		
 		 // compute your public key and store it in base64EncodedPublicKey
+		
+		try{
         mHelper = new IabHelper(this, StoreService.getIABPublicKey());
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
         	   public void onIabSetupFinished(IabResult result) {
         		   onSetupFinished(result);
         	   }
         	});
+		}
+		catch (Exception e){
+			Logger.d(TAG, "mHelper e=" + e.getMessage());
+		}
 		//pub logic in to wait for purchase check, perhaps kick it off from inventory listener
 		
 		

@@ -139,8 +139,8 @@ public class PlayerService {
 				
 		if (player.getId() != Constants.EMPTY_STRING){
 			if (player.getNumWins() == 0){
-				tvNumWins.setText("101 wins");
-				//temp tvNumWins.setVisibility(View.GONE);
+				//tvNumWins.setText("101 wins");
+				tvNumWins.setVisibility(View.GONE);
 			}
 			else if (player.getNumWins() == 1) {
 				tvNumWins.setTypeface(ApplicationContext.getMainFontTypeface());

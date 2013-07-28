@@ -621,7 +621,7 @@ containing a value of this type.
         public static final int game_surface_resign_game_confirmation_title=0x7f060087;
         public static final int gameboard_cancel_button_text=0x7f06007e;
         public static final int gameboard_hopper_peek_button_text=0x7f060080;
-        public static final int gameboard_hopper_peek_dialog_decription=0x7f0600ed;
+        public static final int gameboard_hopper_peek_dialog_description=0x7f0600ed;
         public static final int gameboard_hopper_peek_dialog_title=0x7f0600ec;
         public static final int gameboard_play_button_text=0x7f06007b;
         public static final int gameboard_played_words_button_text=0x7f06007f;

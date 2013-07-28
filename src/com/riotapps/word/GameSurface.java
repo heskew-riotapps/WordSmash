@@ -677,10 +677,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 			// LinearLayout.LayoutParams llParams = (LinearLayout.LayoutParams)llButtons.getLayoutParams();
 	 			 LinearLayout.LayoutParams buttonParams = (LinearLayout.LayoutParams)bPlayedWords.getLayoutParams();
 	 			
-	 		     buttonParams.width = R.integer.gameboard_lookup_words_width;
-	 		     buttonParams.height = R.integer.gameboard_lookup_words_height;
+	 		    // buttonParams.width = R.integer.gameboard_lookup_words_width;
+	 		   //  buttonParams.height = R.integer.gameboard_lookup_words_height;
 	 		   //  buttonParams.weight = 0.5f;
-	 		     buttonParams.setMargins(30, 3, 30, 3);
+	 		     buttonParams.setMargins(30, 0, 30, 0);
 	 		    
 
 	 		   

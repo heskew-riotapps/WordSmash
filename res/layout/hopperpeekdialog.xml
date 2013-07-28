@@ -55,7 +55,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 		 style="@style/ContentAreaTextAreaStyle" 
-		android:text="@string/gameboard_hopper_peek_dialog_decription"
+		android:text="@string/gameboard_hopper_peek_dialog_description"
 		android:paddingTop="4dp"
 		android:paddingBottom="4dp"
 		android:gravity="center"

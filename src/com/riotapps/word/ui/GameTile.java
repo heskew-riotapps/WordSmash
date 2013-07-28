@@ -21,6 +21,7 @@ public class GameTile {
 	private int xPositionDragging = 0;
 	private int yPositionDragging = 0;
 	private boolean dragPending = false;
+	private boolean dragPositionSet = false;
 	//private String placedText = "";
 
 	private int row;
@@ -187,6 +188,14 @@ public class GameTile {
 	}
 
 	
+	public boolean isDragPositionSet() {
+		return dragPositionSet;
+	}
+
+	public void setDragPositionSet(boolean dragPositionSet) {
+		this.dragPositionSet = dragPositionSet;
+	}
+
 	public int getTileIdAbove() {
 		 if (tileIdAbove == -1){
 			 tileIdAbove = TileLayoutService.getTileIdAbove(id);
@@ -379,6 +388,7 @@ public String getOriginalText() {
 		this.draggingLetter = this.placedLetter;
 		this.placedLetter = "";
 		this.dragPending = false;
+		this.dragPositionSet = false;
 	}
 	
 	public void removeDragAndPlacement(){
@@ -387,6 +397,7 @@ public String getOriginalText() {
 		this.draggingLetter = "";
 		this.xPositionDragging = 0;
 		this.yPositionDragging = 0;
+		this.dragPositionSet = false;
 	}
 
 	public int getxPositionDragging() {
@@ -395,6 +406,7 @@ public String getOriginalText() {
 
 	public void setxPositionDragging(int xPositionDragging) {
 		this.xPositionDragging = xPositionDragging;
+		this.dragPositionSet = true;
 	}
 
 	public int getyPositionDragging() {
@@ -403,6 +415,7 @@ public String getOriginalText() {
 
 	public void setyPositionDragging(int yPositionDragging) {
 		this.yPositionDragging = yPositionDragging;
+		this.dragPositionSet = true;
 	}
 
 	public boolean isDragPending() {
@@ -411,6 +424,7 @@ public String getOriginalText() {
 
 	public void setDragPending(boolean dragPending) {
 		this.dragPending = dragPending;
+		this.dragPositionSet = false;
 	}
 	
 	

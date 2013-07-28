@@ -279,14 +279,14 @@ public class GameService {
 				game.getPlayerGames().get(1).setStatus(5);
 				
 				PlayerService.addWinToPlayerRecord();
-				game.getOpponent().addWinToRecord();
+				game.getOpponent().addLossToRecord();
 			}
 			else if (playerScore < opponentScore){
 				game.getPlayerGames().get(0).setStatus(5);
 				game.getPlayerGames().get(1).setStatus(4);
 
 				PlayerService.addLossToPlayerRecord();
-				game.getOpponent().addLossToRecord();
+				game.getOpponent().addWinToRecord();
 			}
 			else {
 				game.getPlayerGames().get(0).setStatus(6);
@@ -611,7 +611,7 @@ public static void skip(boolean isOpponent, Game game){
 	    	 	//placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false)); 	
 	    	 
 	    	 	//this is the placeholder
-	    	 	PlacedResult pr = GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false);
+	    	 	PlacedResult pr = GameService.checkPlayRules(context, defaultLayout, game, boardTiles, true);
 		 }
 	     catch (DesignByContractException e){
 

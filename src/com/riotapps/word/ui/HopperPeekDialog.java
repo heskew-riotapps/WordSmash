@@ -115,7 +115,7 @@ private Tracker tracker;
 			tvOK.setVisibility(View.GONE);
 		}
 		else{
-			this.peek_description.setTag(String.format(this.parent.getString(R.string.gameboard_hopper_peek_dialog_decription), String.valueOf(this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray()), this.game.getOpponent().getName()));
+			this.peek_description.setText(String.format(this.parent.getString(R.string.gameboard_hopper_peek_dialog_description), String.valueOf(this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray()), this.game.getOpponent().getName()));
 			
 			this.loadLetters();	
 			

@@ -5530,7 +5530,7 @@ com.riotapps.word.R$string: int game_surface_resign_game_confirmation_text
 com.riotapps.word.R$string: int game_surface_resign_game_confirmation_title
 com.riotapps.word.R$string: int gameboard_cancel_button_text
 com.riotapps.word.R$string: int gameboard_hopper_peek_button_text
-com.riotapps.word.R$string: int gameboard_hopper_peek_dialog_decription
+com.riotapps.word.R$string: int gameboard_hopper_peek_dialog_description
 com.riotapps.word.R$string: int gameboard_hopper_peek_dialog_title
 com.riotapps.word.R$string: int gameboard_play_button_text
 com.riotapps.word.R$string: int gameboard_played_words_button_text
@@ -5929,6 +5929,7 @@ com.riotapps.word.hooks.AlphabetService
 com.riotapps.word.hooks.AlphabetService: AlphabetService(android.content.Context)
 com.riotapps.word.hooks.AlphabetService: int getLetterValue(java.lang.String)
 com.riotapps.word.hooks.AlphabetService: java.util.List getLetters()
+com.riotapps.word.hooks.AlphabetService: java.lang.String[] getVowels()
 com.riotapps.word.hooks.AlphabetService: java.lang.String getRandomVowel()
 com.riotapps.word.hooks.AlphabetService: java.util.List getRandomConsonants()
 com.riotapps.word.hooks.AlphabetService: java.util.List getHopper(java.lang.String,java.util.List)
@@ -5997,6 +5998,8 @@ com.riotapps.word.hooks.Game: com.riotapps.word.hooks.PlayedTile getPlayedTileAb
 com.riotapps.word.hooks.Game: com.riotapps.word.hooks.PlayedTile getPlayedTileBelow(com.riotapps.word.hooks.PlayedTile)
 com.riotapps.word.hooks.Game: com.riotapps.word.hooks.PlayedTile getPlayedTileToTheRight(com.riotapps.word.hooks.PlayedTile)
 com.riotapps.word.hooks.Game: com.riotapps.word.hooks.PlayedTile getPlayedTileToTheLeft(com.riotapps.word.hooks.PlayedTile)
+com.riotapps.word.hooks.Game: boolean isBoardTilePlayed(int)
+com.riotapps.word.hooks.Game: int getNumConsecutivePlayableEmptyTilesInADirection(com.riotapps.word.hooks.PlayedTile,java.lang.String)
 com.riotapps.word.hooks.Game: int getNumLettersLeftInHopperAndOpponentTray(java.lang.String)
 com.riotapps.word.hooks.Game: int getTotalNumLetterCountLeftInHopperAndOpponentTray()
 com.riotapps.word.hooks.Game: int compareTo(java.lang.Object)
@@ -6035,15 +6038,15 @@ com.riotapps.word.hooks.GameService: com.riotapps.word.hooks.Game createGame(and
 com.riotapps.word.hooks.GameService: void saveGame(com.riotapps.word.hooks.Game)
 com.riotapps.word.hooks.GameService: void cancel(com.riotapps.word.hooks.Player,com.riotapps.word.hooks.Game)
 com.riotapps.word.hooks.GameService: void play(boolean,com.riotapps.word.hooks.Game,com.riotapps.word.ui.PlacedResult)
-com.riotapps.word.hooks.GameService: com.riotapps.word.hooks.Game skip(boolean,com.riotapps.word.hooks.Game)
-com.riotapps.word.hooks.GameService: com.riotapps.word.hooks.Game swap(boolean,com.riotapps.word.hooks.Game,java.util.List)
+com.riotapps.word.hooks.GameService: void skip(boolean,com.riotapps.word.hooks.Game)
+com.riotapps.word.hooks.GameService: void swap(boolean,com.riotapps.word.hooks.Game,java.util.List)
 com.riotapps.word.hooks.GameService: int calculateBonusScore(com.riotapps.word.hooks.PlayerGame)
-com.riotapps.word.hooks.GameService: com.riotapps.word.hooks.Game autoPlay(android.content.Context,com.riotapps.word.hooks.Game)
+com.riotapps.word.hooks.GameService: void autoPlay(android.content.Context,com.riotapps.word.hooks.Game,java.util.List)
 com.riotapps.word.hooks.GameService: com.riotapps.word.hooks.Game resign(boolean,com.riotapps.word.hooks.Game)
 com.riotapps.word.hooks.GameService: void addGameToCompletedList(com.riotapps.word.hooks.Game)
 com.riotapps.word.hooks.GameService: java.util.List getCompletedGames()
 com.riotapps.word.hooks.GameService: void loadScoreboard(android.support.v4.app.FragmentActivity,com.riotapps.word.hooks.Game)
-com.riotapps.word.hooks.GameService: com.riotapps.word.ui.PlacedResult checkPlayRules(android.content.Context,com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,java.util.List,boolean)
+com.riotapps.word.hooks.GameService: com.riotapps.word.ui.PlacedResult checkPlayRules(android.content.Context,com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean)
 com.riotapps.word.hooks.GameService: int getTileValue(int,java.lang.String,java.util.List,com.riotapps.word.hooks.TileLayout)
 com.riotapps.word.hooks.GameService: int getWordMultiplier(int,java.util.List,com.riotapps.word.hooks.TileLayout)
 com.riotapps.word.hooks.GameService: java.lang.String getPlacedWordsMessage(android.content.Context,java.util.List)
@@ -6133,6 +6136,9 @@ com.riotapps.word.hooks.PlayedTile: void setTileIdBelow(int)
 com.riotapps.word.hooks.PlayedTile: int getTileIdToTheLeft()
 com.riotapps.word.hooks.PlayedTile: void setTileIdToTheLeft(int)
 com.riotapps.word.hooks.PlayedTile: int getTileIdToTheRight()
+com.riotapps.word.hooks.PlayedTile: void setTileIdToTheRight(int)
+com.riotapps.word.hooks.PlayedTile: boolean isBorder()
+com.riotapps.word.hooks.PlayedTile: void setBorder(boolean)
 com.riotapps.word.hooks.PlayedTileComparator
 com.riotapps.word.hooks.PlayedTileComparator: PlayedTileComparator()
 com.riotapps.word.hooks.PlayedTileComparator: int compare(com.riotapps.word.hooks.PlayedTile,com.riotapps.word.hooks.PlayedTile)
@@ -6213,6 +6219,7 @@ com.riotapps.word.hooks.PlayerGame: int describeContents()
 com.riotapps.word.hooks.PlayerGame: void writeToParcel(android.os.Parcel,int)
 com.riotapps.word.hooks.PlayerGame: void removeFirstMatchingLetter(java.lang.String)
 com.riotapps.word.hooks.PlayerGame: void addLetterToTray(java.lang.String)
+com.riotapps.word.hooks.PlayerGame: boolean doesTrayContainAVowel()
 com.riotapps.word.hooks.PlayerService
 com.riotapps.word.hooks.PlayerService: PlayerService()
 com.riotapps.word.hooks.PlayerService: void clearLocalStorage()
@@ -6280,6 +6287,10 @@ com.riotapps.word.hooks.TileLayoutService: TileLayoutService()
 com.riotapps.word.hooks.TileLayoutService: com.riotapps.word.hooks.TileLayout getDefaultLayout(android.content.Context)
 com.riotapps.word.hooks.TileLayoutService: com.riotapps.word.hooks.TileLayoutService$eDefaultTile getDefaultTile(int,com.riotapps.word.hooks.TileLayout)
 com.riotapps.word.hooks.TileLayoutService: com.riotapps.word.ui.RowCol getRowCol(int)
+com.riotapps.word.hooks.TileLayoutService: boolean isTileOnTopRow(int)
+com.riotapps.word.hooks.TileLayoutService: boolean isTileOnBottomRow(int)
+com.riotapps.word.hooks.TileLayoutService: boolean isTileOnLeftBorder(int)
+com.riotapps.word.hooks.TileLayoutService: boolean isTileOnRightBorder(int)
 com.riotapps.word.hooks.TileLayoutService: int getTileIdAbove(int)
 com.riotapps.word.hooks.TileLayoutService: int getTileIdBelow(int)
 com.riotapps.word.hooks.TileLayoutService: int getTileIdToTheRight(int)
@@ -6429,6 +6440,8 @@ com.riotapps.word.ui.GameSurfaceView: com.riotapps.word.ui.TrayTile getDropTarge
 com.riotapps.word.ui.GameSurfaceView: boolean isReadyToDraw()
 com.riotapps.word.ui.GameSurfaceView: void setReadyToDraw(boolean)
 com.riotapps.word.ui.GameSurfaceView: GameSurfaceView(android.content.Context)
+com.riotapps.word.ui.GameSurfaceView: java.util.List getTiles()
+com.riotapps.word.ui.GameSurfaceView: void setTiles(java.util.List)
 com.riotapps.word.ui.GameSurfaceView: GameSurfaceView(android.content.Context,android.util.AttributeSet)
 com.riotapps.word.ui.GameSurfaceView: void construct(com.riotapps.word.GameSurface)
 com.riotapps.word.ui.GameSurfaceView: void loadGame()
@@ -6496,6 +6509,8 @@ com.riotapps.word.ui.GameTile: void setxPositionZoomed(int)
 com.riotapps.word.ui.GameTile: int getyPositionZoomed()
 com.riotapps.word.ui.GameTile: void setyPositionZoomed(int)
 com.riotapps.word.ui.GameTile: java.lang.String getDisplayLetter()
+com.riotapps.word.ui.GameTile: boolean isDragPositionSet()
+com.riotapps.word.ui.GameTile: void setDragPositionSet(boolean)
 com.riotapps.word.ui.GameTile: int getTileIdAbove()
 com.riotapps.word.ui.GameTile: void setTileIdAbove(int)
 com.riotapps.word.ui.GameTile: int getTileIdBelow()
@@ -6980,6 +6995,10 @@ com.riotapps.word.utils.Constants: int RETURN_CODE_CUSTOM_DIALOG_RESIGN_CANCEL_C
 com.riotapps.word.utils.Constants: int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED
 com.riotapps.word.utils.Constants: int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED
 com.riotapps.word.utils.Constants: int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED
+com.riotapps.word.utils.Constants: java.lang.String DIRECTION_ABOVE
+com.riotapps.word.utils.Constants: java.lang.String DIRECTION_BELOW
+com.riotapps.word.utils.Constants: java.lang.String DIRECTION_LEFT
+com.riotapps.word.utils.Constants: java.lang.String DIRECTION_RIGHT
 com.riotapps.word.utils.Constants: Constants()
 com.riotapps.word.utils.CustomProgressDialog
 com.riotapps.word.utils.CustomProgressDialog: CustomProgressDialog(android.content.Context)

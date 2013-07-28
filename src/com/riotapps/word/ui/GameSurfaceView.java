@@ -1002,6 +1002,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             		 //let's mark this tile as pending dragging.  we need to determine that a move is coming or a tap
             		 //if it's a tap, we don't want to start dragging yet
             		 this.getDraggingTile().setDragPending(true);
+            		 Logger.w(TAG, "onTouch ACTION_DOWN setDragPending letter from dragTile  id=" + this.draggingTileId + " letter=" + this.getDraggingTile().getPlacedLetter() + " targetTile letter=" + this.getTargetTile().getPlacedLetter());
             		 //this.getDraggingTile().setDrag();
             		 
             		 //this.draggingTile = this.tiles.get(targetTile.getId());
@@ -1166,7 +1167,15 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             	//	 this.parent.captureTime(TAG + " find tile starting");
         			 //first check to see if a tray tile is being dragged. if so this means the tray tile is being dropped
             		 //if ((this.currentTrayTile != null && this.currentTrayTile.isDragging()) || this.getDraggingTile() != null){
-        			 if ((this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()) || this.getDraggingTile() != null){
+            		 
+            		 //tile has starting being dragged but has not been drawn dragging yet.  let's just put this tile back in its former position
+            		 //without this check, the letter was being flicked into the a position near the top left
+            		 //because the dragging positions has never been set
+            		 if (this.getDraggingTile() != null && !this.getDraggingTile().isDragPositionSet()){
+            			 Logger.d(TAG, "drag is being removed because it never really got established.");
+            			 this.getDraggingTile().removeDrag();
+            		 } 
+            		 else if ((this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()) || this.getDraggingTile() != null){
         				 Logger.d(TAG, "ACTION_UP a tile is dragging");
         				 //find out where we are on the board.
         				 //we need to determine if the tray tile was dropped 
@@ -1362,8 +1371,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             	 //if so, change pending state to dragging state  
             	 if (this.getDraggingTile() != null && this.getDraggingTile().isDragPending()){
             		 this.getDraggingTile().setDrag();
-            		 
-            		 Logger.d(TAG, "DRAG PENDING letter=" + this.getDraggingTile().getPlacedLetter());
+            		  
+            		 Logger.w(TAG, "DRAG PENDING id=" + this.draggingTileId + " letter=" + this.getDraggingTile().getDraggingLetter());
             	 }
             	 //check to see if a board tile is being dragged
             	 else if (this.getDraggingTile() != null){
@@ -1640,7 +1649,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		 int yPosition = this.currentY;
 		 
 	//	 this.parent.captureTime(TAG + " setClosestDropTarget started");
-		// Logger.d(TAG, "setClosestDropTarget pre xPosition=" + xPosition + " yPosition=" + yPosition);
+		  Logger.d(TAG, "setClosestDropTarget pre xPosition=" + xPosition + " yPosition=" + yPosition);
 		 //if the finger location is outside of the visible bounds of the game surface
 		 //instead of using specific finger location from onTouchEvent, let's use the center of the dragging tile 
 		 if (this.visibleAreaRect.isCoordinateWithinArea(xPosition, yPosition)){
@@ -1651,14 +1660,14 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 			 yPosition = center.getyLocation();
 		 }
 
-		// Logger.d(TAG, "setClosestDropTarget post xPosition=" + xPosition + " yPosition=" + yPosition);
+		  Logger.d(TAG, "setClosestDropTarget post xPosition=" + xPosition + " yPosition=" + yPosition);
 
 		 this.parent.captureTime(TAG + " findClosestOpenTile starting");
 		 //first lets check board tiles
 		 DropTarget boardDrop = this.findClosestOpenTile(xPosition, yPosition);
 		 
 		 this.parent.captureTime(TAG + " findClosestOpenTile ended");
-		 //Logger.d(TAG, "boardDrop distance=" + boardDrop.getDistance() + " tileId=" + boardDrop.getTileId());
+		  Logger.d(TAG, "boardDrop distance=" + boardDrop.getDistance() + " tileId=" + boardDrop.getTileId() + " letter=" + boardDrop.getTileId());
 		 
 		 this.parent.captureTime(TAG + " findClosestTrayTile starting");
 		 //then lets check tray tiles
@@ -1951,6 +1960,10 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 			 position = this.drawDraggingTileGuts(canvas, this.getDraggingTile().getDraggingLetter());
 			 this.getDraggingTile().setxPositionDragging(position.getxLocation());
 			 this.getDraggingTile().setyPositionDragging(position.getyLocation());
+			 
+				
+			 Logger.d(TAG, "drawDraggingTile positionX=" + position.getxLocation() + " Y=" + position.getyLocation());
+
 		 }
 		 //let's see if a tray tile is being dragged
 		 else if (this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()){
@@ -1966,7 +1979,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	 
 	 private Coordinate findCenterOfDraggingTile(){
 		 Coordinate center = new Coordinate();
-		 if (this.getDraggingTile() != null){
+		 if (this.getDraggingTile() != null && this.getDraggingTile().isDragPositionSet()){
+			 
+			 Logger.d(TAG,"findCenterOfDraggingTile x=" + this.getDraggingTile().getxPositionDragging() + " y=" + this.getDraggingTile().getyPositionDragging());
 			 center.setxLocation(this.getDraggingTile().getxPositionDragging() + (this.draggingTileSize / 2));
 			 center.setyLocation(this.getDraggingTile().getyPositionDragging() + (this.draggingTileSize / 2));
 		 }

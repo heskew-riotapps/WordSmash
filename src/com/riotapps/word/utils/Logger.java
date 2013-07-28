@@ -8,7 +8,7 @@ import android.util.Log;
 public class Logger {
 	
 	public static final boolean LOG_OK = true; 
-	public static final boolean LOG_GAME_SURFACE_VIEW_OK = false; 
+	public static final boolean LOG_GAME_SURFACE_VIEW_OK = true; 
 
 	public static void w(String tag, String msg){
 		if (BuildConfig.DEBUG && LOG_OK) {
@@ -31,13 +31,13 @@ public class Logger {
 	public static void d(String tag, String msg, Exception e){
 		//is logging on?
 		//if (BuildConfig.DEBUG && LOG_OK) {
-		if (
-				(!LOG_GAME_SURFACE_VIEW_OK && tag.equals(GameSurfaceView.class.getSimpleName())) || 
-				!tag.equals(GameSurfaceView.class.getSimpleName())
-		   ){
+		//if (
+		//		(!LOG_GAME_SURFACE_VIEW_OK && tag.equals(GameSurfaceView.class.getSimpleName())) || 
+		//		!tag.equals(GameSurfaceView.class.getSimpleName())
+		//   ){
 			Log.d((tag==null?"UNKNOWN_TAG":tag), (msg==null?"unknown message":msg));			
 			
-		}
+		//}
 		//}
 	}
 	

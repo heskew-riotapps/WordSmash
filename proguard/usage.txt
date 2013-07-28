@@ -282,7 +282,7 @@ com.riotapps.word.GameSurface:
 com.riotapps.word.Splash:
     android.os.Handler handler
     private com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
-    223:237:private void handleRouting()
+    229:243:private void handleRouting()
 com.riotapps.word.billing.Base64:
     private static final byte EQUALS_SIGN
     private static final byte NEW_LINE
@@ -321,7 +321,7 @@ com.riotapps.word.ui.GameSurfaceView:
     private static final float MAX_TEXT_WIDTH
     private static final int NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING
     private static final int NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED
-    2805:2806:private void onBoardClear()
+    2832:2833:private void onBoardClear()
 com.riotapps.word.ui.GameThread:
     long sleepTime
 com.riotapps.word.utils.DiskLruCache:
