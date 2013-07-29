@@ -321,7 +321,7 @@ com.riotapps.word.ui.GameSurfaceView:
     private static final float MAX_TEXT_WIDTH
     private static final int NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING
     private static final int NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED
-    2832:2833:private void onBoardClear()
+    2782:2783:private void onBoardClear()
 com.riotapps.word.ui.GameThread:
     long sleepTime
 com.riotapps.word.utils.DiskLruCache:

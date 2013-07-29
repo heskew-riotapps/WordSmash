@@ -6445,7 +6445,7 @@ com.riotapps.word.ui.GameSurfaceView: void setTiles(java.util.List)
 com.riotapps.word.ui.GameSurfaceView: GameSurfaceView(android.content.Context,android.util.AttributeSet)
 com.riotapps.word.ui.GameSurfaceView: void construct(com.riotapps.word.GameSurface)
 com.riotapps.word.ui.GameSurfaceView: void loadGame()
-com.riotapps.word.ui.GameSurfaceView: android.graphics.Bitmap decodeSampledBitmapFromResource(android.content.res.Resources,int,int,int)
+com.riotapps.word.ui.GameSurfaceView: android.graphics.Bitmap decodeSampledBitmapFromResource__(android.content.res.Resources,int,int,int)
 com.riotapps.word.ui.GameSurfaceView: int calculateInSampleSize(android.graphics.BitmapFactory$Options,int,int)
 com.riotapps.word.ui.GameSurfaceView: void surfaceChanged(android.view.SurfaceHolder,int,int,int)
 com.riotapps.word.ui.GameSurfaceView: void surfaceCreated(android.view.SurfaceHolder)
@@ -7077,6 +7077,7 @@ com.riotapps.word.utils.ImageFetcher: java.io.File downloadBitmap(android.conten
 com.riotapps.word.utils.ImageHelper
 com.riotapps.word.utils.ImageHelper: ImageHelper()
 com.riotapps.word.utils.ImageHelper: android.graphics.Bitmap getRoundedCornerBitmap(android.graphics.Bitmap,int,int)
+com.riotapps.word.utils.ImageHelper: android.graphics.Bitmap getResizedBitmap(android.graphics.Bitmap,int,int)
 com.riotapps.word.utils.ImageResizer
 com.riotapps.word.utils.ImageResizer: int mImageWidth
 com.riotapps.word.utils.ImageResizer: int mImageHeight

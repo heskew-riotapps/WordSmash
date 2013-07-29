@@ -13,6 +13,7 @@ import com.riotapps.word.hooks.TileLayoutService;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
+import com.riotapps.word.utils.ImageHelper;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.Utils;
 
@@ -476,108 +477,75 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		
 		 if (GameSurfaceView.bgTrayBaseScaled == null) {
 			GameSurfaceView.bgTrayBaseScaled = BitmapFactory.decodeResource(getResources(), R.drawable.tray_tile_bg);//decodeSampledBitmapFromResource(getResources(), R.drawable.tray_tile_bg, this.trayTileSize,this.trayTileSize);
-			GameSurfaceView.bgTrayBaseScaled = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseScaled, this.trayTileSize , this.trayTileSize, false);
+			//GameSurfaceView.bgTrayBaseScaled = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseScaled, this.trayTileSize , this.trayTileSize, false);
  
-			//this.appContext.setBgTrayBaseScaled(this.bgTrayBaseScaled);
+			GameSurfaceView.bgTrayBaseScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayBaseScaled, this.trayTileSize, this.trayTileSize); 			 
 		 }
-		// else {
-		//	this.bgTrayBaseScaled = this.appContext.getBgTrayBaseScaled();
-		// }
-
+	
 		 if (GameSurfaceView.bgTrayBaseDragging == null) {
-			GameSurfaceView.bgTrayBaseDragging = decodeSampledBitmapFromResource(getResources(), R.drawable.tray_tile_bg, this.draggingTileSize,this.draggingTileSize);
-			GameSurfaceView.bgTrayBaseDragging = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize , this.draggingTileSize, false);
+		//	GameSurfaceView.bgTrayBaseDragging = decodeSampledBitmapFromResource(getResources(), R.drawable.tray_tile_bg, this.draggingTileSize,this.draggingTileSize);
+		//	GameSurfaceView.bgTrayBaseDragging = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize , this.draggingTileSize, false);
 
-		//	this.appContext.setBgTrayBaseDragging(this.bgTrayBaseDragging);
-		 }
-		// else {
-		//	this.bgTrayBaseDragging = this.appContext.getBgTrayBaseDragging();
-		// }
+			GameSurfaceView.bgTrayBaseDragging = BitmapFactory.decodeResource(getResources(), R.drawable.tray_tile_bg);
+			GameSurfaceView.bgTrayBaseDragging = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize, this.draggingTileSize);		
+	 	 }	 
 		
 		 if (GameSurfaceView.bgTrayBackground == null) {
 			 GameSurfaceView.bgTrayBackground = BitmapFactory.decodeResource(getResources(), R.drawable.sbd_bg);
-			 GameSurfaceView.bgTrayBackground = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBackground, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2), false);
-			//this.appContext.setBgTrayBackground(this.trayBackground);
+			// GameSurfaceView.bgTrayBackground = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBackground, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2), false);
+
+			 GameSurfaceView.bgTrayBackground = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayBackground, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2));
 		 }
-	//	 else {
-	//		this.trayBackground = this.appContext.getBgTrayBackground();
-	//	 }
-		//Bitmap bgTrayBase = BitmapFactory.decodeResource(getResources(), R.drawable.tray_tile_bg);
-		
-		//this.bgTrayBaseScaled = Bitmap.createScaledBitmap(bgTrayBase, this.trayTileSize , this.trayTileSize, false);
-		
+			
 		 if (GameSurfaceView.bgTrayEmptyScaled == null) {
 			GameSurfaceView.bgTrayEmptyScaled = BitmapFactory.decodeResource(getResources(), R.drawable.tray_tile_empty_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tray_tile_empty_bg, this.trayTileSize,this.trayTileSize);
-		//Bitmap bgTrayEmpty = BitmapFactory.decodeResource(getResources(), R.drawable.tray_tile_empty_bg);
-			GameSurfaceView.bgTrayEmptyScaled = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayEmptyScaled, this.trayTileSize , this.trayTileSize, false);
-			//this.appContext.setBgTrayEmptyScaled(this.bgTrayEmptyScaled);
+		//	GameSurfaceView.bgTrayEmptyScaled = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayEmptyScaled, this.trayTileSize , this.trayTileSize, false);
+		
+			GameSurfaceView.bgTrayEmptyScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayEmptyScaled, this.trayTileSize, this.trayTileSize);
 		 }
-		// else {
-		//	this.bgTrayEmptyScaled = this.appContext.getBgTrayEmptyScaled();
-		// }
-	//	this.bgTrayBaseDragging = Bitmap.createScaledBitmap(bgTrayBase, this.draggingTileSize, this.draggingTileSize, false);
-		//this.trayBackground = Bitmap.createScaledBitmap(bgTray, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2), false);
 		
 		 if (GameSurfaceView.bgPlacedTileZoomed == null){
-			GameSurfaceView.bgPlacedTileZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.tile_placed_bg, this.zoomedTileWidth,this.zoomedTileWidth);
-			GameSurfaceView.bgPlacedTileZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgPlacedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-			//this.appContext.setBgPlacedTileZoomed(this.bgPlacedTileZoomed);
+			GameSurfaceView.bgPlacedTileZoomed =  BitmapFactory.decodeResource(getResources(), R.drawable.tile_placed_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_placed_bg, this.zoomedTileWidth,this.zoomedTileWidth);
+			//GameSurfaceView.bgPlacedTileZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgPlacedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+			
+			GameSurfaceView.bgPlacedTileZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bgPlacedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
 		 }
-		// else {
-		//	this.bgPlacedTileZoomed = this.appContext.getBgPlacedTileZoomed();
-		 //}
 		
 		 if (GameSurfaceView.bgPlacedTileFull == null) {
-			 GameSurfaceView.bgPlacedTileFull = Bitmap.createScaledBitmap(GameSurfaceView.bgPlacedTileZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-			 //this.appContext.setBgPlacedTileFull(this.bgPlacedTileFull);
+			// GameSurfaceView.bgPlacedTileFull = Bitmap.createScaledBitmap(GameSurfaceView.bgPlacedTileZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
+			
+			 GameSurfaceView.bgPlacedTileFull = ImageHelper.getResizedBitmap(GameSurfaceView.bgPlacedTileZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1);
+			 
 		 } 
-		// else {
-		//	 this.bgPlacedTileFull = this.appContext.getBgPlacedTileFull();
-		// }
-		// Bitmap bgPlacedTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_placed_bg);
-		// this.bgPlacedTileFull = Bitmap.createScaledBitmap(bgPlacedTile, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-		 //this.bgPlacedTileZoomed = Bitmap.createScaledBitmap(bgPlacedTile, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
 
 		 if (GameSurfaceView.bgLastPlayedTileZoomed == null) {
-			GameSurfaceView.bgLastPlayedTileZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.tile_last_played_bg, this.zoomedTileWidth,this.zoomedTileWidth);
-			GameSurfaceView.bgLastPlayedTileZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgLastPlayedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-		//	this.appContext.setBgLastPlayedTileZoomed(this.bgLastPlayedTileZoomed);
+			GameSurfaceView.bgLastPlayedTileZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_last_played_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_last_played_bg, this.zoomedTileWidth,this.zoomedTileWidth);
+			//GameSurfaceView.bgLastPlayedTileZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgLastPlayedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+	 
+			GameSurfaceView.bgLastPlayedTileZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bgLastPlayedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
 		 }
-		// else {
-	//		this.bgLastPlayedTileZoomed = this.appContext.getBgLastPlayedTileZoomed();
-	//	 }
-		
-		 if (GameSurfaceView.bgLastPlayedTileFull == null) {
-			 GameSurfaceView.bgLastPlayedTileFull = Bitmap.createScaledBitmap(GameSurfaceView.bgLastPlayedTileZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-		// this.appContext.setBgLastPlayedTileFull(this.bgLastPlayedTileFull);
-		 }
-		// else {
-		//	this.bgLastPlayedTileFull = this.appContext.getBgLastPlayedTileFull();
-		// }
-		 //Bitmap bgLastPlayedTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_last_played_bg);
-		// this.bgLastPlayedTileFull = Bitmap.createScaledBitmap(bgLastPlayedTile, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-		// this.bgLastPlayedTileZoomed = Bitmap.createScaledBitmap(bgLastPlayedTile, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
 
-		 if (GameSurfaceView.bgPlayedTileZoomed == null) {
-			GameSurfaceView.bgPlayedTileZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.tile_played_bg, this.zoomedTileWidth,this.zoomedTileWidth);
-			GameSurfaceView.bgPlayedTileZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgPlayedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-			//this.appContext.setBgPlayedTileZoomed(this.bgPlayedTileZoomed);
+		 if (GameSurfaceView.bgLastPlayedTileFull == null) {
+			// GameSurfaceView.bgLastPlayedTileFull = Bitmap.createScaledBitmap(GameSurfaceView.bgLastPlayedTileZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
+		 
+			 GameSurfaceView.bgLastPlayedTileFull = ImageHelper.getResizedBitmap(GameSurfaceView.bgLastPlayedTileZoomed,  this.fullViewTileWidth + 1,  this.fullViewTileWidth + 1);
 		 }
-		// else {
-		//	this.bgPlayedTileZoomed = this.appContext.getBgPlayedTileZoomed();
-		// } 
+	 
+		 if (GameSurfaceView.bgPlayedTileZoomed == null) {
+			GameSurfaceView.bgPlayedTileZoomed =  BitmapFactory.decodeResource(getResources(), R.drawable.tile_played_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_played_bg, this.zoomedTileWidth,this.zoomedTileWidth);
+			//GameSurfaceView.bgPlayedTileZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgPlayedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+
+			GameSurfaceView.bgPlayedTileZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bgPlayedTileZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1); 
+			
+		 }
+	 
 		
 		 if (GameSurfaceView.bgPlayedTileFull == null) {
-			GameSurfaceView.bgPlayedTileFull = Bitmap.createScaledBitmap(GameSurfaceView.bgPlayedTileZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-			//this.appContext.setBgPlayedTileFull(this.bgPlayedTileFull);
+		//	GameSurfaceView.bgPlayedTileFull = Bitmap.createScaledBitmap(GameSurfaceView.bgPlayedTileZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
+			 
+			GameSurfaceView.bgPlayedTileFull = ImageHelper.getResizedBitmap(GameSurfaceView.bgPlayedTileZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1);
 		 }
-		// else {
-		//	this.bgPlayedTileFull = this.appContext.getBgPlayedTileFull();
-		// }
-	//	 Bitmap bgPlayedTile = BitmapFactory.decodeResource(getResources(), R.drawable.tile_played_bg);
-	//	 this.bgPlayedTileFull = Bitmap.createScaledBitmap(bgPlayedTile, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-	//	 this.bgPlayedTileZoomed = Bitmap.createScaledBitmap(bgPlayedTile, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-		 
+	 		 
 		 this.trayAreaRect.setTop(this.trayTop - TRAY_VERTICAL_MARGIN - TRAY_TOP_BORDER_HEIGHT);
 	     this.trayAreaRect.setBottom(this.trayTop + this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2));
 	     this.trayAreaRect.setLeft(0);
@@ -603,76 +571,61 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		 //Bitmap bgBase = BitmapFactory.decodeResource(getResources(), R.drawable.blank_tile_bg);
 
 		if (GameSurfaceView.bgBaseZoomed == null) {
-			GameSurfaceView.bgBaseZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.blank_tile_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-			GameSurfaceView.bgBaseZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgBaseZoomed, this.zoomedTileWidth + 1 , this.zoomedTileWidth + 1, false);
-			//this.appContext.setBgBaseZoomed(this.bgBaseZoomed);
-		}
-	//	else {
-	//		this.bgBaseZoomed = this.appContext.getBgBaseZoomed();
-			//Logger.d(TAG, "bgBaseZoomed retrieved from memory");
-	//	}
-		
-		if (GameSurfaceView.bgBaseScaled == null) {
-			GameSurfaceView.bgBaseScaled = Bitmap.createScaledBitmap(GameSurfaceView.bgBaseZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-			//this.appContext.setBgBaseScaled(this.bgBaseScaled);
-		}
-//		else {
-//			this.bgBaseScaled = this.appContext.getBgBaseScaled();
-//			//Logger.d(TAG, "bgBaseScaled retrieved from memory");
-//		}
+			GameSurfaceView.bgBaseZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.blank_tile_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.blank_tile_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+			//GameSurfaceView.bgBaseZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bgBaseZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
 
-		 
-		 
-	//	 Bitmap bg4L = BitmapFactory.decodeResource(getResources(), R.drawable.tile_4l_bg);
-		if (GameSurfaceView.bg4LZoomed == null) {
-			GameSurfaceView.bg4LZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.tile_4l_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-			GameSurfaceView.bg4LZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg4LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-			//this.appContext.setBg4LZoomed(this.bg4LZoomed);
+			GameSurfaceView.bgBaseZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bgBaseZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
 		}
-//		else {
-//			this.bg4LZoomed = this.appContext.getBg4LZoomed();
-//		}
+	 
+		if (GameSurfaceView.bgBaseScaled == null) {
+		//	GameSurfaceView.bgBaseScaled = Bitmap.createScaledBitmap(GameSurfaceView.bgBaseZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
+
+			GameSurfaceView.bgBaseScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bgBaseZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1);
+		}
+ 
+		if (GameSurfaceView.bg4LZoomed == null) {
+			GameSurfaceView.bg4LZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_4l_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_4l_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+			//GameSurfaceView.bg4LZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg4LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+
+			GameSurfaceView.bg4LZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bg4LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+		}
+
 		
 		if (GameSurfaceView.bg4LScaled == null) {
-			GameSurfaceView.bg4LScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg4LZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
-			//this.appContext.setBg4LScaled(this.bg4LScaled);
-		}
-//		else {
-//			this.bg4LScaled = this.appContext.getBg4LScaled();
-//		}
+			//GameSurfaceView.bg4LScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg4LZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
 
-		 
+			GameSurfaceView.bg4LScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bg4LZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1);
+		}
+	 
 		 if (GameSurfaceView.bg3LZoomed == null){
 		// Bitmap bg3L = BitmapFactory.decodeResource(getResources(), R.drawable.tile_3l_bg);
-			 GameSurfaceView.bg3LZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.tile_3l_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-		 	 GameSurfaceView.bg3LZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg3LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-		 	// this.appContext.setBg3LZoomed(this.bg3LZoomed);
+			 GameSurfaceView.bg3LZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_3l_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_3l_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+		 	// GameSurfaceView.bg3LZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg3LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+		 
+		 	GameSurfaceView.bg3LZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bg3LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
 		 }
 	//	 else {
 	//		 this.bg3LZoomed = this.appContext.getBg3LZoomed();
 	//	 }
 		 
 		 if (GameSurfaceView.bg3LScaled == null){
-			 GameSurfaceView.bg3LScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg3LZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
-			// this.appContext.setBg3LScaled(this.bg3LScaled);
+			// GameSurfaceView.bg3LScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg3LZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
+
+			 GameSurfaceView.bg3LScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bg3LZoomed,this.fullViewTileWidth + 1,this.fullViewTileWidth + 1);
 		 }
-	//	 else {
-	//		 this.bg3LScaled = this.appContext.getBg3LScaled();
-	//	 }
-		 
+ 
 	//	 Bitmap bg3W = BitmapFactory.decodeResource(getResources(), R.drawable.tile_3w_bg);
 		 if ( GameSurfaceView.bg3WZoomed == null){
-			 GameSurfaceView.bg3WZoomed =  decodeSampledBitmapFromResource(getResources(), R.drawable.tile_3w_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-			 GameSurfaceView.bg3WZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg3WZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-			 //this.appContext.setBg3WZoomed(this.bg3WZoomed);
+			 GameSurfaceView.bg3WZoomed =  BitmapFactory.decodeResource(getResources(), R.drawable.tile_3w_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_3w_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+			// GameSurfaceView.bg3WZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg3WZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+
+			 GameSurfaceView.bg3WZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bg3WZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
 		 }
-		// else {
-		//	 this.bg3WZoomed = this.appContext.getBg3WZoomed(); 
-		// }
 		 
 		 if (GameSurfaceView.bg3WScaled == null) {
-			 GameSurfaceView.bg3WScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg3WZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
-			 //this.appContext.setBg3WScaled(this.bg3WScaled);
+			// GameSurfaceView.bg3WScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg3WZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
+
+			 GameSurfaceView.bg3WScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bg3WZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1);
 		 }
 //		 else {
 //			 this.bg3WScaled = this.appContext.getBg3WScaled();
@@ -680,33 +633,27 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 
 		 
 		 if (GameSurfaceView.bg2LZoomed == null) {
-			 GameSurfaceView.bg2LZoomed = decodeSampledBitmapFromResource(getResources(), R.drawable.tile_2l_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-			 GameSurfaceView.bg2LZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg2LZoomed, this.zoomedTileWidth + 1 , this.zoomedTileWidth + 1, false);
-			// this.appContext.setBg2LZoomed(this.bg2LZoomed);
-		 }
-	//	 else {
-	//		 this.bg2LZoomed = this.appContext.getBg2LZoomed();   
-	//	 }
-		
-		 //Logger.d(TAG, "decodeSampledBitmapFromResource 2L actual zoomed size=" + this.bg2LZoomed.getHeight() );
-		 if ( GameSurfaceView.bg2LScaled == null) {
-			 GameSurfaceView.bg2LScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg2LZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-			// this.appContext.setBg2LScaled(this.bg2LScaled);
-		 }
-//		 else {
-//			 this.bg2LScaled = this.appContext.getBg2LScaled();
-//		 }
-
+			 GameSurfaceView.bg2LZoomed =  BitmapFactory.decodeResource(getResources(), R.drawable.tile_2l_bg); //decodeSampledBitmapFromResource(getResources(), R.drawable.tile_2l_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+			// GameSurfaceView.bg2LZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg2LZoomed, this.zoomedTileWidth + 1 , this.zoomedTileWidth + 1, false);
 		 
+			 GameSurfaceView.bg2LZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bg2LZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+		 }
+	 
+ 
+		 if ( GameSurfaceView.bg2LScaled == null) {
+			// GameSurfaceView.bg2LScaled = Bitmap.createScaledBitmap(GameSurfaceView.bg2LZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
+
+			 GameSurfaceView.bg2LScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bg2LZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1);
+		 }
+	 
 		 if (GameSurfaceView.bg2WZoomed == null) {
 			 //this.bg2WZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_2w_bg);
-			 GameSurfaceView.bg2WZoomed =  decodeSampledBitmapFromResource(getResources(), R.drawable.tile_2w_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-			 GameSurfaceView.bg2WZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg2WZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
-			// this.appContext.setBg2WZoomed(this.bg2WZoomed);
+			 GameSurfaceView.bg2WZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_2w_bg); // decodeSampledBitmapFromResource(getResources(), R.drawable.tile_2w_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
+			// GameSurfaceView.bg2WZoomed = Bitmap.createScaledBitmap(GameSurfaceView.bg2WZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1, false);
+		 
+			 GameSurfaceView.bg2WZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bg2WZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
 		 }
-//		 else {
-//			 this.bg2WZoomed = this.appContext.getBg2WZoomed();
-//		 }
+ 
 		 
 		 if (GameSurfaceView.bg2WScaled == null) {
 			 GameSurfaceView.bg2WScaled = Bitmap.createScaledBitmap( GameSurfaceView.bg2WZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1, false);
@@ -719,16 +666,19 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		 if (GameSurfaceView.bgStarterZoomed == null) {
 			 GameSurfaceView.bgStarterZoomed = BitmapFactory.decodeResource(getResources(), R.drawable.tile_starter_bg);
 			// this.bgStarterZoomed =  decodeSampledBitmapFromResource(getResources(), R.drawable.tile_starter_bg, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1);
-			 GameSurfaceView.bgStarterZoomed = Bitmap.createScaledBitmap( GameSurfaceView.bgStarterZoomed, this.zoomedTileWidth + 1 , this.zoomedTileWidth + 1, false);
-			// this.appContext.setBgStarterZoomed(this.bgStarterZoomed);
+			 GameSurfaceView.bgStarterZoomed = ImageHelper.getResizedBitmap(GameSurfaceView.bgStarterZoomed, this.zoomedTileWidth + 1, this.zoomedTileWidth + 1); 	
+//			 GameSurfaceView.bgStarterZoomed = Bitmap.createScaledBitmap( GameSurfaceView.bgStarterZoomed, this.zoomedTileWidth + 1 , this.zoomedTileWidth + 1, false);
 		 }
 		// else {
 		//	 this.bgStarterZoomed = this.appContext.getBgStarterZoomed();
 		// }
 		 
 		 if (GameSurfaceView.bgStarterScaled == null) {	 
-			 GameSurfaceView.bgStarterScaled = Bitmap.createScaledBitmap( GameSurfaceView.bgStarterZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
-			// this.appContext.setBgStarterScaled(this.bgStarterScaled);
+			 //GameSurfaceView.bgStarterScaled = Bitmap.createScaledBitmap( GameSurfaceView.bgStarterZoomed, this.fullViewTileWidth + 1 , this.fullViewTileWidth + 1, false);
+	
+			 GameSurfaceView.bgStarterScaled = ImageHelper.getResizedBitmap(GameSurfaceView.bgStarterZoomed, this.fullViewTileWidth + 1, this.fullViewTileWidth + 1); 	
+			//	
+			 // this.appContext.setBgStarterScaled(this.bgStarterScaled);
 		 }
 //		 else {
 //			 this.bgStarterScaled = this.appContext.getBgStarterScaled();
@@ -739,7 +689,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    //t.show();
 	}
 	
-	public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+	public static Bitmap decodeSampledBitmapFromResource__(Resources res, int resId,
 	        int reqWidth, int reqHeight) {
  
 	    // First decode with inJustDecodeBounds=true to check dimensions
@@ -2873,8 +2823,11 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		Bitmap bgLogo = BitmapFactory.decodeResource(getResources(), R.drawable.wordsmash_logo8);
 	 
 		float factor = height / (float) bgLogo.getHeight(); 
-		this.logo = Bitmap.createScaledBitmap(bgLogo, (int) (bgLogo.getWidth() * factor), height, false);   
-	  
+		float width = bgLogo.getWidth() * factor;
+		// this.logo = Bitmap.createScaledBitmap(bgLogo, (int) (bgLogo.getWidth() * factor), height, false); 
+		
+		this.logo = ImageHelper.getResizedBitmap(bgLogo, (int)width, height);
+		bgLogo = null;
 	} 
 	
 	private void LoadTray() {		

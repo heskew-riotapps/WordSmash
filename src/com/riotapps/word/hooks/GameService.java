@@ -769,14 +769,14 @@ public static void skip(boolean isOpponent, Game game){
 		 
 		 Opponent o = OpponentService.getOpponent(game.getOpponentId());
 		 
-		 tvOpponentName.setText(o.getName());
+		 tvOpponentName.setText(o.getName()); 
 		 
 		 int opponentImageId = context.getResources().getIdentifier("com.riotapps.word:drawable/" + o.getDrawableByMode(Constants.OPPONENT_IMAGE_MODE_MAIN), null, null);
 		 ivOpponent.setImageResource(opponentImageId);
 
 		 
 		 if (game.getHopper().size() == 1){
-			 tvLettersLeft.setText(R.string.scoreboard_1_letter_left);
+			 tvLettersLeft.setText(R.string.scoreboard_1_letter_left); 
 		 }
 		 else{
 			 tvLettersLeft.setText(String.format(context.getString(R.string.scoreboard_letters_left), game.getHopper().size()));
