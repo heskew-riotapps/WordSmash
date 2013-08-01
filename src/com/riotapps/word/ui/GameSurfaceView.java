@@ -896,7 +896,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		// Logger.d(TAG, "onTouchEvent isSingleTap=off");	     
 	     long currentTouchTime = System.nanoTime(); 
 	    
-         Logger.w(TAG,  "onTouchEvent event=" + event.toString());
+         Logger.w(TAG,  "onTouchEvent currentTime=" + currentTouchTime + " event=" + event.toString());
          Logger.w(TAG,  "onTouchEvent currentX=" + this.currentX + " currentY=" + this.currentY + " x=" + event.getX() + " y=" + event.getY() + " rawX=" + event.getRawX() + " rawY=" + event.getRawY());
  
          boolean setToReadyDraw = false;
@@ -1033,8 +1033,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             	 this.parent.captureTime(TAG + " ACTION_UP");
             	   
             	   this.readyToDraw = false;
-            	   Logger.w(TAG, "ACTION_UP tapcheck = " + this.tapCheck + " currentTouchTime=" + currentTouchTime + " dbltapcheck = " + this.dblTapCheck + " diff = " + (this.tapCheck - this.dblTapCheck)); 
-            	   
+            	   Logger.w(TAG, "ACTION_UP double tapcheck = " + this.tapCheck + " currentTouchTime=" + currentTouchTime + " dbltapcheck = " + this.dblTapCheck + " diff = " + (this.tapCheck - this.dblTapCheck)); 
+               	   Logger.w(TAG, "ACTION_UP single tapcheck = " + this.tapCheck + " SINGLE_TAP_DURATION_IN_NANOSECONDS=" + SINGLE_TAP_DURATION_IN_NANOSECONDS + " currentTouchTime=" + currentTouchTime + " tapcheck = " + this.tapCheck + " diff = " + (currentTouchTime - this.tapCheck)); 
+     	   
             	 if (this.tapCheck > 0 && currentTouchTime - this.tapCheck <= SINGLE_TAP_DURATION_IN_NANOSECONDS) { 
             		 
             		 Logger.d(TAG, "onTouchEvent past first tap check");

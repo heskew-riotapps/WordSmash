@@ -913,24 +913,24 @@ public class Game implements Parcelable, Comparable<Game> {
 		int i = 0;
 		int loopRegulator = 1;
 		boolean loop = true;
-		PlayedTile loopTile = playedTile;
+//		PlayedTile loopTile = playedTile;
+		int loopId = playedTile.getBoardPosition();
+		
 		while(loop){
 			loopRegulator += 1;
 			if (loopRegulator > 15) { loop = false; break; }
-			
-			int loopId = -1;
-			
-			if (direction == Constants.DIRECTION_BELOW){
-				loopId = loopTile.getTileIdBelow(); 
+				
+			if (direction.equals(Constants.DIRECTION_BELOW)){
+				loopId = TileLayoutService.getTileIdBelow(loopId); //loopTile.getTileIdBelow(); 
 			}
-			else if (direction == Constants.DIRECTION_ABOVE){
-				loopId = loopTile.getTileIdAbove(); 
+			else if (direction.equals(Constants.DIRECTION_ABOVE)){
+				loopId = TileLayoutService.getTileIdAbove(loopId); //loopTile.getTileIdAbove(); 
 			}
-			if (direction == Constants.DIRECTION_LEFT){
-				loopId = loopTile.getTileIdToTheLeft(); 
+			else if (direction.equals(Constants.DIRECTION_LEFT)){
+				loopId = TileLayoutService.getTileIdToTheLeft(loopId); //loopTile.getTileIdToTheLeft(); 
 			}
-			if (direction == Constants.DIRECTION_RIGHT){
-				loopId = loopTile.getTileIdToTheRight(); 
+			else if (direction.equals(Constants.DIRECTION_RIGHT)){
+				loopId = TileLayoutService.getTileIdToTheRight(loopId); //loopTile.getTileIdToTheRight(); 
 			}
 			
 			if (loopId == 255){ //border

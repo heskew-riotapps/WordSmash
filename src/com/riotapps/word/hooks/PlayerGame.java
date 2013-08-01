@@ -1,8 +1,12 @@
 package com.riotapps.word.hooks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
@@ -166,8 +170,186 @@ public class PlayerGame implements Parcelable{
 		this.hasBeenAlertedToEndOfGame = hasBeenAlertedToEndOfGame;
 	}
 
-	 
+	 public boolean isTrayFull(){
+		 
+		 return this.trayLetters.size() == 7; 
+	 }
  
+	 public List<List<String>> getSortedTrayLetterSets(int setLength){
+		 //grab all unique sets of tray letters in batches of "setLength"
+		 //so if the tray letters are P, R, T, A, L, B, Y and the setLength is 4
+		 //return P, R, T, A...P, R, T, L,...P, R, T, B...etc
+		 List<List<String>> letterSets = new ArrayList<List<String>>();
+	
+		 //we only need 6 indexes here because if a set length of 7 is requested
+		 //all letters are returned as the only eligible letter set
+		 int x1 = 0;
+		 int x2 = 1;
+		 int x3 = 2;
+		 int x4 = 3;
+		 int x5 = 4;
+		 int x6 = 5;
+	 
+		 
+		 int traySize = this.trayLetters.size();
+		 int maxIndex = traySize - 1;
+
+		 
+		 if (traySize < setLength){
+			return letterSets; 
+		 }
+		 else if (this.trayLetters.size() == setLength){
+			 //return all x letters as the single set to be returned
+			 List<String> letterSet = new ArrayList<String>();
+				
+				for (int j = 0; j < setLength; j ++){
+					letterSet.add(this.trayLetters.get(j));	
+				}
+			letterSets.add(letterSet);
+			return letterSets;
+		 }
+		 else if (setLength == 1){
+			 //return all x letters as the x number of sets 
+
+				for (int j = 0; j <= maxIndex; j ++){
+					List<String> letterSet = new ArrayList<String>();
+					letterSet.add(this.trayLetters.get(j));
+					letterSets.add(letterSet);
+				}
+ 
+			return letterSets;
+		 }
+		 else{
+			 boolean notAtEnd = true;
+			 while (notAtEnd){
+				 	//the idea here is to gather every combination of positions (not every single permutation of letters)
+				    //placing the tile sets in a SortedSet will automatically sort them
+				 	//later we can ensure that duplicate tile sets are not added
+				 
+					List<String> letterSet = new ArrayList<String>();
+						 
+					letterSet.add(this.trayLetters.get(x1));	
+					if (setLength >= 2) { letterSet.add(this.trayLetters.get(x2)); }
+					if (setLength >= 3) { letterSet.add(this.trayLetters.get(x3)); }
+					if (setLength >= 4) { letterSet.add(this.trayLetters.get(x4)); }
+					if (setLength >= 5) { letterSet.add(this.trayLetters.get(x5)); }
+					if (setLength == 6) { letterSet.add(this.trayLetters.get(x6)); }
+					
+					if (setLength == 6 && x6 < (maxIndex - (setLength - 6))){
+						x6 += 1;
+					}
+					else if(setLength >= 5 && x5 < (maxIndex - (setLength - 5))){
+						x5 += 1;
+					}
+					else if(setLength >= 4 && x4 < (maxIndex - (setLength - 4))){
+						x4 += 1;
+					}	
+					else if(setLength >= 3 && x3 < (maxIndex - (setLength - 3))){
+						x3 += 1;
+					}
+				 	else if(setLength >= 2 && x2 < (maxIndex - (setLength - 2))){
+				 		x2 += 1;
+				 	}
+				 	else if(x1 < (maxIndex - (setLength - 1))){
+				 		x1 += 1;
+				 	}
+				 	else {
+				 		//nothing more to do, let's get out of this loopy logic
+				 		notAtEnd = false;
+				 	}
+					
+					//we have filled up this letterSet
+					if (letterSet.size() == setLength){
+						//check for dupes here
+						
+						//sort for index lookup
+						Collections.sort(letterSet);
+						
+						String newSet = "";
+						for (String s : letterSet){
+							newSet += s;
+						}
+						
+						boolean exactSetMatch = false; //letterSets.size() > 0; //this will make exactSetMatch false for the first set
+						for (int i = 0; i < letterSets.size(); i++){ // 
+							String set = "";
+							for (String s : letterSets.get(i)){
+								set += s;
+							}
+							
+							if (newSet.equals(set)){
+								exactSetMatch = true;
+								break;
+							}
+							
+							/*
+							boolean loopMatch = false;
+							for (int j = 0; j < setLength; j++){ // 
+		 						
+								if (letterSets.get(i).get(j).equals(letterSet.get(j))){ 
+								}
+								else{
+									exactSetMatch = false; 
+									break;
+								}	
+				 			}
+				 			*/
+						}
+						
+						//only add it to collection if its not a complete duplicate of another sorted set
+						//these sets will be used for index lookup, which is why they are sorted
+						if (!exactSetMatch) {letterSets.add(letterSet);}
+					}
+			 }
+			 
+			 return letterSets;
+		 }
+		 
+		 //set length of 6
+		 //1,2,3,4,5,6
+		 //1,3,4,5,6,7
+		 //2,3,4,5,6,7
+			 //max for x4 for 6 setLength = 4  maxIndex - (setlength - position) 6-(6-4) = 4
+			 //max for x4 for 5 setLength = 5  maxIndex - (setlength - position) 6-(5-4) = 5
+			 //max for x4 for 4 setLength = 6  maxIndex - (setlength - position) 6-(4-4) = 6
+
+			 //max for x4 for 4 setLength = 6  maxIndex - (setlength - position) 5-(4-4) = 5
+
+			 
+	 		 
+		 //set length of 4 end results
+		 //1,2,3,4
+		 //1,2,3,5
+		 //1,2,3,6
+		 //1,2,3,7
+		 //1,2,4,5
+		 //1,2,4,6
+		 //1,2,4,7
+		 //1,2,5,6
+		 //1,2,5,7
+		 //1,3,4,5
+		 //1,3,4,6
+		 //1,3,4,7
+		 //1,3,5,6
+		 //1,3,5,7
+		 //1,3,6,7
+		 //1,4,5,6
+		 //1,4,5,7
+		 //1,5,6,7
+		 //2,3,4,5
+		 //2,3,4,6
+		 //2,3,4,7
+		 //2,4,5,6
+		 //2,4,5,7
+		 //2,5,6,7
+		 //3,4,5,6
+		 //3,4,5,7
+		 //3,5,6,7
+		 //4,5,6,7	 
+		 
+		 
+	 }
+	 
 	public boolean isActive(){
 		//declined and cancelled
 		//NO_TRANSLATION(0), (no action yet)

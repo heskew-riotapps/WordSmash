@@ -1463,7 +1463,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				else{
 					// show player his score, then kick off auto play
 					String playerAction = game.getLastActionText(context);
-					 GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+					
+					Logger.d(TAG, "handleGamePlayOnClick about to call autoplay");
+					
+					GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
 					 
 					 String opponentAction = game.getLastActionText(context);
 

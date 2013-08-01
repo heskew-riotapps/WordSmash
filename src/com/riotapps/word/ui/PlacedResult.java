@@ -7,6 +7,9 @@ public class PlacedResult {
 
 	private List<PlacedWord> placedWords = new ArrayList<PlacedWord>();
 	private List<GameTile> placedTiles = new ArrayList<GameTile>();
+	
+	private List<GameTile> boardTiles = new ArrayList<GameTile>();
+	
 	private int totalPoints = 0;
 	
 	public List<GameTile> getPlacedTiles() {
@@ -26,6 +29,12 @@ public class PlacedResult {
 	}
 	public void setPlacedWords(List<PlacedWord> placedWords) {
 		this.placedWords = placedWords;
+	}
+	public List<GameTile> getBoardTiles() {
+		return boardTiles;
+	}
+	public void setBoardTiles(List<GameTile> boardTiles) {
+		this.boardTiles = boardTiles;
 	}
 	
 	

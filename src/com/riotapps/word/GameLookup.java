@@ -137,7 +137,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	    		    //change margin of definition area?
 	    		//    tvOK.setOnClickListener(this);
 	    		    tvPreviewMessage.setVisibility(View.GONE);
-	    		    this.tvPreviewMessage.setVisibility(View.GONE);
+	    		  //  this.tvPreviewMessage.setVisibility(View.GONE);
 	    		    
 	    		    //remove bottom margin and
 	    		    ScrollView scoller = (ScrollView)findViewById(R.id.scroller);
