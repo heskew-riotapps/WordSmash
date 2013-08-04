@@ -32,6 +32,7 @@ public class PlayerGame implements Parcelable{
 	
 	//private Player player; 
 
+	private List<String> standaloneWords = new ArrayList<String>();
 	
 	@SerializedName("sc")
 	private int score = 0;

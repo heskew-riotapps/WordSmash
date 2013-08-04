@@ -149,7 +149,7 @@ public class GameTile {
 
 
 	public boolean isPlacement() {
-		return isPlacement;
+		return (this.placedLetter.length() > 0); //isPlacement;
 	}
 
 
@@ -427,6 +427,10 @@ public String getOriginalText() {
 		this.dragPositionSet = false;
 	}
 	
+	public void removePlacementBeforeAutoplay(){
+		this.setOriginalLetter(this.placedLetter);
+		this.removePlacement();
+	}
 	
 }
 

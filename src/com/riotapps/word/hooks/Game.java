@@ -938,7 +938,7 @@ public class Game implements Parcelable, Comparable<Game> {
 			}
 			else if (this.isBoardTilePlayed(loopId)){ //we have come to a played tile, remove 1 from i because we are looking for empty playable tiles in an axis
 				loop = false;
-				i -= 1;
+				if ( i > 0 ) {i -= 1;}
 			}
 			else { i += 1; }
 		}

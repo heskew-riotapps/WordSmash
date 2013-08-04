@@ -192,9 +192,9 @@ public class WordService {
 		
 	}
  
-	public List<String> getMatchingIndexes(String index){
+	public List<String> getMatchingWordsFromIndex(String index){
 		
-		return this.data.getMatchingIndexes(index.toLowerCase());
+		return this.data.getMatchingWordsFromIndex(index.toLowerCase());
 	}
 	
 	

@@ -84,9 +84,9 @@ public class WordData {
 		  return matches;
 	  }
 
-	  public List<String> getMatchingIndexes(String index) {
+	  public List<String> getMatchingWordsFromIndex(String index) {
 			List<String> matches = new ArrayList<String>();
-		  	String queryf = "select idx from Word where idx ='" + index + "'";
+		  	String queryf = "select word from Word where idx ='" + index + "'";
 		  
 			  Cursor c = database.rawQuery(queryf, null);
 			  
