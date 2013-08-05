@@ -1,5 +1,9 @@
 package com.riotapps.word;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.ads.Ad;
@@ -26,11 +30,17 @@ import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.ui.PlacedResult;
 import com.riotapps.word.ui.WordLoaderThread;
 import com.riotapps.word.utils.ApplicationContext;
+import com.riotapps.word.utils.AsyncNetworkRequest;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.CustomProgressDialog;
 import com.riotapps.word.utils.ImageFetcher;
 import com.riotapps.word.utils.Logger;
+import com.riotapps.word.utils.NetworkTaskResult;
+import com.riotapps.word.utils.ServerResponse;
 import com.riotapps.word.utils.Utils;
+import com.riotapps.word.utils.WebClient;
+import com.riotapps.word.utils.Enums.RequestType;
+import com.riotapps.word.utils.Enums.ResponseHandlerType;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -41,6 +51,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -65,6 +76,8 @@ import com.google.analytics.tracking.android.Tracker;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.apache.http.NameValuePair;
 
 //Import the Chartboost SDK
 import com.chartboost.sdk.Chartboost;
@@ -100,6 +113,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private boolean isChartBoostActive = false;
 	 private boolean isRevMobActive = false;
 	 private boolean isAdMobActive = false;
+	 
+	 private String lastPlayerActionBeforeAutoplay = "";
+	 
+	 private AutoplayTask autoplayTask = null; 
+	 
 //	 private RevMob revmob;
 //	 private RevMobAdsListener revmobListener;
 //	 private RevMobFullscreen revMobFullScreen;
@@ -1459,15 +1477,24 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 					//??this.gameSurfaceView.stopThreadLoop();
+					handleInterstitialAd();
 				}
 				else{
 					// show player his score, then kick off auto play
-					String playerAction = game.getLastActionText(context);
+				 	//this.lastPlayerActionBeforeAutoplay = game.getLastActionText(context);
 					
 					Logger.d(TAG, "handleGamePlayOnClick about to call autoplay");
 					
-					GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
-					 
+					spinner = new CustomProgressDialog(this);
+	 			    spinner.setMessage(String.format(this.getString(R.string.progress_opponent_thinking), this.game.getOpponent().getName()));
+	 			    spinner.show();
+					
+			//		GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+					
+					this.autoplayTask = new AutoplayTask();
+					this.autoplayTask.execute();
+					
+					/*
 					 String opponentAction = game.getLastActionText(context);
 
 					this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
@@ -1487,9 +1514,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 						//??this.gameSurfaceView.stopThreadLoop();
 					}
+					*/
 				}    	
 				
-				handleInterstitialAd();
+				//handleInterstitialAd();
 				//DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());
 				//this.unfreezeButtons();
 			//}
@@ -1508,6 +1536,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
 				{
+					
+	 			    
 					this.isCompletedThisSession = true;
 					//display
 					this.postTurnTitle = context.getString(R.string.game_over);
@@ -1520,12 +1550,20 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 					//???this.gameSurfaceView.stopThreadLoop();
+					handleInterstitialAd();
 				}
 				else{
 					// show player his score, then kick off auto play
-					String playerAction = game.getLastActionText(context);
-					GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
-
+					//this.lastPlayerActionBeforeAutoplay = game.getLastActionText(context);
+					
+					spinner = new CustomProgressDialog(this);
+	 			    spinner.setMessage(String.format(this.getString(R.string.progress_opponent_thinking), this.game.getOpponent().getName()));
+	 			    spinner.show();
+	 			    
+					//GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+					this.autoplayTask = new AutoplayTask();
+					this.autoplayTask.execute();
+/*
 					String opponentAction = game.getLastActionText(context);
 					
 					this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
@@ -1544,10 +1582,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 						//??this.gameSurfaceView.stopThreadLoop();
 					}
+					*/
 				}
-				handleInterstitialAd();
-				//DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());
-			//	this.unfreezeButtons();
+			//	handleInterstitialAd();
+			 
 			//}
 			 
 	    }
@@ -1566,9 +1604,17 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		GameService.swap(false, game, swappedLetters);
 	    		gameState = GameStateService.clearGameState(game.getId());
 	    		
-	    		String playerAction = game.getLastActionText(context);
-	    		GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+	    		//String playerAction = game.getLastActionText(context);
 
+	    		spinner = new CustomProgressDialog(this);
+ 			    spinner.setMessage(String.format(this.getString(R.string.progress_opponent_thinking), this.game.getOpponent().getName()));
+ 			    spinner.show();
+ 			    
+ 			   this.autoplayTask = new AutoplayTask();
+				this.autoplayTask.execute();
+	    		//GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+
+	    		/*
 				String opponentAction = game.getLastActionText(context);
 				
 				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
@@ -1588,13 +1634,38 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				}
 				
 				handleInterstitialAd();
-
+*/
 				//	} catch (DesignByContractException e) {
 				 
 		//		DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
 		//	}
 			 
 	    }
+	    public void handlePostAutoplay(){
+	    	 
+	    	 String opponentAction = game.getLastActionText(context);
+
+				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
+				this.postTurnMessage = 	String.format(this.getString(R.string.post_turn_message_with_auto_play), this.lastPlayerActionBeforeAutoplay, opponentAction); 
+	
+				//DialogManager.SetupAlert(context, context.getString(R.string.post_turn_title_with_auto_play), String.format(this.getString(R.string.post_turn_message_with_auto_play), playerAction, opponentAction));
+				setupButtons();
+
+				setupGame();
+	 			gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
+	 			setPointsAfterPlayView();
+	 			
+				if (game.isCompleted()) {
+					this.isCompletedThisSession = true;
+					//perhaps replace play, skip
+					GameStateService.removeGameState(game.getId());
+					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
+					//??this.gameSurfaceView.stopThreadLoop();
+				}
+				
+				handleInterstitialAd();
+	    }
+	    
 	    
 	    public void handlePostAdServer(){
 	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
@@ -1616,10 +1687,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 			}
 	 		else{
 	 			if (this.isChartBoostActive) {
-	 				spinner = new CustomProgressDialog(this);
-	 			    spinner.setMessage(this.getString(R.string.progress_wait));
-	 			    spinner.show();
-	 				
+	 				if (spinner == null){
+	 					spinner = new CustomProgressDialog(this);
+	 		 			spinner.setMessage(this.getString(R.string.progress_wait));
+	 		 			spinner.show();				
+	 				}
 	 				
 		 			this.cb.setTimeout((int)Constants.GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MILLISECONDS);
 		 			this.cb.showInterstitial();
@@ -2551,4 +2623,28 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			bResign.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
 				
 		}
+		
+		 private class AutoplayTask extends AsyncTask<Void, Void, Void> {
+		  
+			 @Override
+			 protected Void doInBackground(Void... params) {
+				 GameSurface.this.lastPlayerActionBeforeAutoplay = GameSurface.this.game.getLastActionText(context);
+		    	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles());
+				
+		    	 
+		    	 return null;
+		    	 
+		    	 //return game; 
+		     }
+
+		   //  protected void onProgressUpdate(Integer... progress) {
+		   //      setProgressPercent(progress[0]);
+		   //  }
+		     protected void onPostExecute(Void param) {
+		    	 GameSurface.this.handlePostAutoplay();
+		     }
+
+		 
+		 }
+		
 }

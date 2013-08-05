@@ -33,6 +33,7 @@
 	<string name="game_over">game over</string>
  	<string name="progress_looking_up">looking up&#8230;</string>
  	<string name="progress_wait">please wait&#8230;</string>
+ 	<string name="progress_opponent_thinking">%s is thinking&#8230;</string>
  	<string name="progress_saving">saving&#8230;</string>
 
  	<string name="full_rules_1">The idea is to score more points than your opponent by forming valid words out of the letters in your tray combined with the letters 

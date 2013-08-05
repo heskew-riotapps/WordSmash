@@ -56,6 +56,7 @@ public class AlphabetService {
 	end
 	*/
 	private static String[] vowels = null;
+	private static String[] consonants = null;
 	
 	public static String[] getVowels(){
 		if (vowels == null){
@@ -68,9 +69,19 @@ public class AlphabetService {
 		return vowels;		
 	}
 	
+	public static String[] getConsonants(){
+		if (consonants == null){
+	 	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+		
+	 	consonants = appContext.getResources().getStringArray(R.array.alphabet_consonants);
+ 
+		}
+		
+		return consonants;		
+	}
 	
 	public static String getRandomVowel(){
-	 	ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+	 	//ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 		
 		String[] letters = getVowels(); //appContext.getResources().getStringArray(R.array.alphabet_vowels);
 		
@@ -81,9 +92,9 @@ public class AlphabetService {
 	}
 	
 	public static List<String> getRandomConsonants(){
-		ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
+		//ApplicationContext appContext = (ApplicationContext)ApplicationContext.getAppContext().getApplicationContext();
 		
-		String[] letters = appContext.getResources().getStringArray(R.array.alphabet_consonants);
+		String[] letters = getConsonants(); //appContext.getResources().getStringArray(R.array.alphabet_consonants);
 	 
 		Utils.shuffleArray(letters);
 		

@@ -99,12 +99,36 @@ public class TileLayoutService {
          if (isTileOnTopRow(tileId)) { return 255; }
          return tileId - 15;
      }
+	 
+	 public static int getTileIdXAbove(int tileId, int positionsAbove)
+     {
+		 int position = tileId;
+         for (int i = 0; i < positionsAbove; i++){
+        	 position = getTileIdAbove(position);
+        	 if (position == 255){
+        		 break;
+        	 }
+         }
+         return position;
+     }
 
      public static int getTileIdBelow(int tileId)
      {
          //if already on the bottom row, can't get any lower
          if (isTileOnBottomRow(tileId)) { return 255; }
          return tileId + 15;
+     }
+     
+     public static int getTileIdXBelow(int tileId, int positionsBelow)
+     {
+		 int position = tileId;
+         for (int i = 0; i < positionsBelow; i++){
+        	 position = getTileIdBelow(position);
+        	 if (position == 255){
+        		 break;
+        	 }
+         }
+         return position;
      }
     
      public static int getTileIdToTheRight(int tileId)
@@ -114,11 +138,34 @@ public class TileLayoutService {
          return tileId + 1;
      }
 
+     public static int getTileIdXToTheRight(int tileId, int positionsToTheRight)
+     {
+		 int position = tileId;
+         for (int i = 0; i < positionsToTheRight; i++){
+        	 position = getTileIdToTheRight(position);
+        	 if (position == 255){
+        		 break;
+        	 }
+         }
+         return position;
+     }
      public static int getTileIdToTheLeft(int tileId)
      {
          //if already on the far left, can't get any farther left
          if (isTileOnLeftBorder(tileId)) { return 255; }
          return tileId - 1;
+     }
+     
+     public static int getTileIdXToTheLeft(int tileId, int positionsToTheLeft)
+     {
+		 int position = tileId;
+         for (int i = 0; i < positionsToTheLeft; i++){
+        	 position = getTileIdToTheLeft(position);
+        	 if (position == 255){
+        		 break;
+        	 }
+         }
+         return position;
      }
      
      public static int getLetterMultiplier(int tileId, TileLayout layout)

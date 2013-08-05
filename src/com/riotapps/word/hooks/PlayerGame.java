@@ -224,8 +224,7 @@ public class PlayerGame implements Parcelable{
 			 boolean notAtEnd = true;
 			 while (notAtEnd){
 				 	//the idea here is to gather every combination of positions (not every single permutation of letters)
-				    //placing the tile sets in a SortedSet will automatically sort them
-				 	//later we can ensure that duplicate tile sets are not added
+				 	//later we can ensure that duplicate tile sets are not added amd sort them for index lookup
 				 
 					List<String> letterSet = new ArrayList<String>();
 						 
@@ -253,6 +252,12 @@ public class PlayerGame implements Parcelable{
 				 	}
 				 	else if(x1 < (maxIndex - (setLength - 1))){
 				 		x1 += 1;
+				 		//reset other indexes
+				 		x2 = x1+1;
+						x3 = x1+2;
+						x4 = x1+3;
+						x5 = x1+4;
+						x6 = x1+5;
 				 	}
 				 	else {
 				 		//nothing more to do, let's get out of this loopy logic
@@ -482,4 +487,17 @@ public class PlayerGame implements Parcelable{
  
 	}
 
+	public boolean doesTrayContainAConsonant(){
+		String consonants[] = AlphabetService.getConsonants();
+		
+		for (String trayLetter : this.trayLetters){
+			for (String consonant : consonants){
+				if (trayLetter.equals(consonant)){
+					return true;
+				}
+			}
+		}
+		return false;
+ 
+	}
 }

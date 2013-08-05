@@ -395,7 +395,21 @@ public class Constants {
 	public static final String DIRECTION_BELOW = "below";
 	public static final String DIRECTION_LEFT = "left";
 	public static final String DIRECTION_RIGHT = "right";
+	public static final String AXIS_VERTICAL = "vertical";
+	public static final String AXIS_HORIZONTAL = "horizontal";	
 	
+	/**=============================================
+	 * coin flip 
+	 *==============================================*/
+	public static final int COIN_FLIP_HEADS = 0;
+	public static final int COIN_FLIP_TAILS = 1;
+	
+	/**=============================================
+	 * skill level 
+	 *==============================================*/
+	public static final int SKILL_LEVEL_NOVICE = 1;
+	public static final int SKILL_LEVEL_MID_LEVEL = 2;
+	public static final int SKILL_LEVEL_ADVANCED = 3;	
 	
 }//end class Constants
  

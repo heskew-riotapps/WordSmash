@@ -253,4 +253,14 @@ public class Utils {
         ar[i] = a;
       }
     }
+    
+    public static int coinFlip(){
+    	return (int)(Math.random() * 2);
+    }
+    
+    public static int getRandomNumberFromRange(int min, int max){
+    	
+    	return min + (int)(Math.random() * ((max - min) + 1));
+ 
+    }
 }

@@ -33,6 +33,7 @@ import com.riotapps.word.ui.GameSurfaceView;
 import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.GameTileComparator;
 import com.riotapps.word.ui.PlacedResult;
+import com.riotapps.word.ui.PlacedResultComparator;
 import com.riotapps.word.ui.PlacedWord;
 import com.riotapps.word.ui.RowCol;
 import com.riotapps.word.data.GameData;
@@ -492,6 +493,7 @@ public static void skip(boolean isOpponent, Game game){
 		//nothing can be done except to skip or swap.  in this case, let's swap 3 letters
 		if (game.getPlayedWords().size() ==0 && !opponentGame.doesTrayContainAVowel()){
 
+			Logger.d(TAG, "Autoplay, no vowels at beginning of game after a skip or swap.  swapping 3 letters");
 			//just grab first 3 letters for now
 			swappedLetters.add(opponentGame.getTrayLetters().get(0));
 			swappedLetters.add(opponentGame.getTrayLetters().get(1));
@@ -500,6 +502,42 @@ public static void skip(boolean isOpponent, Game game){
 			
 			return;
 		}
+		
+		if (!opponentGame.doesTrayContainAVowel()){
+			Logger.d(TAG, "autoplay, tray contains NO VOWELS");
+		}
+		if (!opponentGame.doesTrayContainAConsonant()){
+			Logger.d(TAG, "autoplay, tray contains NO CONSONANTS");
+		}
+		
+		
+		//randomly swap if there are no vowels
+		if (!opponentGame.doesTrayContainAVowel() && game.getHopper().size() > 0 && Utils.coinFlip() == Constants.COIN_FLIP_HEADS){
+			Logger.d(TAG, "Autoplay, no vowels.  swapping 3 letters, depending on hopper size");
+			
+			//just grab first 3 letters for now
+			swappedLetters.add(opponentGame.getTrayLetters().get(0));
+			if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(1)); }
+			if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(2)); }
+			GameService.swap(true, game, swappedLetters);
+			
+			return;
+		}
+		
+		//randomly swap if there are no consonants
+		if (!opponentGame.doesTrayContainAConsonant() && game.getHopper().size() > 0 && Utils.coinFlip() == Constants.COIN_FLIP_HEADS){
+
+			Logger.d(TAG, "Autoplay, no consonants.  swapping 3 letters, depending on hopper size");
+			
+			//just grab first 3 letters for now
+			swappedLetters.add(opponentGame.getTrayLetters().get(0));
+			if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(1)); }
+			if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(2)); }
+			GameService.swap(true, game, swappedLetters);
+			
+			return;
+		}
+
 		
 		//create collections for H/V tiles/sets. 
 		//object in collection must contain letter(s),len , x, y
@@ -656,7 +694,7 @@ public static void skip(boolean isOpponent, Game game){
 		for (String s : opponentGame.getTrayLetters()){
 			tray += s + " ";
 		}
-		Logger.d(TAG, "autoplay: tray Letters=" + tray);
+		Logger.d(TAG, "autoplay: (2) tray Letters=" + tray);
 		
 		for (List<String> tileSet : tileSets){
 			String set = "";
@@ -707,188 +745,17 @@ public static void skip(boolean isOpponent, Game game){
 			int numTilesToTheLeft = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_LEFT);
 			
 			Logger.d(TAG, "autoplay boardPosition=" + playedTile.getBoardPosition() + " letter=" +  playedTile.getLatestPlayedLetter().getLetter() + " numTilesAbove=" + numTilesAbove + " numTilesBelow=" + numTilesBelow);
-			if (numTilesAbove > 0 && numTilesBelow > 0 ) {
-				//here we have the opportunity to play a word down starting on this tile
+		//	if (numTilesAbove > 0 && numTilesBelow > 0 ) {
 				
-//				if (opponentGame.getTrayLetters().size() <= numTilesBelow){
-//					
-//				}
-				Logger.d(TAG, "autoplay, going to check words now");
-				
-				for (int x = (numTilesBelow > 7 ? 7 : numTilesBelow); x > 0; x--){
-					
-					List<List<String>> letterSets = new ArrayList<List<String>>();
-					switch (x){
-						case 7:
-							letterSets = getLetterSetBase(letterSets_7);
-							Logger.d(TAG, "autoplay, going to check letter sets 7 in length now");
-							break;
-						case 6:
-							letterSets = getLetterSetBase(letterSets_6);
-							Logger.d(TAG, "autoplay, going to check letter sets 6 in length now");
-							break;
-						case 5:
-							letterSets = getLetterSetBase(letterSets_5);
-							Logger.d(TAG, "autoplay, going to check letter sets 5 in length now");
-							break;
-						case 4:
-							letterSets = getLetterSetBase(letterSets_4);
-							Logger.d(TAG, "autoplay, going to check letter sets 4 in length now");
-							break;
-						case 3:
-							letterSets = getLetterSetBase(letterSets_3);
-							Logger.d(TAG, "autoplay, going to check letter sets 3 in length now");
-							break;
-						case 2:
-							letterSets = getLetterSetBase(letterSets_2);
-							Logger.d(TAG, "autoplay, going to check letter sets 2 in length now");
-							break;
-						case 1:
-							letterSets = getLetterSetBase(letterSets_1);
-							Logger.d(TAG, "autoplay, going to check letter sets 1 in length now");
-							break;
-					}
-					
-					for (List<String> letterSet : letterSets){
-						
-						
-						String set = "";
-						
-						for (String s : letterSet){
-							set += s + " ";
-						}	
-						Logger.d(TAG, "autoplay inside check for words loop letterSet length=" + letterSet.size() + " " + set);
-						
-						letterSet.add(playedTile.getLatestPlayedLetter().getLetter());
-
-						set = "";
-							
-						for (String s : letterSet){
-							set += s + " ";
-						}	
-						
-						Logger.d(TAG, "autoplay inside check for words loop letterSet length after adding letter=" + letterSet.size() + " " + set);
-						//resort since we just add a letter to the mix
-						Collections.sort(letterSet);
-						
-						String index = "";
-						//put the letters into a string to use as a parameter to look up valid matches by index
-						for (String s : letterSet){
-							index += s;
-						}
-						
-						Logger.d(TAG, "autoplay, going to check index " + index);
-						
-						//get all the words that match the index
-						List<String> matches = wordService.getMatchingWordsFromIndex(index);
-
-						Logger.d(TAG, "autoplay, num matching words for index " + index + "=" + matches.size());
-						
-						//loop through the matches looking for the first letter that is the same as the played letter
-						//this will be enhanced
-						for (String match : matches){
-							Logger.d(TAG, "autoplay word match=" + match + " playedLetter=" + playedTile.getLatestPlayedLetter().getLetter());
-							if (match.startsWith(playedTile.getLatestPlayedLetter().getLetter().toLowerCase())){
-								//set the placed tiles and then called check rules
-								boolean ok = true;
-								
-								Logger.d(TAG, "autoplay word actual match=" + match);
-								
-								//let's split the word back into strings
-								String[] wordSplit = match.trim().split("");
-									
-								//set the initial boardPosition based on the tile in context
-								//int boardPosition = playedTile.getBoardPosition(); 
-								
-								Logger.d(TAG, "autoplay word match playedTile.getBoardPosition()=" + playedTile.getBoardPosition());
-								int boardPosition = TileLayoutService.getTileIdBelow(playedTile.getBoardPosition());
-
-								
-								//reset the boardTiles each time through
-								List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles);
-					 
-								int numplacedtiles = 0;
-								for(GameTile tile : gameBoardTiles){
-									if (tile.getPlacedLetter().length() > 0){
-										numplacedtiles += 1;
-									}
-								}
-								
-								Logger.d(TAG, "autoplay word num placed tiles from boardtiles=" + numplacedtiles + " num placed in this turn=" + String.valueOf(wordSplit.length - 1));
-								
-								//handle if board position is 255
-								//let's traverse down the letters, placing them on a board tile
-								//for (String letter : wordSplit){
-								//because java adds empty string as the first element,
-								//use 2 to get the second element to
-								for (int y = 2; y < wordSplit.length; y ++) {
-									
-									Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition);
-
-									if (boardPosition == 255){
-										//we've reached a border and cant go any further, abort this word
-										ok = false;
-										Logger.d(TAG, "autoplay, border hit trying to play board tiles");
-										break;
-									}
-									
-									//skip first letter
-									String letter = wordSplit[y];
-									//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
-									//perhaps add List<GameTile> to placedResult just for convenience
-									gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
-									
-									Logger.d(TAG, "autoplay, add letter " + letter + " on position " + boardPosition);
-									
-									//advance the board position		
-									boardPosition = TileLayoutService.getTileIdBelow(boardPosition);
-								}
-								
-								//now that we have the letters placed on the board, lets check the rules to validate and assign points
-								try{
-									if (ok){
-										//add to the placedResults list if the word is good
-										//later we will decide which placedResult to play
-										 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
-										 
-										 placedResults.add(placedResult);
-										 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
-									}
-									else{
-										
-									}
-								}
-								catch (DesignByContractException e){
-
-							    	 //there was a problem, do not add to list
-									
-									 Logger.d(TAG, "autoplay DesignByContractException=" + e.getMessage());
-							    
-									
-								}
-								
-								
-								
-							}
-						}
-					}
-					
-					
-					
-				}
-				
-				
-				
-				
-					
-					
-			//	wordService.getMatchingIndexes(index)
-			
-			}
-			
-			
-			
-			
+			findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
+					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+					numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout);
+ 				
+			findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
+					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+		
+			//will make this tighter and smarter with side by side perpendicular lookups
 		}
 		
 		//for each in V col 
@@ -976,14 +843,55 @@ public static void skip(boolean isOpponent, Game game){
 			//we have a play to handle
 			//for the moment, let's just take the first placedResult
 			
-			Logger.d(TAG, "autoplay - play numOptions=" + placedResults.size());
+			Logger.d(TAG, "autoplay - play NUMBER OF OPTIONS =" + placedResults.size());
 			
-			//for basic, tend to stick to 4 or less in word length or from bottom 50%
-			//for medium, pull from bottom 75% of valid scores
-			//for advanced, pull from top 75% of valid scores 
+			//for basic, pull from bottom 50%
+			//for medium, pull from bottom 25% to 75% of valid scores
+			//for advanced, pull from top 25% of valid scores 
 			
+			Collections.sort(placedResults, new PlacedResultComparator());
+			
+			int numOptions = placedResults.size();
+			int randomIndex = 0;
+			int base = 1;
+			
+			if (numOptions > 9){
+				
+				switch (game.getOpponent().getSkillLevel()){
+					case Constants.SKILL_LEVEL_NOVICE:
+						base = Math.round(numOptions / 2);
+						randomIndex = Utils.getRandomNumberFromRange(0, base);
+						break;
+					case Constants.SKILL_LEVEL_MID_LEVEL:
+						base = Math.round(numOptions / 4);
+						randomIndex = Utils.getRandomNumberFromRange(base, numOptions - base);					
+						break;
+					case Constants.SKILL_LEVEL_ADVANCED:
+						base = Math.round(numOptions / 4); 
+						randomIndex = Utils.getRandomNumberFromRange(numOptions - base, numOptions - 1);
+						break;
+				}
+			}
+			else if (numOptions == 1){
+				randomIndex = 0;
+			}
+			else {
+				//can tighten this into skill levels later if needed
+				randomIndex = Utils.getRandomNumberFromRange(0, numOptions - 1);
+			}
+			
+			Logger.d(TAG, "autoplay HIGHEST SCORED OPTION POINTS=" + placedResults.get(numOptions - 1).getTotalPoints());
 			//this can be enhanced based on the skill level of the opponent perhaps
-			GameService.play(true, game, placedResults.get(0));
+
+			try{
+				Logger.d(TAG, "autoplay index=" + randomIndex);
+				GameService.play(true, game, placedResults.get(randomIndex));
+			}
+			catch (IndexOutOfBoundsException e){
+				Logger.d(TAG, "autoplay IndexOutOfBoundsException index=0");
+				//just in case we are out of index, though this should not be an issue
+				GameService.play(true, game, placedResults.get(0));
+			}
 		}
 			
 		
@@ -1007,6 +915,216 @@ public static void skip(boolean isOpponent, Game game){
 		//return GameService.play(true, game, placedResult);
 		//return GameService.skip(true, game);
 	 	//return GameService.swap(true, game, placedResult);
+	}
+	
+	private static void findWordsUpOrDownSingleTile(String axis, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
+		List<List<String>> letterSets_7, List<List<String>> letterSets_6, List<List<String>> letterSets_5, List<List<String>> letterSets_4,
+		List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, int numTilesBehind,
+		int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout)
+	{
+		if (numTilesBehind > 0 && numTilesAhead > 0 ) {
+			//here we have the opportunity to play a word down or up across a single tile  
+			
+//			if (opponentGame.getTrayLetters().size() <= numTilesBelow){
+//				
+//			}
+			Logger.d(TAG, "autoplay, going to check words now");
+			
+			for (int x = ((numTilesAhead + numTilesBehind) > 7 ? 7 : (numTilesAhead + numTilesBehind)); x > 0; x--){
+				
+				List<List<String>> letterSets = new ArrayList<List<String>>();
+				switch (x){
+					case 7:
+						letterSets = getLetterSetBase(letterSets_7);
+						Logger.d(TAG, "autoplay, going to check letter sets 7 in length now");
+						break;
+					case 6:
+						letterSets = getLetterSetBase(letterSets_6);
+						Logger.d(TAG, "autoplay, going to check letter sets 6 in length now");
+						break;
+					case 5:
+						letterSets = getLetterSetBase(letterSets_5);
+						Logger.d(TAG, "autoplay, going to check letter sets 5 in length now");
+						break;
+					case 4:
+						letterSets = getLetterSetBase(letterSets_4);
+						Logger.d(TAG, "autoplay, going to check letter sets 4 in length now");
+						break;
+					case 3:
+						letterSets = getLetterSetBase(letterSets_3);
+						Logger.d(TAG, "autoplay, going to check letter sets 3 in length now");
+						break;
+					case 2:
+						letterSets = getLetterSetBase(letterSets_2);
+						Logger.d(TAG, "autoplay, going to check letter sets 2 in length now");
+						break;
+					case 1:
+						letterSets = getLetterSetBase(letterSets_1);
+						Logger.d(TAG, "autoplay, going to check letter sets 1 in length now");
+						break;
+				}
+				
+				for (List<String> letterSet : letterSets){
+					
+					
+					String set = "";
+					
+					for (String s : letterSet){
+						set += s + " ";
+					}	
+					Logger.d(TAG, "autoplay inside check for words loop letterSet length=" + letterSet.size() + " " + set);
+					
+					letterSet.add(playedTile.getLatestPlayedLetter().getLetter());
+
+					set = "";
+						
+					for (String s : letterSet){
+						set += s + " ";
+					}	
+					
+					Logger.d(TAG, "autoplay inside check for words loop letterSet length after adding letter=" + letterSet.size() + " " + set);
+					//resort since we just add a letter to the mix
+					Collections.sort(letterSet);
+					
+					String index = "";
+					//put the letters into a string to use as a parameter to look up valid matches by index
+					for (String s : letterSet){
+						index += s;
+					}
+					
+					Logger.d(TAG, "autoplay, going to check index " + index);
+					
+					//get all the words that match the index
+					List<String> matches = wordService.getMatchingWordsFromIndex(index);
+
+					Logger.d(TAG, "autoplay, num matching words for index " + index + "=" + matches.size());
+					
+					//loop through the matches looking for the first letter that is the same as the played letter
+					//this will be enhanced
+					for (String match : matches){
+						//find the position of the already played tile (the first instance of it)
+						
+						int playedTilePositionInWord = match.indexOf(playedTile.getLatestPlayedLetter().getLetter().toLowerCase());
+						
+						Logger.d(TAG, "autoplay word match=" + match + " playedLetter=" + playedTile.getLatestPlayedLetter().getLetter() + " playedTilePosition=" + playedTilePositionInWord);
+					//	if (match.startsWith(playedTile.getLatestPlayedLetter().getLetter().toLowerCase())){
+							//set the placed tiles and then called check rules
+							boolean ok = true;
+							
+							Logger.d(TAG, "autoplay word actual match=" + match);
+							
+							//let's split the word back into strings
+							String[] wordSplit = match.trim().split("");  
+								
+							//set the initial boardPosition based on the tile in context
+							//int boardPosition = playedTile.getBoardPosition(); 
+							
+							Logger.d(TAG, "autoplay word match playedTile.getBoardPosition()=" + playedTile.getBoardPosition());
+							//int boardPosition = TileLayoutService.getTileIdBelow(playedTile.getBoardPosition());
+
+							
+							//reset the boardTiles each time through
+							List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
+				 
+							//this is temp, for logging/debugging only
+							int numplacedtiles = 0;
+							for(GameTile tile : gameBoardTiles){
+								if (tile.getPlacedLetter().length() > 0){
+									numplacedtiles += 1;
+								}
+							}
+							
+							//establish anchor position from already played tile
+							int anchorPosition = playedTile.getBoardPosition();
+							
+							Logger.d(TAG, "autoplay word num placed tiles from boardtiles=" + numplacedtiles + " num placed in this turn=" + String.valueOf(wordSplit.length - 1));
+							
+							//handle if board position is 255
+							//let's traverse down the letters, placing them on a board tile
+							//for (String letter : wordSplit){
+							//because java adds empty string as the first element, its a bit annoying
+							//use 1 to get the first  element  
+							for (int y = 1; y < wordSplit.length; y ++) {
+
+								//if our loop variable is equal to the playedTilePositionInWord, do not add this letter to the board
+								//it is the position of the already played letter
+								if (y == playedTilePositionInWord  + 1){
+								 
+								}
+								else{
+									//place board tiles based on the relative position of the already played letter
+									int difference = playedTilePositionInWord - y + 1;
+									
+									//a positive difference means go up/left
+									//a negative difference means go down/right
+									
+									int boardPosition = 0;
+									if (difference > 0){
+										if (axis.equals(Constants.AXIS_HORIZONTAL)){
+											boardPosition = TileLayoutService.getTileIdXToTheLeft(anchorPosition, difference);											
+										}
+										else{
+											boardPosition = TileLayoutService.getTileIdXAbove(anchorPosition, difference);
+										}	
+									}
+									else{
+										if (axis.equals(Constants.AXIS_HORIZONTAL)){
+											boardPosition = TileLayoutService.getTileIdXToTheRight(anchorPosition, Math.abs(difference));
+										}
+										else{
+											boardPosition = TileLayoutService.getTileIdXBelow(anchorPosition, Math.abs(difference));
+										}
+									}
+												
+									Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition + " difference=" + difference);
+
+									if (boardPosition == 255){
+										//we've reached a border and cant go any further, abort this word
+										ok = false;
+										Logger.d(TAG, "autoplay, border hit trying to play board tiles");
+										break;
+									}
+									
+									//skip first letter
+									String letter = wordSplit[y];
+									//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
+									//perhaps add List<GameTile> to placedResult just for convenience
+									gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
+									
+									Logger.d(TAG, "autoplay, add letter " + letter + " on position " + boardPosition);
+									
+									//this was temp
+									////advance the board position		
+									///boardPosition = TileLayoutService.getTileIdBelow(boardPosition);
+								}
+							}
+							
+							//now that we have the letters placed on the board, lets check the rules to validate and assign points
+							try{
+								if (ok){
+									//add to the placedResults list if the word is good
+									//later we will decide which placedResult to play
+									 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+									 
+									 placedResults.add(placedResult);
+									 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
+								}
+								else{
+									
+								}
+							}
+							catch (DesignByContractException e){
+
+						    	 //there was a problem, do not add to list
+								
+								 Logger.d(TAG, "autoplay DesignByContractException=" + e.getMessage());
+						    
+								
+							}
+						}
+				}	
+			}
+		}	
 	}
 	
 	private static List<GameTile> getBoardBaseTiles(List<GameTile> boardTiles){
