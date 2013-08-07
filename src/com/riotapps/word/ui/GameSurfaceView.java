@@ -402,6 +402,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	   	this.LoadTray();
 	    this.setInitialButtonStates();
 	    this.resetPointsView();
+	    this.parent.callback();
 	}
 
 	

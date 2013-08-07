@@ -116,7 +116,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 
 	 private String lastPlayerActionBeforeAutoplay = "";
 	 
+	 private boolean isPreAutoplayTaskRunning = false;
+	 
 	 private AutoplayTask autoplayTask = null; 
+	 private PreAutoplayTask preAutoplayTask = null; 
+	 private List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
 	 
 //	 private RevMob revmob;
 //	 private RevMobAdsListener revmobListener;
@@ -137,6 +141,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private GameActionType postTurnAction;
 	 private CustomProgressDialog spinner;
 	 
+	 private boolean isGamePopulating = true;
 	 //View bottom;
 	private int currentPoints = 0;
 	public static final int MSG_SCOREBOARD_VISIBILITY = 1;
@@ -316,7 +321,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	//this.setupTimer();
 	 	this.setupAdServer();
 	 	this.setupMenu();
-	 
+ 
 	 }
 	
  
@@ -438,6 +443,29 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	this.setupButtons();
 	 	this.setupFonts();
 
+	}
+	
+	public void callback(){
+		//just in case the game got stuck before the autoplay could complete
+	 	if (this.isGamePopulating && this.game.getPlayerGames().get(1).isTurn()){
+	 		spinner = new CustomProgressDialog(this);
+			    spinner.setMessage(String.format(this.getString(R.string.progress_opponent_thinking), this.game.getOpponent().getName()));
+			    spinner.show();
+			
+	//		GameService.autoPlay(this, this.game, this.gameSurfaceView.getTiles());
+			
+			this.autoplayTask = new AutoplayTask();
+			this.autoplayTask.execute();
+	 	}
+	 	
+	 	//prime the pump for opponent's turn
+		if (this.isGamePopulating && this.game.getPlayerGames().get(0).isTurn()){
+			this.placedResults.clear();
+			this.preAutoplayTask = new PreAutoplayTask();
+			this.preAutoplayTask.execute();
+		}
+	 	
+	 	this.isGamePopulating = false;
 	}
 	
 	public void onInitialRenderComplete(){
@@ -844,6 +872,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			GameStateService.setGameState(this.getGameState());
 		}
 		
+		if (this.preAutoplayTask != null){
+    		this.preAutoplayTask.cancel(true);
+    		this.preAutoplayTask = null;
+    	}
 	///	this.stopTimer();
 		//this.stopRunawayAdTimer();
 		this.dismissHopperPeekDialog();
@@ -1459,7 +1491,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	//this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
 	    	 
+	     
 	    		GameService.play(false, game, placedResult);
+		     
 	    		gameState = GameStateService.clearGameState(game.getId());
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
@@ -1642,7 +1676,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 
 	    }
 	    public void handlePostAutoplay(){
-	    	 
+	    	spinner.setMessage(this.getString(R.string.progress_wait));
 	    	 String opponentAction = game.getLastActionText(context);
 
 				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
@@ -1666,6 +1700,12 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				handleInterstitialAd();
 	    }
 	    
+	    public void handlePostPreAutoplay(){
+	    	this.isPreAutoplayTaskRunning = false;
+	    	 this.preAutoplayTask = null;
+	    	 Logger.d(TAG, "handlePostPreAutoplay numPlacedResults derived=" + this.placedResults.size());
+	    	
+	    }
 	    
 	    public void handlePostAdServer(){
 	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
@@ -1677,6 +1717,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
     		 		spinner = null;
     		 	}
     		 	DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
+    		 	
+    		 	//lets prime the pump for the next play
+    		 	this.preAutoplayTask = new PreAutoplayTask();
+    			this.preAutoplayTask.execute();
 	    	}
 	    }
 	    
@@ -2436,59 +2480,6 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		};
 
 		
-		
-		
-		
-		/*
-		//let's bind to the GCM Service so that when player is in the context of a game, and an alert
-		//for that specific game is detected, we will run a refresh of the game to get latest
-		//doing this will allow the removal of the refresh timer
-		private GCMIntentService mBoundService;
-
-		private ServiceConnection mConnection = new ServiceConnection() {
-		    public void onServiceConnected(ComponentName className, IBinder service) {
-		        // This is called when the connection with the service has been
-		        // established, giving us the service object we can use to
-		        // interact with the service.  Because we have bound to a explicit
-		        // service that we know is running in our own process, we can
-		        // cast its IBinder to a concrete class and directly access it.
-		        mBoundService = ((GCMIntentService.LocalBinder)service).getService();
-
-		        // Tell the user about this for our demo.
-		        Toast.makeText(GameSurface.this, mBoundService.gameId,
-		                Toast.LENGTH_LONG).show();
-		    }
-
-		    public void onServiceDisconnected(ComponentName className) {
-		        // This is called when the connection with the service has been
-		        // unexpectedly disconnected -- that is, its process crashed.
-		        // Because it is running in our same process, we should never
-		        // see this happen.
-		        mBoundService = null;
-		        Toast.makeText(GameSurface.this, "disconnected",
-		                Toast.LENGTH_LONG).show();
-		    }
-		};
-
-		void doBindService() {
-		    // Establish a connection with the service.  We use an explicit
-		    // class name because we want a specific service implementation that
-		    // we know will be running in our own process (and thus won't be
-		    // supporting component replacement by other applications).
-		    bindService(new Intent(GameSurface.this, 
-		    		GCMIntentService.class), mConnection, Context.BIND_AUTO_CREATE);
-		    isBoundToGCMService = true;
-		}
-		
-		void doUnbindService() {
-			if (isBoundToGCMService) {
-				// Detach our existing connection.
-				unbindService(mConnection); 
-				isBoundToGCMService = false;
-				}
-			}
- 	*/
-		
 	    private void trackEvent(String action, String label, int value){
 	    	this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, action, label, (long)value);
 	    }
@@ -2629,7 +2620,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 @Override
 			 protected Void doInBackground(Void... params) {
 				 GameSurface.this.lastPlayerActionBeforeAutoplay = GameSurface.this.game.getLastActionText(context);
-		    	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles());
+		    	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles(), true, GameSurface.this.placedResults);
 				
 		    	 
 		    	 return null;
@@ -2642,6 +2633,32 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		   //  }
 		     protected void onPostExecute(Void param) {
 		    	 GameSurface.this.handlePostAutoplay();
+		     }
+
+		 
+		 }
+		 
+		 private class PreAutoplayTask extends AsyncTask<Void, Void, Void> {
+			  
+			 @Override
+			 protected Void doInBackground(Void... params) {
+				 GameSurface.this.captureTime("PreAutoplayTask STARTING");
+				 //while player is thinking, let's gather possible plays for opponent to save time
+				 GameSurface.this.isPreAutoplayTaskRunning = true;
+		    	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles(), false, GameSurface.this.placedResults);
+				
+		    	 
+		    	 return null;
+		    	 
+		    	 //return game; 
+		     }
+
+		   //  protected void onProgressUpdate(Integer... progress) {
+		   //      setProgressPercent(progress[0]);
+		   //  }
+		     protected void onPostExecute(Void param) {
+				 GameSurface.this.captureTime("PreAutoplayTask ENDING");
+		    	 GameSurface.this.handlePostPreAutoplay();
 		     }
 
 		 

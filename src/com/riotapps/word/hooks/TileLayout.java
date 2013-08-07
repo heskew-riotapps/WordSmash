@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
+import com.riotapps.word.utils.Utils;
 
 public class TileLayout {
 
@@ -55,6 +56,14 @@ public class TileLayout {
 		public void setScope(String scope) {
 			this.S = scope;
 		}
+	}
+	
+	public int getRandomStarterTilePosition(){
+		int randomIndex = Utils.getRandomNumberFromRange(0, this.StarterTiles.size() - 1);
+		
+		return this.StarterTiles.get(randomIndex).getId();
+		
+		
 	}
 	
 }

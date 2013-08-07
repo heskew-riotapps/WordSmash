@@ -9,6 +9,7 @@ public class Logger {
 	
 	public static final boolean LOG_OK = true; 
 	public static final boolean LOG_GAME_SURFACE_VIEW_OK = true; 
+	public static final boolean LOG_TIMER_CAPTURE_ONLY = false; 
 
 	public static void w(String tag, String msg){
 		if (BuildConfig.DEBUG && LOG_OK) {
@@ -35,8 +36,14 @@ public class Logger {
 		//		(!LOG_GAME_SURFACE_VIEW_OK && tag.equals(GameSurfaceView.class.getSimpleName())) || 
 		//		!tag.equals(GameSurfaceView.class.getSimpleName())
 		//   ){
+		if (LOG_TIMER_CAPTURE_ONLY){
+			if (msg.indexOf("time since last capture") > -1){
+				Log.d((tag==null?"UNKNOWN_TAG":tag), (msg==null?"unknown message":msg));			
+			}
+		}
+		else{
 			Log.d((tag==null?"UNKNOWN_TAG":tag), (msg==null?"unknown message":msg));			
-			
+		}
 		//}
 		//}
 	}

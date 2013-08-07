@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.SortedSet;
 
+import android.app.ActivityManager;
 import android.content.Context;
 
 import com.riotapps.word.R;
@@ -16,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.riotapps.word.data.DatabaseHelper;
 import com.riotapps.word.data.WordData;
 import com.riotapps.word.utils.ApplicationContext;
+import com.riotapps.word.utils.Cache;
 import com.riotapps.word.utils.Logger;
 
 public class WordService {
@@ -78,6 +80,8 @@ public class WordService {
 	private static SortedSet<String> words_x = null;
 	private static SortedSet<String> words_y = null;
 	private static SortedSet<String> words_z = null;
+	
+	private Cache cache = null;
 	
 	private static SortedSet<String> word_index = null;	
 	
@@ -152,6 +156,12 @@ public class WordService {
 		
 		this.data.open();
 		
+	 
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		int memoryClassBytes = am.getMemoryClass() * 1024 * 1024;
+
+		this.cache = new Cache(memoryClassBytes / 6);  //drive this from application context 
+		
 	}
 	/*public void initialize(Context context){
 		//this.createDatabase(context);
@@ -192,11 +202,26 @@ public class WordService {
 		
 	}
  
+	@SuppressWarnings("unchecked")
 	public List<String> getMatchingWordsFromIndex(String index){
+ 
+		List<String> list = (List<String>)cache.get(TAG + "_wfi_" + index);
+
+        if (list != null) {
+          Logger.d(TAG, "index " + index + " retrieved from cache!!!!!");	
+          return list;
+        }
+
+		list = this.data.getMatchingWordsFromIndex(index.toLowerCase());
 		
-		return this.data.getMatchingWordsFromIndex(index.toLowerCase());
+		cache.put(TAG + "_wfi_" + index, list);
+		return list;
 	}
-	
+	public List<String> getMatchingWordsFromIndexArray(String[] index){
+ 
+		return this.data.getMatchingWordsFromIndexArray(index);
+ 
+	}
 	
 	public static void createDatabase(Context context){
 		DatabaseHelper db = new DatabaseHelper(context);

@@ -10,6 +10,7 @@ import java.util.TreeSet;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
+import com.riotapps.word.ui.PlacedResult;
 
 public class PlayerGame implements Parcelable{
 	private static final String TAG = PlayerGame.class.getSimpleName();
@@ -39,6 +40,8 @@ public class PlayerGame implements Parcelable{
 	
 	@SerializedName("st")
 	private int status = 0;
+	
+//	private List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
 	
 /*	@SerializedName("l_t")
 	private int lastTurn;
@@ -105,7 +108,15 @@ public class PlayerGame implements Parcelable{
 	public boolean isOpponent(){
 		return this.playerOrder == 2;
 	}
-	
+	/*
+	public List<PlacedResult> getPlacedResults() {
+		return placedResults;
+	}
+
+	public void setPlacedResults(List<PlacedResult> placedResults) {
+		this.placedResults = placedResults;
+	}
+*/
 	public String getPlayerName(){
 		//make sure this stuff is cached well
 		

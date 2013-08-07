@@ -247,8 +247,11 @@
 		<string name="game_list_game_over_loss">%4$s won %2$s - %3$s %1$s</string>
 		<string name="game_list_game_over_draw">a %2$s - %2$s draw was declared %1$s</string>
 		<string name="game_surface_game_over_win">you defeated %3$s %1$s - %2$s</string>
+		<string name="game_surface_game_over_win_after_skips">after 4 skips in a row, you defeated %3$s %1$s - %2$s</string>
 		<string name="game_surface_game_over_loss">%3$s won %1$s - %2$s</string>
+		<string name="game_surface_game_over_loss_after_skips">after 4 skips in a row, %3$s won %1$s - %2$s</string>
 		<string name="game_surface_game_over_draw">a %1$s - %2$s draw was declared</string>
+		<string name="game_surface_game_over_draw_after_skips">after 4 skips in a row, a %1$s - %2$s draw was declared</string>
 		<string name="lookup_definition_num">%s.</string>
 		<string name="lookup_definition">(%1$s) %2$s</string>
 		<string name="lookup_definition_not_found">Sorry, we couldn\'t find the definition.</string>

@@ -559,6 +559,28 @@ public class Game implements Parcelable, Comparable<Game> {
 
 		Logger.d(TAG, "getLastActionText this.getStatus() ()=" + this.getStatus() );
 		if (this.getStatus() == 3) { //game over
+			if (this.getLastAction().equals(LastAction.TURN_SKIPPED)){
+				//this means the game was called because of 4 consecutive skips
+				 if (contextPlayerGame.isWinner()){
+					 return String.format(context.getString(R.string.game_surface_game_over_win_after_skips),
+							 contextPlayerGame.getScore(),
+							 opponentGame.getScore(),
+							 opponentName);
+				 }
+				 else if (contextPlayerGame.isDraw()){ 
+					 return String.format(context.getString(R.string.game_surface_game_over_draw_after_skips),
+							 contextPlayerGame.getScore(),
+							 contextPlayerGame.getScore());
+				 }
+				 else { 
+					 return String.format(context.getString(R.string.game_surface_game_over_loss_after_skips),
+							 opponentGame.getScore(),
+							 contextPlayerGame.getScore(),
+							 opponentName);
+				 }
+				
+			}
+			else {
 		  		 if (contextPlayerGame.isWinner()){
 					 return String.format(context.getString(R.string.game_surface_game_over_win),
 							 contextPlayerGame.getScore(),
@@ -576,7 +598,7 @@ public class Game implements Parcelable, Comparable<Game> {
 							 contextPlayerGame.getScore(),
 							 opponentName);
 				 }
-				 //handle draw
+			}	 //handle draw
 		 
 		}
 		else{
@@ -664,7 +686,17 @@ public class Game implements Parcelable, Comparable<Game> {
 
 	public int getNumConsecutiveSkips(){
 		int skips = 0;
-		for(PlayedTurn turn : this.playedTurns){
+		
+		//have to go backwards
+		for (int i = this.playedTurns.size() - 1; i >= 0; i--){
+			if (this.playedTurns.get(i).getAction() == 10){
+				skips = skips + 1;
+			}
+			else{
+				break;
+			}
+		}
+	/*	for(PlayedTurn turn : this.playedTurns){
 			if (turn.getAction() == 10){
 				skips = skips + 1;
 			}
@@ -672,6 +704,7 @@ public class Game implements Parcelable, Comparable<Game> {
 				break;
 			}
 		}
+		*/
 		return skips;
 
 	}
