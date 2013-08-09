@@ -12,6 +12,7 @@ import android.widget.TextView;
 public class CustomProgressDialog extends AlertDialog{
 	
 	  private String dialogText = "";
+	  private TextView dialog_text;
 	  
 	 // public void SetText(String text){
 	//	  this.dialogText = text;
@@ -42,12 +43,12 @@ public class CustomProgressDialog extends AlertDialog{
 	                                        (ViewGroup) findViewById(R.id.progress_root));
 	     
 	        this.setCancelable(false);
-	     	TextView text = (TextView) layout.findViewById(R.id.dialog_text);
+	        dialog_text = (TextView) layout.findViewById(R.id.dialog_text);
 	     	if (this.dialogText.length() > 0) {
-	     		text.setText(this.dialogText);
+	     		dialog_text.setText(this.dialogText);
 	     	}
 	     	else {
-	     		text.setVisibility(View.GONE);
+	     		dialog_text.setVisibility(View.GONE);
 	     	}
 
 	     	
@@ -62,4 +63,18 @@ public class CustomProgressDialog extends AlertDialog{
 	}  
 	  
 	  
+	public void updateMessage(String message){
+		 this.dialogText = message;
+		 //this.runOnUiThread(changeMessage);
+		 dialog_text.setText(CustomProgressDialog.this.dialogText);
+	}
+
+	private Runnable changeMessage = new Runnable() {
+	    @Override
+	    public void run() {
+	        //Log.v(TAG, strCharacters);
+	    	dialog_text.setText(CustomProgressDialog.this.dialogText);
+	    }
+	};
+	
 }

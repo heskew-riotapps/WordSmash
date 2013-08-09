@@ -411,7 +411,9 @@ public class Constants {
 	public static final int SKILL_LEVEL_MID_LEVEL = 2;
 	public static final int SKILL_LEVEL_ADVANCED = 3;	
 	
-	public static final int MAX_WORD_MATCHES = 30;
+	public static final int MAX_WORD_MATCHES_ACROSS = 30;
+	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 30;
+
 	
 }//end class Constants
  

@@ -116,6 +116,22 @@ public class PlayedTile {
 		}
 		return border;
 	}
+	
+	public boolean isOnLeftBorder() {
+		return TileLayoutService.isTileOnLeftBorder(this.boardPosition); 
+	}
+	public boolean isOnRightBorder() {
+		return TileLayoutService.isTileOnRightBorder(this.boardPosition); 
+	}
+
+	public boolean isOnTopBorder() {
+		return TileLayoutService.isTileOnTopRow(this.boardPosition); 
+	}
+	public boolean isOnBottomBorder() {
+		return TileLayoutService.isTileOnBottomRow(this.boardPosition); 
+	}
+
+	
 
 	public void setBorder(boolean isBorder) {
 		this.border = isBorder;

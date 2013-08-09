@@ -3,7 +3,9 @@ package com.riotapps.word.hooks;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -85,6 +87,14 @@ public class PlayerGame implements Parcelable{
 		return trayLetters;
 	}
 
+	public Set<String> getDistinctTrayLetters() {
+	//	List<String> gasList = createDuplicateGasStrings();
+	//	Set<String> uniqueGas = new HashSet<String>(trayLetters);
+		
+		return new HashSet<String>(trayLetters);
+	}
+
+	
 	public void setTrayTiles(List<String> trayLetters) {
 		this.trayLetters = trayLetters;
 	}

@@ -1428,6 +1428,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		this.isCompletedThisSession = true;
 	    		DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 				setupButtons();
+				setupGame();
 				GameStateService.removeGameState(game.getId());
 				this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 				//??this.gameSurfaceView.stopThreadLoop();
@@ -1490,7 +1491,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//try{
 	    	//DialogManager.SetupAlert(context, "played", "clicked");
  	    	//this.gameSurfaceView.stopThreadLoop();  //does thread loop need to still be stopped
-	    	 
+		    	
+	    		//just in case the primer is running, let's stop it
+	    		if (this.preAutoplayTask != null){
+		    		this.placedResults.clear();
+		    		this.preAutoplayTask.cancel(true);
+		    		this.preAutoplayTask = null;
+		    	}
 	     
 	    		GameService.play(false, game, placedResult);
 		     
@@ -1676,7 +1683,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 
 	    }
 	    public void handlePostAutoplay(){
-	    	spinner.setMessage(this.getString(R.string.progress_wait));
+	    	/*if (spinner != null) {
+		 		spinner.dismiss();
+		 		spinner = null;
+		 	}*/
+	    	spinner.updateMessage(this.getString(R.string.progress_wait));
 	    	 String opponentAction = game.getLastActionText(context);
 
 				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);

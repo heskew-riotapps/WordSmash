@@ -646,6 +646,8 @@ public class Game implements Parcelable, Comparable<Game> {
 						else {
 							return String.format(context.getString(R.string.game_last_action_word_played), this.getLastTurnPoints(), opponentName, words.get(0).getWord());						
 						}
+					case 0:
+						return context.getString(R.string.game_last_action_word_played_error);
 					default:
 						if (isContext){
 							return String.format(context.getString(R.string.game_last_action_2_words_played_context), this.getLastTurnPoints(), 
@@ -655,7 +657,6 @@ public class Game implements Parcelable, Comparable<Game> {
 							return String.format(context.getString(R.string.game_last_action_2_words_played), this.getLastTurnPoints(), opponentName, 
 									words.get(0).getWord(), words.get(1).getWord());						
 						}
-					
 					}
 				case TURN_SKIPPED:
 					if (isContext){
@@ -664,7 +665,7 @@ public class Game implements Parcelable, Comparable<Game> {
 					else{
 						return String.format(context.getString(R.string.game_last_action_skipped), opponentName);				
 					}		
-				
+					
 				case RESIGNED:
 					if (isContext){
 						return context.getString(R.string.game_last_action_resigned_context);
@@ -907,6 +908,13 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 	}
 	
+	public PlayedTile getPlayedTile(int boardPosition){
+		for (PlayedTile tile : this.playedTiles){
+			if (tile.getBoardPosition() == boardPosition) {return tile;}
+		}
+		return null;
+	}
+	
 	public PlayedTile getPlayedTileAbove(PlayedTile playedTile){
 		for (PlayedTile tile : this.playedTiles){
 			if (tile.getBoardPosition() == playedTile.getTileIdAbove()) {return tile;}
@@ -941,13 +949,16 @@ public class Game implements Parcelable, Comparable<Game> {
 		}
 		return false;
 	}
-	
+	 
 	public int getNumConsecutivePlayableEmptyTilesInADirection(PlayedTile playedTile, String direction){
+		return getNumConsecutivePlayableEmptyTilesInADirection(playedTile.getBoardPosition(), direction);
+	}
+	public int getNumConsecutivePlayableEmptyTilesInADirection(int position, String direction){
 		int i = 0;
 		int loopRegulator = 1;
 		boolean loop = true;
 //		PlayedTile loopTile = playedTile;
-		int loopId = playedTile.getBoardPosition();
+		int loopId = position;
 		
 		while(loop){
 			loopRegulator += 1;

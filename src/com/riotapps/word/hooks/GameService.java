@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -611,263 +613,339 @@ public static void skip(boolean isOpponent, Game game){
 		
 		//the layout 
 		//https://docs.google.com/spreadsheet/ccc?key=0AsYnYHEXRYMndElrQzVrdFh6Sm5aaERqX1U2ajlSU2c#gid=0
-	    
-		
-		if (!followThroughWithPlay || (followThroughWithPlay && tempPlacedResults.size() == 0)) {
-
-		 WordService wordService = new WordService(context);
+	   	WordService wordService = new WordService(context);
 		 
-		 try{
-				 if (game.getPlayedWords().size() == 0){
-					 //player skipped first turn, 
-					 //determine full words from tray and make a play on a random starter tile
+		try{ 
 		
-				
+			if (!followThroughWithPlay || (followThroughWithPlay && tempPlacedResults.size() == 0)) {
+	
 		
-					 List<String> sortedTray = GameService.getSortedTrayLetters(opponentGame.getTrayLetters());
-					 
-					 String trayLettersSorted = ""; 
-					 for (String s : sortedTray){
-						 trayLettersSorted += s;
-					 }
-					 
-					//Logger.d(TAG, "autoplay, player skipped firt turn. TRAY LETTERS=" + trayLettersSorted);
-						
-					//get all the words that match the index
-					//List<String> matches = wordService.getMatchingWordsFromIndex(trayLettersSorted);
+					 if (game.getPlayedWords().size() == 0){
+						 //player skipped first turn, 
+						 //determine full words from tray and make a play on a random starter tile
+			
 					
-					//if (matches.size() > 0){
-						//for each match
-					GameService.addWordsToStartGame( boardTiles, defaultLayout, context, game, placedResults, wordService );
-		 
-					//}
-					if (placedResults.size() == 0) {
-						//Logger.d(TAG, "autoplay, no full words in tray, swapping letters");
-						//swap letters 
-						//just grab first 3 letters for now
-						swappedLetters.add(opponentGame.getTrayLetters().get(0));
-						if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(1)); }
-						if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(2)); }
-						GameService.swap(true, game, swappedLetters);
+			
+						 List<String> sortedTray = GameService.getSortedTrayLetters(opponentGame.getTrayLetters());
+						 
+						 String trayLettersSorted = ""; 
+						 for (String s : sortedTray){
+							 trayLettersSorted += s;
+						 }
+						 
+						//Logger.d(TAG, "autoplay, player skipped firt turn. TRAY LETTERS=" + trayLettersSorted);
+							
+						//get all the words that match the index
+						//List<String> matches = wordService.getMatchingWordsFromIndex(trayLettersSorted);
 						
-						wordService.finish();
-					    wordService = null;
-					     
-						return;
-					}
+						//if (matches.size() > 0){
+							//for each match
+						GameService.addWordsToStartGame( boardTiles, defaultLayout, context, game, placedResults, wordService );
 			 
-				 }
-				 else{
-					//time to find some words to play 
-		/*
-						List<List<String>> tileSets = opponentGame.getSortedTrayLetterSets(4); //new ArrayList<List<String>>();
-						String tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-						Logger.d(TAG, "autoplay: tray Letters=" + tray);
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
+						//}
+						if (placedResults.size() == 0) {
+							//Logger.d(TAG, "autoplay, no full words in tray, swapping letters");
+							//swap letters 
+							//just grab first 3 letters for now
+							swappedLetters.add(opponentGame.getTrayLetters().get(0));
+							if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(1)); }
+							if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(2)); }
+							GameService.swap(true, game, swappedLetters);
 							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: set letters=" + set);
-									
+							wordService.finish();
+						    wordService = null;
+						     
+							return;
 						}
-				
-						tileSets = opponentGame.getSortedTrayLetterSets(5); //new ArrayList<List<String>>();
-						tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-						Logger.d(TAG, "autoplay: tray Letters=" + tray);
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
+				 
+					 }
+					 else{
+						//time to find some words to play 
+			/*
+							List<List<String>> tileSets = opponentGame.getSortedTrayLetterSets(4); //new ArrayList<List<String>>();
+							String tray = "";
 							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: set letters=" + set);
-									
-						}
-						
-						tileSets = opponentGame.getSortedTrayLetterSets(7); //new ArrayList<List<String>>();
-						tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-					 
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+							Logger.d(TAG, "autoplay: tray Letters=" + tray);
 							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: (7) set letters=" + set);
-									
-						}
-						
-						tileSets = opponentGame.getSortedTrayLetterSets(6); //new ArrayList<List<String>>();
-						tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-						Logger.d(TAG, "autoplay: tray Letters=" + tray);
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
-							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: set letters=" + set);
-									
-						}
-						
-						tileSets = opponentGame.getSortedTrayLetterSets(3); //new ArrayList<List<String>>();
-						tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-						Logger.d(TAG, "autoplay: tray Letters=" + tray);
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
-							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: set letters=" + set);
-									
-						}
-						
-						tileSets = opponentGame.getSortedTrayLetterSets(2); //new ArrayList<List<String>>();
-						tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-						Logger.d(TAG, "autoplay: (2) tray Letters=" + tray);
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
-							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: set letters=" + set);
-									
-						}
-						
-						tileSets = opponentGame.getSortedTrayLetterSets(1); //new ArrayList<List<String>>();
-						tray = "";
-						
-						for (String s : opponentGame.getTrayLetters()){
-							tray += s + " ";
-						}
-						Logger.d(TAG, "autoplay: tray Letters=" + tray);
-						
-						for (List<String> tileSet : tileSets){
-							String set = "";
-							
-							for (String s : tileSet){
-								set += s + " ";
-							}	
-							Logger.d(TAG, "autoplay: set letters=" + set);
-									
-						}
-						*/
-						//find standalone words (made up from letters only in the tray) in the tray for each combination between 2 and 7
-						//these can be used for placement at the end or beginning of already played words
-						//these words can potentially be found and stored earlier
-						
-						//these lists can be done ahead of time as well
-						List<List<String>> letterSets_7 = opponentGame.getSortedTrayLetterSets(7);
-						List<List<String>> letterSets_6 = opponentGame.getSortedTrayLetterSets(6);
-						List<List<String>> letterSets_5 = opponentGame.getSortedTrayLetterSets(5);
-						List<List<String>> letterSets_4 = opponentGame.getSortedTrayLetterSets(4);
-						List<List<String>> letterSets_3 = opponentGame.getSortedTrayLetterSets(3);
-						List<List<String>> letterSets_2 = opponentGame.getSortedTrayLetterSets(2);
-						List<List<String>> letterSets_1 = opponentGame.getSortedTrayLetterSets(1);
-						
-						
-						for (PlayedTile playedTile : game.getPlayedTiles()){
-							//easy checks first
-							int numTilesAbove = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_ABOVE);
-							int numTilesBelow = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_BELOW);
-							int numTilesToTheRight = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_RIGHT);
-							int numTilesToTheLeft = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_LEFT);
-							
-						//	Logger.d(TAG, "autoplay boardPosition=" + playedTile.getBoardPosition() + " letter=" +  playedTile.getLatestPlayedLetter().getLetter() + " numTilesAbove=" + numTilesAbove + " numTilesBelow=" + numTilesBelow);
-						//	if (numTilesAbove > 0 && numTilesBelow > 0 ) {
+							for (List<String> tileSet : tileSets){
+								String set = "";
 								
-							findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
-									letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-									numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout);
-				 				
-							findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
-									letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-									numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: set letters=" + set);
+										
+							}
+					
+							tileSets = opponentGame.getSortedTrayLetterSets(5); //new ArrayList<List<String>>();
+							tray = "";
+							
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+							Logger.d(TAG, "autoplay: tray Letters=" + tray);
+							
+							for (List<String> tileSet : tileSets){
+								String set = "";
+								
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: set letters=" + set);
+										
+							}
+							
+							tileSets = opponentGame.getSortedTrayLetterSets(7); //new ArrayList<List<String>>();
+							tray = "";
+							
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+						 
+							
+							for (List<String> tileSet : tileSets){
+								String set = "";
+								
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: (7) set letters=" + set);
+										
+							}
+							
+							tileSets = opponentGame.getSortedTrayLetterSets(6); //new ArrayList<List<String>>();
+							tray = "";
+							
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+							Logger.d(TAG, "autoplay: tray Letters=" + tray);
+							
+							for (List<String> tileSet : tileSets){
+								String set = "";
+								
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: set letters=" + set);
+										
+							}
+							
+							tileSets = opponentGame.getSortedTrayLetterSets(3); //new ArrayList<List<String>>();
+							tray = "";
+							
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+							Logger.d(TAG, "autoplay: tray Letters=" + tray);
+							
+							for (List<String> tileSet : tileSets){
+								String set = "";
+								
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: set letters=" + set);
+										
+							}
+							
+							tileSets = opponentGame.getSortedTrayLetterSets(2); //new ArrayList<List<String>>();
+							tray = "";
+							
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+							Logger.d(TAG, "autoplay: (2) tray Letters=" + tray);
+							
+							for (List<String> tileSet : tileSets){
+								String set = "";
+								
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: set letters=" + set);
+										
+							}
+							
+							tileSets = opponentGame.getSortedTrayLetterSets(1); //new ArrayList<List<String>>();
+							tray = "";
+							
+							for (String s : opponentGame.getTrayLetters()){
+								tray += s + " ";
+							}
+							Logger.d(TAG, "autoplay: tray Letters=" + tray);
+							
+							for (List<String> tileSet : tileSets){
+								String set = "";
+								
+								for (String s : tileSet){
+									set += s + " ";
+								}	
+								Logger.d(TAG, "autoplay: set letters=" + set);
+										
+							}
+							*/
+							//find standalone words (made up from letters only in the tray) in the tray for each combination between 2 and 7
+							//these can be used for placement at the end or beginning of already played words
+							//these words can potentially be found and stored earlier
+						 
+							findWordsToPlay(game, game.getPlayedTiles(), placedResults, wordService, context, boardTiles, defaultLayout);
+	
+							/*
+							//these lists can be done ahead of time as well
+							List<List<String>> letterSets_7 = opponentGame.getSortedTrayLetterSets(7);
+							List<List<String>> letterSets_6 = opponentGame.getSortedTrayLetterSets(6);
+							List<List<String>> letterSets_5 = opponentGame.getSortedTrayLetterSets(5);
+							List<List<String>> letterSets_4 = opponentGame.getSortedTrayLetterSets(4);
+							List<List<String>> letterSets_3 = opponentGame.getSortedTrayLetterSets(3);
+							List<List<String>> letterSets_2 = opponentGame.getSortedTrayLetterSets(2);
+							List<List<String>> letterSets_1 = opponentGame.getSortedTrayLetterSets(1);
+							
+							
+							for (PlayedTile playedTile : game.getPlayedTiles()){
+								//easy checks first
+								int numTilesAbove = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_ABOVE);
+								int numTilesBelow = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_BELOW);
+								int numTilesToTheRight = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_RIGHT);
+								int numTilesToTheLeft = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_LEFT);
+								
+							//	Logger.d(TAG, "autoplay boardPosition=" + playedTile.getBoardPosition() + " letter=" +  playedTile.getLatestPlayedLetter().getLetter() + " numTilesAbove=" + numTilesAbove + " numTilesBelow=" + numTilesBelow);
+							//	if (numTilesAbove > 0 && numTilesBelow > 0 ) {
+									
+								findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
+										letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+										numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout);
+					 				
+								findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
+										letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+										numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+							
+								//will make this tighter and smarter with side by side perpendicular lookups
+							}
+							*/
+					 }
+			
+			//for each in V col 
+				//look for another V on same row
+					//check distance (playable together? otherwise prevent overwrite
+			
+			//for each in H col
+				//look for another H on same col
+					//check distance (playable together? otherwise prevent overwrite
+			
+			//with letter blob compares, still need to shift/rotate through playable tiles
+			//this is to check for words of all length, combinations of the letters from 2 thru tray+board(row/col)
+			
+			//all possible plays added to list - 
+				//check for distance/position
+			//free standing plays added to a smash list
+				//check for valid impacted words
+			//calc scores of valid plays 
+			//sort by score
+			//apply AI difficulty rules and random failure rates
+			
+			//if getPlayedTiles.size() == 0, the player skipped his first turn, you can play any word
+			//formed by the tray tiles but at least one letter must be placed on a starter tile
+			
+			//this will return row and column (15x15 board)
+			//TileLayoutService.getRowCol(tileId) 
+			//this is already wrapped by game.getPlayedTile.get(x).getRowCol()
+			
+			// you'll probably want to look at GameService.isWordConnectedToPlayedWords and GameService.getWords to 
+			//study some of that logic
+			
+			
+			//WordService.isWordValid(word) will tell you if the word is in the dictionary
+			
+			//for more advanced AI, potential bonus can be taken into account
+			//TileLayoutService.getLetterMultiplier(tileId, layout)
+			//TileLayoutService.getWordMultiplier(tileId, layout)
+			
+			//getTileValue returns the points for a specific played tile, helpful for more advanced AI
+	 
+			//game.getPlayedTiles().get(0).getLatestPlayedLetter() will return the latest letter that has been played on that tile
+			//note that game.getPlayedTiles will only return the tiles that have had a letter played on them, it will NOT return all 225 tiles from the board layout
+			
+			//defaultLayout will contain all of the bonus and starter tiles, you may not need it directly
+			
+			//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot 
+			//if any of them return 255 that means the tile position being requested is outside of the board boundaries
+			 
+			
+		     //for each placedResult option use a new List<GameTile> based on boardTiles passed in
+		     //call setPlacedLetter on each board tile played
+		     //put all options in a list of PlacedResults 
+		     //for each option, reset list of boardTiles 
+		     
+		/*     try {
+		    
+		    	 	//this is the real one
+		    	 	//placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false)); 	
+		    	 
+		    	 	//this is the placeholder
+		    	 	PlacedResult pr = GameService.checkPlayRules(context, defaultLayout, game, boardTiles, true);
+			 }
+		     catch (DesignByContractException e){
+	
+		    	 //there was a problem, do not add to list
+		     }
+		  */    
+			 }//end of 
+			else{
+				//if last turn was a skip or swap, we don't need to do anything else.
+				//the pump is already primed.  if the last moved was a play, we need to determine if any
+				//pre-primed plays were invalidated
+				Logger.d(TAG, "autoplay tempPlacedResults (game.getLastAction()=" + game.getLastAction());
+				switch (game.getLastAction()){
+					case TURN_SKIPPED:
+					case TWO_LETTERS_SWAPPED:	
+					case THREE_LETTERS_SWAPPED:
+					case FOUR_LETTERS_SWAPPED:
+					case FIVE_LETTERS_SWAPPED:
+					case SIX_LETTERS_SWAPPED:
+					case SEVEN_LETTERS_SWAPPED:
+						Logger.d(TAG, "autoplay - tempPlacedResults not changed because of skip or swap");
+						pushPlacedResults(tempPlacedResults, placedResults );
+						break;
+					default:
+						Logger.d(TAG, "autoplay - clear tempPlacedResults that were connected to tiles associated with last turn tempPlacedResults=" + tempPlacedResults.size());
+						//check all placedResults to determine which ones need to be invalidated
+						Set<Integer> involvedPositions = new HashSet<Integer>();
+						invalidateConnectedPlacedResults(game, tempPlacedResults, involvedPositions);
 						
-							//will make this tighter and smarter with side by side perpendicular lookups
+						//now go back through subset of played letters (based on tiles affected by last turn) and determine what can be played there
+						//this subset will be added to placedResults
+						List<PlayedTile> involvedTiles =  new ArrayList<PlayedTile>();
+						
+						for (Integer i : involvedPositions){
+							 PlayedTile tile = game.getPlayedTile(i);
+								 
+							 if (tile != null){
+								 involvedTiles.add(tile);
+							 }
 						}
-				 }
+						
+						Logger.d(TAG, "autoplay - tempPlacedResults after clearing invalidations tempPlacedResults=" + tempPlacedResults.size());
+						
+						findWordsToPlay(game, involvedTiles, tempPlacedResults, wordService, context, boardTiles, defaultLayout);
+						
+						Logger.d(TAG, "autoplay - tempPlacedResults after adding words tempPlacedResults=" + tempPlacedResults.size());
+						
+						
+						//move tempPlacedResults to official list for final step
+						pushPlacedResults(tempPlacedResults, placedResults );
+						break;
+				}
+				
+				Logger.d(TAG, "autoplay - clear tempPlacedResults");
+				tempPlacedResults.clear();
+				
+			}
+		}
 		
-		//for each in V col 
-			//look for another V on same row
-				//check distance (playable together? otherwise prevent overwrite
-		
-		//for each in H col
-			//look for another H on same col
-				//check distance (playable together? otherwise prevent overwrite
-		
-		//with letter blob compares, still need to shift/rotate through playable tiles
-		//this is to check for words of all length, combinations of the letters from 2 thru tray+board(row/col)
-		
-		//all possible plays added to list - 
-			//check for distance/position
-		//free standing plays added to a smash list
-			//check for valid impacted words
-		//calc scores of valid plays 
-		//sort by score
-		//apply AI difficulty rules and random failure rates
-		
-		//if getPlayedTiles.size() == 0, the player skipped his first turn, you can play any word
-		//formed by the tray tiles but at least one letter must be placed on a starter tile
-		
-		//this will return row and column (15x15 board)
-		//TileLayoutService.getRowCol(tileId) 
-		//this is already wrapped by game.getPlayedTile.get(x).getRowCol()
-		
-		// you'll probably want to look at GameService.isWordConnectedToPlayedWords and GameService.getWords to 
-		//study some of that logic
-		
-		
-		//WordService.isWordValid(word) will tell you if the word is in the dictionary
-		
-		//for more advanced AI, potential bonus can be taken into account
-		//TileLayoutService.getLetterMultiplier(tileId, layout)
-		//TileLayoutService.getWordMultiplier(tileId, layout)
-		
-		//getTileValue returns the points for a specific played tile, helpful for more advanced AI
- 
-		//game.getPlayedTiles().get(0).getLatestPlayedLetter() will return the latest letter that has been played on that tile
-		//note that game.getPlayedTiles will only return the tiles that have had a letter played on them, it will NOT return all 225 tiles from the board layout
-		
-		//defaultLayout will contain all of the bonus and starter tiles, you may not need it directly
-		
-		//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot 
-		//if any of them return 255 that means the tile position being requested is outside of the board boundaries
-		 }
 		 finally {
 		        
 			 //put word lookup calls here
@@ -875,30 +953,9 @@ public static void skip(boolean isOpponent, Game game){
 		     wordService.finish();
 		     wordService = null;
 		 }
-	     //for each placedResult option use a new List<GameTile> based on boardTiles passed in
-	     //call setPlacedLetter on each board tile played
-	     //put all options in a list of PlacedResults 
-	     //for each option, reset list of boardTiles 
-	     
-	/*     try {
-	    
-	    	 	//this is the real one
-	    	 	//placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false)); 	
-	    	 
-	    	 	//this is the placeholder
-	    	 	PlacedResult pr = GameService.checkPlayRules(context, defaultLayout, game, boardTiles, true);
-		 }
-	     catch (DesignByContractException e){
-
-	    	 //there was a problem, do not add to list
-	     }
-	  */    
-		 }//end of 
-		else{
-			
-			pushPlacedResults(tempPlacedResults, placedResults );
-			
-		}
+		
+		
+		
 			Logger.d(TAG, "autoplay - play NUMBER OF OPTIONS =" + placedResults.size());
 		if (followThroughWithPlay){
 			
@@ -967,7 +1024,7 @@ public static void skip(boolean isOpponent, Game game){
 					//just in case we are out of index, though this should not be an issue
 					GameService.play(true, game, placedResults.get(0));
 				}
-				tempPlacedResults.clear();
+			
 				
 			}
 		}
@@ -998,7 +1055,147 @@ public static void skip(boolean isOpponent, Game game){
 		//return GameService.skip(true, game);
 	 	//return GameService.swap(true, game, placedResult);
 	}
+	private static void invalidateConnectedPlacedResults(Game game, List<PlacedResult> placedResults, Set<Integer> involvedPositions){
+		
+		List<PlacedResult> placedResultsToRemove = new ArrayList<PlacedResult>();
+		//List<PlayedTile> involvedTiles = new ArrayList<PlayedTile>();
+		
+		//List<Integer> involvedPositions = new ArrayList<Integer>();
 	
+		//find all board positions involved in the last play
+		
+		//we only need to go along main axis one time (later, for now duplicates will be found but not added)
+		for (PlayedTile tile : game.getPlayedTiles()){
+			//this tile was part of last play, find all tile ids connected to it in each direction
+			if (tile.getLatestPlayedLetter().getTurn() == game.getTurn() - 1){ 
+				involvedPositions.add(tile.getBoardPosition());
+				
+				Logger.d(TAG, "autoplay - invalidateConnectedPlacedResults tile letter=" + tile.getLatestPlayedLetter().getLetter());
+				
+				findConnectedPositionsByDirection(game, involvedPositions, Constants.DIRECTION_LEFT, tile.getBoardPosition());
+				findConnectedPositionsByDirection(game, involvedPositions, Constants.DIRECTION_RIGHT, tile.getBoardPosition());
+				findConnectedPositionsByDirection(game, involvedPositions, Constants.DIRECTION_ABOVE, tile.getBoardPosition());
+				findConnectedPositionsByDirection(game, involvedPositions, Constants.DIRECTION_BELOW, tile.getBoardPosition());
+			
+			}
+		}
+		
+		for (PlacedResult placedResult : placedResults){
+			if (placedResult.isAnyTileIdConnected(involvedPositions)){
+				placedResultsToRemove.add(placedResult);
+			}
+		}
+		
+		Logger.d(TAG, "autoplay - invalidateConnectedPlacedResults removing " + placedResultsToRemove.size() + " placed results");
+		
+		placedResults.removeAll(placedResultsToRemove);
+		
+		
+	}
+	
+	private static void findWordsToPlay(Game game, List<PlayedTile> playedTiles, List<PlacedResult> placedResults, WordService wordService, Context context, List<GameTile> boardTiles, TileLayout defaultLayout){
+		//these lists can be done ahead of time as well
+		
+		PlayerGame opponentGame = game.getPlayerGames().get(1);
+		
+		List<List<String>> letterSets_7 = opponentGame.getSortedTrayLetterSets(7);
+		List<List<String>> letterSets_6 = opponentGame.getSortedTrayLetterSets(6);
+		List<List<String>> letterSets_5 = opponentGame.getSortedTrayLetterSets(5);
+		List<List<String>> letterSets_4 = opponentGame.getSortedTrayLetterSets(4);
+		List<List<String>> letterSets_3 = opponentGame.getSortedTrayLetterSets(3);
+		List<List<String>> letterSets_2 = opponentGame.getSortedTrayLetterSets(2);
+		List<List<String>> letterSets_1 = opponentGame.getSortedTrayLetterSets(1);
+		
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_7 num=" + letterSets_7.size());
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_6 num=" + letterSets_6.size());
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_5 num=" + letterSets_5.size());
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_4 num=" + letterSets_4.size());
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_3 num=" + letterSets_3.size());
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_2 num=" + letterSets_2.size());
+	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_1 num=" + letterSets_1.size());
+		
+		
+		for (PlayedTile playedTile : playedTiles){
+			//easy checks first
+			int numTilesAbove = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_ABOVE);
+			int numTilesBelow = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_BELOW);
+			int numTilesToTheRight = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_RIGHT);
+			int numTilesToTheLeft = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_LEFT);
+			
+		//	Logger.d(TAG, "autoplay boardPosition=" + playedTile.getBoardPosition() + " letter=" +  playedTile.getLatestPlayedLetter().getLetter() + " numTilesAbove=" + numTilesAbove + " numTilesBelow=" + numTilesBelow);
+		//	if (numTilesAbove > 0 && numTilesBelow > 0 ) {
+		
+			/*
+			findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
+					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+					numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout);
+ 				
+			findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
+					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+		*/
+			//will make this tighter and smarter with side by side perpendicular lookups
+			findWordsPerpendicularToPlayedWords(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
+					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+			
+		}
+	}
+	
+	private static void findConnectedPositionsByDirection(Game game, Set<Integer> involvedPositions, String direction, int boardPosition){
+		//now find any tiles touching this one in x and y axis until empty tile is hit
+		boolean connect = true;
+		int brakes = 0;
+		int loopId = boardPosition;
+		int numEmptyTiles = 0;
+		
+		while (connect){
+			//making sure we don't go off the rails
+			if (brakes >= 15) {connect = false; break; }
+			//let go left first
+			
+			int connectedId = 255;
+			
+			if (direction.equals(Constants.DIRECTION_LEFT)){
+				TileLayoutService.getTileIdToTheLeft(loopId);
+			}
+			else if (direction.equals(Constants.DIRECTION_RIGHT)){
+				TileLayoutService.getTileIdToTheRight(loopId);
+			}
+			else if (direction.equals(Constants.DIRECTION_ABOVE)){
+				TileLayoutService.getTileIdAbove(loopId);
+			}
+			else if (direction.equals(Constants.DIRECTION_BELOW)){
+				TileLayoutService.getTileIdBelow(loopId);
+			}
+			
+			if (connectedId == 255){
+				//we've hit the border, stop this loop
+				connect = false;
+			}
+			else{
+				//does connectedId contain a playedTile at this position
+				if (game.isBoardTilePlayed(connectedId)){
+					//yes, its connected, add position to the this
+					involvedPositions.add(connectedId);	
+					loopId = connectedId;
+				}
+				else{
+					//we've hit an empty, unplayed tile, stop this loop after finding second empty tile, first one is still "connected"
+					if (numEmptyTiles == 0){ 
+						involvedPositions.add(connectedId);	
+						loopId = connectedId;
+						numEmptyTiles += 1;
+					}
+					else{	
+						connect = false;
+					}
+				}
+			}
+
+			brakes += 1;
+		}
+	}
 	
 	private static void pushPlacedResults(List<PlacedResult> source, List<PlacedResult> target){
 		//placedTiles, placedWords, totalPoints
@@ -1035,6 +1232,227 @@ public static void skip(boolean isOpponent, Game game){
  
 	}
 	
+	private static void findWordsPerpendicularToPlayedWords(String axis, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
+			List<List<String>> letterSets_7, List<List<String>> letterSets_6, List<List<String>> letterSets_5, List<List<String>> letterSets_4,
+			List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, int numTilesBehind,
+			int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout)
+	{
+		PlayerGame opponentGame = game.getOpponentGame();
+		
+		int successfulAdditions = 0;
+		
+		List<List<String>> letterSets = getAllLetterSetCombinations(opponentGame);
+		
+		String[] lettersetArray = new String[letterSets.size()];
+		
+		//create an array of strings so we can look up all valid words at once
+		for (int i = 0; i < letterSets.size(); i++){
+			String index = "";
+			//put the letters into a string to use as a parameter to look up valid matches by index
+			for (String s : letterSets.get(i)){
+				index += s;
+			}
+			lettersetArray[i] = index.toLowerCase();
+		}
+
+		List<String> matches = wordService.getMatchingWordsFromIndexArray(lettersetArray);
+		
+		
+		//find all words that can be played next to a previously played word, perpendicular to the word...ie, connecting to the beginning or ending of word and either
+		//placing just a single tile to extend that word, or play another word off of that placed letter, on the opposite asix of the previous word
+		//later we can allow these perpendicular words to attach to other existing letters, this will provide better, realistic logic
+		
+		//first find all tiles that are connected to played tiles that contain at least a single empty tile on their other 3 sides
+		// this will allow each letter in the tray to be tested against that previous tile to determine if a real word can be made,
+		//if so continue in the opposite axis of the previous letter, trying to expand that word
+		
+		//find empty tiles (we need 2 at least) to extend this word
+		int tileIdToLeft = TileLayoutService.getTileIdToTheLeft(playedTile.getBoardPosition());
+		
+		if (playedTile.isBorder()){
+			//bypass, nothing can be done here
+		}
+		int tileToLeftPosition = TileLayoutService.getTileIdToTheLeft(playedTile.getBoardPosition());
+		PlayedTile tileToLeft = game.getPlayedTileToTheLeft(playedTile);
+		PlayedTile tileToLeft_Left = null;
+		PlayedTile tileToLeft_Above = null;
+		PlayedTile tileToLeft_Below = null;
+
+		if (tileToLeft != null){
+			tileToLeft_Left = game.getPlayedTileToTheLeft(tileToLeft);
+			tileToLeft_Above = game.getPlayedTileAbove(tileToLeft);
+			tileToLeft_Below = game.getPlayedTileBelow(tileToLeft);
+		}
+		if ((tileToLeft_Left == null || tileToLeft.isOnLeftBorder() ) && 
+				(
+					(tileToLeft_Above == null || tileToLeft.isOnTopBorder()) &&
+					(tileToLeft_Below == null  || tileToLeft.isOnBottomBorder())
+				)
+			) {
+			
+			Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords VALID left letter=" + playedTile.getLatestPlayedLetter().getLetter());
+			//this is a valid option in which to attempt to extend the word
+			//now find all letters to the right so we can test the new word for validity
+			String word = "";
+			
+			for (String trayLetter : opponentGame.getDistinctTrayLetters()){
+				word = trayLetter + word;
+				
+				boolean isWordValid = wordService.doesWordExist(word);
+				boolean isBaseOK = false;
+				
+				if (isWordValid){
+					//add this option to placedResults...
+					try{
+						List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
+						
+						 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+
+						 ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
+
+						 placedResults.add(placedResult);
+						 isBaseOK = true;
+						 Logger.d(TAG, "autoplay word match points=" + word + " " + placedResult.getTotalPoints());
+					}
+					catch (DesignByContractException e){
+						
+						 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords DesignByContractException=" + e.getMessage());
+					}
+					//then let's try to determine how many tiles we have to deal with in the 
+					//opposite axis
+					//since we are dealing with a left/right word, the axis to look for is vertical
+
+					//if rule check above was OK!!!!, else don't do this because the base word is not valid
+					if (isBaseOK){
+						int numTilesBefore = game.getNumConsecutivePlayableEmptyTilesInADirection(tileToLeftPosition, Constants.DIRECTION_ABOVE);
+						int numTilesAfter = game.getNumConsecutivePlayableEmptyTilesInADirection(tileToLeftPosition, Constants.DIRECTION_BELOW);
+	
+						
+						//we need all valid words from the tray that contain the letter in context
+						for (String match : matches){
+							
+							if (successfulAdditions >= Constants.MAX_WORD_MATCHES_PERPENDICULAR) { break; } //not right, does not account for types
+							
+							int positionInWord = match.indexOf(trayLetter.toLowerCase());
+							//does this letter occur in this word?
+							if (positionInWord > -1){
+								
+								boolean ok = true;
+								String[] wordSplit = match.trim().split(""); 
+								//now loop through matches seeing if they will fit in the spot
+								//if so, run through rules to see if we can add as legit result option
+								
+								if ((match.length() - positionInWord) <= numTilesAfter && positionInWord >= numTilesBefore ){
+
+									int anchorPosition = tileToLeftPosition;  
+								
+									//a positive difference means go up/left
+									//a negative difference means go down/right
+									//because java adds empty string as the first element, its a bit annoying
+									//use 1 to get the first  element  
+									for (int y = 1; y < wordSplit.length; y ++) {
+										int boardPosition = 0;
+										
+										int difference = positionInWord - y + 1;
+										
+										if (difference == 0){
+											boardPosition = anchorPosition;
+										}
+										else if (difference > 0){
+											if (axis.equals(Constants.AXIS_HORIZONTAL)){
+												boardPosition = TileLayoutService.getTileIdXToTheLeft(anchorPosition, difference);											
+											}
+											else{
+												boardPosition = TileLayoutService.getTileIdXAbove(anchorPosition, difference);
+											}	
+										}
+										else{
+											if (axis.equals(Constants.AXIS_HORIZONTAL)){
+												boardPosition = TileLayoutService.getTileIdXToTheRight(anchorPosition, Math.abs(difference));
+											}
+											else{
+												boardPosition = TileLayoutService.getTileIdXBelow(anchorPosition, Math.abs(difference));
+											}
+										}
+													
+						//				Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition + " difference=" + difference);
+		
+										//just a precaution, should not hit this logic
+										if (boardPosition == 255){
+											//we've reached a border and cant go any further, abort this word
+										 	ok = false;
+							//				Logger.d(TAG, "autoplay, border hit trying to play board tiles");
+											break;
+										}
+										else{
+											List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
+										 
+											String letter = wordSplit[y];
+											//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
+											//perhaps add List<GameTile> to placedResult just for convenience
+											gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
+										
+											//now that we have the letters placed on the board, lets check the rules to validate and assign points
+											try{
+												if (ok){
+													//add to the placedResults list if the word is good
+													//later we will decide which placedResult to play
+													ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTilecheckPlayRules starting");
+	
+													 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+	
+													 ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
+													 boolean distinctScore = true;
+													 
+													 //add distinct score
+													 for(PlacedResult loopResult : placedResults){
+														 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
+															 distinctScore = false;
+															 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score not distinct, word =" + match + " " + placedResult.getTotalPoints());
+														 }
+													 }
+													 if (distinctScore){
+														 placedResults.add(placedResult);
+														 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords word match points=" + match + " " + placedResult.getTotalPoints());
+													 }
+												}
+											}
+											catch (DesignByContractException e){
+											    //there was a problem, do not add to list				
+												Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords DesignByContractException=" + e.getMessage());
+	
+											} //end catch
+										}//end if (boardPosition == 255){
+										 
+									}//end for
+								}//end if ((match.length() - positionInWord) <= numTilesAfter && positionInWord >= numTilesBefore ){
+								
+							}// end if (positionInWord > -1){
+						}//end for
+					}// end if (isBaseOK){
+				}//if (isWordValid){
+			}//end for
+ 	
+		}//end if ((tileToLeft.isOnLeftBorder() || tileToLeft_Left == null) && 
+		
+	}
+	
+	private static List<List<String>> getAllLetterSetCombinations(PlayerGame playerGame){
+		List<List<String>> letterSets = new ArrayList<List<String>>();
+		
+		//these lists can be done ahead of time as well
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(7));
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(6));
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(5));
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(4));
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(3));
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(2));
+		letterSets.addAll(playerGame.getSortedTrayLetterSets(1));
+		
+		return letterSets;
+
+	}
+	
 	
 	private static void findWordsUpOrDownSingleTile(String axis, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
 		List<List<String>> letterSets_7, List<List<String>> letterSets_6, List<List<String>> letterSets_5, List<List<String>> letterSets_4,
@@ -1051,7 +1469,7 @@ public static void skip(boolean isOpponent, Game game){
 			Logger.d(TAG, "autoplay, going to check words now");
 			
 			for (int x = ((numTilesAhead + numTilesBehind) > 7 ? 7 : (numTilesAhead + numTilesBehind)); x > 0; x--){
-				if (placedResults.size() >= Constants.MAX_WORD_MATCHES) { break; }
+				if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 				
 		//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile outer for loop starting");
 				List<List<String>> letterSets = new ArrayList<List<String>>();
@@ -1117,7 +1535,7 @@ public static void skip(boolean isOpponent, Game game){
 				for (List<String> letterSet : letterSets){
 					ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile inner for loop starting - placedResults.size()=" + placedResults.size());
 					
-					if (placedResults.size() >= Constants.MAX_WORD_MATCHES) { break; }
+					if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 					
 					String set = "";
 					
@@ -1157,7 +1575,7 @@ public static void skip(boolean isOpponent, Game game){
 						//find the position of the already played tile (the first instance of it)
 				//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile match loop starting - match=" + match);
 						
-						if (placedResults.size() >= Constants.MAX_WORD_MATCHES) { break; }
+						if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 						
 						int playedTilePositionInWord = match.indexOf(playedTile.getLatestPlayedLetter().getLetter().toLowerCase());
 						
@@ -1265,8 +1683,19 @@ public static void skip(boolean isOpponent, Game game){
 
 									 ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
 
-									 placedResults.add(placedResult);
-									 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
+									 boolean distinctScore = true;
+									 
+									 //add distinct score
+									 for(PlacedResult loopResult : placedResults){
+										 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
+											 distinctScore = false;
+											 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score not distinct, word =" + match + " " + placedResult.getTotalPoints());
+										 }
+									 }
+									 if (distinctScore){
+										 placedResults.add(placedResult);
+										 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
+									 }
 								}
 								else{
 									
@@ -1291,121 +1720,123 @@ public static void skip(boolean isOpponent, Game game){
 		
 		PlayerGame opponentGame = game.getPlayerGames().get(1);
 		
-		List<List<String>> letterSets = new ArrayList<List<String>>();
+		List<List<String>> letterSets = getAllLetterSetCombinations(opponentGame);
 		
 		//these lists can be done ahead of time as well
-		letterSets.addAll(opponentGame.getSortedTrayLetterSets(7));
-		letterSets.addAll(opponentGame.getSortedTrayLetterSets(6));
-		letterSets.addAll(opponentGame.getSortedTrayLetterSets(5));
-		letterSets.addAll(opponentGame.getSortedTrayLetterSets(4));
-		letterSets.addAll(opponentGame.getSortedTrayLetterSets(3));
-		letterSets.addAll(opponentGame.getSortedTrayLetterSets(2));
+	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(7));
+	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(6));
+	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(5));
+	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(4));
+	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(3));
+	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(2));
 		//dont add single letter sets because starting word has to be at least 2 letters
 		
 		
 		for (List<String> letterSet : letterSets){
 		
-			String index = "";
-			//put the letters into a string to use as a parameter to look up valid matches by index
-			for (String s : letterSet){
-				index += s;
-			}
-			
-				
-			List<String> matches = wordService.getMatchingWordsFromIndex(index);
-				
-				
-			for (String match : matches){
-				//find the position of the already played tile (the first instance of it)
-				if (placedResults.size() >= Constants.MAX_WORD_MATCHES) { break; }
-			 Logger.d(TAG, "autoplay addWordsToStartGame match=" + match);
-				
-				//Logger.d(TAG, "autoplay word match=" + match + " playedLetter=" + playedTile.getLatestPlayedLetter().getLetter() + " playedTilePosition=" + playedTilePositionInWord);
-			//	if (match.startsWith(playedTile.getLatestPlayedLetter().getLetter().toLowerCase())){
-					//set the placed tiles and then called check rules
-					//boolean ok = true;
-					
-					Logger.d(TAG, "autoplay word actual match=" + match);
-					
-					//let's split the word back into strings
-					String[] wordSplit = match.trim().split("");  
-						
-					//set the initial boardPosition based on random staring tile
-					//int boardPosition = playedTile.getBoardPosition(); 
-					
-				//	Logger.d(TAG, "autoplay word match playedTile.getBoardPosition()=" + playedTile.getBoardPosition());
-					//int boardPosition = TileLayoutService.getTileIdBelow(playedTile.getBoardPosition());
-	
-					
-					//reset the boardTiles each time through
-					List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
-		 
-					//this is temp, for logging/debugging only
-					//int numplacedtiles = 0;
-					//for(GameTile tile : gameBoardTiles){
-					//	if (tile.getPlacedLetter().length() > 0){
-					//		numplacedtiles += 1;
-					//	}
-					//}
-					
-					//establish anchor position from already played tile
-					int boardPosition = defaultLayout.getRandomStarterTilePosition();
-					String axis = (Utils.coinFlip() == Constants.COIN_FLIP_HEADS ? Constants.AXIS_HORIZONTAL : Constants.AXIS_VERTICAL);
-					
-					//Logger.d(TAG, "autoplay word num placed tiles from boardtiles=" + numplacedtiles + " num placed in this turn=" + String.valueOf(wordSplit.length - 1));
-					
-					//handle if board position is 255
-					//let's traverse down the letters, placing them on a board tile
-					//for (String letter : wordSplit){
-					//because java adds empty string as the first element, its a bit annoying
-					//use 1 to get the first  element  
-					for (int y = 1; y < wordSplit.length; y ++) {
-						if (placedResults.size() >= Constants.MAX_WORD_MATCHES) { break; }
-					 
-										
-						//	Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition + " difference=" + difference);
-	
-						/*	if (boardPosition == 255){
-								//we've reached a border and cant go any further, abort this word
-								ok = false;
-								Logger.d(TAG, "autoplay, border hit trying to play board tiles");
-								break;
-							}
-							*/
-							//skip first letter
-							String letter = wordSplit[y];
-							//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
-							//perhaps add List<GameTile> to placedResult just for convenience
-							gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
-							
-							Logger.d(TAG, "autoplay, add letter " + letter + " on position " + boardPosition);
-							
-							////advance the board position		
-							 boardPosition = (axis == Constants.AXIS_HORIZONTAL ? TileLayoutService.getTileIdToTheRight(boardPosition) : TileLayoutService.getTileIdBelow(boardPosition));
-				 
-					}
-					
-					//now that we have the letters placed on the board, lets check the rules to validate and assign points
-					try{
-					 
-							//add to the placedResults list if the word is good
-							//later we will decide which placedResult to play
-							 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
-							 
-							 placedResults.add(placedResult);
-							 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
-						 
-					}
-					catch (DesignByContractException e){
-	
-				    	 //there was a problem, do not add to list
-						
-						 Logger.d(TAG, "autoplay DesignByContractException=" + e.getMessage());
-				    
-						
-					}
+			if (letterSet.size() > 1){
+				String index = "";
+				//put the letters into a string to use as a parameter to look up valid matches by index
+				for (String s : letterSet){
+					index += s;
 				}
+				
+					
+				List<String> matches = wordService.getMatchingWordsFromIndex(index);
+					
+					
+				for (String match : matches){
+					//find the position of the already played tile (the first instance of it)
+					if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
+				 Logger.d(TAG, "autoplay addWordsToStartGame match=" + match);
+					
+					//Logger.d(TAG, "autoplay word match=" + match + " playedLetter=" + playedTile.getLatestPlayedLetter().getLetter() + " playedTilePosition=" + playedTilePositionInWord);
+				//	if (match.startsWith(playedTile.getLatestPlayedLetter().getLetter().toLowerCase())){
+						//set the placed tiles and then called check rules
+						//boolean ok = true;
+						
+						Logger.d(TAG, "autoplay word actual match=" + match);
+						
+						//let's split the word back into strings
+						String[] wordSplit = match.trim().split("");  
+							
+						//set the initial boardPosition based on random staring tile
+						//int boardPosition = playedTile.getBoardPosition(); 
+						
+					//	Logger.d(TAG, "autoplay word match playedTile.getBoardPosition()=" + playedTile.getBoardPosition());
+						//int boardPosition = TileLayoutService.getTileIdBelow(playedTile.getBoardPosition());
+		
+						
+						//reset the boardTiles each time through
+						List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
 			 
+						//this is temp, for logging/debugging only
+						//int numplacedtiles = 0;
+						//for(GameTile tile : gameBoardTiles){
+						//	if (tile.getPlacedLetter().length() > 0){
+						//		numplacedtiles += 1;
+						//	}
+						//}
+						
+						//establish anchor position from already played tile
+						int boardPosition = defaultLayout.getRandomStarterTilePosition();
+						String axis = (Utils.coinFlip() == Constants.COIN_FLIP_HEADS ? Constants.AXIS_HORIZONTAL : Constants.AXIS_VERTICAL);
+						
+						//Logger.d(TAG, "autoplay word num placed tiles from boardtiles=" + numplacedtiles + " num placed in this turn=" + String.valueOf(wordSplit.length - 1));
+						
+						//handle if board position is 255
+						//let's traverse down the letters, placing them on a board tile
+						//for (String letter : wordSplit){
+						//because java adds empty string as the first element, its a bit annoying
+						//use 1 to get the first  element  
+						for (int y = 1; y < wordSplit.length; y ++) {
+							if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
+						 
+											
+							//	Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition + " difference=" + difference);
+		
+							/*	if (boardPosition == 255){
+									//we've reached a border and cant go any further, abort this word
+									ok = false;
+									Logger.d(TAG, "autoplay, border hit trying to play board tiles");
+									break;
+								}
+								*/
+								//skip first letter
+								String letter = wordSplit[y];
+								//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
+								//perhaps add List<GameTile> to placedResult just for convenience
+								gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
+								
+								Logger.d(TAG, "autoplay, add letter " + letter + " on position " + boardPosition);
+								
+								////advance the board position		
+								 boardPosition = (axis == Constants.AXIS_HORIZONTAL ? TileLayoutService.getTileIdToTheRight(boardPosition) : TileLayoutService.getTileIdBelow(boardPosition));
+					 
+						}
+						
+						//now that we have the letters placed on the board, lets check the rules to validate and assign points
+						try{
+						 
+								//add to the placedResults list if the word is good
+								//later we will decide which placedResult to play
+								 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+								 
+								 placedResults.add(placedResult);
+								 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
+							 
+						}
+						catch (DesignByContractException e){
+		
+					    	 //there was a problem, do not add to list
+							
+							 Logger.d(TAG, "autoplay DesignByContractException=" + e.getMessage());
+					    
+							
+						}
+					}
+				 
+			}
 		}
 		
 	}

@@ -2,6 +2,7 @@ package com.riotapps.word.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PlacedResult {
 
@@ -38,5 +39,35 @@ public class PlacedResult {
 	}
 	
 	
+	public boolean isAnyTileIdConnected(Set<Integer> ids){
+		boolean isConnected = false;
+	
+		for (Integer i : ids){
+			if (this.isTileIdConnected(i)){
+				return true;
+			}
+		}
+		
+		return isConnected;
+	}
+	
+	
+	//used to determine if primed autoplay needs to be invalidated
+	public boolean isTileIdConnected(int id){
+		boolean isConnected = false;
+		for (GameTile tile : this.placedTiles){
+			//determine if the tile is touching
+			
+			if (tile.getId() == id ||
+				tile.getTileIdAbove() == id || 
+				tile.getTileIdBelow() == id ||
+				tile.getTileIdToTheRight() == id ||
+				tile.getTileIdToTheLeft() == id){
+			return true;
+			}
+		}
+		
+		return isConnected;
+	}
 	
 }

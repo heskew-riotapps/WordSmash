@@ -194,6 +194,7 @@
 	
 		   <string name="game_last_action_word_played">%2$s played %3$s for %1$s points</string>
 	   <string name="game_last_action_2_words_played">%2$s played %3$s and %4$s for %1$s points</string>
+	   <string name="game_last_action_word_played_error">error occured</string>
 	   <string name="game_last_action_word_played_context">You played %2$s for %1$s points</string>
 	   <string name="game_last_action_2_words_played_context">You played %2$s and %3$s for %1$s points</string>
 	   
