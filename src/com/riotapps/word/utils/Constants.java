@@ -413,7 +413,7 @@ public class Constants {
 	
 	public static final int MAX_WORD_MATCHES_ACROSS = 30;
 	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 30;
-
+	public static final int TILE_POSITION_ON_BORDER = 255;
 	
 }//end class Constants
  

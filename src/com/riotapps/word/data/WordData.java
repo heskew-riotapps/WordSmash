@@ -134,6 +134,33 @@ public class WordData {
 			  return matches;
 		  }
 
+	  
+	  public List<String> getWordsFromWordArray(String[] words) {
+			List<String> matches = new ArrayList<String>();
+			
+		  	String queryf = "select word from Word where word  IN (" + this.makePlaceholders(words.length) + ")";
+		  
+			  Cursor c = database.rawQuery(queryf, words);
+			  try{
+				  if (c.getCount() > 0) {
+					  c.moveToFirst();
+					  while (c.isAfterLast() == false) 
+					  {
+					      String match  = c.getString(0);
+					      matches.add(match);
+					      c.moveToNext();
+					  }
+				  }
+			  }
+			  finally{
+				  //just in case, we don't want cursor left open
+				  c.close();				  
+			  }
+
+			  
+			  return matches;
+		  }
+
 	  private String makePlaceholders(int len) {
 		    if (len < 1) {
 		        // It will lead to an invalid query anyway ..

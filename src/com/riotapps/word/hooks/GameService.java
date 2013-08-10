@@ -1125,19 +1125,41 @@ public static void skip(boolean isOpponent, Game game){
 		//	Logger.d(TAG, "autoplay boardPosition=" + playedTile.getBoardPosition() + " letter=" +  playedTile.getLatestPlayedLetter().getLetter() + " numTilesAbove=" + numTilesAbove + " numTilesBelow=" + numTilesBelow);
 		//	if (numTilesAbove > 0 && numTilesBelow > 0 ) {
 		
+			
+			int successfulAdditions = 0;
 			/*
 			findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
-					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-					numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout);
+				letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
+				numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout, successfulAdditions);
  				
-			findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
+ 			if (successfulAdditions < Constants.) {	
+				findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
 					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
 					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+			}
 		*/
 			//will make this tighter and smarter with side by side perpendicular lookups
-			findWordsPerpendicularToPlayedWords(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
-					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
+			
+			List<List<String>> letterSets = getAllLetterSetCombinations(opponentGame);
+			
+			String[] lettersetArray = new String[letterSets.size()];
+			
+			//create an array of strings so we can look up all valid words at once
+			for (int i = 0; i < letterSets.size(); i++){
+				String index = "";
+				//put the letters into a string to use as a parameter to look up valid matches by index
+				for (String s : letterSets.get(i)){
+					index += s;
+				}
+				lettersetArray[i] = index.toLowerCase();
+			}
+	 
+			List<String> matches = wordService.getMatchingWordsFromIndexArray(lettersetArray);
+			
+			if (matches.size() > 0){
+				findWordsPerpendicularToPlayedWords(matches, playedTile, placedResults, wordService, 
+						boardTiles, context, game, defaultLayout);
+			}
 			
 		}
 	}
@@ -1232,31 +1254,12 @@ public static void skip(boolean isOpponent, Game game){
  
 	}
 	
-	private static void findWordsPerpendicularToPlayedWords(String axis, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
-			List<List<String>> letterSets_7, List<List<String>> letterSets_6, List<List<String>> letterSets_5, List<List<String>> letterSets_4,
-			List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, int numTilesBehind,
-			int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout)
+	private static void findWordsPerpendicularToPlayedWords(List<String> matches, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
+			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout)
 	{
 		PlayerGame opponentGame = game.getOpponentGame();
 		
 		int successfulAdditions = 0;
-		
-		List<List<String>> letterSets = getAllLetterSetCombinations(opponentGame);
-		
-		String[] lettersetArray = new String[letterSets.size()];
-		
-		//create an array of strings so we can look up all valid words at once
-		for (int i = 0; i < letterSets.size(); i++){
-			String index = "";
-			//put the letters into a string to use as a parameter to look up valid matches by index
-			for (String s : letterSets.get(i)){
-				index += s;
-			}
-			lettersetArray[i] = index.toLowerCase();
-		}
-
-		List<String> matches = wordService.getMatchingWordsFromIndexArray(lettersetArray);
-		
 		
 		//find all words that can be played next to a previously played word, perpendicular to the word...ie, connecting to the beginning or ending of word and either
 		//placing just a single tile to extend that word, or play another word off of that placed letter, on the opposite asix of the previous word
@@ -1266,175 +1269,28 @@ public static void skip(boolean isOpponent, Game game){
 		// this will allow each letter in the tray to be tested against that previous tile to determine if a real word can be made,
 		//if so continue in the opposite axis of the previous letter, trying to expand that word
 		
-		//find empty tiles (we need 2 at least) to extend this word
-		int tileIdToLeft = TileLayoutService.getTileIdToTheLeft(playedTile.getBoardPosition());
 		
-		if (playedTile.isBorder()){
-			//bypass, nothing can be done here
-		}
-		int tileToLeftPosition = TileLayoutService.getTileIdToTheLeft(playedTile.getBoardPosition());
-		PlayedTile tileToLeft = game.getPlayedTileToTheLeft(playedTile);
-		PlayedTile tileToLeft_Left = null;
-		PlayedTile tileToLeft_Above = null;
-		PlayedTile tileToLeft_Below = null;
-
-		if (tileToLeft != null){
-			tileToLeft_Left = game.getPlayedTileToTheLeft(tileToLeft);
-			tileToLeft_Above = game.getPlayedTileAbove(tileToLeft);
-			tileToLeft_Below = game.getPlayedTileBelow(tileToLeft);
-		}
-		if ((tileToLeft_Left == null || tileToLeft.isOnLeftBorder() ) && 
-				(
-					(tileToLeft_Above == null || tileToLeft.isOnTopBorder()) &&
-					(tileToLeft_Below == null  || tileToLeft.isOnBottomBorder())
-				)
-			) {
-			
-			Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords VALID left letter=" + playedTile.getLatestPlayedLetter().getLetter());
-			//this is a valid option in which to attempt to extend the word
-			//now find all letters to the right so we can test the new word for validity
-			String word = "";
-			
-			for (String trayLetter : opponentGame.getDistinctTrayLetters()){
-				word = trayLetter + word;
+		 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_LEFT, playedTile, placedResults, wordService,  
+				boardTiles, context, game, defaultLayout, successfulAdditions);
+		 
+		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR){
+		
+			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_RIGHT, playedTile, placedResults, wordService,  
+						boardTiles, context, game, defaultLayout, successfulAdditions);
+		 }
+	
+		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR){
+			 
+			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_ABOVE, playedTile, placedResults, wordService,  
+						boardTiles, context, game, defaultLayout, successfulAdditions);
+		 }
+		 
+		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR){
+			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_BELOW, playedTile, placedResults, wordService,  
+						boardTiles, context, game, defaultLayout, successfulAdditions);
 				
-				boolean isWordValid = wordService.doesWordExist(word);
-				boolean isBaseOK = false;
-				
-				if (isWordValid){
-					//add this option to placedResults...
-					try{
-						List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
-						
-						 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+		 }
 
-						 ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
-
-						 placedResults.add(placedResult);
-						 isBaseOK = true;
-						 Logger.d(TAG, "autoplay word match points=" + word + " " + placedResult.getTotalPoints());
-					}
-					catch (DesignByContractException e){
-						
-						 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords DesignByContractException=" + e.getMessage());
-					}
-					//then let's try to determine how many tiles we have to deal with in the 
-					//opposite axis
-					//since we are dealing with a left/right word, the axis to look for is vertical
-
-					//if rule check above was OK!!!!, else don't do this because the base word is not valid
-					if (isBaseOK){
-						int numTilesBefore = game.getNumConsecutivePlayableEmptyTilesInADirection(tileToLeftPosition, Constants.DIRECTION_ABOVE);
-						int numTilesAfter = game.getNumConsecutivePlayableEmptyTilesInADirection(tileToLeftPosition, Constants.DIRECTION_BELOW);
-	
-						
-						//we need all valid words from the tray that contain the letter in context
-						for (String match : matches){
-							
-							if (successfulAdditions >= Constants.MAX_WORD_MATCHES_PERPENDICULAR) { break; } //not right, does not account for types
-							
-							int positionInWord = match.indexOf(trayLetter.toLowerCase());
-							//does this letter occur in this word?
-							if (positionInWord > -1){
-								
-								boolean ok = true;
-								String[] wordSplit = match.trim().split(""); 
-								//now loop through matches seeing if they will fit in the spot
-								//if so, run through rules to see if we can add as legit result option
-								
-								if ((match.length() - positionInWord) <= numTilesAfter && positionInWord >= numTilesBefore ){
-
-									int anchorPosition = tileToLeftPosition;  
-								
-									//a positive difference means go up/left
-									//a negative difference means go down/right
-									//because java adds empty string as the first element, its a bit annoying
-									//use 1 to get the first  element  
-									for (int y = 1; y < wordSplit.length; y ++) {
-										int boardPosition = 0;
-										
-										int difference = positionInWord - y + 1;
-										
-										if (difference == 0){
-											boardPosition = anchorPosition;
-										}
-										else if (difference > 0){
-											if (axis.equals(Constants.AXIS_HORIZONTAL)){
-												boardPosition = TileLayoutService.getTileIdXToTheLeft(anchorPosition, difference);											
-											}
-											else{
-												boardPosition = TileLayoutService.getTileIdXAbove(anchorPosition, difference);
-											}	
-										}
-										else{
-											if (axis.equals(Constants.AXIS_HORIZONTAL)){
-												boardPosition = TileLayoutService.getTileIdXToTheRight(anchorPosition, Math.abs(difference));
-											}
-											else{
-												boardPosition = TileLayoutService.getTileIdXBelow(anchorPosition, Math.abs(difference));
-											}
-										}
-													
-						//				Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition + " difference=" + difference);
-		
-										//just a precaution, should not hit this logic
-										if (boardPosition == 255){
-											//we've reached a border and cant go any further, abort this word
-										 	ok = false;
-							//				Logger.d(TAG, "autoplay, border hit trying to play board tiles");
-											break;
-										}
-										else{
-											List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
-										 
-											String letter = wordSplit[y];
-											//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
-											//perhaps add List<GameTile> to placedResult just for convenience
-											gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
-										
-											//now that we have the letters placed on the board, lets check the rules to validate and assign points
-											try{
-												if (ok){
-													//add to the placedResults list if the word is good
-													//later we will decide which placedResult to play
-													ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTilecheckPlayRules starting");
-	
-													 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
-	
-													 ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
-													 boolean distinctScore = true;
-													 
-													 //add distinct score
-													 for(PlacedResult loopResult : placedResults){
-														 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
-															 distinctScore = false;
-															 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score not distinct, word =" + match + " " + placedResult.getTotalPoints());
-														 }
-													 }
-													 if (distinctScore){
-														 placedResults.add(placedResult);
-														 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords word match points=" + match + " " + placedResult.getTotalPoints());
-													 }
-												}
-											}
-											catch (DesignByContractException e){
-											    //there was a problem, do not add to list				
-												Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords DesignByContractException=" + e.getMessage());
-	
-											} //end catch
-										}//end if (boardPosition == 255){
-										 
-									}//end for
-								}//end if ((match.length() - positionInWord) <= numTilesAfter && positionInWord >= numTilesBefore ){
-								
-							}// end if (positionInWord > -1){
-						}//end for
-					}// end if (isBaseOK){
-				}//if (isWordValid){
-			}//end for
- 	
-		}//end if ((tileToLeft.isOnLeftBorder() || tileToLeft_Left == null) && 
-		
 	}
 	
 	private static List<List<String>> getAllLetterSetCombinations(PlayerGame playerGame){
@@ -1453,11 +1309,276 @@ public static void skip(boolean isOpponent, Game game){
 
 	}
 	
+	private static void findPerpendicularMatchesBesidePlayedTile(List<String> matches, String direction, PlayedTile playedTile, 
+			List<PlacedResult> placedResults, WordService wordService,  
+			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions){
+				
+			ApplicationContext.captureTime(TAG, "starting findPerpendicular direction=" + direction + " letter=" + playedTile.getLatestPlayedLetter().getLetter() + " position=" + playedTile.getBoardPosition() );
+			//find empty tiles (we need 2 at least) to extend this word
+			int tileNextDoorPosition = TileLayoutService.getTileIdNextDoorByDirection(playedTile.getBoardPosition(), direction);
+			//PlayedTile tileToLeft = game.getPlayedTileToTheLeft(playedTile);
+			//PlayedTile tileToLeft_Left = null;
+			String beforeDirection = "";
+			String afterDirection = "";
+			String perpendicularAxis = Constants.AXIS_HORIZONTAL;
+			if ( direction.equals(Constants.DIRECTION_LEFT) || direction.equals(Constants.DIRECTION_RIGHT) ){
+				perpendicularAxis = Constants.AXIS_VERTICAL;
+			}
+			
+			if (direction.equals(Constants.DIRECTION_LEFT) || direction.equals(Constants.DIRECTION_RIGHT)){
+				beforeDirection = Constants.DIRECTION_ABOVE;
+				afterDirection = Constants.DIRECTION_BELOW;
+			}
+			else {
+				beforeDirection = Constants.DIRECTION_LEFT;
+				afterDirection = Constants.DIRECTION_RIGHT;
+			}
+		
+			int tileOutsideNextDoorPosition = 0;
+			int tileBeforeNextDoorPosition = 0;
+			int tileAfterNextDoorPosition = 0;
+
+			//is the tile next door on the border or an empty tile??
+			//if so let's continue
+			if (tileNextDoorPosition != Constants.TILE_POSITION_ON_BORDER && !game.isBoardTilePlayed(tileNextDoorPosition)){
+				
+				//is the position beside the next door position also open? this ensures that 2 positions are open so
+				//that a letter can be safely placed in the next door position
+				tileOutsideNextDoorPosition = TileLayoutService.getTileIdNextDoorByDirection(tileNextDoorPosition, direction);
+				
+				//in order to determine if all 3 directions are open for the tileNextDoor, check the tiles "before" and "after"
+				tileBeforeNextDoorPosition = TileLayoutService.getTileIdNextDoorByDirection(tileNextDoorPosition, beforeDirection);
+				tileAfterNextDoorPosition = TileLayoutService.getTileIdNextDoorByDirection(tileNextDoorPosition, afterDirection);
+			}
+			else {
+				//this tile won't work, lets get out of this logic
+				return;
+			}
+			
+			ApplicationContext.captureTime(TAG, "starting findPerpendicular determine validity 1" );
+			
+			//now that we have the 3 positions to check, let's check them
+			if (
+				(tileOutsideNextDoorPosition ==  Constants.TILE_POSITION_ON_BORDER  || !game.isBoardTilePlayed(tileOutsideNextDoorPosition)) && 
+				(tileBeforeNextDoorPosition == Constants.TILE_POSITION_ON_BORDER ||  !game.isBoardTilePlayed(tileBeforeNextDoorPosition)) &&
+				(tileAfterNextDoorPosition == Constants.TILE_POSITION_ON_BORDER ||  !game.isBoardTilePlayed(tileAfterNextDoorPosition))
+				) {
+				//we will continue below
+			}
+			else {
+				//this tile won't work, lets get out of this logic
+				return;
+			}
+			ApplicationContext.captureTime(TAG, "starting findPerpendicular determine validity 2" );	
+			//ok let's keep going
+			Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords VALID " + direction + "  letter=" + playedTile.getBoardPosition() + " " + playedTile.getLatestPlayedLetter().getLetter());
+				
+			//find played word based on direction and playedTile boardPosition
+			
+			PlayerGame opponentGame = game.getOpponentGame();
+			
+			//this is a valid option in which to attempt to extend the word
+			//now find all letters to the right so we can test the new word for validity
+			String word = game.getPlayedWordByDirectionStartingAtPlayedTile(playedTile, Utils.getOppositeDirection(direction));
+ 
+			ApplicationContext.captureTime(TAG, "starting findPerpendicular after getPlayedWordByDirectionStartingAtPlayedTile" );
+			
+			Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords CURRENT WORD " + word);
+			
+					
+			//loop through distinct letters and search for all words at once
+			//then loop through valid word list that is returned
+			
+			List<String> distinctTrayLetters = new ArrayList<String>();
+			distinctTrayLetters.addAll(opponentGame.getDistinctTrayLetters());
+			
+			//build array to look for all words at once
+			String[] lookupWords = new String[distinctTrayLetters.size()];
+			for (int i = 0; i < distinctTrayLetters.size(); i++ ){ 
+				String baseWord = distinctTrayLetters.get(i) + word;
+				 
+				if (direction == Constants.DIRECTION_BELOW || direction == Constants.DIRECTION_RIGHT){
+					//add letter to end of word
+					baseWord = word + distinctTrayLetters.get(i);
+				}
+				lookupWords[i] = baseWord;
+			}
+			
+			ApplicationContext.captureTime(TAG, "before getWordsFromWordArray" );
+			List<String> validBaseWords = wordService.getWordsFromWordArray(lookupWords);
+			ApplicationContext.captureTime(TAG, "after getWordsFromWordArray" );			
+			
+			//skip duplicate letters since results will be too close to worry about differences
+			for (String validBaseWord : validBaseWords){ 
+
+				//pull the tray letter back out
+				String trayLetter = validBaseWord.substring(0,1);
+				if (direction == Constants.DIRECTION_BELOW || direction == Constants.DIRECTION_RIGHT){
+					//grab letter from end of word
+					trayLetter = validBaseWord.substring(validBaseWord.length() - 1, 1);
+				}
+
+				//baseWord is valid, add this option to placedResults...
+				try{
+					List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
+					
+					//add tray letter to tileNextDoorPosition
+					gameBoardTiles.get(tileNextDoorPosition).setPlacedLetter(trayLetter.toUpperCase());
+					
+					PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+
+					ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
+
+					placedResults.add(placedResult);
+				 
+					Logger.d(TAG, "autoplay word match points=" + word + " " + placedResult.getTotalPoints());
+				}
+				catch (DesignByContractException e){
+					//the base word is valid but the placement causes a rule failure, let's get out of this iteration
+					 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords DesignByContractException=" + e.getMessage());
+					 continue;
+				}
+			
+				//now that we have added the base word to the results, let's see if we can form a valid word
+				//in the perpendicular direction using the letter in tileNextDoorPosition 
+			
+				//let's try to determine how many tiles we have to deal with in the perpendicular axis
+				//for a left/right word, the axis to look for is vertical, for a up/down word, the axis to look for is horizontal
+
+				int numTilesBefore = game.getNumConsecutivePlayableEmptyTilesInADirection(tileNextDoorPosition, beforeDirection);
+				int numTilesAfter = game.getNumConsecutivePlayableEmptyTilesInADirection(tileNextDoorPosition, afterDirection);
+	
+				 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords num matches=" + matches.size());
+	
+				//we need all valid words from the tray that contain the letter in context
+				for (String match : matches){
+					ApplicationContext.captureTime(TAG, "match loop match=" + match);
+					//let's make sure we are not going over the limit
+					if (successfulAdditions >= Constants.MAX_WORD_MATCHES_PERPENDICULAR) { break; }  
+					
+					int positionInWord = match.indexOf(trayLetter.toLowerCase());
+					//does this letter occur in this word?
+					if (positionInWord == -1){ 
+						//the trayLetter is not in this word
+						 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords the trayLetter is not in this word match=" + match + " trayLetter=" + trayLetter);
+
+						continue;
+					}
+						
+					//	boolean ok = true;
+					String[] wordSplit = match.trim().split(""); 
+					
+					//now loop through valid word match seeing if it will fit in the spot
+					//if so, run through rules to see if we can add as legitimate result option
+					if ((match.length() - positionInWord) <= numTilesAfter && positionInWord >= numTilesBefore ){
+						//will continue below
+					}
+					else {
+						//word won't fit based on position of open tiles.  let's move on
+						 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords invalid position for matched word match=" + match + " positionInWord=" + positionInWord + " numTileAfter=" + numTilesAfter + " numTilesBefore=" + numTilesBefore);
+						continue;
+					}
+					
+					int anchorPosition = tileNextDoorPosition;  
+					boolean ok = true;	
+					
+					//reset the boardTile list
+			 		List<GameTile> gameBoardTiles = getBoardBaseTiles(boardTiles); 
+			 		
+					//a positive difference means go up/left
+					//a negative difference means go down/right
+					//because java adds empty string as the first element ( its a bit annoying )
+					//use 1 to get the first  element in this case 
+					for (int y = 1; y < wordSplit.length; y ++) {
+						int boardPosition = 0;
+						
+						int difference = positionInWord - y + 1;
+						
+						if (difference == 0){
+							boardPosition = anchorPosition;
+						}
+						else if (difference > 0){
+							if (perpendicularAxis.equals(Constants.AXIS_HORIZONTAL)){
+								boardPosition = TileLayoutService.getTileIdXToTheLeft(anchorPosition, difference);											
+							}
+							else{
+								boardPosition = TileLayoutService.getTileIdXAbove(anchorPosition, difference);
+							}	
+						}
+						else{
+							if (perpendicularAxis.equals(Constants.AXIS_HORIZONTAL)){
+								boardPosition = TileLayoutService.getTileIdXToTheRight(anchorPosition, Math.abs(difference));
+							}
+							else{
+								boardPosition = TileLayoutService.getTileIdXBelow(anchorPosition, Math.abs(difference));
+							}
+						}
+									
+		//				Logger.d(TAG, "autoplay word match loop boardPosition()=" + boardPosition + " difference=" + difference);
+
+						//just a precaution, should not hit this logic
+						if (boardPosition == 255){
+							//we've reached a border and cant go any further, abort this word
+							ok = false;
+							break;
+						}
+						
+						String letter = wordSplit[y];
+						//set letter on this version of the board, we will have to get the boardTile positions back out after choosing placedResults
+						//perhaps add List<GameTile> to placedResult just for convenience
+						gameBoardTiles.get(boardPosition).setPlacedLetter(letter.toUpperCase());
+					}
+					
+					if (!ok){
+						//something weird happened, let's get out of this iteration/match
+						continue;
+					}
+						
+					
+					//now that we have the letters placed on the board, lets check the rules to validate and assign points
+					try{
+		 
+						//add to the placedResults list if the word is good
+						//later we will decide which placedResult to play
+						ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTilecheckPlayRules starting");
+
+						 PlacedResult placedResult = GameService.checkPlayRules(context, defaultLayout, game, gameBoardTiles, false); 
+
+						 ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile checkPlayRules ended");
+						 boolean distinctScore = true;
+						 
+						 //check for already played score, doing this should provide a better spread across the sill levels
+						 //since we won't get 42 "4 point" results, skewing the spread
+						 for(PlacedResult loopResult : placedResults){
+							 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
+								 distinctScore = false;
+								 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score not distinct, word =" + match + " " + placedResult.getTotalPoints());
+							 }
+						 }
+						 if (distinctScore){
+							 placedResults.add(placedResult);
+							 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords word match points=" + match + " " + placedResult.getTotalPoints());
+						 }
+				 
+					}
+					catch (DesignByContractException e){
+					    //there was a problem, do not add to list				
+						Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords DesignByContractException=" + e.getMessage());
+
+					} //end catch
+
+				}// end (String match : matches){
+		}// end for (String trayLetter : opponentGame.getDistinctTrayLetters()){ 	
+			
+		ApplicationContext.captureTime(TAG, "ending findPerpendicular direction=" + direction + " letter=" + playedTile.getLatestPlayedLetter().getLetter() + " position=" + playedTile.getBoardPosition() );
+
+	}
+	
 	
 	private static void findWordsUpOrDownSingleTile(String axis, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
 		List<List<String>> letterSets_7, List<List<String>> letterSets_6, List<List<String>> letterSets_5, List<List<String>> letterSets_4,
 		List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, int numTilesBehind,
-		int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout)
+		int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions)
 	{
 		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile starting");
 		if (numTilesBehind > 0 && numTilesAhead > 0 ) {
@@ -1469,7 +1590,7 @@ public static void skip(boolean isOpponent, Game game){
 			Logger.d(TAG, "autoplay, going to check words now");
 			
 			for (int x = ((numTilesAhead + numTilesBehind) > 7 ? 7 : (numTilesAhead + numTilesBehind)); x > 0; x--){
-				if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
+				if (successfulAdditions >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 				
 		//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile outer for loop starting");
 				List<List<String>> letterSets = new ArrayList<List<String>>();
@@ -1575,7 +1696,7 @@ public static void skip(boolean isOpponent, Game game){
 						//find the position of the already played tile (the first instance of it)
 				//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile match loop starting - match=" + match);
 						
-						if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
+						if (successfulAdditions >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 						
 						int playedTilePositionInWord = match.indexOf(playedTile.getLatestPlayedLetter().getLetter().toLowerCase());
 						
@@ -1747,7 +1868,7 @@ public static void skip(boolean isOpponent, Game game){
 					
 				for (String match : matches){
 					//find the position of the already played tile (the first instance of it)
-					if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
+					if (placedResults.size() >= Constants.MAX_WORD_MATCHES_ACROSS ) { break; }
 				 Logger.d(TAG, "autoplay addWordsToStartGame match=" + match);
 					
 					//Logger.d(TAG, "autoplay word match=" + match + " playedLetter=" + playedTile.getLatestPlayedLetter().getLetter() + " playedTilePosition=" + playedTilePositionInWord);

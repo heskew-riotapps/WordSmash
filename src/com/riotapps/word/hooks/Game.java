@@ -1011,4 +1011,40 @@ public class Game implements Parcelable, Comparable<Game> {
 	public int getTotalNumLetterCountLeftInHopperAndOpponentTray(){
 		return this.hopper.size() + this.playerGames.get(1).getTrayLetters().size() ;
 	}
+	
+	public String getPlayedWordByDirectionStartingAtPlayedTile(PlayedTile tile, String direction){
+		if (tile == null) { return ""; }
+		
+		int loopPosition = TileLayoutService.getTileIdNextDoorByDirection(tile.getBoardPosition(), direction);
+		String word = tile.getLatestPlayedLetter().getLetter();
+		
+		boolean stillInWord = true;
+		int regulatorCount = 1;
+		
+		while ( stillInWord ){
+			if (regulatorCount >= 15) { stillInWord = false; break; }
+			
+			PlayedTile loopTile = this.getPlayedTile(loopPosition);
+			
+			if (loopTile != null){
+				if (direction.equals(Constants.DIRECTION_ABOVE) || direction.equals(Constants.DIRECTION_LEFT)){
+					//add letter to the beginning of the word
+					word = loopTile.getLatestPlayedLetter().getLetter() + word;
+				}
+				else {
+					//add letter to end of word
+					word += loopTile.getLatestPlayedLetter().getLetter();
+				}
+				loopPosition = TileLayoutService.getTileIdNextDoorByDirection(loopPosition, direction);
+				
+			}
+			else {
+				stillInWord = false;
+				break;
+			}
+		
+		}
+		
+		return word;
+	}
 }

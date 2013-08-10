@@ -92,6 +92,25 @@ public class TileLayoutService {
 		 else {return false;}
 	}
 
+	 public static int getTileIdNextDoorByDirection(int tileId, String direction)
+     {
+		 if (direction == Constants.DIRECTION_ABOVE){
+			 return getTileIdAbove(tileId);
+		 }
+		 else if (direction == Constants.DIRECTION_BELOW){
+			 return getTileIdBelow(tileId);
+		 }
+		 else if (direction == Constants.DIRECTION_LEFT){
+			 return getTileIdToTheLeft(tileId);
+		 }
+		 else if (direction == Constants.DIRECTION_RIGHT){
+			 return getTileIdToTheRight(tileId);
+		 }
+		 else { return -1; }
+
+		 
+     }
+	
 	
 	 public static int getTileIdAbove(int tileId)
      {

@@ -223,6 +223,12 @@ public class WordService {
  
 	}
 	
+	
+	public List<String> getWordsFromWordArray(String[] words){
+		 
+		return this.data.getWordsFromWordArray(words);
+ 
+	}
 	public static void createDatabase(Context context){
 		DatabaseHelper db = new DatabaseHelper(context);
 		

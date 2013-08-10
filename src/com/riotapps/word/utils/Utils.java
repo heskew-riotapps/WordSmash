@@ -263,4 +263,20 @@ public class Utils {
     	return min + (int)(Math.random() * ((max - min) + 1));
  
     }
+    
+    public static String getOppositeDirection(String direction){
+    	if (direction.equals(Constants.DIRECTION_LEFT)){
+			return Constants.DIRECTION_RIGHT;
+		}
+    	if (direction.equals(Constants.DIRECTION_RIGHT)){
+			return Constants.DIRECTION_LEFT;
+		}
+    	if (direction.equals(Constants.DIRECTION_ABOVE)){
+			return Constants.DIRECTION_BELOW;
+		}
+    	if (direction.equals(Constants.DIRECTION_BELOW)){
+			return Constants.DIRECTION_ABOVE;
+		}
+    	return "";
+    }
 }
