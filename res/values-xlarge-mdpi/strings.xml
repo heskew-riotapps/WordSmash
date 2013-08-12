@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="derived_device_screen_size">xlarge</string>
+    <string name="derived_device_resolution">mdpi</string>
+</resources>

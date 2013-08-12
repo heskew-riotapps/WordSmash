@@ -116,7 +116,16 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 
 	 private String lastPlayerActionBeforeAutoplay = "";
 	 
-	 private boolean isPreAutoplayTaskRunning = false;
+	 public String getLastPlayerActionBeforeAutoplay() {
+		return lastPlayerActionBeforeAutoplay;
+	}
+
+	public void setLastPlayerActionBeforeAutoplay(
+			String lastPlayerActionBeforeAutoplay) {
+		this.lastPlayerActionBeforeAutoplay = lastPlayerActionBeforeAutoplay;
+	}
+
+	private boolean isPreAutoplayTaskRunning = false;
 	 
 	 private AutoplayTask autoplayTask = null; 
 	 private PreAutoplayTask preAutoplayTask = null; 
@@ -873,9 +882,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		}
 		
 		if (this.preAutoplayTask != null){
-    		this.preAutoplayTask.cancel(true);
+			Logger.d(TAG, "onPause preAutoplayTask running");
+    		//this.preAutoplayTask.cancel(true);
     		this.preAutoplayTask = null;
     	}
+		
+		Logger.d(TAG, "onPause preAutoplayTask stopped");
+
 	///	this.stopTimer();
 		//this.stopRunawayAdTimer();
 		this.dismissHopperPeekDialog();

@@ -11,6 +11,8 @@ public class PlacedResult {
 	
 	private List<GameTile> boardTiles = new ArrayList<GameTile>();
 	
+	private int matchType = 0;
+	
 	private int totalPoints = 0;
 	
 	public List<GameTile> getPlacedTiles() {
@@ -68,6 +70,13 @@ public class PlacedResult {
 		}
 		
 		return isConnected;
+	}
+	
+	public int getMatchType() {
+		return matchType;
+	}
+	public void setMatchType(int matchType) {
+		this.matchType = matchType;
 	}
 	
 }

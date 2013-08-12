@@ -38,6 +38,8 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        TextView tvBuildNumber = (TextView)this.findViewById(R.id.tvBuildNumber);
 	        TextView tvSmileyAttribution = (TextView)this.findViewById(R.id.tvSmileyAttribution);
 	        TextView tvSmileyAttributionLink = (TextView)this.findViewById(R.id.tvSmileyAttributionLink);
+	        TextView tvDeviceSpecs = (TextView)this.findViewById(R.id.tvDeviceSpecs); 
+
 	        
 	        String versionCode = this.getString(R.string.version);
 	        String versionName = this.getString(R.string.versionName);
@@ -57,6 +59,7 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        tvBuildNumber.setText(String.format(this.getString(R.string.about_build_number), this.getString(R.string.build)));
 	        tvVersion.setText(String.format(this.getString(R.string.about_version), versionCode));	
 	        tvVersionName.setText(String.format(this.getString(R.string.version_name_display),versionName));
+	        tvDeviceSpecs.setText(String.format(this.getString(R.string.about_device_specs), this.getString(R.string.derived_device_screen_size), this.getString(R.string.derived_device_resolution)));
 	
 	        tvSupportLink.setOnClickListener(this);
 	        tvSupportText.setOnClickListener(this);

@@ -115,13 +115,19 @@
       <TextView
         style="@style/ContentAreaLinkStyle"
         android:id="@+id/tvSmileyAttributionLink"
-         android:background="@drawable/text_selector_bottom"
       	android:layout_below="@id/tvSmileyAttribution"
       	android:paddingTop="2dp"
   		android:text="@string/smiley_attribution_link" 
   		android:layout_marginLeft="10dp"
         />
  
+       <TextView
+        style="@style/ContentAreaTextStyle"
+        android:id="@+id/tvDeviceSpecs"
+         android:background="@drawable/text_selector_bottom"
+      	android:layout_below="@id/tvSmileyAttributionLink"
+      	android:paddingTop="2dp"
+        />
 </RelativeLayout>
  </ScrollView> 
 </LinearLayout>
