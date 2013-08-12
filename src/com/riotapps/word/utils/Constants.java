@@ -408,12 +408,28 @@ public class Constants {
 	 * skill level 
 	 *==============================================*/
 	public static final int SKILL_LEVEL_NOVICE = 1;
-	public static final int SKILL_LEVEL_MID_LEVEL = 2;
-	public static final int SKILL_LEVEL_ADVANCED = 3;	
+	public static final int SKILL_LEVEL_AMATEUR = 2;
+	public static final int SKILL_LEVEL_SEMI_PRO = 3;	
+	public static final int SKILL_LEVEL_PROFESSIONAL = 4;
+	public static final int SKILL_LEVEL_EXPERT = 5;
+	public static final int SKILL_LEVEL_MASTER = 6;
 	
-	public static final int MAX_WORD_MATCHES_ACROSS = 30;
-	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 30;
+	public static final int MAX_WORD_MATCHES_WORDS_TO_START_GAME = 20;
+	public static final int MAX_WORD_MATCHES_ACROSS = 20;
+	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 20;
+	public static final int MAX_WORD_MATCHES_EXTENSIONS = 20;
+	public static final int MAX_WORD_MATCHES_OVERLAYS = 20;
+
+	public static final int AUTOPLAY_MATCH_ACROSS = 20;
+	public static final int AUTOPLAY_MATCH_PERPENDICULAR = 20;
+	public static final int AUTOPLAY_MATCH_EXTENSIONS = 20;
+	public static final int AUTOPLAY_MATCH_OVERLAYS = 20;
+
+	
 	public static final int TILE_POSITION_ON_BORDER = 255;
+	
+	public static final int SCORE_DIFFERENCE_TRIGGER_EXPERT = 100;
+	public static final int SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL = 150;
 	
 }//end class Constants
  

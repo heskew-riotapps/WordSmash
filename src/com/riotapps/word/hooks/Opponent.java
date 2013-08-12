@@ -111,6 +111,12 @@ public class Opponent{
 			return context.getString(R.string.skill_level_2);
 		case 3:
 			return context.getString(R.string.skill_level_3);
+		case 4:
+			return context.getString(R.string.skill_level_4);
+		case 5:
+			return context.getString(R.string.skill_level_5);
+		case 6:
+			return context.getString(R.string.skill_level_6);
 		}
 		return Constants.EMPTY_STRING;
 	}

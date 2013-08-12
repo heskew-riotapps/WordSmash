@@ -3,7 +3,8 @@
     <string name="version">1.0</string>
     <string name="versionName">Apple Pie</string>
     <string name="build">101</string>
-    
+     <string name="derived_device_screen_size">unspecified</string>
+    <string name="derived_device_resolution">unspecified</string>
 
     <string name="wordnik_apiKey">48f31f368d20791114b01067e1d05b68ca177aabdbab4150b</string>
     <string name="chartboost_app_id">5126a10716ba477b0e000019</string>
@@ -264,8 +265,11 @@
 		<string name="smiley_attribution_link">http://www.codicode.com</string>	 
 			
 		<string name="skill_level_1">Novice</string>		
-		<string name="skill_level_2">Mid-Level</string>
-		<string name="skill_level_3">Advanced</string>
+		<string name="skill_level_2">Amateur</string>
+		<string name="skill_level_3">Semi-Pro</string>
+		<string name="skill_level_4">Professional</string>
+		<string name="skill_level_5">Expert</string>
+		<string name="skill_level_6">Master</string>
 		<string name="main_choose">Tap an opponent to start a game</string>
 		<string name="main_game_start_prompt">%s is ready to play.  Are you ready?</string>
 		<string name="main_game_start_prompt_title">start a game</string>
@@ -319,5 +323,8 @@
 	    <string name="store_item_hopper_peek_title">Peek at the Hopper</string>
 		<string name="store_item_hopper_peek_description">At any time, you will be able to see which letters are left in play in the hopper
 		     as well as in your opponent\'s tray.  Unlimited usage.</string>		
-		<string name="smiley_attribution">Thanks to Codicode for the cool smiley characters!</string>     	
+		<string name="smiley_attribution">Thanks to Codicode for the cool smiley characters!</string>    
+		
+		<string name="about_device_specs">This device is a %1$s size with %2$s resolution.</string>    
+			
 </resources>

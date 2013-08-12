@@ -127,8 +127,11 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
     private int midpoint;
     private static final int TRAY_VERTICAL_MARGIN = 5;
     private static final int TRAY_TOP_BORDER_HEIGHT = 4;
-    private static final long SINGLE_TAP_DURATION_IN_NANOSECONDS = 550000000;
-    private static final long DOUBLE_TAP_DURATION_IN_NANOSECONDS = 800000000;
+//    private static final long SINGLE_TAP_DURATION_IN_NANOSECONDS = 550000000;
+//    private static final long DOUBLE_TAP_DURATION_IN_NANOSECONDS = 800000000;
+    private static final long SINGLE_TAP_DURATION_IN_MILLISECONDS = 550;
+    private static final long DOUBLE_TAP_DURATION_IN_MILLISECONDS = 800;
+    
     private static final long MOVE_STOPPED_DURATION_IN_MILLISECONDS = 200;
     private static final float MOVEMENT_TRIGGER_THRESHOLD = .05f;
     private static final int MAX_LOGO_HEIGHT = 42;
@@ -491,15 +494,15 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		//	GameSurfaceView.bgTrayBaseDragging = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize , this.draggingTileSize, false);
 
 			///GameSurfaceView.bgTrayBaseDragging = BitmapFactory.decodeResource(getResources(), R.drawable.tray_tile_bg);
-			//GameSurfaceView.bgTrayBaseDragging = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize , this.draggingTileSize, false);
+			// GameSurfaceView.bgTrayBaseDragging = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize , this.draggingTileSize, false);
 
-			 GameSurfaceView.bgTrayBaseDragging = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize, this.draggingTileSize);		
+			  GameSurfaceView.bgTrayBaseDragging = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayBaseDragging, this.draggingTileSize, this.draggingTileSize);		
 	 	 }	 
-		 this.parent.captureTime("SetDerivedValues bgPlacedTileFull start load resized");
+		 this.parent.captureTime("SetDerivedValues bgTrayBackground start load resized");
 		 if (GameSurfaceView.bgTrayBackground == null) {
 			// GameSurfaceView.bgTrayBackground = BitmapFactory.decodeResource(getResources(), R.drawable.sbd_bg);
 			 GameSurfaceView.bgTrayBackground = decodeSampledBitmapFromResource(getResources(), R.drawable.sbd_bg, this.fullWidth,this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2));
-			// GameSurfaceView.bgTrayBackground = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBackground, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2), false);
+			//  GameSurfaceView.bgTrayBackground = Bitmap.createScaledBitmap(GameSurfaceView.bgTrayBackground, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2), false);
 
 			  GameSurfaceView.bgTrayBackground = ImageHelper.getResizedBitmap(GameSurfaceView.bgTrayBackground, this.fullWidth, this.trayTileSize + (TRAY_VERTICAL_MARGIN * 2));
 		 }
@@ -926,7 +929,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	     this.trayTileDropTarget = false;
 	     this.alreadyInZoomedState = false;
 		// Logger.d(TAG, "onTouchEvent isSingleTap=off");	     
-	     long currentTouchTime = System.nanoTime(); 
+	     long currentTouchTime = System.currentTimeMillis(); //System.nanoTime(); 
 	    
          Logger.w(TAG,  "onTouchEvent currentTime=" + currentTouchTime + " event=" + event.toString());
          Logger.w(TAG,  "onTouchEvent currentX=" + this.currentX + " currentY=" + this.currentY + " x=" + event.getX() + " y=" + event.getY() + " rawX=" + event.getRawX() + " rawY=" + event.getRawY());
@@ -1066,9 +1069,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             	   
             	   this.readyToDraw = false;
             	   Logger.w(TAG, "ACTION_UP double tapcheck = " + this.tapCheck + " currentTouchTime=" + currentTouchTime + " dbltapcheck = " + this.dblTapCheck + " diff = " + (this.tapCheck - this.dblTapCheck)); 
-               	   Logger.w(TAG, "ACTION_UP single tapcheck = " + this.tapCheck + " SINGLE_TAP_DURATION_IN_NANOSECONDS=" + SINGLE_TAP_DURATION_IN_NANOSECONDS + " currentTouchTime=" + currentTouchTime + " tapcheck = " + this.tapCheck + " diff = " + (currentTouchTime - this.tapCheck)); 
+               	   Logger.w(TAG, "ACTION_UP single tapcheck = " + this.tapCheck + " SINGLE_TAP_DURATION_IN_MILLISECONDS=" + SINGLE_TAP_DURATION_IN_MILLISECONDS + " currentTouchTime=" + currentTouchTime + " tapcheck = " + this.tapCheck + " diff = " + (currentTouchTime - this.tapCheck)); 
      	   
-            	 if (this.tapCheck > 0 && currentTouchTime - this.tapCheck <= SINGLE_TAP_DURATION_IN_NANOSECONDS) { 
+            	 if (this.tapCheck > 0 && currentTouchTime - this.tapCheck <= SINGLE_TAP_DURATION_IN_MILLISECONDS) { 
             		 
             		 Logger.d(TAG, "onTouchEvent past first tap check");
             	 // && (currentTouchTime - this.dblTapCheck >= 800000000 || this.dblTapCheck == 0)) {
@@ -1096,7 +1099,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
                 		 }
             			 //check for a single tap
             			 //and make sure to ignore double tap events
-                		 else if((this.tapCheck - this.dblTapCheck) >= (DOUBLE_TAP_DURATION_IN_NANOSECONDS - SINGLE_TAP_DURATION_IN_NANOSECONDS) || this.dblTapCheck == 0){
+                		 else if((this.tapCheck - this.dblTapCheck) >= (DOUBLE_TAP_DURATION_IN_MILLISECONDS - SINGLE_TAP_DURATION_IN_MILLISECONDS) || this.dblTapCheck == 0){
             				 
                     		 Logger.d(TAG, "onTouchEvent not a double tap");
 
@@ -1291,7 +1294,10 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    					 Log.w(TAG, "onTouchEvent: ACTION_UP previousY=" + previousX + " currentY=" + currentY + " diff=" + (currentY - previousY)); 
 	    					
 	    					 //time since last move action
-	    					 long timeSinceLastMoveInMilliseconds = (System.nanoTime() - this.coordinates.get(NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED - 1).getTimestamp()) / 1000000;
+	    					// long timeSinceLastMoveInMilliseconds = (System.nanoTime() - this.coordinates.get(NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED - 1).getTimestamp()) / 1000000;
+	    					 
+	    					 long timeSinceLastMoveInMilliseconds = (System.currentTimeMillis() - this.coordinates.get(NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED - 1).getTimestamp()) ;
+	    		    			
 	    					 
 	    					if (timeSinceLastMoveInMilliseconds < MOVE_STOPPED_DURATION_IN_MILLISECONDS) {
 	    				//	if (currentX + Math.abs(currentX - previousX) >= currentX * (1 + MOVEMENT_TRIGGER_THRESHOLD) &&
@@ -1304,7 +1310,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    				   // 		Math.abs(this.coordinates.get(0).getyLocation()) >= Math.abs(this.coordinates.get(NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED - 1).getyLocation() * (1 + MOVEMENT_TRIGGER_THRESHOLD))){
 	
 		    					float speed = this.coordinates.get(NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED - 1).getTimestamp() - this.coordinates.get(0).getTimestamp();
-		    					speed = speed / 1000000; //convert to milliseconds	  
+		    					//speed = speed / 1000000; //convert to milliseconds	  
 	
 							 
 							    int xDisplacement = this.coordinates.get(NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED - 1).getxLocation() - this.coordinates.get(0).getxLocation();
@@ -2354,10 +2360,20 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
      //		 textSize = MAX_TEXT_HEIGHT;
      //	 }
      	
-
+	 
+	 	
      	
      	//"jimmy mac scored 42 points with supermans cape and batmans automobile"; 
      	String lastActionText = this.parent.getGame().getLastActionText(this.parent);
+     	
+        String firstLine = "";
+        if (this.parent.getGame().isCompleted() ||  this.parent.getLastPlayerActionBeforeAutoplay().length() == 0){
+        	firstLine = lastActionText;
+        }
+        else{
+        	firstLine = this.parent.getLastPlayerActionBeforeAutoplay();
+        }
+        
      	 //determine text size and store in var
      	 long textSize = Math.round(this.topGapHeight * .4);
      	 if (textSize > MAX_TEXT_HEIGHT){
@@ -2382,7 +2398,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	     p.setTypeface(ApplicationContext.getBonusTypeface()); //(this.bonusTypeface);
 	     Rect bounds = new Rect();
 	 
-	     p.getTextBounds(lastActionText, 0, lastActionText.length(), bounds);
+	     p.getTextBounds(firstLine, 0, firstLine.length(), bounds);
 	     
 	     //determine if the text expands past the full width, if so just shrink the height more
 	     //later figure out the logic for line breaks when line is too long
@@ -2391,13 +2407,13 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    	 double  textRatio = (double)maxTextWidth / (double)bounds.width();
 		     textSize = Math.round(textSize * textRatio);
 		     p.setTextSize(textSize);
-		     p.getTextBounds(lastActionText, 0, lastActionText.length(), bounds);
+		     p.getTextBounds(firstLine, 0, firstLine.length(), bounds);
 		     
 		  //   Logger.d(TAG, "drawUpperGap bounds.width=" + bounds.width() + " maxTextWidth="+ maxTextWidth + " textSize=" + " textRatio=" + textRatio);
 	     }
 	     
      	
-     	 //if game is over, write 2 lines
+     	 //if game is over, write 2 lines (or if there are 2 action texts)
      	 //1. the last action text
      	 //2. the random vowels and consonants used in the game
 	     int textLeft =  this.midpoint - (Math.round(bounds.width() / 2));
@@ -2406,25 +2422,30 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	     //this is a hack because for some reason the vertical origin is going up in direction as opposed to down
 	     int textTop = textVerticalMidpoint + (bounds.height() / 3);
 	     
+	      
 	     //only checks for length of consonants so that very old games (that only had 3 consonants and 2 vowels) wont break
-	     if (this.parent.getGame().isCompleted()){
-     		 String randoms = String.format(this.parent.getString(R.string.upper_gap_randoms),
+	     if (this.parent.getGame().isCompleted() || this.parent.getLastPlayerActionBeforeAutoplay().length() > 0){
+     		 String secondLine = lastActionText; ;
+	    	 
+	    	 if (this.parent.getGame().isCompleted()){
+	    		 secondLine = String.format(this.parent.getString(R.string.upper_gap_randoms),
      				 this.parent.getGame().getRandomConsonants().get(0),
      				 this.parent.getGame().getRandomConsonants().get(1),
      				 this.parent.getGame().getRandomConsonants().get(2),
      				 this.parent.getGame().getRandomConsonants().get(3),
      				 this.parent.getGame().getRandomVowel());
-
+ 
+	    	 }
      		 
-     		 Paint pRandom = new Paint();
-     		 pRandom.setColor(Color.parseColor(this.parent.getString(R.color.game_board_full_view_upper_gap_text)));
+     		 Paint pSecondLine = new Paint();
+     		 pSecondLine.setColor(Color.parseColor(this.parent.getString(R.color.game_board_full_view_upper_gap_text)));
 
-     		 pRandom.setTextSize(textSize);
-     		 pRandom.setAntiAlias(true);
-     		 pRandom.setTypeface(ApplicationContext.getBonusTypeface()); //(this.bonusTypeface);
-     	     Rect boundsRandom = new Rect();
+     		 pSecondLine.setTextSize(textSize);
+     		 pSecondLine.setAntiAlias(true);
+     		 pSecondLine.setTypeface(ApplicationContext.getBonusTypeface()); //(this.bonusTypeface);
+     	     Rect boundsSecondLine = new Rect();
      	 
-     	     pRandom.getTextBounds(randoms, 0, randoms.length(), boundsRandom);	
+     	     pSecondLine.getTextBounds(secondLine, 0, secondLine.length(), boundsSecondLine);	
 /*
      	     //find the vertial space not taken up by text lines
       	    int spaceLeftoverAfterTextIsWritten = this.topGapHeight - (boundsRandom.height() + bounds.height());
@@ -2446,21 +2467,21 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
      	     int textVerticalSecondThird =  textVerticalFirstThird * 2;
 
      	    
-     	     int textLeftRandom =  this.midpoint - (Math.round(boundsRandom.width() / 2));
+     	     int textLeftRandom =  this.midpoint - (Math.round(boundsSecondLine.width() / 2));
      	     //int textTopRandom = textVerticalMidpoint + 2 + (boundsRandom.height() / 2);
-     	     int textTopRandom = textVerticalSecondThird + (boundsRandom.height() / 2);
+     	     int textTopRandom = textVerticalSecondThird + (boundsSecondLine.height() / 2);
      	     
-     	     canvas.drawText(randoms, textLeftRandom, textTopRandom, pRandom); 
+     	     canvas.drawText(secondLine, textLeftRandom, textTopRandom, pSecondLine); 
      	     
-     	     pRandom.setColor(Color.parseColor(this.parent.getString(R.color.game_board_full_view_upper_gap_front_text)));	     
+     	     pSecondLine.setColor(Color.parseColor(this.parent.getString(R.color.game_board_full_view_upper_gap_front_text)));	     
     	    
-     	     canvas.drawText(randoms, textLeftRandom - 1, textTopRandom - 1, pRandom);
+     	     canvas.drawText(secondLine, textLeftRandom - 1, textTopRandom - 1, pSecondLine);
     	    
      	     //re-adjust last action text to handle second line for randoms
      	    // = textVerticalMidpoint - 2 - (bounds.height() / 2 );
      	     textTop = textVerticalFirstThird +  (bounds.height() / 4);
      	     
-     	    int spaceLeftoverAfterTextIsWritten = this.topGapHeight - (boundsRandom.height() + bounds.height());
+     	    int spaceLeftoverAfterTextIsWritten = this.topGapHeight - (boundsSecondLine.height() + bounds.height());
      	    
      	    Math.round(spaceLeftoverAfterTextIsWritten / 3 );
      	    
@@ -2468,10 +2489,10 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
      	 }
 	     
 	     
-	     canvas.drawText(lastActionText, textLeft, textTop, p);
+	     canvas.drawText(firstLine, textLeft, textTop, p);
      	 p.setColor(Color.parseColor(this.parent.getString(R.color.game_board_full_view_upper_gap_front_text)));	     
 	    
-     	 canvas.drawText(lastActionText, textLeft - 1, textTop - 1, p);
+     	 canvas.drawText(firstLine, textLeft - 1, textTop - 1, p);
 	     //canvas.drawBitmap(this.logo, textLeft, 10, null); ///do not use 10,,,figure out math
 	     //Yes. If you want to use the colour definition in the res/colors.xml file with the ID R.color.black, then you can't just use the ID. 
 	     //If you want to get the actual colour value from the resources, use paint.setColor(getResources().getColor(R.color.black)); – Matt Gibson Dec 7 '11 at 20:49
@@ -2479,6 +2500,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	}
 
 	private void drawLowerGap(Canvas canvas){
+		if (this.logo == null) { this.LoadExtras(); }
 		Paint pGap = new Paint(); 
 		pGap.setColor(Color.parseColor(this.parent.getString(R.color.game_board_full_view_upper_gap_bg)));
 	    
@@ -2856,6 +2878,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	}
 	
 	private void LoadExtras(){
+		
+		//check to see if this has already run
+		if (this.logo != null) { return; }
 		Logger.d(TAG, "LoadExtras starting");
 		int height = Math.round(this.bottomGapHeight * .7F);
 		if (height > MAX_LOGO_HEIGHT){

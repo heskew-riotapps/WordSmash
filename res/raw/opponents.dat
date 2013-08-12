@@ -1,10 +1,10 @@
 [
-{ "id": "1", "name": "Lefty", "skillLevel": "1", "imagePrefix": "group_1_skill_level_1_a", "opponentGroupId": "1" },
-{ "id": "2", "name": "Righty", "skillLevel": "1", "imagePrefix": "group_1_skill_level_1_b", "opponentGroupId": "1" },
-{ "id": "3", "name": "Happy", "skillLevel": "2", "imagePrefix": "group_1_skill_level_2_a", "opponentGroupId": "1" },
-{ "id": "4", "name": "Lucky", "skillLevel": "2", "imagePrefix": "group_1_skill_level_2_b", "opponentGroupId": "1" },
-{ "id": "5", "name": "Grumpy", "skillLevel": "3", "imagePrefix": "group_1_skill_level_3_a", "opponentGroupId": "1" },
-{ "id": "6", "name": "Nerdy", "skillLevel": "3", "imagePrefix": "group_1_skill_level_3_b", "opponentGroupId": "1" },
+{ "id": "1", "name": "Lefty", "skillLevel": "1", "imagePrefix": "group_1_skill_level_1", "opponentGroupId": "1" },
+{ "id": "2", "name": "Righty", "skillLevel": "2", "imagePrefix": "group_1_skill_level_2", "opponentGroupId": "1" },
+{ "id": "3", "name": "Happy", "skillLevel": "3", "imagePrefix": "group_1_skill_level_3", "opponentGroupId": "1" },
+{ "id": "4", "name": "Lucky", "skillLevel": "4", "imagePrefix": "group_1_skill_level_4", "opponentGroupId": "1" },
+{ "id": "5", "name": "Grumpy", "skillLevel": "5", "imagePrefix": "group_1_skill_level_5", "opponentGroupId": "1" },
+{ "id": "6", "name": "Nerdy", "skillLevel": "6", "imagePrefix": "group_1_skill_level_6", "opponentGroupId": "1" },
 
 { "id": "7", "name": "Mickey", "skillLevel": "1", "imagePrefix": "group_2_skill_level_1_a", "opponentGroupId": "2" },
 { "id": "8", "name": "Donald", "skillLevel": "1", "imagePrefix": "group_2_skill_level_1_b", "opponentGroupId": "2" },
