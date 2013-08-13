@@ -1901,6 +1901,19 @@ public static void skip(boolean isOpponent, Game game){
 		
 	}
 	
+	public static List<GameTile> getBoardBaseTilesAndRemovePlacedTiles(List<GameTile> boardTiles){
+		List<GameTile> tiles = getBoardBaseTiles(boardTiles);
+		
+		for (GameTile tile : tiles){
+			if (tile.isPlacement()){
+				tile.removePlacement();
+			}
+		}
+		
+		
+		return tiles;
+	}
+	
 	private static List<GameTile> getBoardBaseTiles(List<GameTile> boardTiles){
 		List<GameTile> tiles = new ArrayList<GameTile>();
 		

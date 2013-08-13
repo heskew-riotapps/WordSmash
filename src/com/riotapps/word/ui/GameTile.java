@@ -1,11 +1,14 @@
 package com.riotapps.word.ui;
 
 import com.riotapps.word.hooks.TileLayoutService;
+import com.riotapps.word.utils.Logger;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 public class GameTile {
+	
+	private static final String TAG = GameTile.class.getSimpleName();
 	private int id;
 	
 	private int xPosition = 0;
@@ -299,6 +302,9 @@ public String getOriginalText() {
 		else{
 			this.isDraggable = false;
 		}
+		if (this.id == 196){
+			Logger.d(TAG, "setPlacedLetter=" + placedLetter + " draggable=" + (this.isDraggable == true) );
+		}
 	}
 	
 	public String getPlacedLetter() {
@@ -306,6 +312,11 @@ public String getOriginalText() {
 	}
 	public void setOriginalLetter(String originalLetter) {
 		this.originalLetter = originalLetter;
+		
+		if (this.id == 196){
+			Logger.d(TAG, "setOriginalLetter=" + originalLetter  );
+		}
+		
 	}
 //	public String getCurrentLetter() {
 //		return placedLetter.length() > 0 ? placedLetter : originalLetter;

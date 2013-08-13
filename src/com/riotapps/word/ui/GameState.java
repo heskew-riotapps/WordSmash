@@ -199,7 +199,7 @@ public class GameState {
 		this.locations.clear();
 		
 		int count = 0;
-		//add a location for each tray tile, regardless whether a letter in placed on that tile
+		//add a location for each tray tile, regardless whether a letter is placed on that tile
 		//this fills the location list
 		for(TrayTile tile : trayTiles){
 			GameStateLocation location = new GameStateLocation();

@@ -134,7 +134,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
     
     private static final long MOVE_STOPPED_DURATION_IN_MILLISECONDS = 200;
     private static final float MOVEMENT_TRIGGER_THRESHOLD = .05f;
-    private static final int MAX_LOGO_HEIGHT = 42;
+    private static final int MAX_LOGO_HEIGHT = 60;
     private static final long MAX_TEXT_HEIGHT = 28;
     private static final float MAX_TEXT_WIDTH = .90F;
     private int xPosition = 0;
@@ -2299,6 +2299,11 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		if (tile.getPlacedLetter().length() > 0){
     		 canvas.drawBitmap(GameSurfaceView.bgPlacedTileZoomed,tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
      
+    		 if(tile.getId() == 196) {
+    			 
+    				 Logger.d(TAG, "drawZoomedBoardGuts placed=" + tile.getPlacedLetter());
+    		 }
+    		 
     		 this.drawLetter(canvas, tile.getPlacedLetter(), this.zoomedTileWidth, tile.getxPositionZoomed(), tile.getyPositionZoomed(), false);
     		 //Logger.d(TAG, "drawZoomedBoardGuts tile.getDisplayLetter()=" + tile.getDisplayLetter());
     	 } 
@@ -2310,13 +2315,24 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
    	 	}
 	 	 //original text represents bonus text
     	 else if (tile.getOriginalText().length() > 0){
+    		 if(tile.getId() == 196) {
+    			 
+				 Logger.d(TAG, "drawZoomedBoardGuts plaYed=" + tile.getPlacedLetter());
+		 }
+
+    		 
+    		 
     		 canvas.drawBitmap(tile.getOriginalBitmapZoomed(),tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
     		 
     		 this.drawBonusText(canvas, tile.getOriginalText(), this.zoomedTileWidth, tile.getxPositionZoomed(), tile.getyPositionZoomed());
     		 
     	 }
     	 else {
-    		 
+    		 if(tile.getId() == 196) {
+    			 
+				 Logger.d(TAG, "drawZoomedBoardGuts empty=" + tile.getPlacedLetter());
+		 }
+
     		 canvas.drawBitmap(tile.getOriginalBitmapZoomed(),tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
     	 }
 	 	 
@@ -2962,10 +2978,19 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 				 //check game object for already played letter
 				 PlayedTile playedTile = this.parent.getGameState().getPlayedTileByPosition(tile.getId());
 				 if (playedTile != null){
+					 if (id == 196){
+						 Logger.d(TAG, "LoadTiles playedTile 196 " + playedTile.getLatestPlayedLetter());
+					 }
+					  
 					 tile.setOriginalBitmap(bgBaseScaled); //this will change as default bonus and played tiles are incorporated
 					 if (this.isZoomAllowed == true){ tile.setOriginalBitmapZoomed(GameSurfaceView.bgBaseZoomed); }
 	
 					 //tile.setOriginalLetter(playedTile.getLetter());
+					 
+					 if (id == 196){
+						 Logger.d(TAG, "LoadTiles 196 " + playedTile.getLatestPlayedLetter().getLetter());
+					 }
+					 
 					 tile.setOriginalLetter(playedTile.getLatestPlayedLetter().getLetter());
 
 					 //was this tile placed in the previous turn???
@@ -3012,7 +3037,14 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					 }
 				 }
 				 
+				 if (id == 196){
+					 Logger.d(TAG, "LoadTiles NO playedTile 196 ");
+				 }
+
 				 if (this.parent.getGameState().getBoardLetter(tile.getId()).length() > 0){
+					 
+					 Logger.d(TAG, "LoadTiles PLACED 196 " + this.parent.getGameState().getBoardLetter(tile.getId()));
+					 
 					  tile.setPlacedLetter(this.parent.getGameState().getBoardLetter(tile.getId()));
 				 }
 				 
@@ -3277,13 +3309,25 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    	 
         	 if (tile.getPlacedLetter().length() > 0){
 	    		 canvas.drawBitmap(GameSurfaceView.bgPlacedTileFull,tile.getxPosition(), tile.getyPosition(), null);
-	     
+	    		 if(tile.getId() == 196) {
+	    			 
+    				 Logger.d(TAG, "drawFullView placed=" + tile.getPlacedLetter());
+    		 }
+
 	    		 this.drawLetter(canvas, tile.getPlacedLetter(), this.fullViewTileWidth, tile.getxPosition(), tile.getyPosition(), false);
 	    	
 	    	 }
         	 else if (tile.getOriginalLetter().length() > 0){
 	    		 canvas.drawBitmap(tile.isLastPlayed() ? GameSurfaceView.bgLastPlayedTileFull : GameSurfaceView.bgPlayedTileFull,tile.getxPosition(), tile.getyPosition(), null);
-	     
+	    		 if(tile.getId() == 196 && tile.isLastPlayed()) {
+	    			 
+    				 Logger.d(TAG, "drawFullView lastplayed =" + tile.getOriginalLetter());
+    		 }
+ if(tile.getId() == 196 && !tile.isLastPlayed()) {
+	    			 
+    				 Logger.d(TAG, "drawFullView played =" + tile.getOriginalLetter());
+    		 }
+
 	    		 this.drawLetter(canvas, tile.getOriginalLetter(), this.fullViewTileWidth, tile.getxPosition(), tile.getyPosition(), tile.isLastPlayed());
 	    	
 	    	 } 
@@ -3294,7 +3338,10 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    		 
 	    	 }
 	    	 else {
-	    		 
+	    		 if(tile.getId() == 196) {
+	    			 
+    				 Logger.d(TAG, "drawFullView empty=" + tile.getPlacedLetter());
+    		 }
 	    		 canvas.drawBitmap(tile.getOriginalBitmap(),tile.getxPosition(), tile.getyPosition(), null);
 	    	 }
 	    	 

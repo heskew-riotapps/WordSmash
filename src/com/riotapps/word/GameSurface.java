@@ -15,6 +15,7 @@ import com.google.ads.AdRequest;
 import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
 import com.riotapps.word.hooks.GameService;
+import com.riotapps.word.hooks.PlayedTile;
 import com.riotapps.word.hooks.Player;
 import com.riotapps.word.hooks.PlayerService;
 import com.riotapps.word.hooks.StoreService;
@@ -23,8 +24,10 @@ import com.riotapps.word.ui.CustomButtonDialog;
 import com.riotapps.word.ui.DialogManager;
 import com.riotapps.word.ui.GameAction.GameActionType;
 import com.riotapps.word.ui.GameState;
+import com.riotapps.word.ui.GameStateLocation;
 import com.riotapps.word.ui.GameStateService;
 import com.riotapps.word.ui.GameSurfaceView;
+import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.HopperPeekDialog;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.ui.PlacedResult;
@@ -755,6 +758,31 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private void fillGameState(){
 		 this.gameState = GameStateService.getGameState(context, this.game.getId());  
 		 
+		 //there is some kind of issue that causes game state to occasionallget get out of whack
+		 //let's check that here and if it in a whacked state, let's just clear it
+		 boolean gameStateWhacked = false;
+		  
+		 if (game.getHopper().size() > 0){
+			 for (GameStateLocation location : this.gameState.getLocations()){
+				 Logger.d(TAG, "fillGameState location letter=" + location.getLetter() + " --getBoardLocation=" + location.getBoardLocation() + " getTrayLocation=" + location.getTrayLocation());
+
+				 if (location.getTrayLocation() < 0 && location.getBoardLocation() < 0){
+					 gameStateWhacked = true;
+					 Logger.d(TAG, "fillGameState location traylocation=" + location.getTrayLocation());
+				 }
+				 if (location.getBoardLocation() > -1 && location.getLetter().equals("")){
+					 gameStateWhacked = true;
+					 Logger.d(TAG, "fillGameState location getBoardLocation=" + location.getBoardLocation());
+				 }
+				 if (location.getBoardLocation() == -1 && location.getLetter().equals("") && location.getTrayLocation() > -1){
+					 gameStateWhacked = true;
+					 Logger.d(TAG, "fillGameState location -getBoardLocation=" + location.getBoardLocation() + " getTrayLocation=" + location.getTrayLocation());
+				 }
+			 } 
+			 
+		 }
+		 
+		 if (gameStateWhacked) {  this.gameState = GameStateService.clearGameState(this.game.getId()); } 
 		 //if this.turn != gameState.turn, clearGameState
 		 
 		 Logger.d(TAG, "filleGameState trayVersion=" + this.game.getPlayerGames().get(0).getTrayVersion());
@@ -764,7 +792,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 this.gameState = GameStateService.clearGameState(this.game.getId());
 		 }
 		 
-
+for (PlayedTile tile : this.game.getPlayedTiles()){
+	if (tile.getBoardPosition() == 196){
+		 Logger.d(TAG, "filleGameState 196 is a PLAYED TILE");
+			
+	}
+		
+}
 		 Logger.d(TAG, "filleGameState numTrayTiles=" + this.game.getPlayedTiles().size());
 		// this.gameState.setTrayVersion(this.game.getContextPlayerTrayVersion(this.player));
 		 
@@ -2669,7 +2703,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				 GameSurface.this.captureTime("PreAutoplayTask STARTING");
 				 //while player is thinking, let's gather possible plays for opponent to save time
 				 GameSurface.this.isPreAutoplayTaskRunning = true;
-		    	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles(), false, GameSurface.this.placedResults);
+		     	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), false, GameSurface.this.placedResults);
 				
 		    	 
 		    	 return null;
