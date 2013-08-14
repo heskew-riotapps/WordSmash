@@ -51,6 +51,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	}
 	
 //	ApplicationContext appContext;
+	private boolean autoZoom = true;
+	
 	private CustomButtonDialog dialog = null;
 	 private static Bitmap bgPlacedTileFull;
 	private static Bitmap bgPlacedTileZoomed;
@@ -360,6 +362,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 			 this.zoomMultiplier = 1.5f;
 		      //this.isZoomAllowed = false;
 		 }  
+  		 if (this.parent.getResources().getInteger(R.integer.derived_device_screen_size) == Constants.SCREEN_SIZE_XLARGE){
+			 this.autoZoom = false;
+		 }
 		// this.isDrawn = false;
 		 
 		// this.setScrollContainer(true);
@@ -1222,7 +1227,16 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	    							 this.alreadyInZoomedState = true;
 	    						 }
 	    						 else{
-	    							 this.isZoomed = true;
+	    							 if (this.autoZoom) { 
+	    								 this.isZoomed = true; 
+	    								 Logger.d(TAG, "ACTION_UP this.isZoomed = true=" + this.autoZoom);
+
+	    							 }
+	    							 else {
+	    								 Logger.d(TAG, "ACTION_UP nt autoazoomed=" + this.autoZoom);
+	    								 
+	    							 
+	    							 }
 	    						 }
         					 }
     						// Logger.d(TAG, "ACTION_UP this.alreadyInZoomedState=" + this.alreadyInZoomedState);
@@ -2438,8 +2452,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	     //this is a hack because for some reason the vertical origin is going up in direction as opposed to down
 	     int textTop = textVerticalMidpoint + (bounds.height() / 3);
 	     
-	      
-	     //only checks for length of consonants so that very old games (that only had 3 consonants and 2 vowels) wont break
+	     Logger.d(TAG, "drawUpperGap this.parent.getGame().isCompleted()=" + this.parent.getGame().isCompleted() );
+	     
 	     if (this.parent.getGame().isCompleted() || this.parent.getLastPlayerActionBeforeAutoplay().length() > 0){
      		 String secondLine = lastActionText; ;
 	    	 

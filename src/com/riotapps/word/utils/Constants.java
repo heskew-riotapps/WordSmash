@@ -54,7 +54,7 @@ public class Constants {
 	public static final long GAME_SURFACE_INTERSTITIAL_AD_CHECK_IN_MILLISECONDS = 7000;// = 7 seconds;
 	public static final long BACKGROUND_GAME_LIST_DELAY_IN_MILLISECONDS = 2000;// = 300000;
 	 
-	public static final int NUM_LOCAL_COMPLETED_GAMES_TO_STORE = 12;
+	public static final int NUM_LOCAL_COMPLETED_GAMES_TO_STORE = 10;
 	 
 	/**============================================
 	 * tracker constants
@@ -428,8 +428,13 @@ public class Constants {
 	
 	public static final int TILE_POSITION_ON_BORDER = 255;
 	
-	public static final int SCORE_DIFFERENCE_TRIGGER_EXPERT = 100;
-	public static final int SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL = 150;
+	public static final int SCORE_DIFFERENCE_TRIGGER_EXPERT = 80;
+	public static final int SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL = 100;
+	public static final int SCORE_DIFFERENCE_TRIGGER_SEMI_PRO = 120;
+	
+	
+	public static final int SCREEN_SIZE_XLARGE = 4;
+	public static final int MAX_AUTOPLAY_MILLISECONDS = 8000;
 	
 }//end class Constants
  

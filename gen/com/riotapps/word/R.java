@@ -407,6 +407,8 @@ containing a value of this type.
         public static final int vBottomBorder=0x7f0b0078;
     }
     public static final class integer {
+        public static final int derived_device_resolution=0x7f090004;
+        public static final int derived_device_screen_size=0x7f090003;
         public static final int gameboard_button_area_height=0x7f090000;
         public static final int gameboard_lookup_words_height=0x7f090002;
         public static final int gameboard_lookup_words_width=0x7f090001;

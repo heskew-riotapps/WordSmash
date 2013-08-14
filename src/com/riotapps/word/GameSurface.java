@@ -459,7 +459,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	
 	public void callback(){
 		//just in case the game got stuck before the autoplay could complete
-	 	if (this.isGamePopulating && this.game.getPlayerGames().get(1).isTurn()){
+	 	if (this.isGamePopulating && this.game.isActive() && this.game.getPlayerGames().get(1).isTurn()){
 	 		spinner = new CustomProgressDialog(this);
 			    spinner.setMessage(String.format(this.getString(R.string.progress_opponent_thinking), this.game.getOpponent().getName()));
 			    spinner.show();
@@ -471,7 +471,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	}
 	 	
 	 	//prime the pump for opponent's turn
-		if (this.isGamePopulating && this.game.getPlayerGames().get(0).isTurn()){
+		if (this.isGamePopulating && this.game.isActive() && this.game.getPlayerGames().get(0).isTurn()){
 			this.placedResults.clear();
 			this.preAutoplayTask = new PreAutoplayTask();
 			this.preAutoplayTask.execute();
@@ -1287,6 +1287,20 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 				this.gameSurfaceView.setInitialButtonStates();
 				this.isButtonActive = false;
 			}
+			
+			//reprime the pump
+			try{
+				if (this.preAutoplayTask == null && this.game.isActive() && this.game.getPlayerGames().get(0).isTurn()){
+					this.placedResults.clear();
+					this.preAutoplayTask = new PreAutoplayTask();
+					this.preAutoplayTask.execute();
+				}
+			}
+			catch(Exception e){
+				Logger.d(TAG, "onrestart preautoplay e=" + e.getMessage());
+				
+			}
+			
 			///this.setupTimer(Constants.GAME_SURFACE_CHECK_START_AFTER_RESTART_IN_MILLISECONDS);
 		}
 	}
@@ -1468,19 +1482,27 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 	    
 	    private void handleGameResignOnClick(){
 	    	//stop thread first
-	    	this.gameSurfaceView.onStop();
+	    	//this.gameSurfaceView.onStop();
 	    	//try { 
 				 
-	    		game = GameService.resign(false, this.game);
+	    		GameService.resign(false, this.game);
 	    		this.isCompletedThisSession = true;
-	    		DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
+	    		this.postTurnTitle = context.getString(R.string.game_over);
+				this.postTurnMessage = 	game.getLastActionText(context); 
+	    		//DialogManager.SetupAlert(context, context.getString(R.string.game_over), game.getLastActionText(context));
 				setupButtons();
 				setupGame();
+				
+				gameSurfaceView.resetGameAfterRefresh(); //resetGameAfterPlay();
 				GameStateService.removeGameState(game.getId());
 				this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 				//??this.gameSurfaceView.stopThreadLoop();
 	    		//create alert for resigned game that when clicked, sends user back to main
-	    		
+			 
+				handleInterstitialAd();
+				
+				
+				
 		//	} catch (DesignByContractException e) {
 		//		 
 		//		DialogManager.SetupAlert(context, context.getString(R.string.sorry), e.getMessage());  
@@ -1777,8 +1799,10 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
     		 	DialogManager.SetupAlert(context, this.postTurnTitle , this.postTurnMessage);
     		 	
     		 	//lets prime the pump for the next play
-    		 	this.preAutoplayTask = new PreAutoplayTask();
-    			this.preAutoplayTask.execute();
+    		 	if (this.game.isActive()){
+    		 		this.preAutoplayTask = new PreAutoplayTask();
+    		 		this.preAutoplayTask.execute();
+    		 	}
 	    	}
 	    }
 	    

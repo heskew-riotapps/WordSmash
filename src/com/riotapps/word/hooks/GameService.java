@@ -365,14 +365,14 @@ public static void skip(boolean isOpponent, Game game){
 				game.getPlayerGames().get(1).setStatus(5);
 				
 				PlayerService.addWinToPlayerRecord();
-				game.getOpponent().addWinToRecord();
+				game.getOpponent().addLossToRecord();
  			}
 			else if (playerScore < opponentScore){
 				game.getPlayerGames().get(0).setStatus(5);
 				game.getPlayerGames().get(1).setStatus(4);
 
 				PlayerService.addLossToPlayerRecord();
-				game.getOpponent().addLossToRecord();
+				game.getOpponent().addWinToRecord();
 			}
 			else {
 				game.getPlayerGames().get(0).setStatus(6);
@@ -490,16 +490,17 @@ public static void skip(boolean isOpponent, Game game){
 			tempPlacedResults.clear();
 		}
 		
+		long runningTime = 0;  
+		if (followThroughWithPlay){
+			runningTime = System.currentTimeMillis();
+		}
 		
 		Logger.d(TAG, "autoplay - num derived placed results=" + tempPlacedResults.size() );
 		Logger.d(TAG, "autoplay = followThroughWithPlay=" + followThroughWithPlay + " opponentGame.getPlacedResults().size()=" + tempPlacedResults.size());
 
 	    //concede if losing by 250? perhaps randomly
 
-		
-	    boolean skip = false;
-	    boolean concede = false;
-	    boolean swap = false;
+	 
 	    List<String> swappedLetters = new ArrayList<String>();
 	    
 		Logger.d(TAG,"before getDefaultLayout");
@@ -646,7 +647,7 @@ public static void skip(boolean isOpponent, Game game){
 						
 						//if (matches.size() > 0){
 							//for each match
-						GameService.addWordsToStartGame( boardTiles, defaultLayout, context, game, placedResults, wordService );
+						GameService.addWordsToStartGame( boardTiles, defaultLayout, context, game, placedResults, wordService, runningTime );
 			 
 						//}
 						if (placedResults.size() == 0) {
@@ -672,7 +673,7 @@ public static void skip(boolean isOpponent, Game game){
 							//these can be used for placement at the end or beginning of already played words
 							//these words can potentially be found and stored earlier
 						 
-							findWordsToPlay(game, game.getPlayedTiles(), placedResults, wordService, context, boardTiles, defaultLayout);
+							findWordsToPlay(game, game.getPlayedTiles(), placedResults, wordService, context, boardTiles, defaultLayout, runningTime);
 	
 							/*
 							//these lists can be done ahead of time as well
@@ -812,7 +813,7 @@ public static void skip(boolean isOpponent, Game game){
 						
 						Logger.d(TAG, "autoplay - tempPlacedResults after clearing invalidations tempPlacedResults=" + tempPlacedResults.size());
 						
-						findWordsToPlay(game, involvedTiles, tempPlacedResults, wordService, context, boardTiles, defaultLayout);
+						findWordsToPlay(game, involvedTiles, tempPlacedResults, wordService, context, boardTiles, defaultLayout, runningTime);
 						
 						Logger.d(TAG, "autoplay - tempPlacedResults after adding words tempPlacedResults=" + tempPlacedResults.size());
 						
@@ -858,6 +859,7 @@ public static void skip(boolean isOpponent, Game game){
 				int randomIndex = 0;
 				int start = 0;
 				int base = 1;
+				int randomBetterPlay = 0;
 				
 				if (numOptions > 9){
 					
@@ -872,6 +874,14 @@ public static void skip(boolean isOpponent, Game game){
 								start = Math.round(base / 2); 
 							}
 							
+							//every so often (1 in 15 chance) let novice get lucky and play a better word from upper half
+							randomBetterPlay = Utils.getRandomNumberFromRange(1, 15);  //make these constants
+							if (randomBetterPlay == 7){
+								//grab from top 50%
+								start = base;
+								base = numOptions - 1;
+							}
+							
 							randomIndex = Utils.getRandomNumberFromRange(start, base);
 							break;
 						case Constants.SKILL_LEVEL_AMATEUR:
@@ -884,28 +894,52 @@ public static void skip(boolean isOpponent, Game game){
 								start = Math.round(base / 2); 
 							}
 							
+							//every so often (1 in 10 chance) let amateur get lucky and play a better word from upper half
+							randomBetterPlay = Utils.getRandomNumberFromRange(1, 10);  //make these constants
+							if (randomBetterPlay == 7){
+								//grab from top 75%
+								start = base;
+								base = numOptions - 1;
+							}
+							
 							randomIndex = Utils.getRandomNumberFromRange(start, base);					
 							break;
 						case Constants.SKILL_LEVEL_SEMI_PRO:
 							//from 50% to 90%
 							start = Math.round(numOptions / 2);
 							base = Math.round(numOptions / 10);
+							
+							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_SEMI_PRO){
+								//from 75% to 90%
+								start = numOptions - Math.round(numOptions / 4); 
+								Logger.d(TAG, "autoplay SKILL_LEVEL_SEMI_PRO losing...start=" + start + " end=" + (numOptions - base));
+								
+							}
+							//every so often (1 in 10 chance) let novice get lucky and play a better word from upper half
+							randomBetterPlay = Utils.getRandomNumberFromRange(1, 10);  //make these constants
+							if (randomBetterPlay == 7){
+								//grab from top 75%
+								start = base;
+								base = numOptions - 1;
+							}
 							randomIndex = Utils.getRandomNumberFromRange(start, numOptions - base);					
 							break;
 						case Constants.SKILL_LEVEL_PROFESSIONAL:
-							//top 25% unless losing by 150
+							//top 25% unless losing by 100
 							base = Math.round(numOptions / 4); 
 							
 							//if opponent is losing by 100 or more, play from the top 5% 
 							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL){
 								base = Math.round(numOptions / 20); 
+								Logger.d(TAG, "autoplay SKILL_LEVEL_PROFESSIONAL losing...start=" + (numOptions - base) + " end=" + (numOptions - 1));
+								
 							}
 
 							randomIndex = Utils.getRandomNumberFromRange(numOptions - base, numOptions - 1);
 							
 							break;
 						case Constants.SKILL_LEVEL_EXPERT:
-							//top 20% (or top 10%) unless losing by 100
+							//top 20% (or top 10%) unless losing by 80
 							
 							base = Math.round(numOptions / 5); 
 								
@@ -923,6 +957,11 @@ public static void skip(boolean isOpponent, Game game){
 						case Constants.SKILL_LEVEL_MASTER:
 							//grab from top 2 choices with a coin toss
  							randomIndex = (Utils.coinFlip() == Constants.COIN_FLIP_HEADS ? numOptions - 1 : numOptions - 2);
+ 							
+ 							//if opponent is losing, play the highest score  
+							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore()){
+								randomIndex = numOptions - 1;
+							}
 							break;
 					}
 				}
@@ -1015,7 +1054,8 @@ public static void skip(boolean isOpponent, Game game){
 		
 	}
 	
-	private static void findWordsToPlay(Game game, List<PlayedTile> playedTiles, List<PlacedResult> placedResults, WordService wordService, Context context, List<GameTile> boardTiles, TileLayout defaultLayout){
+	private static void findWordsToPlay(Game game, List<PlayedTile> playedTiles, List<PlacedResult> placedResults, WordService wordService, 
+			Context context, List<GameTile> boardTiles, TileLayout defaultLayout, long runningTime){
 		//these lists can be done ahead of time as well
  
 		
@@ -1058,12 +1098,13 @@ public static void skip(boolean isOpponent, Game game){
 			 
 			findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
 				letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-				numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout, successfulAdditions);
+				numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
  				
- 			if (successfulAdditions < Constants.MAX_WORD_MATCHES_ACROSS) {	
+ 			if (successfulAdditions < Constants.MAX_WORD_MATCHES_ACROSS && !maxAutoplayTimeElapsed(runningTime)) {
+ 			 
 				findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
 					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout, successfulAdditions);
+					numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 			}
 	 
 			//will make this tighter and smarter with side by side perpendicular lookups
@@ -1084,12 +1125,12 @@ public static void skip(boolean isOpponent, Game game){
 	 
 			List<String> matches = wordService.getMatchingWordsFromIndexArray(lettersetArray);
 			
-			if (matches.size() > 0){
+			if (matches.size() > 0 && !maxAutoplayTimeElapsed(runningTime)) 
 				findWordsPerpendicularToPlayedWords(matches, playedTile, placedResults, wordService, 
-						boardTiles, context, game, defaultLayout);
+						boardTiles, context, game, defaultLayout, runningTime);
 			}
 			
-		}
+		 
 	}
 	
 	private static void findConnectedPositionsByDirection(Game game, Set<Integer> involvedPositions, String direction, int boardPosition){
@@ -1183,7 +1224,7 @@ public static void skip(boolean isOpponent, Game game){
 	}
 	
 	private static void findWordsPerpendicularToPlayedWords(List<String> matches, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
-			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout)
+			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, long runningTime)
 	{
  
 		int successfulAdditions = 0;
@@ -1202,24 +1243,25 @@ public static void skip(boolean isOpponent, Game game){
 		//if so continue in the opposite axis of the previous letter, trying to expand that word
 		
 		
-		 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_LEFT, playedTile, placedResults, wordService,  
-				boardTiles, context, game, defaultLayout, successfulAdditions);
-		 
-		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR){
+		if (!maxAutoplayTimeElapsed(runningTime)){
+			findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_LEFT, playedTile, placedResults, wordService,  
+				boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
+		}
+		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
 		
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_RIGHT, playedTile, placedResults, wordService,  
-						boardTiles, context, game, defaultLayout, successfulAdditions);
+						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 	
-		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR){
+		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
 			 
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_ABOVE, playedTile, placedResults, wordService,  
-						boardTiles, context, game, defaultLayout, successfulAdditions);
+						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 		 
-		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR){
+		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_BELOW, playedTile, placedResults, wordService,  
-						boardTiles, context, game, defaultLayout, successfulAdditions);
+						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 				
 		 }
 
@@ -1243,7 +1285,7 @@ public static void skip(boolean isOpponent, Game game){
 	
 	private static void findPerpendicularMatchesBesidePlayedTile(List<String> matches, String direction, PlayedTile playedTile, 
 			List<PlacedResult> placedResults, WordService wordService,  
-			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions){
+			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions, long runningTime){
 				
 			ApplicationContext.captureTime(TAG, "starting findPerpendicular direction=" + direction + " letter=" + playedTile.getLatestPlayedLetter().getLetter() + " position=" + playedTile.getBoardPosition() );
 			//find empty tiles (we need 2 at least) to extend this word
@@ -1343,6 +1385,7 @@ public static void skip(boolean isOpponent, Game game){
 			//skip duplicate letters since results will be too close to worry about differences
 			for (String validBaseWord : validBaseWords){ 
 
+				if (maxAutoplayTimeElapsed(runningTime)) { break; }  
 				//pull the tray letter back out
 				String trayLetter = validBaseWord.substring(0,1);
 				if (direction == Constants.DIRECTION_BELOW || direction == Constants.DIRECTION_RIGHT){
@@ -1388,6 +1431,7 @@ public static void skip(boolean isOpponent, Game game){
 				for (String match : matches){
 					ApplicationContext.captureTime(TAG, "match loop match=" + match);
 					//let's make sure we are not going over the limit
+					if (maxAutoplayTimeElapsed(runningTime)) { break; }  
 					if (successfulAdditions >= Constants.MAX_WORD_MATCHES_PERPENDICULAR) { break; }  
 					
 					int positionInWord = match.indexOf(trayLetter.toLowerCase());
@@ -1515,7 +1559,7 @@ public static void skip(boolean isOpponent, Game game){
 	private static void findWordsUpOrDownSingleTile(String axis, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
 		List<List<String>> letterSets_7, List<List<String>> letterSets_6, List<List<String>> letterSets_5, List<List<String>> letterSets_4,
 		List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, int numTilesBehind,
-		int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions)
+		int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions, long runningTime)
 	{
 		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile starting");
 		if (numTilesBehind > 0 && numTilesAhead > 0 ) {
@@ -1527,6 +1571,7 @@ public static void skip(boolean isOpponent, Game game){
 			Logger.d(TAG, "autoplay, going to check words now");
 			
 			for (int x = ((numTilesAhead + numTilesBehind) > 7 ? 7 : (numTilesAhead + numTilesBehind)); x > 0; x--){
+				if (maxAutoplayTimeElapsed(runningTime))  { break; }
 				if (successfulAdditions >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 				
 		//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile outer for loop starting");
@@ -1632,7 +1677,7 @@ public static void skip(boolean isOpponent, Game game){
 					for (String match : matches){
 						//find the position of the already played tile (the first instance of it)
 				//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile match loop starting - match=" + match);
-						
+						if (maxAutoplayTimeElapsed(runningTime))  { break; }
 						if (successfulAdditions >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
 						
 						int playedTilePositionInWord = match.indexOf(playedTile.getLatestPlayedLetter().getLetter().toLowerCase());
@@ -1776,7 +1821,7 @@ public static void skip(boolean isOpponent, Game game){
 	}
 	
 	private static void addWordsToStartGame(List<GameTile> boardTiles, 
-			TileLayout defaultLayout, Context context, Game game, List<PlacedResult> placedResults, WordService wordService) {
+			TileLayout defaultLayout, Context context, Game game, List<PlacedResult> placedResults, WordService wordService, long runningTime) {
 		
 		PlayerGame opponentGame = game.getPlayerGames().get(1);
 		
@@ -1806,6 +1851,7 @@ public static void skip(boolean isOpponent, Game game){
 					
 					
 				for (String match : matches){
+					if (maxAutoplayTimeElapsed(runningTime)) { break; }
 					//find the position of the already played tile (the first instance of it)
 					if (placedResults.size() >= Constants.MAX_WORD_MATCHES_WORDS_TO_START_GAME ) { break; }
 				 Logger.d(TAG, "autoplay addWordsToStartGame match=" + match);
@@ -1901,6 +1947,22 @@ public static void skip(boolean isOpponent, Game game){
 		
 	}
 	
+	private static boolean maxAutoplayTimeElapsed(long runningTime){
+		if (runningTime > 0) {
+			long startTime = runningTime;
+			//advance running time
+			runningTime = System.currentTimeMillis();
+			boolean isTimeElapsed = (runningTime - startTime > Constants.MAX_AUTOPLAY_MILLISECONDS);
+			
+			if (isTimeElapsed){ Logger.d(TAG, "maxAutoplayTimeElapsed = true"); }
+			
+			return isTimeElapsed;
+		}
+		else {//we are in "pre" autoplay, dont worry about timer
+			return false;
+		}
+	}
+	
 	public static List<GameTile> getBoardBaseTilesAndRemovePlacedTiles(List<GameTile> boardTiles){
 		List<GameTile> tiles = getBoardBaseTiles(boardTiles);
 		
@@ -1961,7 +2023,7 @@ public static void skip(boolean isOpponent, Game game){
 	
 	
 	//isOpponent = true means opponent is resigning
-  	public static Game resign(boolean isOpponent, Game game){
+  	public static void resign(boolean isOpponent, Game game){
   
     	PlayedTurn turn = new PlayedTurn();
     	turn.setOpponentPlay(isOpponent);
@@ -2008,26 +2070,28 @@ public static void skip(boolean isOpponent, Game game){
     	
     	saveGame(game);
     	addGameToCompletedList(game);
-    	
-    	return game;
+
   	}
   	
   	
 	public static void addGameToCompletedList(Game game){
 		 List<GameListItem> games = GameData.getCompletedGameList();
 		 
+		 Logger.d(TAG, "addGameToCompletedList size=" + games.size() + " " + Constants.NUM_LOCAL_COMPLETED_GAMES_TO_STORE);
+		 
 		 //put game at the beginning so that it saves in descending order
 		 games.add(0, new  GameListItem(game.getId(), game.getCompletionDate()));
 		 
 		 //only store 10 games in this list.  clean out game storage and list for 11 and above
 		 if (games.size() > Constants.NUM_LOCAL_COMPLETED_GAMES_TO_STORE){
-			 for (int i = games.size() - 1; i <= Constants.NUM_LOCAL_COMPLETED_GAMES_TO_STORE - 1; i--){
+			 for (int i = games.size() - 1; i > Constants.NUM_LOCAL_COMPLETED_GAMES_TO_STORE - 1; i--){
 				 
 				 removeGame(games.get(i).getGameId());
 				 games.remove(i);
 			 }
 			 
 		 }
+		 Logger.d(TAG, "addGameToCompletedList size=" + games.size());
 		 
 		 GameData.saveCompletedGameList(games);
 	}
