@@ -136,8 +136,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
     
     private static final long MOVE_STOPPED_DURATION_IN_MILLISECONDS = 200;
     private static final float MOVEMENT_TRIGGER_THRESHOLD = .05f;
-    private static final int MAX_LOGO_HEIGHT = 60;
-    private static final long MAX_TEXT_HEIGHT = 28;
+  //  private static final int MAX_LOGO_HEIGHT = 60;
+  //  private static final long MAX_TEXT_HEIGHT = 28;
     private static final float MAX_TEXT_WIDTH = .90F;
     private int xPosition = 0;
     private int yPosition = 0;
@@ -457,9 +457,11 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 
 	 	this.parent.captureTime("SetDerivedValues before math");
 	 	this.trayTileSize = Math.round(this.fullWidth / 7.50f);	
-		if (this.trayTileSize > 90){this.trayTileSize = 90;}
+	 	int maxTrayTileSize = this.parent.getResources().getInteger(R.integer.maxTrayTileSize);
+	 	int maxDraggingTileSize = this.parent.getResources().getInteger(R.integer.maxDraggingTileSize);
+		if (this.trayTileSize > maxTrayTileSize){this.trayTileSize = maxTrayTileSize;}
 		this.draggingTileSize  = Math.round(this.trayTileSize * 1.6f);
-		if (this.draggingTileSize > 120){this.draggingTileSize = 120;}
+		if (this.draggingTileSize > maxDraggingTileSize){this.draggingTileSize = maxDraggingTileSize;}
 		this.trayTileLeftMargin = Math.round(this.fullWidth - ((this.trayTileSize * 7) + (TRAY_TILE_GAP * 6))) / 2;
 	 	this.trayTop = this.height - trayTileSize -  TRAY_VERTICAL_MARGIN; 
 		this.bottomOfFullView = this.trayTop - TRAY_VERTICAL_MARGIN - TRAY_TOP_BORDER_HEIGHT - 1;
@@ -953,6 +955,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             	 //for now act like this is a click/tap...
             	 this.readyToDraw = false;
             	 this.tapCheck = currentTouchTime;
+            	 
+            	 Logger.d(TAG, "onTouchEVent  this.tapCheck=" +  this.tapCheck);
             	// if (this.dblTapCheck == 0){ this.dblTapCheck = currentTouchTime; }
             	// this.invalidate();
             	 this.isMoving = false; 
@@ -1027,7 +1031,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
                			 if (this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()){
                				 this.readyToDraw = false;
 	            		 }
-	            		 else{
+	            		 else{ 
 	            			// this.currentTrayTile = newTrayTile;
 	        			 
 	            			 Logger.d(TAG, "onTouch ACTION_DOWN currentTrayTile letter=" + this.getCurrentTrayTile().getCurrentLetter());
@@ -2406,8 +2410,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
         
      	 //determine text size and store in var
      	 long textSize = Math.round(this.topGapHeight * .4);
-     	 if (textSize > MAX_TEXT_HEIGHT){
-     		 textSize = MAX_TEXT_HEIGHT;
+     	 int maxTextHeight = this.parent.getResources().getInteger(R.integer.maxGameBoardTextHeight);
+     	 if (textSize > maxTextHeight){
+     		 textSize = maxTextHeight;
      	 }
 	  //   Paint pSizer = new Paint();
 
@@ -2913,8 +2918,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		if (this.logo != null) { return; }
 		Logger.d(TAG, "LoadExtras starting");
 		int height = Math.round(this.bottomGapHeight * .7F);
-		if (height > MAX_LOGO_HEIGHT){
-			height = MAX_LOGO_HEIGHT;
+		int maxLogoHeight = this.parent.getResources().getInteger(R.integer.maxGameBoardLogoHeight);
+		if (height > maxLogoHeight){
+			height = maxLogoHeight;
 		}
 		//Logger.d(TAG, "loadExtras logo height=" + height);
 		Bitmap bgLogo = BitmapFactory.decodeResource(getResources(), R.drawable.wordsmash_logo8);

@@ -278,7 +278,7 @@ com.riotapps.word.GameSurface:
     private com.riotapps.word.utils.ImageFetcher imageLoader
     private android.view.SurfaceView surfaceView
     private com.google.ads.InterstitialAd interstitial
-    2493:2494:private void trackEvent(java.lang.String,java.lang.String,int)
+    2566:2567:private void trackEvent(java.lang.String,java.lang.String,int)
 com.riotapps.word.Splash:
     android.os.Handler handler
     private com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
@@ -297,14 +297,14 @@ com.riotapps.word.billing.Security:
     private static final java.lang.String SIGNATURE_ALGORITHM
 com.riotapps.word.hooks.TileLayout$BonusTile:
     final synthetic com.riotapps.word.hooks.TileLayout this$0
-    29:29:TileLayout$BonusTile(com.riotapps.word.hooks.TileLayout)
-    44:45:public void setId(int)
-    50:51:public void setMultiplier(int)
-    56:57:public void setScope(java.lang.String)
+    30:30:TileLayout$BonusTile(com.riotapps.word.hooks.TileLayout)
+    45:46:public void setId(int)
+    51:52:public void setMultiplier(int)
+    57:58:public void setScope(java.lang.String)
 com.riotapps.word.hooks.TileLayout$StarterTile:
     final synthetic com.riotapps.word.hooks.TileLayout this$0
-    16:16:TileLayout$StarterTile(com.riotapps.word.hooks.TileLayout)
-    25:26:public void setId(int)
+    17:17:TileLayout$StarterTile(com.riotapps.word.hooks.TileLayout)
+    26:27:public void setId(int)
 com.riotapps.word.hooks.WordIndex:
     private java.lang.String index
     private java.lang.String word
@@ -312,16 +312,14 @@ com.riotapps.word.ui.GameSurfaceView:
     private static final int TRAY_TILE_GAP
     private static final int TRAY_VERTICAL_MARGIN
     private static final int TRAY_TOP_BORDER_HEIGHT
-    private static final long SINGLE_TAP_DURATION_IN_NANOSECONDS
-    private static final long DOUBLE_TAP_DURATION_IN_NANOSECONDS
+    private static final long SINGLE_TAP_DURATION_IN_MILLISECONDS
+    private static final long DOUBLE_TAP_DURATION_IN_MILLISECONDS
     private static final long MOVE_STOPPED_DURATION_IN_MILLISECONDS
     private static final float MOVEMENT_TRIGGER_THRESHOLD
-    private static final int MAX_LOGO_HEIGHT
-    private static final long MAX_TEXT_HEIGHT
     private static final float MAX_TEXT_WIDTH
     private static final int NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING
     private static final int NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED
-    2783:2784:private void onBoardClear()
+    2880:2881:private void onBoardClear()
 com.riotapps.word.ui.GameThread:
     long sleepTime
 com.riotapps.word.utils.DiskLruCache:

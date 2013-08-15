@@ -421,7 +421,7 @@ public class Constants {
 	public static final int MAX_WORD_MATCHES_OVERLAYS = 20;
 
 	public static final int AUTOPLAY_MATCH_ACROSS = 20;
-	public static final int AUTOPLAY_MATCH_PERPENDICULAR = 20;
+	public static final int AUTOPLAY_MATCH_PERPENDICULAR = 20; 
 	public static final int AUTOPLAY_MATCH_EXTENSIONS = 20;
 	public static final int AUTOPLAY_MATCH_OVERLAYS = 20;
 

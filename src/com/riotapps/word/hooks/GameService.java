@@ -1080,6 +1080,8 @@ public static void skip(boolean isOpponent, Game game){
 		
 		for (PlayedTile playedTile : playedTiles){
 			//easy checks first
+			if (maxAutoplayTimeElapsed(runningTime)) { Logger.d(TAG, "findWordsToPlay TIME ELAPSED" ); break; }
+			
 			int numTilesAbove = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_ABOVE);
 			int numTilesBelow = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_BELOW);
 			int numTilesToTheRight = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_RIGHT);
@@ -1954,7 +1956,9 @@ public static void skip(boolean isOpponent, Game game){
 			runningTime = System.currentTimeMillis();
 			boolean isTimeElapsed = (runningTime - startTime > Constants.MAX_AUTOPLAY_MILLISECONDS);
 			
-			if (isTimeElapsed){ Logger.d(TAG, "maxAutoplayTimeElapsed = true"); }
+			//Logger.d(TAG, "maxAutoplayTimeElapsed runningTime=" + runningTime + " startTime=" + startTime + " difference=" + (runningTime - startTime) + " isTimeElapsed=" + isTimeElapsed);
+			
+			//if (isTimeElapsed){ Logger.d(TAG, "maxAutoplayTimeElapsed = true"); }
 			
 			return isTimeElapsed;
 		}

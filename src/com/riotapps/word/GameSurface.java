@@ -1756,7 +1756,7 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 		 		spinner.dismiss();
 		 		spinner = null;
 		 	}*/
-	    	spinner.updateMessage(this.getString(R.string.progress_wait));
+	    	spinner.updateMessage(this.getString(R.string.progress_almost_ready));
 	    	 String opponentAction = game.getLastActionText(context);
 
 				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);

@@ -108,12 +108,13 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 		 
 			}
 	     
+	 
 	     if (!StoreService.isWordDefinitionLookupPurchased() && PlayerService.getRemainingFreeUsesWordDefinition() == 0){
 	    	 this.tvPreviewMessage.setText(this.getString(R.string.word_definition_purchase_offer));
 	   		 this.llDefs.setVisibility(View.GONE);
 	   		 this.tvNotFound.setVisibility(View.GONE);
 	   		tvOK.setVisibility(View.GONE);
-	   		ivWordnik.setVisibility(View.GONE);
+	   		ivWordnik.setVisibility(View.GONE); 
 	     }
 	     else {
 	    	 if (!StoreService.isWordDefinitionLookupPurchased()){
@@ -131,13 +132,14 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 					
 					tvOK.setVisibility(View.GONE);
 				}
-	    	 else {
+	    	 else { 
+	 
 		    		bNoThanks.setVisibility(View.GONE);
 	    		    bStore.setVisibility(View.GONE); 
 	    		    //change margin of definition area?
 	    		//    tvOK.setOnClickListener(this);
-	    		    tvPreviewMessage.setVisibility(View.GONE);
-	    		  //  this.tvPreviewMessage.setVisibility(View.GONE);
+	    		 //   tvPreviewMessage.setVisibility(View.GONE);
+	    		    this.tvPreviewMessage.setVisibility(View.GONE);
 	    		    
 	    		    //remove bottom margin and
 	    		    ScrollView scoller = (ScrollView)findViewById(R.id.scroller);
@@ -151,7 +153,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	    	            LinearLayout llOK = (LinearLayout)findViewById(R.id.llOK);
 	    	            llOK.setVisibility(View.GONE);
 	    		    
-	    	 }
+	    	  }
 	    	 
 	    	
 		     System.setProperty("WORDNIK_API_KEY", this.getString(R.string.wordnik_apiKey));
@@ -162,7 +164,7 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 			 
 		     task = new WordnikLookup(word.toLowerCase());
 		     task.execute("");
-	     }
+	      }
 	     
 	     if (bNoThanks.getVisibility() == View.VISIBLE){
     		 bStore.setOnClickListener(this);

@@ -34,6 +34,7 @@
 	<string name="game_over">game over</string>
  	<string name="progress_looking_up">looking up&#8230;</string>
  	<string name="progress_wait">please wait&#8230;</string>
+ 	<string name="progress_almost_ready">almost ready&#8230;</string>
  	<string name="progress_opponent_thinking">%s is thinking&#8230;</string>
  	<string name="progress_saving">saving&#8230;</string>
 
