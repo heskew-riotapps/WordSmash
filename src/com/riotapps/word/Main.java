@@ -119,36 +119,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	  	this.loadOpponents();
 	  	this.setupMenu();
 	 	ApplicationContext.captureTime(TAG, "loadLists ended");
-	 	/*
-	 	long lastPlayerCheckTime = GameService.getLastGameListCheckTime(this);
-		if (!isGameListPrefetched && Utils.convertNanosecondsToMilliseconds(System.nanoTime()) - lastPlayerCheckTime > Constants.LOCAL_GAME_LIST_STORAGE_DURATION_IN_MILLISECONDS){
-			//fetch games
- 
-			try { 
-				String json = PlayerService.setupAuthTokenCheck(this, this.player.getAuthToken());
-				//this will bring back the players games too
-				new NetworkTask(this, RequestType.POST, "", json, false).execute(Constants.REST_GET_PLAYER_BY_TOKEN);
-			} catch (DesignByContractException e) {
-				//this should never happen unless there is some tampering
-				 DialogManager.SetupAlert(context, getString(R.string.oops), e.getLocalizedMessage(), true, 0);
-			}
-
-		}	
-		else if (isGameListPrefetched){
-			GameService.updateLastGameListCheckTime(this);
-		}
-		*/
-		//no games yet, send player to StartGame to get started
-	//	else if (this.player.getTotalNumLocalGames() == 0){
-     //   	Intent intent = new Intent(getApplicationContext(), StartGame.class);
-	//		startActivity(intent);	
-	//	}
-		//else {
-		//	this.loadLists();
-		//}
-		//this.setupTimer();
-		
- 	
+	 
+	 	this.checkFirstTimeStatus();
 		ApplicationContext.captureTime(TAG, "onCreate ended");
 		
 		
@@ -161,6 +133,14 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 		}
     }
  
+	 private void checkFirstTimeStatus(){
+		 //first check to see if this score has already been alerted (from local storage) 
+		 
+		 if (!PlayerService.checkFirstTimeMainAlertAlreadyShown(this)) {
+			 DialogManager.SetupAlert(this, this.getString(R.string.main_first_time_alert_title), this.getString(R.string.main_first_time_alert_message));
+		 }
+		 
+	 }
     private void setupMenu(){
     	
     	  popupMenu = new PopupMenu(this, findViewById(R.id.options));

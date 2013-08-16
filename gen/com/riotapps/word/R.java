@@ -620,6 +620,8 @@ containing a value of this type.
         public static final int game_play_words_confirmation_text=0x7f0600b8;
         public static final int game_surface_cancel_game_confirmation_text=0x7f06008a;
         public static final int game_surface_cancel_game_confirmation_title=0x7f060089;
+        public static final int game_surface_first_time_alert_message=0x7f060117;
+        public static final int game_surface_first_time_alert_title=0x7f060116;
         public static final int game_surface_game_over_draw=0x7f0600d6;
         public static final int game_surface_game_over_draw_after_skips=0x7f0600d7;
         public static final int game_surface_game_over_loss=0x7f0600d4;
@@ -661,6 +663,8 @@ containing a value of this type.
         public static final int lookup_definition_not_found=0x7f0600da;
         public static final int lookup_definition_num=0x7f0600d8;
         public static final int main_choose=0x7f0600e7;
+        public static final int main_first_time_alert_message=0x7f060119;
+        public static final int main_first_time_alert_title=0x7f060118;
         public static final int main_game_start_prompt=0x7f0600e8;
         public static final int main_game_start_prompt_title=0x7f0600e9;
         public static final int main_menu_about=0x7f0600ea;

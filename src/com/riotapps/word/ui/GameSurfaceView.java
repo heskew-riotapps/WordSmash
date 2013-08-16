@@ -135,6 +135,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
     private static final long DOUBLE_TAP_DURATION_IN_MILLISECONDS = 800;
     
     private static final long MOVE_STOPPED_DURATION_IN_MILLISECONDS = 200;
+    
+    private static final int MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD = 3;
+//    private static final float MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD = .02f;
     private static final float MOVEMENT_TRIGGER_THRESHOLD = .05f;
   //  private static final int MAX_LOGO_HEIGHT = 60;
   //  private static final long MAX_TEXT_HEIGHT = 28;
@@ -1364,77 +1367,106 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             	 this.tapCheck = 0;
             	 if (setToReadyDraw) {this.setReadyToDrawFromOnTouch(currentTouchTime);}
             	 break;
-             case MotionEvent.ACTION_MOVE:
+             case MotionEvent.ACTION_MOVE:   
             	 
             	// this.currentTouchMotion = MotionEvent.ACTION_MOVE;
             	 //Log.w(TAG, "ACTION_MOVE: x " + )
+            //	 Logger.w(TAG, "ACTION_MOVE= tapCheck about to be set to 0");
+            //	 this.tapCheck = 0;
+            //	 this.dblTapCheck = 0;
+            //	 this.isMoving = true;
             	 
-            	 this.tapCheck = 0;
-            	 this.dblTapCheck = 0;
-            	 this.isMoving = true;
-            	
+            	 Logger.w(TAG, "ACTION_MOVE= this.currentX=" + this.currentX + " this.previousX" + this.previousX + " this.currentY=" + this.currentY + " this.previousY" + this.previousY );
+
+             	 Logger.w(TAG, "ACTION_MOVE  xDiff=" + Math.abs(this.currentX - this.previousX));
+             	 Logger.w(TAG, "ACTION_MOVE  yDiff=" + Math.abs(this.currentY - this.previousY));
+// Logger.w(TAG, "ACTION_MOVE  xPlus=" + Math.round(this.previousX * (1 + MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)));
+            	// Logger.w(TAG, "ACTION_MOVE  xMinus=" + Math.round(this.previousX * (1 - MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)));
+            	// Logger.w(TAG, "ACTION_MOVE  yPlus=" + Math.round(this.previousY * (1 + MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)));
+            	// Logger.w(TAG, "ACTION_MOVE  yMinus=" + Math.round(this.previousY * (1 - MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)));
+
+//            	 if (this.currentX <= Math.round(this.previousX * (1 + MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)) ||
+//      		   			  this.currentX >= Math.round(this.previousX * (1 - MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)) || 
+//      		   			  this.currentY <= Math.round(this.previousY * (1 + MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD)) || 
+//      		   			  this.currentY >= Math.round(this.previousY * (1 - MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD))){
+
             	 
-            	 //check to see if a board tile is pending dragging. 
-            	 //if so, change pending state to dragging state  
-            	 if (this.getDraggingTile() != null && this.getDraggingTile().isDragPending()){
-            		 this.getDraggingTile().setDrag();
-            		  
-            		 Logger.w(TAG, "DRAG PENDING id=" + this.draggingTileId + " letter=" + this.getDraggingTile().getDraggingLetter());
-            	 }
-            	 //check to see if a board tile is being dragged
-            	 else if (this.getDraggingTile() != null){
-            		 //this.readyToDraw = true;
-            		 setToReadyDraw = true;
-            		 Logger.d(TAG, "getDraggingTile != null letter=" + this.getDraggingTile().getPlacedLetter());
-            		 
-            	 }
-            	 //check to see if a tray tile is being dragged
-            	 //else if (this.currentTrayTile != null && this.currentTrayTile.isDragging()){
-            	 else if (this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()){
-            		 //this.readyToDraw = true;
-            		 setToReadyDraw = true;
+            	 //check for minimum threshold of movement  
+            	 if (Math.abs(this.currentX - this.previousX) > MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD ||
+            		 Math.abs(this.currentY - this.previousY) > MOVEMENT_TRIGGER_TAPCHECK_THRESHOLD){
+ 
+            		 Logger.w(TAG, "ACTION_MOVE= minimum threshold met, tapCheck about to be set to 0");
+            		 this.tapCheck = 0;
+   		 			 this.dblTapCheck = 0;
+   		 			 this.isMoving = true;
+   		         	 
+	            	 //check to see if a board tile is pending dragging. 
+	            	 //if so, change pending state to dragging state  
+	            	 if (this.getDraggingTile() != null && this.getDraggingTile().isDragPending()){
+	            		 this.getDraggingTile().setDrag();
+	            		  
+	            		 Logger.w(TAG, "DRAG PENDING id=" + this.draggingTileId + " letter=" + this.getDraggingTile().getDraggingLetter());
+	            	 }
+	            	 //check to see if a board tile is being dragged
+	            	 else if (this.getDraggingTile() != null){
+	            		 //this.readyToDraw = true;
+	            		 setToReadyDraw = true;
+	            		 Logger.d(TAG, "getDraggingTile != null letter=" + this.getDraggingTile().getPlacedLetter());
+	            		 
+	            	 }
+	            	 //check to see if a tray tile is being dragged
+	            	 //else if (this.currentTrayTile != null && this.currentTrayTile.isDragging()){
+	            	 else if (this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()){
+	            		 //this.readyToDraw = true;
+	            		 setToReadyDraw = true;
+	            	 }
+	            	 else{
+		            	 if (!this.isZoomed){
+		            		 this.readyToDraw = false;
+		            	 }
+		            	 //don't drag board outside of board area
+		            	 else if (this.currentY > this.trayAreaRect.getTop()){ //this.trayAreaTop){
+		            		 this.readyToDraw = false;
+		            	 }
+		            	 //use absolute values here????
+		            	 //else if (this.currentTouchMotion == MotionEvent.ACTION_MOVE && this.previousX == this.currentX && this.previousY == this.currentY){
+		            	 else if (this.currentX <= Math.round(this.previousX * (1 + MOVEMENT_TRIGGER_THRESHOLD)) && 
+		            			  this.currentX >= Math.round(this.previousX * (1 - MOVEMENT_TRIGGER_THRESHOLD)) && 
+		            			  this.currentY <= Math.round(this.previousY * (1 + MOVEMENT_TRIGGER_THRESHOLD)) && 
+		            			  this.currentY >= Math.round(this.previousY * (1 - MOVEMENT_TRIGGER_THRESHOLD))){
+		            		 Log.w(TAG,"onTouchEvent minimum threshold not met");
+		            	 //else if (this.previousX == this.currentX && this.previousY == this.currentY){
+		            		 this.readyToDraw = false;
+		            	}
+		            	else {
+	
+		            		 //this.readyToDraw = true;
+		            		 
+		            		 //keep latest 30 coordinates in context, last 10 will be used to calculate momentum and direction for scrolling
+		            		 //having 30 determines if action_up triggers momentum scrolling logic
+		            		 this.coordinates.add(new Coordinate(this.currentX, this.currentY, currentTouchTime));
+		            		 //quick loop to remove first in coordinates over 30, normally should only ever remove one, but just in case, we'll loop it
+		            		 while (this.coordinates.size() > NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING){
+		            			 this.coordinates.remove(0);
+		            		 }
+		            		 
+		            		 setToReadyDraw = true;
+		            		 Log.w(TAG,"onTouchEvent: coodinates size" + this.coordinates.size());
+		            	}
+		            	// this.readyToDraw = false;
+		            	 if (this.currentX < this.outerZoomLeft || this.currentY < this.outerZoomTop) {
+		            		//calculate outerZoomRight and bottom
+		            		
+		            	 }
+	            	 }
+	            	 
+	            	 if (setToReadyDraw) {
+	            		 this.setReadyToDrawFromOnTouch(currentTouchTime);
+	            	 }
             	 }
             	 else{
-	            	 if (!this.isZoomed){
-	            		 this.readyToDraw = false;
-	            	 }
-	            	 //don't drag board outside of board area
-	            	 else if (this.currentY > this.trayAreaRect.getTop()){ //this.trayAreaTop){
-	            		 this.readyToDraw = false;
-	            	 }
-	            	 //use absolute values here????
-	            	 //else if (this.currentTouchMotion == MotionEvent.ACTION_MOVE && this.previousX == this.currentX && this.previousY == this.currentY){
-	            	 else if (this.currentX <= Math.round(this.previousX * (1 + MOVEMENT_TRIGGER_THRESHOLD)) && 
-	            			  this.currentX >= Math.round(this.previousX * (1 - MOVEMENT_TRIGGER_THRESHOLD)) && 
-	            			  this.currentY <= Math.round(this.previousY * (1 + MOVEMENT_TRIGGER_THRESHOLD)) && 
-	            			  this.currentY >= Math.round(this.previousY * (1 - MOVEMENT_TRIGGER_THRESHOLD))){
-	            		 Log.w(TAG,"onTouchEvent minimum threshold not met");
-	            	 //else if (this.previousX == this.currentX && this.previousY == this.currentY){
-	            		 this.readyToDraw = false;
-	            	}
-	            	else {
-
-	            		 //this.readyToDraw = true;
-	            		 
-	            		 //keep latest 30 coordinates in context, last 10 will be used to calculate momentum and direction for scrolling
-	            		 //having 30 determines if action_up triggers momentum scrolling logic
-	            		 this.coordinates.add(new Coordinate(this.currentX, this.currentY, currentTouchTime));
-	            		 //quick loop to remove first in coordinates over 30, normally should only ever remove one, but just in case, we'll loop it
-	            		 while (this.coordinates.size() > NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING){
-	            			 this.coordinates.remove(0);
-	            		 }
-	            		 
-	            		 setToReadyDraw = true;
-	            		 Log.w(TAG,"onTouchEvent: coodinates size" + this.coordinates.size());
-	            	}
-	            	// this.readyToDraw = false;
-	            	 if (this.currentX < this.outerZoomLeft || this.currentY < this.outerZoomTop) {
-	            		//calculate outerZoomRight and bottom
-	            		
-	            	 }
+            		 Logger.d(TAG,"onTouchEvent minimum threshold NOT met for movement");
             	 }
-            	 
-            	 if (setToReadyDraw) {this.setReadyToDrawFromOnTouch(currentTouchTime);}
             	 //  Log.w(getClass().getSimpleName() + "onTouchEvent ACTION_MOVE ", this.previousX + " " + this.currentX + " " + this.readyToDraw);
             	 break; 
              default:

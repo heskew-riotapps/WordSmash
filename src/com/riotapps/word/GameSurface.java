@@ -284,6 +284,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 		gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
 	 	}
 	 	
+	 	
+	 	if (gameId == null || gameId.equals("")){
+	 		//reroute player to main
+	 		Intent intent = new Intent(this, com.riotapps.word.Main.class);
+    		this.startActivity(intent); 
+	 	}
+	 	
 	 	this.game = GameService.getGame(gameId); //(Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 		Logger.d(TAG, "onCreate game turn=" + game.getTurn());
 	 	this.captureTime("get game from local ended");	 	
@@ -456,8 +463,19 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	this.setupFonts();
 
 	}
-	
+	 private void checkFirstTimeStatus(){
+		 //first check to see if this score has already been alerted (from local storage) 
+		 
+		 if (!PlayerService.checkFirstTimeGameSurfaceAlertAlreadyShown(this)) {
+			 DialogManager.SetupAlert(this, this.getString(R.string.game_surface_first_time_alert_title), this.getString(R.string.game_surface_first_time_alert_message));
+		 }
+		 
+	 }
+	 
 	public void callback(){
+		this.checkFirstTimeStatus();
+		
+		
 		//just in case the game got stuck before the autoplay could complete
 	 	if (this.isGamePopulating && this.game.isActive() && this.game.getPlayerGames().get(1).isTurn()){
 	 		spinner = new CustomProgressDialog(this);

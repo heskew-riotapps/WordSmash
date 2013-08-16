@@ -191,6 +191,7 @@ public class Constants {
  	public static final String OPPONENT_PREFS_GROUP_ACTIVATED = "o_rec_%s";
 	public static final String USER_PREFS_GAME_ALERT_CHECK = "game_alert_check_%s";
 	public static final String USER_PREFS_FIRST_TIME_GAME_SURFACE_ALERT_CHECK = "f_t_g_s";
+	public static final String USER_PREFS_FIRST_TIME_MAIN_ALERT_CHECK = "f_t_M";
 	public static final String USER_PREFS_ALERT_CHECK = "alert_check_";
 	public static final String USER_PREFS_ALERT_CHECK_DATE = "alert_check_date";
 	public static final String USER_PREFS_GAME_CHAT_CHECK = "game_chat_check_%s";

@@ -5534,6 +5534,8 @@ com.riotapps.word.R$string: int game_play_too_few_letters
 com.riotapps.word.R$string: int game_play_words_confirmation_text
 com.riotapps.word.R$string: int game_surface_cancel_game_confirmation_text
 com.riotapps.word.R$string: int game_surface_cancel_game_confirmation_title
+com.riotapps.word.R$string: int game_surface_first_time_alert_message
+com.riotapps.word.R$string: int game_surface_first_time_alert_title
 com.riotapps.word.R$string: int game_surface_game_over_draw
 com.riotapps.word.R$string: int game_surface_game_over_draw_after_skips
 com.riotapps.word.R$string: int game_surface_game_over_loss
@@ -5575,6 +5577,8 @@ com.riotapps.word.R$string: int lookup_definition
 com.riotapps.word.R$string: int lookup_definition_not_found
 com.riotapps.word.R$string: int lookup_definition_num
 com.riotapps.word.R$string: int main_choose
+com.riotapps.word.R$string: int main_first_time_alert_message
+com.riotapps.word.R$string: int main_first_time_alert_title
 com.riotapps.word.R$string: int main_game_start_prompt
 com.riotapps.word.R$string: int main_game_start_prompt_title
 com.riotapps.word.R$string: int main_menu_about
@@ -6256,6 +6260,8 @@ com.riotapps.word.hooks.PlayerGame: boolean doesTrayContainAVowel()
 com.riotapps.word.hooks.PlayerGame: boolean doesTrayContainAConsonant()
 com.riotapps.word.hooks.PlayerService
 com.riotapps.word.hooks.PlayerService: PlayerService()
+com.riotapps.word.hooks.PlayerService: boolean checkFirstTimeGameSurfaceAlertAlreadyShown(android.content.Context)
+com.riotapps.word.hooks.PlayerService: boolean checkFirstTimeMainAlertAlreadyShown(android.content.Context)
 com.riotapps.word.hooks.PlayerService: void clearLocalStorage()
 com.riotapps.word.hooks.PlayerService: int getWordDatabaseVersion()
 com.riotapps.word.hooks.PlayerService: void saveWordDatabaseVersion(int)
@@ -6914,6 +6920,7 @@ com.riotapps.word.utils.Constants: java.lang.String OPPONENT_PREFS_RECORD
 com.riotapps.word.utils.Constants: java.lang.String OPPONENT_PREFS_GROUP_ACTIVATED
 com.riotapps.word.utils.Constants: java.lang.String USER_PREFS_GAME_ALERT_CHECK
 com.riotapps.word.utils.Constants: java.lang.String USER_PREFS_FIRST_TIME_GAME_SURFACE_ALERT_CHECK
+com.riotapps.word.utils.Constants: java.lang.String USER_PREFS_FIRST_TIME_MAIN_ALERT_CHECK
 com.riotapps.word.utils.Constants: java.lang.String USER_PREFS_ALERT_CHECK
 com.riotapps.word.utils.Constants: java.lang.String USER_PREFS_ALERT_CHECK_DATE
 com.riotapps.word.utils.Constants: java.lang.String USER_PREFS_GAME_CHAT_CHECK

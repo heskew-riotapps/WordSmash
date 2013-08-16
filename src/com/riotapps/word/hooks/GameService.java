@@ -473,7 +473,7 @@ public static void skip(boolean isOpponent, Game game){
 	
 	public static void autoPlay(Context context, Game game, List<GameTile> boardTiles, boolean followThroughWithPlay, List<PlacedResult> tempPlacedResults){
 		//remove previously placed tiles from boardTiles...this is usually done in resetGameAfterRefresh
-		
+  
 		ApplicationContext.captureTime(TAG, "autoplay started starting");
 		for(GameTile tile : boardTiles){
 			if (tile.isPlacement()){
@@ -675,38 +675,7 @@ public static void skip(boolean isOpponent, Game game){
 						 
 							findWordsToPlay(game, game.getPlayedTiles(), placedResults, wordService, context, boardTiles, defaultLayout, runningTime);
 	
-							/*
-							//these lists can be done ahead of time as well
-							List<List<String>> letterSets_7 = opponentGame.getSortedTrayLetterSets(7);
-							List<List<String>> letterSets_6 = opponentGame.getSortedTrayLetterSets(6);
-							List<List<String>> letterSets_5 = opponentGame.getSortedTrayLetterSets(5);
-							List<List<String>> letterSets_4 = opponentGame.getSortedTrayLetterSets(4);
-							List<List<String>> letterSets_3 = opponentGame.getSortedTrayLetterSets(3);
-							List<List<String>> letterSets_2 = opponentGame.getSortedTrayLetterSets(2);
-							List<List<String>> letterSets_1 = opponentGame.getSortedTrayLetterSets(1);
-							
-							
-							for (PlayedTile playedTile : game.getPlayedTiles()){
-								//easy checks first
-								int numTilesAbove = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_ABOVE);
-								int numTilesBelow = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_BELOW);
-								int numTilesToTheRight = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_RIGHT);
-								int numTilesToTheLeft = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_LEFT);
-								
-							//	Logger.d(TAG, "autoplay boardPosition=" + playedTile.getBoardPosition() + " letter=" +  playedTile.getLatestPlayedLetter().getLetter() + " numTilesAbove=" + numTilesAbove + " numTilesBelow=" + numTilesBelow);
-							//	if (numTilesAbove > 0 && numTilesBelow > 0 ) {
-									
-								findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
-										letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-										numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout);
-					 				
-								findWordsUpOrDownSingleTile(Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, letterSets_7,
-										letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
-										numTilesToTheLeft, numTilesToTheRight, boardTiles, context, game, defaultLayout);
-							
-								//will make this tighter and smarter with side by side perpendicular lookups
-							}
-							*/
+						
 					 }
 			
 			//for each in V col 
@@ -1956,7 +1925,7 @@ public static void skip(boolean isOpponent, Game game){
 			runningTime = System.currentTimeMillis();
 			boolean isTimeElapsed = (runningTime - startTime > Constants.MAX_AUTOPLAY_MILLISECONDS);
 			
-			//Logger.d(TAG, "maxAutoplayTimeElapsed runningTime=" + runningTime + " startTime=" + startTime + " difference=" + (runningTime - startTime) + " isTimeElapsed=" + isTimeElapsed);
+			Logger.d(TAG, "maxAutoplayTimeElapsed runningTime=" + runningTime + " startTime=" + startTime + " difference=" + (runningTime - startTime) + " isTimeElapsed=" + isTimeElapsed);
 			
 			//if (isTimeElapsed){ Logger.d(TAG, "maxAutoplayTimeElapsed = true"); }
 			

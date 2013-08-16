@@ -46,73 +46,44 @@ import com.riotapps.word.data.PlayerData;
 public class PlayerService {
 	private static final String TAG = PlayerService.class.getSimpleName();
  
-	/*
-	public static boolean checkAlertAlreadyShown(Context context, String alertId, String alertActivationDate){
-		Gson gson = new Gson();
-		
-		SharedPreferences settings = Storage.getSharedPreferences();
-		String json = settings.getString(Constants.USER_PREFS_ALERT_CHECK, "[]"); 
-		
-		Type type = new TypeToken<List<String>>() {}.getType();
-		List<String> alerts = gson.fromJson(json, type);
-		
-		if (alerts.contains(alertId)){
-			return true;
-		}
-		else {
-			alerts.add(alertId);
-			
-			json = gson.toJson(alerts, type);
-			
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putString(Constants.USER_PREFS_ALERT_CHECK, json);
-			editor.putString(Constants.USER_PREFS_ALERT_CHECK_DATE, alertActivationDate);
-			// Check if we're running on GingerBread or above
-			 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-			     // If so, call apply()
-			     editor.apply();
-			 // if not
-			 } else {
-			     // Call commit()
-			     editor.commit();
-			 }
-			return false;
-		}	
-	}
 	
 	public static boolean checkFirstTimeGameSurfaceAlertAlreadyShown(Context context){
 		SharedPreferences settings = Storage.getSharedPreferences();
 		if (settings.getBoolean(Constants.USER_PREFS_FIRST_TIME_GAME_SURFACE_ALERT_CHECK, false) == false) { 
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putBoolean(Constants.USER_PREFS_FIRST_TIME_GAME_SURFACE_ALERT_CHECK,true);
-			// Check if we're running on GingerBread or above
-			 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-			     // If so, call apply()
-			     editor.apply();
-			 // if not
-			 } else {
-			     // Call commit()
-			     editor.commit();
-			 }
-			Logger.d(TAG, "checkFirstTimeAlertAlreadyShown=false");
+			editor.apply();
+			 
+			//Logger.d(TAG, "checkFirstTimeAlertAlreadyShown=false");
 			return false;
 		}
 		else{
-			Logger.d(TAG, "checkFirstTimeAlertAlreadyShown=true");
+			//Logger.d(TAG, "checkFirstTimeAlertAlreadyShown=true");
 			return true;
 		}
 	}
-	*/
-  
-	
+	 
+	public static boolean checkFirstTimeMainAlertAlreadyShown(Context context){
+		SharedPreferences settings = Storage.getSharedPreferences();
+		if (settings.getBoolean(Constants.USER_PREFS_FIRST_TIME_MAIN_ALERT_CHECK, false) == false) { 
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putBoolean(Constants.USER_PREFS_FIRST_TIME_MAIN_ALERT_CHECK,true);
+			editor.apply();
+			  
+			//Logger.d(TAG, "checkFirstTimeAlertAlreadyShown=false");
+			return false;
+		}
+		else{
+			//Logger.d(TAG, "checkFirstTimeAlertAlreadyShown=true");
+			return true;
+		}
+	}
 	public static void clearLocalStorage(){
 
 		Storage.getSharedPreferences().edit().clear().commit();
 		Storage.getSharedPreferences(Constants.GAME_STATE).edit().clear().commit();
  	}
-
-	 
-	 
+ 
 	
 	public static int getWordDatabaseVersion(){
 		

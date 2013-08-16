@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style
+    name="ScoreboardNumPointsStyle" >
+    	<item name="android:layout_toLeftOf">@id/options</item>
+   	<item name="android:textColor">@color/scoreboard_text_color</item>   	
+   	<item name="android:textSize">10sp</item> 
+   	<item name="android:gravity">right</item> 
+   	<item name="android:layout_below">@id/tvLettersLeft</item>    	
+</style>
+</resources>
