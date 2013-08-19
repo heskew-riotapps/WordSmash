@@ -278,7 +278,6 @@ com.riotapps.word.GameSurface:
     private com.riotapps.word.utils.ImageFetcher imageLoader
     private android.view.SurfaceView surfaceView
     private com.google.ads.InterstitialAd interstitial
-    2584:2585:private void trackEvent(java.lang.String,java.lang.String,int)
 com.riotapps.word.Splash:
     android.os.Handler handler
     private com.riotapps.word.billing.IabHelper$QueryInventoryFinishedListener onPurchaseCheck
@@ -320,7 +319,7 @@ com.riotapps.word.ui.GameSurfaceView:
     private static final float MAX_TEXT_WIDTH
     private static final int NUMBER_OF_COORDINATES_TO_TRIGGER_MOMENTUM_SCROLLING
     private static final int NUMBER_OF_COORDINATES_TO_DETERMINE_DIRECTION_AND_SPEED
-    2912:2913:private void onBoardClear()
+    2934:2935:private void onBoardClear()
 com.riotapps.word.ui.GameThread:
     long sleepTime
 com.riotapps.word.utils.DiskLruCache:
