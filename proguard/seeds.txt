@@ -6821,6 +6821,7 @@ com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_FIND_BY_OPPONE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_BUTTON_TAPPED
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_WORD_LOOKED_UP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_STARTED
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_COMPLETED
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_PURCHASE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_HOPPER_PEEK
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT
