@@ -78,6 +78,7 @@ public class Constants {
 	public static final String TRACKER_ACTION_BUTTON_TAPPED = "button_click";
 	public static final String TRACKER_ACTION_WORD_LOOKED_UP = "word_looked_up";
 	public static final String TRACKER_ACTION_GAME_STARTED = "game_started";
+	public static final String TRACKER_ACTION_GAME_COMPLETED = "game_completed";
 	public static final String TRACKER_ACTION_PURCHASE = "purchase";
 	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
 	public static final String TRACKER_LABEL_OPPONENT = "opponent";

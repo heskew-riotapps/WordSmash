@@ -1793,6 +1793,8 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 					GameStateService.removeGameState(game.getId());
 					this.setupMenu(); //in case this is the first completed game, it will add that option to menu
 					//??this.gameSurfaceView.stopThreadLoop();
+					
+					//capture completed event
 				}
 				
 				handleInterstitialAd();
@@ -1820,6 +1822,10 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
     		 	if (this.game.isActive()){
     		 		this.preAutoplayTask = new PreAutoplayTask();
     		 		this.preAutoplayTask.execute();
+    		 	}
+    		 	else if (this.game.isCompleted()){
+    		 		//save completed event
+    		 		this.trackEvent(Constants.TRACKER_ACTION_GAME_COMPLETED, Constants.TRACKER_LABEL_OPPONENT, this.game.getOpponentId());
     		 	}
 	    	}
 	    }

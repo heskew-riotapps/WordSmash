@@ -34,7 +34,7 @@
 	<string name="game_over">game over</string>
  	<string name="progress_looking_up">looking up&#8230;</string>
  	<string name="progress_wait">please wait&#8230;</string>
- 	<string name="progress_almost_ready">almost ready&#8230;</string>
+ 	<string name="progress_almost_ready">please support our advertisers&#8230;</string>
  	<string name="progress_opponent_thinking">%s is thinking&#8230;</string>
  	<string name="progress_saving">saving&#8230;</string>
 
@@ -249,8 +249,8 @@
 		<string name="game_list_game_over_win">you defeated %4$s %2$s - %3$s %1$s</string>
 		<string name="game_list_game_over_loss">%4$s won %2$s - %3$s %1$s</string>
 		<string name="game_list_game_over_draw">a %2$s - %2$s draw was declared %1$s</string>
-		<string name="game_surface_game_over_win">you defeated %3$s %1$s - %2$s</string>
-		<string name="game_surface_game_over_win_after_skips">after 4 skips in a row, you defeated %3$s %1$s - %2$s</string>
+		<string name="game_surface_game_over_win">You defeated %3$s %1$s - %2$s</string>
+		<string name="game_surface_game_over_win_after_skips">After 4 skips in a row, you defeated %3$s %1$s - %2$s</string>
 		<string name="game_surface_game_over_loss">%3$s won %1$s - %2$s</string>
 		<string name="game_surface_game_over_loss_after_skips">after 4 skips in a row, %3$s won %1$s - %2$s</string>
 		<string name="game_surface_game_over_draw">a %1$s - %2$s draw was declared</string>

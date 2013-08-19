@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class Logger {
 	
-	public static final boolean LOG_OK = false; 
+	public static final boolean LOG_OK = true; 
 	public static final boolean LOG_GAME_SURFACE_VIEW_OK = true; 
 	public static final boolean LOG_TIMER_CAPTURE_ONLY = false; 
 
@@ -24,8 +24,10 @@ public class Logger {
 		 }
 	}
 	
-	public static void d(String tag, String msg){  
-		Logger.d((tag==null?"UNKNOWN_TAG":tag), msg, null);
+	public static void d(String tag, String msg){
+		 if (BuildConfig.DEBUG && LOG_OK) {
+			 Logger.d((tag==null?"UNKNOWN_TAG":tag), msg, null);
+		 }
 	}
 	
 	

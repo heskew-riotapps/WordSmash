@@ -1172,6 +1172,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
             		 if (this.getDraggingTile() != null && !this.getDraggingTile().isDragPositionSet()){
             			 Logger.d(TAG, "drag is being removed because it never really got established.");
             			 this.getDraggingTile().removeDrag();
+            			 this.clearDraggingTile();
+            			 setToReadyDraw = true;
             		 } 
             		 else if ((this.getCurrentTrayTile() != null && this.getCurrentTrayTile().isDragging()) || this.getDraggingTile() != null){
         				 Logger.d(TAG, "ACTION_UP a tile is dragging");
@@ -1949,7 +1951,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					else{
 						//assume that if the current tile is null, just keep board as is
 						this.parent.captureTime(TAG + " drawBoardOnMove 2 started");
+					 
 						this.drawBoardOnMove(canvas, 0, 0);
+					    
 					}
 					this.readyToDraw = false;
 	 
@@ -2164,6 +2168,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 
 			 this.parent.captureTime(TAG + " drawBoardOnMove check bounds starting ");
 			 
+			 Logger.w(TAG, "drawBoardOnMove: topLeftTile.getxPositionZoomed()=" + topLeftTile.getxPositionZoomed() + " topLeftTile.getyPositionZoomed()=" + topLeftTile.getyPositionZoomed());
+			 Logger.w(TAG, "drawBoardOnMove: this.outerZoomLeft=" + this.outerZoomLeft + " this.outerZoomTop=" + this.outerZoomTop);
+
 			 //make sure it will be within outer left bounds
 			 if (topLeftTile.getxPositionZoomed() - leftDiff < this.outerZoomLeft){
 				 //only scroll to the edge of the left outer boundary
@@ -2179,7 +2186,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 				 if (topLeftTile.getxPositionZoomed() - leftDiff > 0) {
 					 leftDiff = topLeftTile.getxPositionZoomed() - 0;//leftDiff - (1 - topLeftTile.getxPositionZoomed() - leftDiff);   
 					 
-					 Log.w(TAG, "drawBoardOnMove: leftdiff(2)=" + leftDiff);
+					 Logger.w(TAG, "drawBoardOnMove: leftdiff(2)=" + leftDiff);
 				 }
 				 else {
 					 setReadyToDraw = true;
@@ -2192,7 +2199,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 				 topDiff = this.outerZoomTop;// - topLeftTile.getyPositionZoomed();//topLeftTile.getyPositionZoomed() + this.outerZoomTop; //topDiff - (this.outerZoomTop - topLeftTile.getyPositionZoomed() - topDiff);
 				 //topDiff = topDiff - (this.outerZoomTop - topLeftTile.getyPositionZoomed());
 				 topDiff = topLeftTile.getyPositionZoomed() - this.outerZoomTop;
-				 Log.w(TAG, "drawBoardOnMove: topdiff(1)=" + topDiff);
+				 Logger.w(TAG, "drawBoardOnMove: topdiff(1)=" + topDiff);
 			 }
 			 else { 
 				 //make sure it will be within visible top bounds
@@ -2320,9 +2327,30 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
    }
 	
 	private void drawZoomedBoardByDiff(Canvas canvas, int leftDiff, int topDiff) {
+		Logger.d(TAG, "drawZoomedBoardByDiff leftDiff=" + leftDiff + " topDiff=" + topDiff);	
+		
+		//check for odd condition of zoom positions not being set
+		//assume if both the first and second tiles have not position, then none of them do
+		//not 100% sure what causes this condition but I think it happens when there is a placed tile on board
+		//when the game is loaded and then that tile is dragged.  the targetTileId is not set and boom, things do awry
+		//this logic will set the target tile to the middle tile on the board.  the zoom might look a little out of position
+		//but at least it won't dray every tile on top of each other in the top left position, as it was doing before this fix
+		if (this.tiles.get(0).getxPositionZoomed() == 0 && this.tiles.get(0).getyPositionZoomed() == 0 &&
+			this.tiles.get(1).getxPositionZoomed() == 0 && this.tiles.get(1).getyPositionZoomed() == 0) {
+			
+			//fix zoom position (use middle tile as basis) 
+			this.targetTileId = 112;
+			this.drawBoardZoomOnUp(canvas);
+			return;
+		}
+		
 	    for (GameTile tile : this.tiles) {
 	    	tile.setxPositionZoomed(tile.getxPositionZoomed() - leftDiff);
 	     	 tile.setyPositionZoomed(tile.getyPositionZoomed() - topDiff);
+	     	 
+	     	 if (tile.getxPositionZoomed() == 0 && tile.getyPositionZoomed() == 0){
+	     		Logger.d(TAG, "drawZoomedBoardByDiff positions=0 tileId=" + tile.getId());
+	     	 }
 	 		 
 	 		 this.drawZoomedBoardGuts(canvas, tile);
  
@@ -2330,6 +2358,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 	}
 	 
 	private void drawZoomedBoard(Canvas canvas, int leftBasisPoint, int topBasisPoint) {
+		Logger.d(TAG, "drawZoomedBoard leftBasisPoint=" + leftBasisPoint + " topBasisPoint" + topBasisPoint);
 	     for (GameTile tile : this.tiles) {
 	     	 tile.setxPositionZoomed(leftBasisPoint + ((tile.getColumn() - 1) * this.zoomedTileWidth) + ((tile.getColumn() - 1) * this.tileGap));
 	 		 tile.setyPositionZoomed(topBasisPoint + ((tile.getRow() - 1) * this.zoomedTileWidth) + ((tile.getRow() - 1) * this.tileGap));
@@ -2349,10 +2378,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		if (tile.getPlacedLetter().length() > 0){
     		 canvas.drawBitmap(GameSurfaceView.bgPlacedTileZoomed,tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
      
-    		 if(tile.getId() == 196) {
-    			 
-    				 Logger.d(TAG, "drawZoomedBoardGuts placed=" + tile.getPlacedLetter());
-    		 }
+    		
     		 
     		 this.drawLetter(canvas, tile.getPlacedLetter(), this.zoomedTileWidth, tile.getxPositionZoomed(), tile.getyPositionZoomed(), false);
     		 //Logger.d(TAG, "drawZoomedBoardGuts tile.getDisplayLetter()=" + tile.getDisplayLetter());
@@ -2365,11 +2391,6 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
    	 	}
 	 	 //original text represents bonus text
     	 else if (tile.getOriginalText().length() > 0){
-    		 if(tile.getId() == 196) {
-    			 
-				 Logger.d(TAG, "drawZoomedBoardGuts plaYed=" + tile.getPlacedLetter());
-		 }
-
     		 
     		 
     		 canvas.drawBitmap(tile.getOriginalBitmapZoomed(),tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
@@ -2378,13 +2399,14 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
     		 
     	 }
     	 else {
-    		 if(tile.getId() == 196) {
-    			 
-				 Logger.d(TAG, "drawZoomedBoardGuts empty=" + tile.getPlacedLetter());
-		 }
-
+    		 
     		 canvas.drawBitmap(tile.getOriginalBitmapZoomed(),tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
     	 }
+		
+		 if(tile.getId() == 0 || tile.getId() == 224) {
+			 
+			 Logger.d(TAG, "drawZoomedBoardGuts tile.id=" + tile.getId() + " tile.getxPositionZoomed()=" +  tile.getxPositionZoomed() + " tile.getyPositionZoomed()=" + tile.getyPositionZoomed());
+	 }
 	 	 
      //	 if (tile.getCurrentLetter().length() > 0){
 	 //    	 Paint p = new Paint();
