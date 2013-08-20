@@ -82,6 +82,7 @@ public class Constants {
 	public static final String TRACKER_ACTION_PURCHASE = "purchase";
 	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
 	public static final String TRACKER_LABEL_OPPONENT = "opponent";
+	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s";
 	public static final String TRACKER_LABEL_RECALL = "recall_letters";
 	public static final String TRACKER_LABEL_SHUFFLE = "shuffle";
 	public static final String TRACKER_LABEL_WORD = "word";

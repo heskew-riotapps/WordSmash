@@ -1825,7 +1825,7 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
     		 	}
     		 	else if (this.game.isCompleted()){
     		 		//save completed event
-    		 		this.trackEvent(Constants.TRACKER_ACTION_GAME_COMPLETED, Constants.TRACKER_LABEL_OPPONENT, this.game.getOpponentId());
+    		 		this.trackEvent(Constants.TRACKER_ACTION_GAME_COMPLETED, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), (int) Constants.TRACKER_SINGLE_VALUE);
     		 	}
 	    	}
 	    }

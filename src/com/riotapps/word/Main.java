@@ -441,7 +441,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     		
 			Game game = GameService.createGame(context, player, chosenOpponentId);
 
-			this.trackEvent(Constants.TRACKER_ACTION_GAME_STARTED, Constants.TRACKER_LABEL_OPPONENT, chosenOpponentId);
+			this.trackEvent(Constants.TRACKER_ACTION_GAME_STARTED,String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, chosenOpponentId), (int) Constants.TRACKER_SINGLE_VALUE);
 			
 			this.llOpponents.removeAllViews();
 			this.llOpponents = null;
