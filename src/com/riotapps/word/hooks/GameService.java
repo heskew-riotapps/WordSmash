@@ -530,14 +530,7 @@ public static void skip(boolean isOpponent, Game game){
 				
 				return;
 			}
-		/*	
-			if (!opponentGame.doesTrayContainAVowel()){
-				Logger.d(TAG, "autoplay, tray contains NO VOWELS");
-			}
-			if (!opponentGame.doesTrayContainAConsonant()){
-				Logger.d(TAG, "autoplay, tray contains NO CONSONANTS");
-			}
-			*/
+
 			//randomly swap if there are no vowels or no consonants
 			if ((!opponentGame.doesTrayContainAVowel() || !opponentGame.doesTrayContainAConsonant())
 					&& game.getHopper().size() > 0 && Utils.coinFlip() == Constants.COIN_FLIP_HEADS){
@@ -558,61 +551,7 @@ public static void skip(boolean isOpponent, Game game){
 				return;
 			}
 		}
-		
-		//create collections for H/V tiles/sets. 
-		//object in collection must contain letter(s),len , x, y
-		
-		
-		//to get the neighboring playedTiles do this: (example...i assume it would be done in some AI loop for real)
-		//if there is not a played tile, you can assume its a blank tile
-//		PlayedTile above = game.getPlayedTileAbove(game.getPlayedTiles().get(0));
-//		PlayedTile below = game.getPlayedTileBelow(game.getPlayedTiles().get(0));
-//		PlayedTile right = game.getPlayedTileToTheRight(game.getPlayedTiles().get(0));
-//		PlayedTile left = game.getPlayedTileToTheLeft(game.getPlayedTiles().get(0));
-		
-		
-		//dont forget logic to start game if game.getPlayedWords.size() == 0) , this means the player skipped his turn
-		//and you will have to play on one or more of the starter tiles, using only the letters in your tray.
-		//if you can't form a 2 letter word (no vowels), you will have to swap or skip
-		
-		Logger.d(TAG,"before played tile loop");
-		//for each tile
-		for  (PlayedTile tile : tiles) {
-			PlayedTile[] tileArray = new PlayedTile[1];
-			tileArray[0] = tile;
-			
-		//	Logger.d(TAG,"played tile loop" + tile.getBoardPosition());
-			
-			
-		//CanAIPlayOnTile(tile);	
-		//get left/right/up/down -
-			//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot
-			//int uTile = TileLayoutService.getTileIdAbove(tile.getBoardPosition());
-			PlayedTile nextTile;
-			
-			/*
-			//have to have a null check here
-			//wrong
-			try{
-				
-				nextTile = tiles.get(TileLayoutService.getTileIdAbove(tile.getBoardPosition()));
-			}
-			catch (IndexOutOfBoundsException iEx){
-				//played tile does not exist at that location
-			}
-			*/
-			//??GameService.getLettersAlongOnAxis might help 
-			//if nextTile null to another direction. if not, also go opposite direction
-			//need to take precaution to not process multiple tiles of the same string in the same axis
-		//append / get next
-			//add to H or V collection at end
-			//is it part of a H/V word that ive already hit? Ignore for axis (not for cross) see opposite
-			// -- to this point need way to check existing list 
-			//so for every tile check H then V .. if either continues then becomes part of one workd
-			//while up then while right then while down then while left, but skip if already counted
-		//add single tile to opposite h/v collection regardless for single cross build
-		}
-		
+
 		//the layout 
 		//https://docs.google.com/spreadsheet/ccc?key=0AsYnYHEXRYMndElrQzVrdFh6Sm5aaERqX1U2ajlSU2c#gid=0
 	   	WordService wordService = new WordService(context);
@@ -677,72 +616,7 @@ public static void skip(boolean isOpponent, Game game){
 	
 						
 					 }
-			
-			//for each in V col 
-				//look for another V on same row
-					//check distance (playable together? otherwise prevent overwrite
-			
-			//for each in H col
-				//look for another H on same col
-					//check distance (playable together? otherwise prevent overwrite
-			
-			//with letter blob compares, still need to shift/rotate through playable tiles
-			//this is to check for words of all length, combinations of the letters from 2 thru tray+board(row/col)
-			
-			//all possible plays added to list - 
-				//check for distance/position
-			//free standing plays added to a smash list
-				//check for valid impacted words
-			//calc scores of valid plays 
-			//sort by score
-			//apply AI difficulty rules and random failure rates
-			
-			//if getPlayedTiles.size() == 0, the player skipped his first turn, you can play any word
-			//formed by the tray tiles but at least one letter must be placed on a starter tile
-			
-			//this will return row and column (15x15 board)
-			//TileLayoutService.getRowCol(tileId) 
-			//this is already wrapped by game.getPlayedTile.get(x).getRowCol()
-			
-			// you'll probably want to look at GameService.isWordConnectedToPlayedWords and GameService.getWords to 
-			//study some of that logic
-			
-			
-			//WordService.isWordValid(word) will tell you if the word is in the dictionary
-			
-			//for more advanced AI, potential bonus can be taken into account
-			//TileLayoutService.getLetterMultiplier(tileId, layout)
-			//TileLayoutService.getWordMultiplier(tileId, layout)
-			
-			//getTileValue returns the points for a specific played tile, helpful for more advanced AI
-	 
-			//game.getPlayedTiles().get(0).getLatestPlayedLetter() will return the latest letter that has been played on that tile
-			//note that game.getPlayedTiles will only return the tiles that have had a letter played on them, it will NOT return all 225 tiles from the board layout
-			
-			//defaultLayout will contain all of the bonus and starter tiles, you may not need it directly
-			
-			//TileLayoutService.getTileIdAbove(tileId), Below, ToTheRight, ToTheLeft will help you alot 
-			//if any of them return 255 that means the tile position being requested is outside of the board boundaries
-			 
-			
-		     //for each placedResult option use a new List<GameTile> based on boardTiles passed in
-		     //call setPlacedLetter on each board tile played
-		     //put all options in a list of PlacedResults 
-		     //for each option, reset list of boardTiles 
-		     
-		/*     try {
-		    
-		    	 	//this is the real one
-		    	 	//placedResults.add(GameService.checkPlayRules(context, defaultLayout, game, boardTiles, false)); 	
-		    	 
-		    	 	//this is the placeholder
-		    	 	PlacedResult pr = GameService.checkPlayRules(context, defaultLayout, game, boardTiles, true);
-			 }
-		     catch (DesignByContractException e){
-	
-		    	 //there was a problem, do not add to list
-		     }
-		  */    
+		
 			 }//end of 
 			else{
 				//if last turn was a skip or swap, we don't need to do anything else.
@@ -878,17 +752,18 @@ public static void skip(boolean isOpponent, Game game){
 							start = Math.round(numOptions / 2);
 							base = Math.round(numOptions / 10);
 							
+							//if semi=pro is losing, pull a word from upper part of his range
 							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_SEMI_PRO){
 								//from 75% to 90%
 								start = numOptions - Math.round(numOptions / 4); 
-								Logger.d(TAG, "autoplay SKILL_LEVEL_SEMI_PRO losing...start=" + start + " end=" + (numOptions - base));
+								//Logger.d(TAG, "autoplay SKILL_LEVEL_SEMI_PRO losing...start=" + start + " end=" + (numOptions - base));
 								
 							}
-							//every so often (1 in 10 chance) let novice get lucky and play a better word from upper half
-							randomBetterPlay = Utils.getRandomNumberFromRange(1, 10);  //make these constants
+							//every so often (1 in 8 chance) let semi-pro get lucky and play a better word  
+							randomBetterPlay = Utils.getRandomNumberFromRange(1, 8);  //make these constants
 							if (randomBetterPlay == 7){
-								//grab from top 75%
-								start = base;
+								//grab from top 90%
+								start = numOptions - base;
 								base = numOptions - 1;
 							}
 							randomIndex = Utils.getRandomNumberFromRange(start, numOptions - base);					
