@@ -2,4 +2,6 @@
 <resources>
     <integer name="derived_device_screen_size">3</integer>
     <integer name="derived_device_resolution">3</integer>
+        <integer name="maxTrayTileSize">90</integer>
+    <integer name="maxDraggingTileSize">110</integer>
 </resources>

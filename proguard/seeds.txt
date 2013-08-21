@@ -6822,10 +6822,16 @@ com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_BUTTON_TAPPED
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_WORD_LOOKED_UP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_STARTED
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_COMPLETED
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_WON
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_LOST
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_DRAW
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_PURCHASE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_HOPPER_PEEK
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT_WITH_ID
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT_WITH_ID_LOSS
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT_WITH_ID_WON
+com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_OPPONENT_WITH_ID_DRAW
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_RECALL
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_SHUFFLE
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_LABEL_WORD
@@ -7088,6 +7094,7 @@ com.riotapps.word.utils.Constants: int TILE_POSITION_ON_BORDER
 com.riotapps.word.utils.Constants: int SCORE_DIFFERENCE_TRIGGER_EXPERT
 com.riotapps.word.utils.Constants: int SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL
 com.riotapps.word.utils.Constants: int SCORE_DIFFERENCE_TRIGGER_SEMI_PRO
+com.riotapps.word.utils.Constants: int SCREEN_SIZE_LARGE
 com.riotapps.word.utils.Constants: int SCREEN_SIZE_XLARGE
 com.riotapps.word.utils.Constants: int MAX_AUTOPLAY_MILLISECONDS
 com.riotapps.word.utils.Constants: Constants()

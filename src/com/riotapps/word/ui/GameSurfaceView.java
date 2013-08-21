@@ -365,7 +365,8 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 			 this.zoomMultiplier = 1.5f;
 		      //this.isZoomAllowed = false;
 		 }  
-  		 if (this.parent.getResources().getInteger(R.integer.derived_device_screen_size) == Constants.SCREEN_SIZE_XLARGE){
+  		 if (this.parent.getResources().getInteger(R.integer.derived_device_screen_size) == Constants.SCREEN_SIZE_XLARGE || 
+  		  		 this.parent.getResources().getInteger(R.integer.derived_device_screen_size) == Constants.SCREEN_SIZE_LARGE){
 			 this.autoZoom = false;
 		 }
 		// this.isDrawn = false;

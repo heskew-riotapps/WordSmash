@@ -443,8 +443,8 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
 			this.trackEvent(Constants.TRACKER_ACTION_GAME_STARTED,String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, chosenOpponentId), (int) Constants.TRACKER_SINGLE_VALUE);
 			
-			this.llOpponents.removeAllViews();
-			this.llOpponents = null;
+			//this.llOpponents.removeAllViews();
+			//this.llOpponents = null;
 			
 			Intent intent = new Intent(this, com.riotapps.word.GameSurface.class);
     		//intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());

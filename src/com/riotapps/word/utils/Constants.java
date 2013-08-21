@@ -79,10 +79,16 @@ public class Constants {
 	public static final String TRACKER_ACTION_WORD_LOOKED_UP = "word_looked_up";
 	public static final String TRACKER_ACTION_GAME_STARTED = "game_started";
 	public static final String TRACKER_ACTION_GAME_COMPLETED = "game_completed";
+	public static final String TRACKER_ACTION_GAME_WON = "game_won";
+	public static final String TRACKER_ACTION_GAME_LOST = "game_lost";
+	public static final String TRACKER_ACTION_GAME_DRAW = "game_draw";
 	public static final String TRACKER_ACTION_PURCHASE = "purchase";
 	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
 	public static final String TRACKER_LABEL_OPPONENT = "opponent";
-	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s";
+	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s_loss";
+	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_LOSS = "opponent_%s_loss";
+	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_WON = "opponent_%s_won";
+	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_DRAW = "opponent_%s_draw";
 	public static final String TRACKER_LABEL_RECALL = "recall_letters";
 	public static final String TRACKER_LABEL_SHUFFLE = "shuffle";
 	public static final String TRACKER_LABEL_WORD = "word";
@@ -435,7 +441,7 @@ public class Constants {
 	public static final int SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL = 100;
 	public static final int SCORE_DIFFERENCE_TRIGGER_SEMI_PRO = 120;
 	
-	
+	public static final int SCREEN_SIZE_LARGE = 3;	
 	public static final int SCREEN_SIZE_XLARGE = 4;
 	public static final int MAX_AUTOPLAY_MILLISECONDS = 8000;
 	
