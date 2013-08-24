@@ -2,6 +2,7 @@ package com.riotapps.word;
 
 import java.util.List;
 
+import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
@@ -127,10 +128,13 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 	//	this.loadListTask = new LoadListTask();
 	//	this.loadListTask.execute("");
 		
-		if (StoreService.isHideBannerAdsPurchased()){
-			AdView adView = (AdView)this.findViewById(R.id.adView);
+		AdView adView = (AdView)this.findViewById(R.id.adView);
+    	if (StoreService.isHideBannerAdsPurchased()){	
 			adView.setVisibility(View.GONE);
 		}
+    	else {
+    		adView.loadAd(new AdRequest());
+    	}
     }
  
 	 private void checkFirstTimeStatus(){
@@ -156,7 +160,7 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
     private void trackEvent(String action, String label, long value){
   		try{
   			Logger.d(TAG, "trackEvent this.tracker is null=" + (this.tracker == null));
-  			this.tracker.sendEvent(Constants.TRACKER_CATEGORY_MAIN_LANDING, action,label, value);
+  			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_MAIN_LANDING, action,label, value);
   		}
   		catch (Exception e){
   			Logger.d(TAG, "trackEvent e=" + e.toString());

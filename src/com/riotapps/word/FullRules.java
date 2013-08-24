@@ -1,5 +1,6 @@
 package com.riotapps.word;
 
+import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.PlayerService;
@@ -33,12 +34,13 @@ public class FullRules extends FragmentActivity{
 	        
 	        this.setupFonts();
 	        
-	        if (StoreService.isHideBannerAdsPurchased()){
-				AdView adView = (AdView)this.findViewById(R.id.adView);
-				//adView.destroy(); //experiment
+	        AdView adView = (AdView)this.findViewById(R.id.adView);
+	    	if (StoreService.isHideBannerAdsPurchased()){	
 				adView.setVisibility(View.GONE);
-				adView.setActivated(false);
 			}
+	    	else {
+	    		adView.loadAd(new AdRequest());
+	    	}
 	 }
 	@Override
 	protected void onStart() {

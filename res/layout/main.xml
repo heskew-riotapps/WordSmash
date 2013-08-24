@@ -15,7 +15,7 @@
            ads:adUnitId="@string/admob_pub_id_main_landing" 
            ads:adSize="BANNER"
            ads:testDevices="TEST_EMULATOR"
-           ads:loadAdOnCreate="true"/>
+           ads:loadAdOnCreate="false"/>
   
       <TextView
           android:layout_below="@id/topAreaLayout"

@@ -79,13 +79,23 @@ public class Constants {
 	public static final String TRACKER_ACTION_WORD_LOOKED_UP = "word_looked_up";
 	public static final String TRACKER_ACTION_GAME_STARTED = "game_started";
 	public static final String TRACKER_ACTION_GAME_COMPLETED = "game_completed";
+	public static final String TRACKER_ACTION_GAME_AUTO_PLAY = "game_opponent_play";
+	public static final String TRACKER_ACTION_GAME_AUTO_SKIP = "game_opponent_skip";
+	public static final String TRACKER_ACTION_GAME_AUTO_SWAP = "game_opponent_swap";
+	public static final String TRACKER_ACTION_GAME_AUTO_CONCEDE = "game_opponent_concede";
+	public static final String TRACKER_ACTION_GAME_PLAYER_PLAY = "game_player_play";
+	public static final String TRACKER_ACTION_GAME_PLAYER_SKIP = "game_player_skip";
+	public static final String TRACKER_ACTION_GAME_PLAYER_SWAP = "game_player_swap";
+	public static final String TRACKER_ACTION_GAME_PLAYER_CONCEDE = "game_player_concede";
+
+	
 	public static final String TRACKER_ACTION_GAME_WON = "game_won";
 	public static final String TRACKER_ACTION_GAME_LOST = "game_lost";
 	public static final String TRACKER_ACTION_GAME_DRAW = "game_draw";
 	public static final String TRACKER_ACTION_PURCHASE = "purchase";
 	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
 	public static final String TRACKER_LABEL_OPPONENT = "opponent";
-	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s_loss";
+	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s";
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_LOSS = "opponent_%s_loss";
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_WON = "opponent_%s_won";
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_DRAW = "opponent_%s_draw";
@@ -129,7 +139,7 @@ public class Constants {
 	public static final String TRACKER_LABEL_START_GAME_OK = "start_game_ok";
 	public static final String TRACKER_LABEL_START_GAME_CANCEL = "start_game_cancel";
 	public static final String TRACKER_LABEL_START_GAME_DISMISS = "start_game_dismiss";
-	 public static final String TRACKER_LABEL_PLAY_WITH_ERRORS = "play_with_errors";
+	 public static final String TRACKER_LABEL_PLAY_WITH_ERRORS = "play_with_errors_%s";
 	public static final long TRACKER_DEFAULT_OPTION_VALUE = 0;
 	public static final long TRACKER_SINGLE_VALUE = 1;
 	
@@ -424,10 +434,10 @@ public class Constants {
 	public static final int SKILL_LEVEL_MASTER = 6;
 	
 	public static final int MAX_WORD_MATCHES_WORDS_TO_START_GAME = 20;
-	public static final int MAX_WORD_MATCHES_ACROSS = 20;
-	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 20;
-	public static final int MAX_WORD_MATCHES_EXTENSIONS = 20;
-	public static final int MAX_WORD_MATCHES_OVERLAYS = 20;
+	public static final int MAX_WORD_MATCHES_ACROSS = 25;
+	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 25;
+	public static final int MAX_WORD_MATCHES_EXTENSIONS = 25;
+	public static final int MAX_WORD_MATCHES_OVERLAYS = 25;
 
 	public static final int AUTOPLAY_MATCH_ACROSS = 20;
 	public static final int AUTOPLAY_MATCH_PERPENDICULAR = 20; 

@@ -991,7 +991,51 @@ public class Game implements Parcelable, Comparable<Game> {
 
 	}
 	
-	
+	public List<PlayedTile> getConsecutivePlayedLettersInADirection(int startingPosition, String direction){
+		 
+		List<PlayedTile> letters = new ArrayList<PlayedTile>();
+		int loopRegulator = 1;
+		boolean loop = true;
+ 		PlayedTile loopTile = this.getPlayedTile(startingPosition);
+		//int loopId = startingPosition;
+		if (loopTile == null) {	return letters; }
+ 		
+		letters.add(loopTile);
+		
+		while(loop){
+			loopRegulator += 1;
+			if (loopRegulator > 15) { loop = false; break; }
+				
+			PlayedTile tile = null;
+			if (direction.equals(Constants.DIRECTION_BELOW)){
+				tile = this.getPlayedTileBelow(loopTile);
+				//loopId = TileLayoutService.getTileIdBelow(loopId); //loopTile.getTileIdBelow(); 
+			}
+			else if (direction.equals(Constants.DIRECTION_ABOVE)){
+				tile = this.getPlayedTileAbove(loopTile);
+				//loopId = TileLayoutService.getTileIdAbove(loopId); //loopTile.getTileIdAbove(); 
+			}
+			else if (direction.equals(Constants.DIRECTION_LEFT)){
+				tile = this.getPlayedTileToTheLeft(loopTile);
+				//loopId = TileLayoutService.getTileIdToTheLeft(loopId); //loopTile.getTileIdToTheLeft(); 
+			}
+			else if (direction.equals(Constants.DIRECTION_RIGHT)){
+				tile = this.getPlayedTileToTheRight(loopTile);
+				//loopId = TileLayoutService.getTileIdToTheRight(loopId); //loopTile.getTileIdToTheRight(); 
+			}
+			
+			if (tile == null){ //border
+				loop = false; //don't add any more to i
+			}
+			else {
+				letters.add(tile);
+				loopTile = tile;
+			}
+		}
+	 
+		return letters;
+
+	}
 	public int getNumLettersLeftInHopperAndOpponentTray(String letter){
 		int count = 0;
 		
