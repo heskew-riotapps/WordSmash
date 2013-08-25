@@ -434,10 +434,15 @@ public class Constants {
 	public static final int SKILL_LEVEL_MASTER = 6;
 	
 	public static final int MAX_WORD_MATCHES_WORDS_TO_START_GAME = 20;
-	public static final int MAX_WORD_MATCHES_ACROSS = 25;
-	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 25;
-	public static final int MAX_WORD_MATCHES_EXTENSIONS = 25;
-	public static final int MAX_WORD_MATCHES_OVERLAYS = 25;
+	public static final int MAX_WORD_MATCHES_ACROSS = 20;
+	public static final int MAX_WORD_MATCHES_PERPENDICULAR = 20;
+	public static final int MAX_WORD_MATCHES_EXTENSIONS = 15;
+	public static final int MAX_WORD_MATCHES_OVERLAYS = 20;
+	
+	public static final boolean FIND_MATCHES_ACROSS = false;
+	public static final boolean FIND_MATCHES_PERPENDICULAR = false;
+	public static final boolean FIND_MATCHES_EXTENSIONS = true;
+	public static final boolean FIND_MATCHES_OVERLAY = true;
 
 	public static final int AUTOPLAY_MATCH_ACROSS = 20;
 	public static final int AUTOPLAY_MATCH_PERPENDICULAR = 20; 
