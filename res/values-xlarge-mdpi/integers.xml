@@ -4,6 +4,6 @@
     <integer name="derived_device_resolution">2</integer>
          <integer name="maxGameBoardLogoHeight">48</integer>
      <integer name="maxGameBoardTextHeight">24</integer>
-      <integer name="maxDraggingTileSize">120</integer>
-      <integer name="maxTrayTileSize">90</integer>
+      <integer name="maxDraggingTileSize">100</integer>
+      <integer name="maxTrayTileSize">80</integer>
 </resources>

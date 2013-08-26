@@ -13,6 +13,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.riotapps.word.ui.PlacedResult;
+import com.riotapps.word.utils.Logger;
 
 public class PlayerGame implements Parcelable{
 	private static final String TAG = PlayerGame.class.getSimpleName();
@@ -245,7 +246,7 @@ public class PlayerGame implements Parcelable{
 			 boolean notAtEnd = true;
 			 while (notAtEnd){
 				 	//the idea here is to gather every combination of positions (not every single permutation of letters)
-				 	//later we can ensure that duplicate tile sets are not added amd sort them for index lookup
+				 	//at the end we will ensure that duplicate tile sets are not added and sort them for index lookup
 				 
 					List<String> letterSet = new ArrayList<String>();
 						 
@@ -261,15 +262,26 @@ public class PlayerGame implements Parcelable{
 					}
 					else if(setLength >= 5 && x5 < (maxIndex - (setLength - 5))){
 						x5 += 1;
+						x6 = x5+1;
 					}
 					else if(setLength >= 4 && x4 < (maxIndex - (setLength - 4))){
 						x4 += 1;
+						x5 = x4+1;
+						x6 = x4+2;
 					}	
 					else if(setLength >= 3 && x3 < (maxIndex - (setLength - 3))){
 						x3 += 1;
+						x4 = x3+1;
+						x5 = x3+2;
+						x6 = x3+3;
+
 					}
 				 	else if(setLength >= 2 && x2 < (maxIndex - (setLength - 2))){
 				 		x2 += 1;
+				 		x3 = x2+1;
+						x4 = x2+2;
+						x5 = x2+3;
+						x6 = x2+4;
 				 	}
 				 	else if(x1 < (maxIndex - (setLength - 1))){
 				 		x1 += 1;
@@ -288,6 +300,19 @@ public class PlayerGame implements Parcelable{
 					//we have filled up this letterSet
 					if (letterSet.size() == setLength){
 						//check for dupes here
+						
+						/*
+						if (setLength == 3){
+							String a = "";
+							
+							for (String x : letterSet){
+								a += x;
+							}
+							
+							 Logger.d(TAG, "getSortedTrayLetterSets letterSet pre sort=" + a );
+						}
+						*/
+						
 						
 						//sort for index lookup
 						Collections.sort(letterSet);

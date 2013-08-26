@@ -14,6 +14,7 @@ import com.google.ads.AdRequest;
 //import com.revmob.ads.fullscreen.RevMobFullscreen;
 import com.riotapps.word.hooks.AlphabetService;
 import com.riotapps.word.hooks.Game;
+import com.riotapps.word.hooks.Game.LastAction;
 import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.PlayedTile;
 import com.riotapps.word.hooks.Player;
@@ -810,14 +811,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 this.gameState = GameStateService.clearGameState(this.game.getId());
 		 }
 		 
-for (PlayedTile tile : this.game.getPlayedTiles()){
-	if (tile.getBoardPosition() == 196){
-		 Logger.d(TAG, "filleGameState 196 is a PLAYED TILE");
-			
-	}
+		for (PlayedTile tile : this.game.getPlayedTiles()){
+			if (tile.getBoardPosition() == 196){
+				 Logger.d(TAG, "filleGameState 196 is a PLAYED TILE");
+					
+			}	
+		}
 		
-}
-		 Logger.d(TAG, "filleGameState numTrayTiles=" + this.game.getPlayedTiles().size());
+		// Logger.d(TAG, "filleGameState numTrayTiles=" + this.game.getPlayedTiles().size());
 		// this.gameState.setTrayVersion(this.game.getContextPlayerTrayVersion(this.player));
 		 
 		 //load played tiles into game state
@@ -1444,7 +1445,7 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 					
 		        	//record error code from rule check
 		        	trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
-		        			Constants.TRACKER_LABEL_PLAY_WITH_ERRORS, (long)code);
+		        			String.format(Constants.TRACKER_LABEL_PLAY_WITH_ERRORS, code), Constants.TRACKER_SINGLE_VALUE);
 		        	
 		        	openAlertDialog(context.getString(R.string.sorry), message);
 					unfreezeButtons();
@@ -1504,6 +1505,9 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 	    	//try { 
 				 
 	    		GameService.resign(false, this.game);
+	    		
+	    		this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_CONCEDE, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), Math.abs(this.game.getPlayerGames().get(0).getScore() - this.game.getPlayerGames().get(1).getScore()));
+	    		
 	    		this.isCompletedThisSession = true;
 	    		this.postTurnTitle = context.getString(R.string.game_over);
 				this.postTurnMessage = 	game.getLastActionText(context); 
@@ -1587,7 +1591,9 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 		    	}
 	     
 	    		GameService.play(false, game, placedResult);
-		     
+
+		       	this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_PLAY, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), this.game.getLastTurnPoints());
+
 	    		gameState = GameStateService.clearGameState(game.getId());
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
@@ -1661,6 +1667,9 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 	    	 
 	    		GameService.skip(false, game);
 	    		gameState = GameStateService.clearGameState(game.getId());
+	            
+	    		this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SKIP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), (int)Constants.TRACKER_SINGLE_VALUE);
+		    	 
 			//} catch (DesignByContractException e) {
 				if (game.isCompleted()) 
 				{
@@ -1734,6 +1743,28 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 	    		
 	    		//String playerAction = game.getLastActionText(context);
 
+	    		if (this.game.getLastAction().equals(LastAction.ONE_LETTER_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 1);
+		    	 }
+		    	 else if (this.game.getLastAction().equals(LastAction.TWO_LETTERS_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 2);
+		    	 }
+		    	 else if (this.game.getLastAction().equals(LastAction.THREE_LETTERS_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 3);
+		    	 }
+		    	 else if (this.game.getLastAction().equals(LastAction.FOUR_LETTERS_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 4);
+		    	 }
+		    	 else if (this.game.getLastAction().equals(LastAction.FIVE_LETTERS_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 5);
+		    	 }
+		    	 else if (this.game.getLastAction().equals(LastAction.SIX_LETTERS_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 6);
+		    	 }
+		    	 else if (this.game.getLastAction().equals(LastAction.SEVEN_LETTERS_SWAPPED)){
+		    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 7);
+		    	 }
+	    		
 	    		spinner = new CustomProgressDialog(this);
  			    spinner.setMessage(String.format(this.getString(R.string.progress_opponent_thinking), this.game.getOpponent().getName()));
  			    spinner.show();
@@ -1776,6 +1807,37 @@ for (PlayedTile tile : this.game.getPlayedTiles()){
 		 	}*/
 	    	spinner.updateMessage(this.getString(R.string.progress_almost_ready));
 	    	 String opponentAction = game.getLastActionText(context);
+	    	 
+	    	 if (this.game.getLastAction().equals(LastAction.TURN_SKIPPED)){
+	       		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SKIP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), (int)Constants.TRACKER_SINGLE_VALUE);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.WORDS_PLAYED)){
+	       		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_PLAY, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), this.game.getLastTurnPoints());
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.RESIGNED)){
+	       		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_CONCEDE, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), Math.abs(this.game.getPlayerGames().get(0).getScore() - this.game.getPlayerGames().get(1).getScore()));
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.ONE_LETTER_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 1);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.TWO_LETTERS_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 2);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.THREE_LETTERS_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 3);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.FOUR_LETTERS_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 4);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.FIVE_LETTERS_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 5);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.SIX_LETTERS_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 6);
+	    	 }
+	    	 else if (this.game.getLastAction().equals(LastAction.SEVEN_LETTERS_SWAPPED)){
+	    		 this.trackEvent(Constants.TRACKER_ACTION_GAME_AUTO_SWAP, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), 7);
+	    	 }
 
 				this.postTurnTitle = context.getString(R.string.post_turn_title_with_auto_play);
 				this.postTurnMessage = 	String.format(this.getString(R.string.post_turn_message_with_auto_play), this.lastPlayerActionBeforeAutoplay, opponentAction); 

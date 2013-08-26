@@ -1,5 +1,6 @@
 package com.riotapps.word;
 
+import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.PlayerService;
@@ -71,10 +72,13 @@ public class About extends FragmentActivity implements View.OnClickListener{
 	        MenuUtils.setHeaderTitle(this, this.getString(R.string.header_title_about));
 	        this.setupFonts();
 	        
-	    	if (StoreService.isHideBannerAdsPurchased()){
-				AdView adView = (AdView)this.findViewById(R.id.adView);
+	        AdView adView = (AdView)this.findViewById(R.id.adView);
+	    	if (StoreService.isHideBannerAdsPurchased()){	
 				adView.setVisibility(View.GONE);
 			}
+	    	else {
+	    		adView.loadAd(new AdRequest());
+	    	}
 	 }
 
 

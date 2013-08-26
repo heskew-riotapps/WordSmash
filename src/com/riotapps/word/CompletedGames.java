@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
  
+import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.Game;
@@ -57,6 +58,14 @@ public class CompletedGames extends FragmentActivity {
 				adView.setVisibility(View.GONE);
 			}
 	    	   ApplicationContext.captureTime(TAG, "oncreate completed");
+	    	   
+    	    AdView adView = (AdView)this.findViewById(R.id.adView);
+	    	if (StoreService.isHideBannerAdsPurchased()){	
+				adView.setVisibility(View.GONE);
+			}
+	    	else {
+	    		adView.loadAd(new AdRequest());
+	    	}
 	 }
 	
 	@Override

@@ -1,5 +1,6 @@
 package com.riotapps.word;
 
+import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Tracker;
@@ -102,11 +103,13 @@ public class GameLookup extends FragmentActivity  implements View.OnClickListene
 	     MenuUtils.hideMenu(this);
 	     this.setupFonts();
 	     
-	     if (StoreService.isHideBannerAdsPurchased()){
-				AdView adView = (AdView)this.findViewById(R.id.adView);
-				adView.setVisibility(View.GONE);
-		 
-			}
+	     AdView adView = (AdView)this.findViewById(R.id.adView);
+    	if (StoreService.isHideBannerAdsPurchased()){	
+			adView.setVisibility(View.GONE);
+		}
+    	else {
+    		adView.loadAd(new AdRequest());
+    	}
 	     
 	 
 	     if (!StoreService.isWordDefinitionLookupPurchased() && PlayerService.getRemainingFreeUsesWordDefinition() == 0){

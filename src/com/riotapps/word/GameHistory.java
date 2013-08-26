@@ -3,6 +3,7 @@ package com.riotapps.word;
  
 import java.util.Collections;
 
+import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.riotapps.word.hooks.Game;
@@ -69,10 +70,13 @@ public class GameHistory extends FragmentActivity{
 	 	MenuUtils.hideMenu(this);
 	 	this.setupFonts();
 	 	
-		if (StoreService.isHideBannerAdsPurchased()){
-			AdView adView = (AdView)this.findViewById(R.id.adView);
+	 	AdView adView = (AdView)this.findViewById(R.id.adView);
+    	if (StoreService.isHideBannerAdsPurchased()){	
 			adView.setVisibility(View.GONE);
 		}
+    	else {
+    		adView.loadAd(new AdRequest());
+    	}
 	}
 
 @Override

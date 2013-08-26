@@ -16,12 +16,21 @@
     <string name="header_num_wins">%s wins</string>
     <string name="version_name_display">(%s)</string>
 	<string name="logo">logo</string>
+	
+    <string name="admob_pub_id_main_landing">ca-app-pub-7811514377323585/2429670350</string>
+    <string name="admob_pub_id_full_rules">ca-app-pub-7811514377323585/5383136758</string>
+    <string name="admob_pub_id_game_played_words">ca-app-pub-7811514377323585/9952937157</string> 
+    <string name="admob_pub_id_game_word_definition">ca-app-pub-7811514377323585/9813336350</string>
+ 	<string name="admob_pub_id_about">ca-app-pub-7811514377323585/6580668358</string> 
+    <string name="admob_pub_id_completed_games">ca-app-pub-7811514377323585/9534134756ca-app-pub-7811514377323585/6580668358</string>
+ 
+   <!-- 
     <string name="admob_pub_id_main_landing">a150e5e3748e238</string>
-   
     <string name="admob_pub_id_full_rules">a150e7b398d7ec4</string>
-    <string name="admob_pub_id_game_played_words">a150e7b549b5cb3</string>
+    <string name="admob_pub_id_game_played_words">a150e7b549b5cb3</string> 
     <string name="admob_pub_id_game_word_definition">a15124d73407724</string>
-   
+    -->
+         
 	<string name="go_to_store">go to store</string>
 	<string name="no_thanks">no thanks</string>		
 	<string name="ok">OK</string>
