@@ -7644,35 +7644,35 @@ com.google.gson.stream.StringPool -> np:
     33:58:java.lang.String get(char[],int,int) -> a
 com.riotapps.word.About -> com.riotapps.word.About:
     android.content.Context context -> m
-    29:78:void onCreate(android.os.Bundle) -> onCreate
-    85:98:void onClick(android.view.View) -> onClick
-    104:106:void onStart() -> onStart
-    112:114:void onStop() -> onStop
-    117:135:void setupFonts() -> b
+    30:82:void onCreate(android.os.Bundle) -> onCreate
+    89:102:void onClick(android.view.View) -> onClick
+    108:110:void onStart() -> onStart
+    116:118:void onStop() -> onStop
+    121:139:void setupFonts() -> b
 com.riotapps.word.BuildConfig -> com.riotapps.word.BuildConfig:
     boolean DEBUG -> DEBUG
 com.riotapps.word.CompletedGames -> com.riotapps.word.CompletedGames:
     java.lang.String TAG -> m
     android.content.Context context -> n
-    41:60:void onCreate(android.os.Bundle) -> onCreate
-    65:67:void onStart() -> onStart
-    73:75:void onStop() -> onStop
-    79:100:void loadList() -> b
+    42:69:void onCreate(android.os.Bundle) -> onCreate
+    74:76:void onStart() -> onStart
+    82:84:void onStop() -> onStop
+    88:109:void loadList() -> b
 com.riotapps.word.CompletedGames$1 -> nq:
     com.riotapps.word.CompletedGames this$0 -> a
-    89:97:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    98:106:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.riotapps.word.CompletedGames$CompletedGameArrayAdapter -> nr:
     com.riotapps.word.CompletedGames context -> c
     int itemCount -> d
     java.util.List values -> e
     android.view.LayoutInflater inflater -> a
     com.riotapps.word.CompletedGames this$0 -> b
-    120:163:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    129:172:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.riotapps.word.FullRules -> com.riotapps.word.FullRules:
-    21:42:void onCreate(android.os.Bundle) -> onCreate
-    46:48:void onStart() -> onStart
-    54:56:void onStop() -> onStop
-    60:226:void setupFonts() -> b
+    22:44:void onCreate(android.os.Bundle) -> onCreate
+    48:50:void onStart() -> onStart
+    56:58:void onStop() -> onStop
+    62:228:void setupFonts() -> b
 com.riotapps.word.GameHistory -> com.riotapps.word.GameHistory:
     java.lang.String TAG -> p
     com.riotapps.word.hooks.Game game -> q
@@ -7683,26 +7683,26 @@ com.riotapps.word.GameHistory -> com.riotapps.word.GameHistory:
     android.graphics.Bitmap playerBM -> m
     android.graphics.Bitmap opponentBM -> n
     com.riotapps.word.utils.ApplicationContext appContext -> o
-    50:76:void onCreate(android.os.Bundle) -> onCreate
-    82:86:void onBackPressed() -> onBackPressed
-    91:93:void onStart() -> onStart
-    99:101:void onStop() -> onStop
-    106:131:void loadList() -> c
-    134:136:void setupFonts() -> d
-    36:36:com.riotapps.word.hooks.Game access$0(com.riotapps.word.GameHistory) -> a
-    37:37:com.riotapps.word.hooks.Player access$1(com.riotapps.word.GameHistory) -> b
-    35:35:java.lang.String access$2() -> b
-    40:40:android.content.Context access$3(com.riotapps.word.GameHistory) -> c
+    51:80:void onCreate(android.os.Bundle) -> onCreate
+    86:90:void onBackPressed() -> onBackPressed
+    95:97:void onStart() -> onStart
+    103:105:void onStop() -> onStop
+    110:135:void loadList() -> c
+    138:140:void setupFonts() -> d
+    37:37:com.riotapps.word.hooks.Game access$0(com.riotapps.word.GameHistory) -> a
+    38:38:com.riotapps.word.hooks.Player access$1(com.riotapps.word.GameHistory) -> b
+    36:36:java.lang.String access$2() -> b
+    41:41:android.content.Context access$3(com.riotapps.word.GameHistory) -> c
 com.riotapps.word.GameHistory$1 -> ns:
     com.riotapps.word.GameHistory this$0 -> a
-    124:128:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    128:132:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.riotapps.word.GameHistory$PlayedWordArrayAdapter -> nt:
     com.riotapps.word.GameHistory context -> c
     com.riotapps.word.hooks.PlayedWord[] values -> d
     int wordCount -> e
     android.view.LayoutInflater inflater -> a
     com.riotapps.word.GameHistory this$0 -> b
-    160:192:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    164:196:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.riotapps.word.GameLookup -> com.riotapps.word.GameLookup:
     java.lang.String TAG -> n
     com.riotapps.word.hooks.Game game -> o
@@ -7716,24 +7716,24 @@ com.riotapps.word.GameLookup -> com.riotapps.word.GameLookup:
     java.lang.String word -> w
     com.riotapps.word.utils.ApplicationContext appContext -> m
     com.google.analytics.tracking.android.Tracker tracker -> x
-    66:69:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
-    75:175:void onCreate(android.os.Bundle) -> onCreate
-    179:186:void trackEvent(java.lang.String,java.lang.String,long) -> trackEvent
-    191:193:void onStart() -> onStart
-    199:201:void onStop() -> onStop
-    206:211:void onPause() -> onPause
-    259:281:void fillDefinitionsView(java.util.List) -> fillDefinitionsView
-    285:301:android.view.View getDefinitionView(int,net.jeremybrooks.knicker.dto.Definition) -> getDefinitionView
-    307:327:void onClick(android.view.View) -> onClick
-    330:347:void setupFonts() -> c
-    52:52:java.lang.String access$0() -> b
+    67:70:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
+    76:178:void onCreate(android.os.Bundle) -> onCreate
+    182:189:void trackEvent(java.lang.String,java.lang.String,long) -> trackEvent
+    194:196:void onStart() -> onStart
+    202:204:void onStop() -> onStop
+    209:214:void onPause() -> onPause
+    262:284:void fillDefinitionsView(java.util.List) -> fillDefinitionsView
+    288:304:android.view.View getDefinitionView(int,net.jeremybrooks.knicker.dto.Definition) -> getDefinitionView
+    310:330:void onClick(android.view.View) -> onClick
+    333:350:void setupFonts() -> c
+    53:53:java.lang.String access$0() -> b
 com.riotapps.word.GameLookup$WordnikLookup -> nu:
     java.lang.String word -> b
     com.riotapps.word.GameLookup this$0 -> a
-    224:238:java.util.List doInBackground(java.lang.String[]) -> a
-    243:247:void onPostExecute(java.util.List) -> a
-    251:251:void onPreExecute() -> onPreExecute
-    255:255:void onProgressUpdate(java.lang.Void[]) -> a
+    227:241:java.util.List doInBackground(java.lang.String[]) -> a
+    246:250:void onPostExecute(java.util.List) -> a
+    254:254:void onPreExecute() -> onPreExecute
+    258:258:void onProgressUpdate(java.lang.Void[]) -> a
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
     1:1:void onProgressUpdate(java.lang.Object[]) -> onProgressUpdate
@@ -7791,129 +7791,129 @@ com.riotapps.word.GameSurface -> com.riotapps.word.GameSurface:
     com.google.analytics.tracking.android.Tracker tracker -> ag
     com.chartboost.sdk.ChartboostDelegate chartBoostDelegate -> ah
     int[] $SWITCH_TABLE$com$riotapps$word$ui$GameAction$GameActionType -> ai
-    123:123:java.lang.String getLastPlayerActionBeforeAutoplay() -> getLastPlayerActionBeforeAutoplay
-    128:129:void setLastPlayerActionBeforeAutoplay(java.lang.String) -> setLastPlayerActionBeforeAutoplay
-    184:184:com.riotapps.word.hooks.Game getGame() -> getGame
-    188:189:void setGame(com.riotapps.word.hooks.Game) -> setGame
-    192:192:int getScoreboardHeight() -> getScoreboardHeight
-    196:197:void setScoreboardHeight(int) -> setScoreboardHeight
-    200:203:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
-    207:208:void setTracker(com.google.analytics.tracking.android.Tracker) -> setTracker
-    211:211:int getWindowHeight() -> getWindowHeight
-    215:216:void setWindowHeight(int) -> setWindowHeight
-    219:219:com.riotapps.word.ui.GameState getGameState() -> getGameState
-    223:224:void setGameState(com.riotapps.word.ui.GameState) -> setGameState
-    227:227:com.riotapps.word.hooks.Player getPlayer() -> getPlayer
-    231:232:void setPlayer(com.riotapps.word.hooks.Player) -> setPlayer
-    236:237:void unfreezeButtons() -> unfreezeButtons
-    243:344:void onCreate(android.os.Bundle) -> onCreate
-    349:396:void setupAdServer() -> d
-    399:405:void setupChartBoost() -> e
-    408:412:void captureTime(java.lang.String) -> captureTime
-    455:465:void setupGame() -> f
-    469:473:void checkFirstTimeStatus() -> g
-    476:499:void callback() -> callback
-    503:503:void onInitialRenderComplete() -> onInitialRenderComplete
-    507:508:void switchToRecall() -> switchToRecall
-    511:512:void switchToShuffle() -> switchToShuffle
-    516:517:void switchToPlay() -> switchToPlay
-    520:521:void switchToSkip() -> switchToSkip
-    525:526:void openAlertDialog(java.lang.String,java.lang.String) -> openAlertDialog
-    568:570:void setPointsView(int) -> setPointsView
-    573:580:void setPointsAfterPlayView() -> setPointsAfterPlayView
-    640:640:void checkGameStatus() -> h
-    645:772:void setupButtons() -> i
-    777:844:void fillGameState() -> j
-    858:878:void onDestroy() -> onDestroy
-    883:922:void onStop() -> onStop
-    927:966:void onPause() -> onPause
-    971:998:void onResume() -> onResume
-    1009:1024:void onBackPressed() -> onBackPressed
-    1027:1032:void setupMenu() -> k
-    1037:1039:boolean onMenuItemClick(android.view.MenuItem) -> onMenuItemClick
-    1045:1074:void handleBack() -> l
-    1079:1099:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    1102:1186:void closeCustomDialog(int) -> closeCustomDialog
-    1189:1195:void dismissHopperPeekDialog() -> m
-    1199:1264:void onStart() -> onStart
-    1269:1324:void onRestart() -> onRestart
-    1329:1414:void onClick(android.view.View) -> onClick
-    1430:1437:void onFinishPlayNoErrors(com.riotapps.word.ui.PlacedResult) -> onFinishPlayNoErrors
-    1440:1454:void onFinishPlayErrors(java.lang.String,int) -> onFinishPlayErrors
-    1458:1469:void handleCancel() -> n
-    1473:1483:void handleGameCancelOnClick() -> o
-    1486:1498:void handleResign() -> p
-    1506:1528:void handleGameResignOnClick() -> q
-    1531:1535:void dismissCustomDialog() -> r
-    1537:1573:void postPlayNoErrors(com.riotapps.word.ui.PlacedResult) -> postPlayNoErrors
-    1583:1653:void handleGamePlayOnClick(com.riotapps.word.ui.PlacedResult) -> handleGamePlayOnClick
-    1662:1719:void handleGameSkipOnClick() -> handleGameSkipOnClick
-    1722:1724:void onSwapClick() -> s
-    1732:1771:void handleGameSwapOnClick(java.util.List) -> handleGameSwapOnClick
-    1777:1801:void handlePostAutoplay() -> handlePostAutoplay
-    1804:1808:void handlePostPreAutoplay() -> handlePostPreAutoplay
-    1811:1842:void handlePostAdServer() -> handlePostAdServer
-    1845:1874:void handleInterstitialAd() -> t
-    2601:2602:void trackEvent(java.lang.String,java.lang.String,int) -> a
-    2606:2613:void trackEvent(java.lang.String,java.lang.String,java.lang.String,long) -> trackEvent
-    2619:2712:void dialogClose(int) -> dialogClose
-    2717:2733:void setupFonts() -> u
-    93:93:java.lang.String access$0() -> b
-    98:98:com.chartboost.sdk.Chartboost access$1(com.riotapps.word.GameSurface) -> a
-    166:166:com.riotapps.word.hooks.Game access$2(com.riotapps.word.GameSurface) -> b
-    106:106:android.widget.Button access$3(com.riotapps.word.GameSurface) -> c
-    109:109:android.widget.Button access$4(com.riotapps.word.GameSurface) -> d
-    107:107:android.widget.Button access$5(com.riotapps.word.GameSurface) -> e
-    108:108:android.widget.Button access$6(com.riotapps.word.GameSurface) -> f
-    176:176:android.widget.TextView access$7(com.riotapps.word.GameSurface) -> g
-    99:99:com.riotapps.word.GameSurface access$8(com.riotapps.word.GameSurface) -> h
-    120:120:void access$9(com.riotapps.word.GameSurface,java.lang.String) -> a
-    100:100:com.riotapps.word.ui.GameSurfaceView access$10(com.riotapps.word.GameSurface) -> i
-    135:135:java.util.List access$11(com.riotapps.word.GameSurface) -> j
-    131:131:void access$12(com.riotapps.word.GameSurface,boolean) -> a
-    92:92:int[] $SWITCH_TABLE$com$riotapps$word$ui$GameAction$GameActionType() -> c
+    124:124:java.lang.String getLastPlayerActionBeforeAutoplay() -> getLastPlayerActionBeforeAutoplay
+    129:130:void setLastPlayerActionBeforeAutoplay(java.lang.String) -> setLastPlayerActionBeforeAutoplay
+    185:185:com.riotapps.word.hooks.Game getGame() -> getGame
+    189:190:void setGame(com.riotapps.word.hooks.Game) -> setGame
+    193:193:int getScoreboardHeight() -> getScoreboardHeight
+    197:198:void setScoreboardHeight(int) -> setScoreboardHeight
+    201:204:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
+    208:209:void setTracker(com.google.analytics.tracking.android.Tracker) -> setTracker
+    212:212:int getWindowHeight() -> getWindowHeight
+    216:217:void setWindowHeight(int) -> setWindowHeight
+    220:220:com.riotapps.word.ui.GameState getGameState() -> getGameState
+    224:225:void setGameState(com.riotapps.word.ui.GameState) -> setGameState
+    228:228:com.riotapps.word.hooks.Player getPlayer() -> getPlayer
+    232:233:void setPlayer(com.riotapps.word.hooks.Player) -> setPlayer
+    237:238:void unfreezeButtons() -> unfreezeButtons
+    244:345:void onCreate(android.os.Bundle) -> onCreate
+    350:397:void setupAdServer() -> d
+    400:406:void setupChartBoost() -> e
+    409:413:void captureTime(java.lang.String) -> captureTime
+    456:466:void setupGame() -> f
+    470:474:void checkFirstTimeStatus() -> g
+    477:500:void callback() -> callback
+    504:504:void onInitialRenderComplete() -> onInitialRenderComplete
+    508:509:void switchToRecall() -> switchToRecall
+    512:513:void switchToShuffle() -> switchToShuffle
+    517:518:void switchToPlay() -> switchToPlay
+    521:522:void switchToSkip() -> switchToSkip
+    526:527:void openAlertDialog(java.lang.String,java.lang.String) -> openAlertDialog
+    569:571:void setPointsView(int) -> setPointsView
+    574:581:void setPointsAfterPlayView() -> setPointsAfterPlayView
+    641:641:void checkGameStatus() -> h
+    646:773:void setupButtons() -> i
+    778:845:void fillGameState() -> j
+    859:879:void onDestroy() -> onDestroy
+    884:923:void onStop() -> onStop
+    928:967:void onPause() -> onPause
+    972:999:void onResume() -> onResume
+    1010:1025:void onBackPressed() -> onBackPressed
+    1028:1033:void setupMenu() -> k
+    1038:1040:boolean onMenuItemClick(android.view.MenuItem) -> onMenuItemClick
+    1046:1075:void handleBack() -> l
+    1080:1100:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    1103:1187:void closeCustomDialog(int) -> closeCustomDialog
+    1190:1196:void dismissHopperPeekDialog() -> m
+    1200:1265:void onStart() -> onStart
+    1270:1325:void onRestart() -> onRestart
+    1330:1415:void onClick(android.view.View) -> onClick
+    1431:1438:void onFinishPlayNoErrors(com.riotapps.word.ui.PlacedResult) -> onFinishPlayNoErrors
+    1441:1455:void onFinishPlayErrors(java.lang.String,int) -> onFinishPlayErrors
+    1459:1470:void handleCancel() -> n
+    1474:1484:void handleGameCancelOnClick() -> o
+    1487:1499:void handleResign() -> p
+    1507:1532:void handleGameResignOnClick() -> q
+    1535:1539:void dismissCustomDialog() -> r
+    1541:1577:void postPlayNoErrors(com.riotapps.word.ui.PlacedResult) -> postPlayNoErrors
+    1587:1659:void handleGamePlayOnClick(com.riotapps.word.ui.PlacedResult) -> handleGamePlayOnClick
+    1668:1728:void handleGameSkipOnClick() -> handleGameSkipOnClick
+    1731:1733:void onSwapClick() -> s
+    1741:1802:void handleGameSwapOnClick(java.util.List) -> handleGameSwapOnClick
+    1808:1863:void handlePostAutoplay() -> handlePostAutoplay
+    1866:1870:void handlePostPreAutoplay() -> handlePostPreAutoplay
+    1873:1904:void handlePostAdServer() -> handlePostAdServer
+    1907:1936:void handleInterstitialAd() -> t
+    2663:2664:void trackEvent(java.lang.String,java.lang.String,int) -> a
+    2668:2675:void trackEvent(java.lang.String,java.lang.String,java.lang.String,long) -> trackEvent
+    2681:2774:void dialogClose(int) -> dialogClose
+    2779:2795:void setupFonts() -> u
+    94:94:java.lang.String access$0() -> b
+    99:99:com.chartboost.sdk.Chartboost access$1(com.riotapps.word.GameSurface) -> a
+    167:167:com.riotapps.word.hooks.Game access$2(com.riotapps.word.GameSurface) -> b
+    107:107:android.widget.Button access$3(com.riotapps.word.GameSurface) -> c
+    110:110:android.widget.Button access$4(com.riotapps.word.GameSurface) -> d
+    108:108:android.widget.Button access$5(com.riotapps.word.GameSurface) -> e
+    109:109:android.widget.Button access$6(com.riotapps.word.GameSurface) -> f
+    177:177:android.widget.TextView access$7(com.riotapps.word.GameSurface) -> g
+    100:100:com.riotapps.word.GameSurface access$8(com.riotapps.word.GameSurface) -> h
+    121:121:void access$9(com.riotapps.word.GameSurface,java.lang.String) -> a
+    101:101:com.riotapps.word.ui.GameSurfaceView access$10(com.riotapps.word.GameSurface) -> i
+    136:136:java.util.List access$11(com.riotapps.word.GameSurface) -> j
+    132:132:void access$12(com.riotapps.word.GameSurface,boolean) -> a
+    93:93:int[] $SWITCH_TABLE$com$riotapps$word$ui$GameAction$GameActionType() -> c
 com.riotapps.word.GameSurface$1 -> nv:
     com.riotapps.word.GameSurface this$0 -> a
-    2302:2303:boolean shouldDisplayInterstitial(java.lang.String) -> shouldDisplayInterstitial
-    2324:2325:boolean shouldRequestInterstitial(java.lang.String) -> shouldRequestInterstitial
-    2343:2344:void didCacheInterstitial(java.lang.String) -> didCacheInterstitial
-    2363:2368:void didFailToLoadInterstitial(java.lang.String) -> didFailToLoadInterstitial
-    2385:2394:void didDismissInterstitial(java.lang.String) -> didDismissInterstitial
-    2406:2411:void didCloseInterstitial(java.lang.String) -> didCloseInterstitial
-    2423:2428:void didClickInterstitial(java.lang.String) -> didClickInterstitial
-    2440:2447:void didShowInterstitial(java.lang.String) -> didShowInterstitial
-    2463:2463:boolean shouldDisplayLoadingViewForMoreApps() -> shouldDisplayLoadingViewForMoreApps
-    2478:2478:boolean shouldRequestMoreApps() -> shouldRequestMoreApps
-    2492:2493:boolean shouldDisplayMoreApps() -> shouldDisplayMoreApps
-    2511:2514:void didFailToLoadMoreApps() -> didFailToLoadMoreApps
-    2525:2526:void didCacheMoreApps() -> didCacheMoreApps
-    2539:2542:void didDismissMoreApps() -> didDismissMoreApps
-    2554:2557:void didCloseMoreApps() -> didCloseMoreApps
-    2569:2572:void didClickMoreApps() -> didClickMoreApps
-    2584:2585:void didShowMoreApps() -> didShowMoreApps
-    2595:2595:boolean shouldRequestInterstitialsInFirstSession() -> shouldRequestInterstitialsInFirstSession
+    2364:2365:boolean shouldDisplayInterstitial(java.lang.String) -> shouldDisplayInterstitial
+    2386:2387:boolean shouldRequestInterstitial(java.lang.String) -> shouldRequestInterstitial
+    2405:2406:void didCacheInterstitial(java.lang.String) -> didCacheInterstitial
+    2425:2430:void didFailToLoadInterstitial(java.lang.String) -> didFailToLoadInterstitial
+    2447:2456:void didDismissInterstitial(java.lang.String) -> didDismissInterstitial
+    2468:2473:void didCloseInterstitial(java.lang.String) -> didCloseInterstitial
+    2485:2490:void didClickInterstitial(java.lang.String) -> didClickInterstitial
+    2502:2509:void didShowInterstitial(java.lang.String) -> didShowInterstitial
+    2525:2525:boolean shouldDisplayLoadingViewForMoreApps() -> shouldDisplayLoadingViewForMoreApps
+    2540:2540:boolean shouldRequestMoreApps() -> shouldRequestMoreApps
+    2554:2555:boolean shouldDisplayMoreApps() -> shouldDisplayMoreApps
+    2573:2576:void didFailToLoadMoreApps() -> didFailToLoadMoreApps
+    2587:2588:void didCacheMoreApps() -> didCacheMoreApps
+    2601:2604:void didDismissMoreApps() -> didDismissMoreApps
+    2616:2619:void didCloseMoreApps() -> didCloseMoreApps
+    2631:2634:void didClickMoreApps() -> didClickMoreApps
+    2646:2647:void didShowMoreApps() -> didShowMoreApps
+    2657:2657:boolean shouldRequestInterstitialsInFirstSession() -> shouldRequestInterstitialsInFirstSession
 com.riotapps.word.GameSurface$2 -> nw:
     com.riotapps.word.GameSurface this$0 -> a
-    1382:1383:void run() -> run
+    1383:1384:void run() -> run
 com.riotapps.word.GameSurface$3 -> nx:
     com.riotapps.word.GameSurface this$0 -> a
     com.riotapps.word.ui.PlacedResult val$placedResult -> b
-    1434:1435:void run() -> run
+    1435:1436:void run() -> run
 com.riotapps.word.GameSurface$4 -> ny:
     com.riotapps.word.GameSurface this$0 -> a
     int val$code -> b
     java.lang.String val$message -> c
-    1446:1452:void run() -> run
+    1447:1453:void run() -> run
 com.riotapps.word.GameSurface$AutoplayTask -> nz:
     com.riotapps.word.GameSurface this$0 -> a
-    2739:2743:java.lang.Void doInBackground(java.lang.Void[]) -> a
-    2752:2753:void onPostExecute(java.lang.Void) -> a
+    2801:2805:java.lang.Void doInBackground(java.lang.Void[]) -> a
+    2814:2815:void onPostExecute(java.lang.Void) -> a
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.riotapps.word.GameSurface$PreAutoplayTask -> oa:
     com.riotapps.word.GameSurface this$0 -> a
-    2762:2768:java.lang.Void doInBackground(java.lang.Void[]) -> a
-    2777:2779:void onPostExecute(java.lang.Void) -> a
+    2824:2830:java.lang.Void doInBackground(java.lang.Void[]) -> a
+    2839:2841:void onPostExecute(java.lang.Void) -> a
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.riotapps.word.GameSurface$SwapDialog -> ob:
@@ -7941,30 +7941,30 @@ com.riotapps.word.GameSurface$SwapDialog -> ob:
     int tileSize -> c
     int textSize -> d
     com.riotapps.word.GameSurface this$0 -> e
-    1941:1945:void onCreate(android.os.Bundle) -> onCreate
-    1950:2060:void onStart() -> onStart
-    2065:2067:void dismiss() -> dismiss
-    2071:2093:void handleOKClick() -> a
-    2097:2165:void onClick(android.view.View) -> onClick
-    1877:1877:com.riotapps.word.GameSurface access$0(com.riotapps.word.GameSurface$SwapDialog) -> a
+    2003:2007:void onCreate(android.os.Bundle) -> onCreate
+    2012:2122:void onStart() -> onStart
+    2127:2129:void dismiss() -> dismiss
+    2133:2155:void handleOKClick() -> a
+    2159:2227:void onClick(android.view.View) -> onClick
+    1939:1939:com.riotapps.word.GameSurface access$0(com.riotapps.word.GameSurface$SwapDialog) -> a
 com.riotapps.word.GameSurface$SwapDialog$1 -> oc:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
-    2026:2031:void onClick(android.view.View) -> onClick
+    2088:2093:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$SwapDialog$2 -> od:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
-    2040:2045:void onClick(android.view.View) -> onClick
+    2102:2107:void onClick(android.view.View) -> onClick
 com.riotapps.word.GameSurface$SwapDialog$3 -> oe:
     com.riotapps.word.GameSurface$SwapDialog this$1 -> a
-    2051:2056:void onCancel(android.content.DialogInterface) -> onCancel
+    2113:2118:void onCancel(android.content.DialogInterface) -> onCancel
 com.riotapps.word.GameSurface$handleButtonSwitchRunnable -> of:
     int activeButton -> b
     com.riotapps.word.GameSurface this$0 -> a
-    537:564:void run() -> run
+    538:565:void run() -> run
 com.riotapps.word.GameSurface$handlePointsViewRunnable -> og:
     int points -> b
     int type -> c
     com.riotapps.word.GameSurface this$0 -> a
-    593:625:void run() -> run
+    594:626:void run() -> run
 com.riotapps.word.Main -> com.riotapps.word.Main:
     java.lang.String TAG -> p
     android.content.Context context -> q
@@ -7977,27 +7977,27 @@ com.riotapps.word.Main -> com.riotapps.word.Main:
     com.riotapps.word.utils.ApplicationContext appContext -> n
     android.view.LayoutInflater inflater -> o
     com.google.analytics.tracking.android.Tracker tracker -> w
-    64:67:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
-    71:72:void setTracker(com.google.analytics.tracking.android.Tracker) -> setTracker
-    76:134:void onCreate(android.os.Bundle) -> onCreate
-    139:143:void checkFirstTimeStatus() -> b
-    146:152:void setupMenu() -> c
-    158:164:void trackEvent(java.lang.String,java.lang.String,long) -> a
-    171:177:void onRestart() -> onRestart
-    182:190:void onResume() -> onResume
-    196:198:void onStart() -> onStart
-    205:211:void onStop() -> onStop
-    217:222:void onBackPressed() -> onBackPressed
-    226:290:void loadOpponents() -> d
-    296:358:android.view.View getOpponentView(com.riotapps.word.hooks.Opponent,int,int) -> getOpponentView
-    368:378:void onClick(android.view.View) -> onClick
-    383:383:boolean onMenuItemClick(android.view.MenuItem) -> onMenuItemClick
-    388:409:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
-    412:416:void dismissCustomDialog() -> e
-    419:433:void handleGameStartPrompt(int) -> b
-    442:460:void handleGameStartOnClick() -> f
-    465:485:void dialogClose(int) -> dialogClose
-    489:492:void setupFonts() -> g
+    65:68:com.google.analytics.tracking.android.Tracker getTracker() -> getTracker
+    72:73:void setTracker(com.google.analytics.tracking.android.Tracker) -> setTracker
+    77:138:void onCreate(android.os.Bundle) -> onCreate
+    143:147:void checkFirstTimeStatus() -> b
+    150:156:void setupMenu() -> c
+    162:168:void trackEvent(java.lang.String,java.lang.String,long) -> a
+    175:181:void onRestart() -> onRestart
+    186:194:void onResume() -> onResume
+    200:202:void onStart() -> onStart
+    209:215:void onStop() -> onStop
+    221:226:void onBackPressed() -> onBackPressed
+    230:294:void loadOpponents() -> d
+    300:362:android.view.View getOpponentView(com.riotapps.word.hooks.Opponent,int,int) -> getOpponentView
+    372:382:void onClick(android.view.View) -> onClick
+    387:387:boolean onMenuItemClick(android.view.MenuItem) -> onMenuItemClick
+    392:413:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    416:420:void dismissCustomDialog() -> e
+    423:437:void handleGameStartPrompt(int) -> b
+    446:464:void handleGameStartOnClick() -> f
+    469:489:void dialogClose(int) -> dialogClose
+    493:496:void setupFonts() -> g
 com.riotapps.word.R -> com.riotapps.word.R:
 com.riotapps.word.R$array -> com.riotapps.word.R$array:
     int alphabet_consonants -> alphabet_consonants
@@ -8421,6 +8421,8 @@ com.riotapps.word.R$string -> com.riotapps.word.R$string:
     int about_support -> about_support
     int about_support_link -> about_support_link
     int about_version -> about_version
+    int admob_pub_id_about -> admob_pub_id_about
+    int admob_pub_id_completed_games -> admob_pub_id_completed_games
     int admob_pub_id_full_rules -> admob_pub_id_full_rules
     int admob_pub_id_game_played_words -> admob_pub_id_game_played_words
     int admob_pub_id_game_word_definition -> admob_pub_id_game_word_definition
@@ -9102,18 +9104,19 @@ com.riotapps.word.data.StoreData -> com.riotapps.word.data.StoreData:
 com.riotapps.word.data.StoreData$1 -> pb:
 com.riotapps.word.data.StoreData$2 -> pc:
 com.riotapps.word.data.WordData -> com.riotapps.word.data.WordData:
-    android.database.sqlite.SQLiteDatabase database -> a
-    com.riotapps.word.data.DatabaseHelper dbHelper -> b
-    24:26:void open() -> open
-    29:34:void tempAddIndexes____() -> tempAddIndexes____
-    37:39:void close() -> close
-    42:50:boolean doesIndexExist(java.lang.String) -> doesIndexExist
-    55:63:boolean doesWordExist(java.lang.String) -> doesWordExist
-    69:87:java.util.List getMatchingWords(java.lang.String) -> getMatchingWords
-    91:108:java.util.List getMatchingWordsFromIndex(java.lang.String) -> getMatchingWordsFromIndex
-    112:134:java.util.List getMatchingWordsFromIndexArray(java.lang.String[]) -> getMatchingWordsFromIndexArray
-    139:161:java.util.List getWordsFromWordArray(java.lang.String[]) -> getWordsFromWordArray
-    165:174:java.lang.String makePlaceholders(int) -> a
+    java.lang.String TAG -> a
+    android.database.sqlite.SQLiteDatabase database -> b
+    com.riotapps.word.data.DatabaseHelper dbHelper -> c
+    30:32:void open() -> open
+    35:40:void tempAddIndexes____() -> tempAddIndexes____
+    43:45:void close() -> close
+    48:56:boolean doesIndexExist(java.lang.String) -> doesIndexExist
+    61:69:boolean doesWordExist(java.lang.String) -> doesWordExist
+    75:93:java.util.List getMatchingWords(java.lang.String) -> getMatchingWords
+    97:114:java.util.List getMatchingWordsFromIndex(java.lang.String) -> getMatchingWordsFromIndex
+    118:142:java.util.List getMatchingWordsFromIndexArray(java.lang.String[]) -> getMatchingWordsFromIndexArray
+    147:169:java.util.List getWordsFromWordArray(java.lang.String[]) -> getWordsFromWordArray
+    173:182:java.lang.String makePlaceholders(int) -> a
 com.riotapps.word.hooks.Alert -> com.riotapps.word.hooks.Alert:
     java.lang.String TAG -> a
     java.lang.String text -> b
@@ -9233,9 +9236,10 @@ com.riotapps.word.hooks.Game -> com.riotapps.word.hooks.Game:
     947:950:boolean isBoardTilePlayed(int) -> isBoardTilePlayed
     954:954:int getNumConsecutivePlayableEmptyTilesInADirection(com.riotapps.word.hooks.PlayedTile,java.lang.String) -> getNumConsecutivePlayableEmptyTilesInADirection
     957:990:int getNumConsecutivePlayableEmptyTilesInADirection(int,java.lang.String) -> getNumConsecutivePlayableEmptyTilesInADirection
-    996:1008:int getNumLettersLeftInHopperAndOpponentTray(java.lang.String) -> getNumLettersLeftInHopperAndOpponentTray
-    1012:1012:int getTotalNumLetterCountLeftInHopperAndOpponentTray() -> getTotalNumLetterCountLeftInHopperAndOpponentTray
-    1016:1048:java.lang.String getPlayedWordByDirectionStartingAtPlayedTile(com.riotapps.word.hooks.PlayedTile,java.lang.String) -> getPlayedWordByDirectionStartingAtPlayedTile
+    996:1036:java.util.List getConsecutivePlayedLettersInADirection(int,java.lang.String) -> getConsecutivePlayedLettersInADirection
+    1040:1052:int getNumLettersLeftInHopperAndOpponentTray(java.lang.String) -> getNumLettersLeftInHopperAndOpponentTray
+    1056:1056:int getTotalNumLetterCountLeftInHopperAndOpponentTray() -> getTotalNumLetterCountLeftInHopperAndOpponentTray
+    1060:1092:java.lang.String getPlayedWordByDirectionStartingAtPlayedTile(com.riotapps.word.hooks.PlayedTile,java.lang.String) -> getPlayedWordByDirectionStartingAtPlayedTile
     1:1:int compareTo(java.lang.Object) -> compareTo
     22:22:int[] $SWITCH_TABLE$com$riotapps$word$hooks$Game$LastAction() -> a
 com.riotapps.word.hooks.Game$1 -> pg:
@@ -9286,41 +9290,44 @@ com.riotapps.word.hooks.GameService -> com.riotapps.word.hooks.GameService:
     335:400:void skip(boolean,com.riotapps.word.hooks.Game) -> skip
     403:461:void swap(boolean,com.riotapps.word.hooks.Game,java.util.List) -> swap
     464:470:int calculateBonusScore(com.riotapps.word.hooks.PlayerGame) -> calculateBonusScore
-    477:988:void autoPlay(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List) -> autoPlay
-    991:1025:void invalidateConnectedPlacedResults(com.riotapps.word.hooks.Game,java.util.List,java.util.Set) -> a
-    1032:1106:void findWordsToPlay(com.riotapps.word.hooks.Game,java.util.List,java.util.List,com.riotapps.word.hooks.WordService,android.content.Context,java.util.List,com.riotapps.word.hooks.TileLayout,long) -> a
-    1110:1161:void findConnectedPositionsByDirection(com.riotapps.word.hooks.Game,java.util.Set,java.lang.String,int) -> a
-    1166:1196:void pushPlacedResults(java.util.List,java.util.List) -> a
-    1202:1240:void findWordsPerpendicularToPlayedWords(java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
-    1243:1254:java.util.List getAllLetterSetCombinations(com.riotapps.word.hooks.PlayerGame) -> a
-    1262:1528:void findPerpendicularMatchesBesidePlayedTile(java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
-    1536:1793:void findWordsUpOrDownSingleTile(java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,int,int,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
-    1798:1920:void addWordsToStartGame(java.util.List,com.riotapps.word.hooks.TileLayout,android.content.Context,com.riotapps.word.hooks.Game,java.util.List,com.riotapps.word.hooks.WordService,long) -> a
-    1923:1936:boolean maxAutoplayTimeElapsed(long) -> a
-    1941:1950:java.util.List getBoardBaseTilesAndRemovePlacedTiles(java.util.List) -> getBoardBaseTilesAndRemovePlacedTiles
-    1954:1966:java.util.List getBoardBaseTiles(java.util.List) -> a
-    1970:1979:java.util.List getSortedTrayLetters(java.util.List) -> b
-    1985:1995:java.util.List getLetterSetBase(java.util.List) -> c
-    2002:2048:void resign(boolean,com.riotapps.word.hooks.Game) -> resign
-    2052:2071:void addGameToCompletedList(com.riotapps.word.hooks.Game) -> addGameToCompletedList
-    2074:2086:java.util.List getCompletedGames() -> getCompletedGames
-    2091:2125:void loadScoreboard(android.support.v4.app.FragmentActivity,com.riotapps.word.hooks.Game) -> loadScoreboard
-    2132:2284:com.riotapps.word.ui.PlacedResult checkPlayRules(android.content.Context,com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> checkPlayRules
-    2290:2318:java.lang.String getInvalidWordsMessage(android.content.Context,java.util.List) -> a
-    2327:2335:boolean isMoveInValidStartPosition(com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> a
-    2340:2361:boolean isMoveFreeOfGaps(java.lang.String,java.util.SortedSet,java.util.SortedSet) -> a
-    2373:2403:boolean isWordConnectedToPlayedWords(java.util.List,java.util.List) -> b
-    2408:2436:java.lang.String getPlacedAxis(java.util.List) -> d
-    2441:2449:java.util.List getGameTiles(java.util.List) -> e
-    2458:2523:java.util.List getWords(com.riotapps.word.hooks.TileLayout,java.lang.String,java.util.List,java.util.List) -> a
-    2527:2530:boolean containsPlayedTileId(java.util.List,int) -> a
-    2534:2537:boolean containsGameTileId(java.util.List,int) -> b
-    2541:2544:com.riotapps.word.ui.GameTile getGameTile(java.util.List,int) -> c
-    2548:2551:com.riotapps.word.hooks.PlayedTile getPlayedTile(java.util.List,int) -> d
-    2558:2645:void getLettersAlongOnAxis(com.riotapps.word.ui.PlacedWord,java.lang.String,int,java.util.List,java.util.List,boolean,boolean,com.riotapps.word.hooks.TileLayout) -> a
-    2650:2657:int getTileValue(int,java.lang.String,java.util.List,com.riotapps.word.hooks.TileLayout) -> getTileValue
-    2662:2669:int getWordMultiplier(int,java.util.List,com.riotapps.word.hooks.TileLayout) -> getWordMultiplier
-    2675:2729:java.lang.String getPlacedWordsMessage(android.content.Context,java.util.List) -> getPlacedWordsMessage
+    477:862:void autoPlay(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List) -> autoPlay
+    865:899:void invalidateConnectedPlacedResults(com.riotapps.word.hooks.Game,java.util.List,java.util.Set) -> a
+    906:1012:void findWordsToPlay(com.riotapps.word.hooks.Game,java.util.List,java.util.List,com.riotapps.word.hooks.WordService,android.content.Context,java.util.List,com.riotapps.word.hooks.TileLayout,long) -> a
+    1016:1067:void findConnectedPositionsByDirection(com.riotapps.word.hooks.Game,java.util.Set,java.lang.String,int) -> a
+    1072:1102:void pushPlacedResults(java.util.List,java.util.List) -> a
+    1109:1139:void findWordsAcrossExistingTiles(com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
+    1145:1184:void findWordsPerpendicularToPlayedWords(java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
+    1187:1198:java.util.List getAllLetterSetCombinations(com.riotapps.word.hooks.PlayerGame) -> a
+    1206:1472:void findPerpendicularMatchesBesidePlayedTile(java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
+    1480:1737:void findWordsUpOrDownSingleTile(java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,int,int,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
+    1747:1766:void findWordsFromExtensions(java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> b
+    1774:2013:void findWordsFromExtensionsByDirection(java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long,int) -> a
+    2020:2142:void addWordsToStartGame(java.util.List,com.riotapps.word.hooks.TileLayout,android.content.Context,com.riotapps.word.hooks.Game,java.util.List,com.riotapps.word.hooks.WordService,long) -> a
+    2145:2158:boolean maxAutoplayTimeElapsed(long) -> a
+    2163:2172:java.util.List getBoardBaseTilesAndRemovePlacedTiles(java.util.List) -> getBoardBaseTilesAndRemovePlacedTiles
+    2176:2189:java.util.List getBoardBaseTiles(java.util.List) -> a
+    2193:2202:java.util.List getSortedTrayLetters(java.util.List) -> b
+    2208:2218:java.util.List getLetterSetBase(java.util.List) -> c
+    2225:2271:void resign(boolean,com.riotapps.word.hooks.Game) -> resign
+    2275:2294:void addGameToCompletedList(com.riotapps.word.hooks.Game) -> addGameToCompletedList
+    2297:2309:java.util.List getCompletedGames() -> getCompletedGames
+    2314:2348:void loadScoreboard(android.support.v4.app.FragmentActivity,com.riotapps.word.hooks.Game) -> loadScoreboard
+    2355:2507:com.riotapps.word.ui.PlacedResult checkPlayRules(android.content.Context,com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> checkPlayRules
+    2513:2541:java.lang.String getInvalidWordsMessage(android.content.Context,java.util.List) -> a
+    2550:2558:boolean isMoveInValidStartPosition(com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> a
+    2563:2584:boolean isMoveFreeOfGaps(java.lang.String,java.util.SortedSet,java.util.SortedSet) -> a
+    2596:2626:boolean isWordConnectedToPlayedWords(java.util.List,java.util.List) -> b
+    2631:2659:java.lang.String getPlacedAxis(java.util.List) -> d
+    2664:2672:java.util.List getGameTiles(java.util.List) -> e
+    2681:2746:java.util.List getWords(com.riotapps.word.hooks.TileLayout,java.lang.String,java.util.List,java.util.List) -> a
+    2750:2753:boolean containsPlayedTileId(java.util.List,int) -> a
+    2757:2760:boolean containsGameTileId(java.util.List,int) -> b
+    2764:2767:com.riotapps.word.ui.GameTile getGameTile(java.util.List,int) -> c
+    2771:2774:com.riotapps.word.hooks.PlayedTile getPlayedTile(java.util.List,int) -> d
+    2781:2868:void getLettersAlongOnAxis(com.riotapps.word.ui.PlacedWord,java.lang.String,int,java.util.List,java.util.List,boolean,boolean,com.riotapps.word.hooks.TileLayout) -> a
+    2873:2880:int getTileValue(int,java.lang.String,java.util.List,com.riotapps.word.hooks.TileLayout) -> getTileValue
+    2885:2892:int getWordMultiplier(int,java.util.List,com.riotapps.word.hooks.TileLayout) -> getWordMultiplier
+    2898:2952:java.lang.String getPlacedWordsMessage(android.content.Context,java.util.List) -> getPlacedWordsMessage
     49:49:int[] $SWITCH_TABLE$com$riotapps$word$hooks$Game$LastAction() -> a
 com.riotapps.word.hooks.Letter -> com.riotapps.word.hooks.Letter:
     java.lang.String C -> a
@@ -9516,43 +9523,43 @@ com.riotapps.word.hooks.PlayerGame -> com.riotapps.word.hooks.PlayerGame:
     int trayVersion -> l
     java.util.List trayLetters -> m
     android.os.Parcelable$Creator CREATOR -> CREATOR
-    87:87:java.util.List getTrayLetters() -> getTrayLetters
-    94:94:java.util.Set getDistinctTrayLetters() -> getDistinctTrayLetters
-    99:100:void setTrayTiles(java.util.List) -> setTrayTiles
-    103:103:java.lang.String getPlayerId() -> getPlayerId
-    107:108:void setPlayerId(java.lang.String) -> setPlayerId
-    111:111:int getScore() -> getScore
-    115:116:void setScore(int) -> setScore
-    119:119:boolean isOpponent() -> isOpponent
-    133:139:java.lang.String getPlayerName() -> getPlayerName
-    145:145:int getStatus() -> getStatus
-    149:150:void setStatus(int) -> setStatus
-    154:154:java.util.Date getLastReminderDate() -> getLastReminderDate
-    158:159:void setLastReminderDate(java.util.Date) -> setLastReminderDate
-    163:163:int getWinNum() -> getWinNum
-    167:168:void setWinNum(int) -> setWinNum
-    171:171:boolean isTurn() -> isTurn
-    175:176:void setTurn(boolean) -> setTurn
-    179:179:boolean isWinner() -> isWinner
-    183:183:boolean isDraw() -> isDraw
-    188:188:boolean isHasBeenAlertedToEndOfGame() -> isHasBeenAlertedToEndOfGame
-    192:193:void setHasBeenAlertedToEndOfGame(boolean) -> setHasBeenAlertedToEndOfGame
-    197:197:boolean isTrayFull() -> isTrayFull
-    204:332:java.util.List getSortedTrayLetterSets(int) -> getSortedTrayLetterSets
-    391:394:boolean isActive() -> isActive
-    398:398:int getPlayerOrder() -> getPlayerOrder
-    402:403:void setPlayerOrder(int) -> setPlayerOrder
-    406:406:int getTrayVersion() -> getTrayVersion
-    410:411:void setTrayVersion(int) -> setTrayVersion
-    416:416:int describeContents() -> describeContents
-    422:440:void writeToParcel(android.os.Parcel,int) -> writeToParcel
-    482:490:void removeFirstMatchingLetter(java.lang.String) -> removeFirstMatchingLetter
-    493:495:void addLetterToTray(java.lang.String) -> addLetterToTray
-    498:507:boolean doesTrayContainAVowel() -> doesTrayContainAVowel
-    512:521:boolean doesTrayContainAConsonant() -> doesTrayContainAConsonant
+    88:88:java.util.List getTrayLetters() -> getTrayLetters
+    95:95:java.util.Set getDistinctTrayLetters() -> getDistinctTrayLetters
+    100:101:void setTrayTiles(java.util.List) -> setTrayTiles
+    104:104:java.lang.String getPlayerId() -> getPlayerId
+    108:109:void setPlayerId(java.lang.String) -> setPlayerId
+    112:112:int getScore() -> getScore
+    116:117:void setScore(int) -> setScore
+    120:120:boolean isOpponent() -> isOpponent
+    134:140:java.lang.String getPlayerName() -> getPlayerName
+    146:146:int getStatus() -> getStatus
+    150:151:void setStatus(int) -> setStatus
+    155:155:java.util.Date getLastReminderDate() -> getLastReminderDate
+    159:160:void setLastReminderDate(java.util.Date) -> setLastReminderDate
+    164:164:int getWinNum() -> getWinNum
+    168:169:void setWinNum(int) -> setWinNum
+    172:172:boolean isTurn() -> isTurn
+    176:177:void setTurn(boolean) -> setTurn
+    180:180:boolean isWinner() -> isWinner
+    184:184:boolean isDraw() -> isDraw
+    189:189:boolean isHasBeenAlertedToEndOfGame() -> isHasBeenAlertedToEndOfGame
+    193:194:void setHasBeenAlertedToEndOfGame(boolean) -> setHasBeenAlertedToEndOfGame
+    198:198:boolean isTrayFull() -> isTrayFull
+    205:357:java.util.List getSortedTrayLetterSets(int) -> getSortedTrayLetterSets
+    416:419:boolean isActive() -> isActive
+    423:423:int getPlayerOrder() -> getPlayerOrder
+    427:428:void setPlayerOrder(int) -> setPlayerOrder
+    431:431:int getTrayVersion() -> getTrayVersion
+    435:436:void setTrayVersion(int) -> setTrayVersion
+    441:441:int describeContents() -> describeContents
+    447:465:void writeToParcel(android.os.Parcel,int) -> writeToParcel
+    507:515:void removeFirstMatchingLetter(java.lang.String) -> removeFirstMatchingLetter
+    518:520:void addLetterToTray(java.lang.String) -> addLetterToTray
+    523:532:boolean doesTrayContainAVowel() -> doesTrayContainAVowel
+    537:546:boolean doesTrayContainAConsonant() -> doesTrayContainAConsonant
 com.riotapps.word.hooks.PlayerGame$1 -> pi:
-    445:445:com.riotapps.word.hooks.PlayerGame createFromParcel(android.os.Parcel) -> a
-    449:449:com.riotapps.word.hooks.PlayerGame[] newArray(int) -> a
+    470:470:com.riotapps.word.hooks.PlayerGame createFromParcel(android.os.Parcel) -> a
+    474:474:com.riotapps.word.hooks.PlayerGame[] newArray(int) -> a
     1:1:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
     1:1:java.lang.Object[] newArray(int) -> newArray
 com.riotapps.word.hooks.PlayerService -> com.riotapps.word.hooks.PlayerService:
@@ -10482,6 +10489,14 @@ com.riotapps.word.utils.Constants -> com.riotapps.word.utils.Constants:
     java.lang.String TRACKER_ACTION_WORD_LOOKED_UP -> TRACKER_ACTION_WORD_LOOKED_UP
     java.lang.String TRACKER_ACTION_GAME_STARTED -> TRACKER_ACTION_GAME_STARTED
     java.lang.String TRACKER_ACTION_GAME_COMPLETED -> TRACKER_ACTION_GAME_COMPLETED
+    java.lang.String TRACKER_ACTION_GAME_AUTO_PLAY -> TRACKER_ACTION_GAME_AUTO_PLAY
+    java.lang.String TRACKER_ACTION_GAME_AUTO_SKIP -> TRACKER_ACTION_GAME_AUTO_SKIP
+    java.lang.String TRACKER_ACTION_GAME_AUTO_SWAP -> TRACKER_ACTION_GAME_AUTO_SWAP
+    java.lang.String TRACKER_ACTION_GAME_AUTO_CONCEDE -> TRACKER_ACTION_GAME_AUTO_CONCEDE
+    java.lang.String TRACKER_ACTION_GAME_PLAYER_PLAY -> TRACKER_ACTION_GAME_PLAYER_PLAY
+    java.lang.String TRACKER_ACTION_GAME_PLAYER_SKIP -> TRACKER_ACTION_GAME_PLAYER_SKIP
+    java.lang.String TRACKER_ACTION_GAME_PLAYER_SWAP -> TRACKER_ACTION_GAME_PLAYER_SWAP
+    java.lang.String TRACKER_ACTION_GAME_PLAYER_CONCEDE -> TRACKER_ACTION_GAME_PLAYER_CONCEDE
     java.lang.String TRACKER_ACTION_GAME_WON -> TRACKER_ACTION_GAME_WON
     java.lang.String TRACKER_ACTION_GAME_LOST -> TRACKER_ACTION_GAME_LOST
     java.lang.String TRACKER_ACTION_GAME_DRAW -> TRACKER_ACTION_GAME_DRAW
@@ -10746,10 +10761,17 @@ com.riotapps.word.utils.Constants -> com.riotapps.word.utils.Constants:
     int MAX_WORD_MATCHES_PERPENDICULAR -> MAX_WORD_MATCHES_PERPENDICULAR
     int MAX_WORD_MATCHES_EXTENSIONS -> MAX_WORD_MATCHES_EXTENSIONS
     int MAX_WORD_MATCHES_OVERLAYS -> MAX_WORD_MATCHES_OVERLAYS
+    boolean FIND_MATCHES_ACROSS -> FIND_MATCHES_ACROSS
+    boolean FIND_MATCHES_PERPENDICULAR -> FIND_MATCHES_PERPENDICULAR
+    boolean FIND_MATCHES_EXTENSIONS -> FIND_MATCHES_EXTENSIONS
+    boolean FIND_MATCHES_OVERLAY -> FIND_MATCHES_OVERLAY
     int AUTOPLAY_MATCH_ACROSS -> AUTOPLAY_MATCH_ACROSS
     int AUTOPLAY_MATCH_PERPENDICULAR -> AUTOPLAY_MATCH_PERPENDICULAR
     int AUTOPLAY_MATCH_EXTENSIONS -> AUTOPLAY_MATCH_EXTENSIONS
     int AUTOPLAY_MATCH_OVERLAYS -> AUTOPLAY_MATCH_OVERLAYS
+    java.lang.String AUTOPLAY_DISCOVERY_ACROSS -> AUTOPLAY_DISCOVERY_ACROSS
+    java.lang.String AUTOPLAY_DISCOVERY_PERPENDICULAR -> AUTOPLAY_DISCOVERY_PERPENDICULAR
+    java.lang.String AUTOPLAY_DISCOVERY_EXTENSIONS -> AUTOPLAY_DISCOVERY_EXTENSIONS
     int TILE_POSITION_ON_BORDER -> TILE_POSITION_ON_BORDER
     int SCORE_DIFFERENCE_TRIGGER_EXPERT -> SCORE_DIFFERENCE_TRIGGER_EXPERT
     int SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL -> SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL

@@ -439,8 +439,8 @@ public class Constants {
 	public static final int MAX_WORD_MATCHES_EXTENSIONS = 15;
 	public static final int MAX_WORD_MATCHES_OVERLAYS = 20;
 	
-	public static final boolean FIND_MATCHES_ACROSS = false;
-	public static final boolean FIND_MATCHES_PERPENDICULAR = false;
+	public static final boolean FIND_MATCHES_ACROSS = true;
+	public static final boolean FIND_MATCHES_PERPENDICULAR = true;
 	public static final boolean FIND_MATCHES_EXTENSIONS = true;
 	public static final boolean FIND_MATCHES_OVERLAY = true;
 
@@ -448,6 +448,10 @@ public class Constants {
 	public static final int AUTOPLAY_MATCH_PERPENDICULAR = 20; 
 	public static final int AUTOPLAY_MATCH_EXTENSIONS = 20;
 	public static final int AUTOPLAY_MATCH_OVERLAYS = 20;
+	
+	public static final String AUTOPLAY_DISCOVERY_ACROSS = "_ACROSS";
+	public static final String AUTOPLAY_DISCOVERY_PERPENDICULAR = "_PERPENDICULAR"; 
+	public static final String AUTOPLAY_DISCOVERY_EXTENSIONS = "_EXTENSIONS";
 
 	
 	public static final int TILE_POSITION_ON_BORDER = 255;

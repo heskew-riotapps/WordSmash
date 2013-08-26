@@ -1957,7 +1957,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					    
 					}
 					this.readyToDraw = false;
-	 
+					this.parent.captureTime(TAG + " onDraw action_up ended");
 				  
 				 }
 			 }

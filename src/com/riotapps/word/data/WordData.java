@@ -3,13 +3,19 @@ package com.riotapps.word.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.riotapps.word.hooks.WordService;
+import com.riotapps.word.utils.Logger;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class WordData {
-	 private SQLiteDatabase database;
+	private static final String TAG = WordData.class.getSimpleName();
+	
+	private SQLiteDatabase database;
+	 
 	  private DatabaseHelper dbHelper;
 	 // private String[] allColumns = { DatabaseHelper.COLUMN_ID,
 	//		  DatabaseHelper.COLUMN_COMMENT };
@@ -113,6 +119,8 @@ public class WordData {
  			
 		  	String queryf = "select word from Word where idx  IN (" + this.makePlaceholders(index.length) + ")";
 		  
+		  	//Logger.d(TAG, "getMatchingWordsFromIndexArray queryf=" + queryf);
+		  	
 			  Cursor c = database.rawQuery(queryf, index);
 			  try{
 				  if (c.getCount() > 0) {

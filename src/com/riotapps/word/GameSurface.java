@@ -811,14 +811,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 this.gameState = GameStateService.clearGameState(this.game.getId());
 		 }
 		 
-for (PlayedTile tile : this.game.getPlayedTiles()){
-	if (tile.getBoardPosition() == 196){
-		 Logger.d(TAG, "filleGameState 196 is a PLAYED TILE");
-			
-	}
+		for (PlayedTile tile : this.game.getPlayedTiles()){
+			if (tile.getBoardPosition() == 196){
+				 Logger.d(TAG, "filleGameState 196 is a PLAYED TILE");
+					
+			}	
+		}
 		
-}
-		 Logger.d(TAG, "filleGameState numTrayTiles=" + this.game.getPlayedTiles().size());
+		// Logger.d(TAG, "filleGameState numTrayTiles=" + this.game.getPlayedTiles().size());
 		// this.gameState.setTrayVersion(this.game.getContextPlayerTrayVersion(this.player));
 		 
 		 //load played tiles into game state
