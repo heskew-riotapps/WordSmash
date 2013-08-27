@@ -79,8 +79,7 @@ public class Constants {
 	public static final String TRACKER_ACTION_WORD_LOOKED_UP = "word_looked_up";
 	public static final String TRACKER_ACTION_GAME_STARTED = "game_started";
 	public static final String TRACKER_ACTION_GAME_COMPLETED = "game_completed";
-<<<<<<< HEAD
-=======
+
 	public static final String TRACKER_ACTION_GAME_AUTO_PLAY = "game_opponent_play";
 	public static final String TRACKER_ACTION_GAME_AUTO_SKIP = "game_opponent_skip";
 	public static final String TRACKER_ACTION_GAME_AUTO_SWAP = "game_opponent_swap";
@@ -90,19 +89,16 @@ public class Constants {
 	public static final String TRACKER_ACTION_GAME_PLAYER_SWAP = "game_player_swap";
 	public static final String TRACKER_ACTION_GAME_PLAYER_CONCEDE = "game_player_concede";
 
-	
->>>>>>> origin/dev
+
 	public static final String TRACKER_ACTION_GAME_WON = "game_won";
 	public static final String TRACKER_ACTION_GAME_LOST = "game_lost";
 	public static final String TRACKER_ACTION_GAME_DRAW = "game_draw";
 	public static final String TRACKER_ACTION_PURCHASE = "purchase";
 	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
 	public static final String TRACKER_LABEL_OPPONENT = "opponent";
-<<<<<<< HEAD
-	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s_loss";
-=======
+
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID = "opponent_%s";
->>>>>>> origin/dev
+
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_LOSS = "opponent_%s_loss";
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_WON = "opponent_%s_won";
 	public static final String TRACKER_LABEL_OPPONENT_WITH_ID_DRAW = "opponent_%s_draw";

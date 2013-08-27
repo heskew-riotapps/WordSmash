@@ -6825,8 +6825,6 @@ com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_BUTTON_TAPPED
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_WORD_LOOKED_UP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_STARTED
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_COMPLETED
-<<<<<<< HEAD
-=======
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_AUTO_PLAY
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_AUTO_SKIP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_AUTO_SWAP
@@ -6835,7 +6833,6 @@ com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_PLAYER_P
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_PLAYER_SKIP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_PLAYER_SWAP
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_PLAYER_CONCEDE
->>>>>>> origin/dev
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_WON
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_LOST
 com.riotapps.word.utils.Constants: java.lang.String TRACKER_ACTION_GAME_DRAW
