@@ -134,6 +134,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private AutoplayTask autoplayTask = null; 
 	 private PreAutoplayTask preAutoplayTask = null; 
 	 private List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
+	 private boolean hasPreAutoPlayRunThisTurn = false;
 	 
 //	 private RevMob revmob;
 //	 private RevMobAdsListener revmobListener;
@@ -171,6 +172,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	
 	public long runningTime = System.nanoTime();
 	public long captureTime = System.nanoTime();
+
 
  
 	private Player player;
@@ -490,7 +492,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 	}
 	 	
 	 	//prime the pump for opponent's turn
-		if (this.isGamePopulating && this.game.isActive() && this.game.getPlayerGames().get(0).isTurn()){
+		if (this.isGamePopulating && this.game.isActive() && !this.hasPreAutoPlayRunThisTurn && this.game.getPlayerGames().get(0).isTurn()){
 			this.placedResults.clear();
 			this.preAutoplayTask = new PreAutoplayTask();
 			this.preAutoplayTask.execute();
@@ -928,7 +930,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		Logger.d(TAG, "onPause called");
 		//Playtomic.Log().freeze();
 		super.onPause();
-	 
+ 
 		Logger.d(TAG, "onPause - stop timer about to be called");
 		if (this.getGameState() != null){
 			GameStateService.setGameState(this.getGameState());
@@ -936,6 +938,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		
 		if (this.preAutoplayTask != null){
 			Logger.d(TAG, "onPause preAutoplayTask running");
+			this.hasPreAutoPlayRunThisTurn = false;
     		//this.preAutoplayTask.cancel(true);
     		this.preAutoplayTask = null;
     	}
@@ -1043,16 +1046,20 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	
 		private void handleBack(){
 		 
-				this.spinner = new CustomProgressDialog(this);
-				this.spinner.setMessage(this.getString(R.string.progress_saving));
-				this.spinner.show();
+				//this.spinner = new CustomProgressDialog(this);
+				//this.spinner.setMessage(this.getString(R.string.progress_saving));
+				//this.spinner.show();
 				
-				if (this.getGameState() != null){
+				if (this.getGameState() != null && !this.game.isCompleted()){
 					GameStateService.setGameState(this.getGameState());
 				}
 				
 				boolean backToMain = false;
 				if (this.game.isCompleted()) {backToMain = true;}
+				
+				if (this.preAutoplayTask != null){
+		    		this.preAutoplayTask = null;
+		    	}
 				
 				this.gameSurfaceView.onStop();
 				this.game = null;
@@ -1309,7 +1316,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			
 			//reprime the pump
 			try{
-				if (this.preAutoplayTask == null && this.game.isActive() && this.game.getPlayerGames().get(0).isTurn()){
+				if (this.preAutoplayTask == null && !hasPreAutoPlayRunThisTurn && this.game.isActive() && this.game.getPlayerGames().get(0).isTurn()){
 					this.placedResults.clear();
 					this.preAutoplayTask = new PreAutoplayTask();
 					this.preAutoplayTask.execute();
@@ -1586,6 +1593,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    		//just in case the primer is running, let's stop it
 	    		if (this.preAutoplayTask != null){
 		    		this.placedResults.clear();
+		    		this.hasPreAutoPlayRunThisTurn = false;
 		    		this.preAutoplayTask.cancel(true);
 		    		this.preAutoplayTask = null;
 		    	}
@@ -1864,7 +1872,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    
 	    public void handlePostPreAutoplay(){
 	    	this.isPreAutoplayTaskRunning = false;
-	    	 this.preAutoplayTask = null;
+	    	this.preAutoplayTask = null;
+	    	this.hasPreAutoPlayRunThisTurn = true;
 	    	 Logger.d(TAG, "handlePostPreAutoplay numPlacedResults derived=" + this.placedResults.size());
 	    	
 	    }
@@ -2822,6 +2831,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 @Override
 			 protected Void doInBackground(Void... params) {
 				 GameSurface.this.captureTime("PreAutoplayTask STARTING");
+				 GameSurface.this.hasPreAutoPlayRunThisTurn = false;
 				 //while player is thinking, let's gather possible plays for opponent to save time
 				 GameSurface.this.isPreAutoplayTaskRunning = true;
 		     	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), false, GameSurface.this.placedResults);

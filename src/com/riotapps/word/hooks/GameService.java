@@ -1106,6 +1106,8 @@ public static void skip(boolean isOpponent, Game game){
 			List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, 
 			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, long runningTime){
 		
+		boolean takeSleepBreaks = false; //runningTime == 0;
+		
 		int numTilesAbove = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_ABOVE);
 		int numTilesBelow = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_BELOW);
 		int numTilesToTheRight = game.getNumConsecutivePlayableEmptyTilesInADirection(playedTile, Constants.DIRECTION_RIGHT);
@@ -1119,7 +1121,23 @@ public static void skip(boolean isOpponent, Game game){
 		}
 		
 		if (!maxAutoplayTimeElapsed(runningTime)){
+			if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
 			if (successfulAdditions < Constants.MAX_WORD_MATCHES_ACROSS) {
+				if (takeSleepBreaks) { 
+					try {
+						Thread.sleep(3);
+					} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				}
 				findWordsUpOrDownSingleTile(Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, letterSets_7,
 					letterSets_6, letterSets_5, letterSets_4, letterSets_3, letterSets_2, letterSets_1,
 					numTilesAbove, numTilesBelow, boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
@@ -1142,6 +1160,8 @@ public static void skip(boolean isOpponent, Game game){
 			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, long runningTime)
 	{
  
+		boolean takeSleepBreaks = false; //runningTime == 0;
+		
 		int successfulAdditions = 0;
 		for (PlacedResult result : placedResults){
 			if (result.getMatchType() == Constants.AUTOPLAY_MATCH_PERPENDICULAR){
@@ -1159,22 +1179,53 @@ public static void skip(boolean isOpponent, Game game){
 		
 		
 		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
+			if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_LEFT, playedTile, placedResults, wordService,  
 				        boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 		
 		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
-		
+			if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_RIGHT, playedTile, placedResults, wordService,  
 						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 	
 		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
+			if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_ABOVE, playedTile, placedResults, wordService,  
 						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 		 
 		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_PERPENDICULAR && !maxAutoplayTimeElapsed(runningTime)){
+			if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
 			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_BELOW, playedTile, placedResults, wordService,  
 						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 				
@@ -1477,6 +1528,8 @@ public static void skip(boolean isOpponent, Game game){
 		List<List<String>> letterSets_3, List<List<String>> letterSets_2, List<List<String>> letterSets_1, int numTilesBehind,
 		int numTilesAhead, List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions, long runningTime)
 	{
+		//boolean takeSleepBreaks = runningTime == 0;
+		
 		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile starting");
 		if (numTilesBehind > 0 && numTilesAhead > 0 ) {
 			//here we have the opportunity to play a word down or up across a single tile  
@@ -1489,7 +1542,15 @@ public static void skip(boolean isOpponent, Game game){
 			for (int x = ((numTilesAhead + numTilesBehind) > 7 ? 7 : (numTilesAhead + numTilesBehind)); x > 0; x--){
 				if (maxAutoplayTimeElapsed(runningTime))  { break; }
 				if (successfulAdditions >= Constants.MAX_WORD_MATCHES_ACROSS) { break; }
-				
+			/*	if (takeSleepBreaks) { 
+					try {
+						Thread.sleep(3);
+					} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				}
+				*/
 		//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile outer for loop starting");
 				List<List<String>> letterSets = new ArrayList<List<String>>();
 				switch (x){
@@ -1591,6 +1652,14 @@ public static void skip(boolean isOpponent, Game game){
 					//loop through the matches looking for the first letter that is the same as the played letter
 					//this will be enhanced
 					for (String match : matches){
+					/*	if (takeSleepBreaks) { 
+							try {
+								Thread.sleep(3);
+							} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+						}*/
 						//find the position of the already played tile (the first instance of it)
 				//		ApplicationContext.captureTime(TAG, "findWordsUpOrDownSingleTile match loop starting - match=" + match);
 						if (maxAutoplayTimeElapsed(runningTime))  { return; }
@@ -1744,6 +1813,8 @@ public static void skip(boolean isOpponent, Game game){
 			List<PlacedResult> placedResults, WordService wordService,  
 			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, long runningTime) {
 	
+		boolean takeSleepBreaks = false; //runningTime == 0;
+		
 		int successfulAdditions = 0;
 		for (PlacedResult result : placedResults){
 			if (result.getMatchType() == Constants.AUTOPLAY_MATCH_EXTENSIONS){
@@ -1752,11 +1823,27 @@ public static void skip(boolean isOpponent, Game game){
 		}
 	
 		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_EXTENSIONS && !maxAutoplayTimeElapsed(runningTime)){
+			if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
 			 findWordsFromExtensionsByDirection(letterSets, Constants.AXIS_HORIZONTAL, playedTile, placedResults, wordService, 
 		 				boardTiles, context, game, defaultLayout, runningTime, successfulAdditions);
 		 }
 		 
 		 if (successfulAdditions < Constants.MAX_WORD_MATCHES_EXTENSIONS && !maxAutoplayTimeElapsed(runningTime)){
+			 if (takeSleepBreaks) { 
+				try {
+					Thread.sleep(3);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			 }
 			 findWordsFromExtensionsByDirection(letterSets, Constants.AXIS_VERTICAL, playedTile, placedResults, wordService, 
 		 				boardTiles, context, game, defaultLayout, runningTime, successfulAdditions);
 		 }

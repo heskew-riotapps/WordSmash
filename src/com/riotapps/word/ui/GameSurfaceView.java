@@ -2376,6 +2376,17 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
      //	Logger.d(TAG, "drawZoomedBoardGuts tile.getDisplayLetter()=" + tile.getDisplayLetter());
 		// if (tile.getDisplayLetter().length() > 0){
 
+		//DO NOT DRAW THE TILE IF IT IS FULLY OFF VIEWABLE BOARD SURFACE
+		//are all 4 corners outside the visible area
+		if (!this.visibleAreaRect.isCoordinateWithinArea(tile.getxPositionZoomed(), tile.getyPositionZoomed()) && //top left corner
+		    !this.visibleAreaRect.isCoordinateWithinArea(tile.getxPositionZoomed() + this.zoomedTileWidth, tile.getyPositionZoomed()) && //top right corner
+		    !this.visibleAreaRect.isCoordinateWithinArea(tile.getxPositionZoomed(), tile.getyPositionZoomed() + this.zoomedTileWidth) && //bottom left corner
+		    !this.visibleAreaRect.isCoordinateWithinArea(tile.getxPositionZoomed() + this.zoomedTileWidth, tile.getyPositionZoomed()  + this.zoomedTileWidth) ) { //bottom right corner
+			Logger.d(TAG, "drawZoomedBoardGuts outside of view tile.position=" + tile.getId());												
+			return;
+		
+		}
+		
 		if (tile.getPlacedLetter().length() > 0){
     		 canvas.drawBitmap(GameSurfaceView.bgPlacedTileZoomed,tile.getxPositionZoomed(), tile.getyPositionZoomed(), null);
      

@@ -11,6 +11,8 @@ public class GameThread extends Thread {
 	 volatile boolean running = false;
 	 private static final String TAG = GameThread.class.getSimpleName();
 	  
+	 private long milliseconds = System.currentTimeMillis();
+	 
 	 GameSurfaceView parent;
 	 long sleepTime;
 	 long tickCount = 0;
@@ -59,41 +61,54 @@ public class GameThread extends Thread {
 	@Override
 	 public void run() {
 		 Canvas c;
+		 
+		 long millisecondsLoop = 0;
 		// this.parent.parent.captureTime("gamethread run started");
 		    while (this.running) {
 		    	
+		    	
+		    	
 		    	//get game board drawn as quickly as possible, so don't thread sleep at first
-		    	//if (this.tickCount > 1){
-			    //	try {
-			    //		Thread.sleep(3);
-				//	} catch (InterruptedException e) {
-				//		// TODO Auto-generated catch block
-				//		e.printStackTrace();
-				//	}
-		    	//}
-		    	if (parent.isReadyToDraw()) {
-			        c = null;
-			        try {
-			            c = this.surfaceHolder.lockCanvas(null);
-			            synchronized (this.surfaceHolder) {
-			            //	this.parent.parent.captureTime("gamethread draw started");
-			            	 parent.drawFromThread(c); 
-			            	
-			            }  
-			        } 
-			        finally {
-			            // do this in a finally so that if an exception is thrown
-			            // during the above, we don't leave the Surface in an
-			            // inconsistent state
-			            if (c != null) {
-			                this.surfaceHolder.unlockCanvasAndPost(c);
-			            }
-			        }
-			      
-			        this.tickCount += 1;
-			    //   Log.d(TAG, "Game loop executed " + tickCount + " times");
-
+		     	if (this.tickCount > 1){
+			    	try {
+			    		Thread.sleep(3);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		    	}
+		    	 
+		    	
+		    //	milliseconds = System.currentTimeMillis();
+
+		    	//doing it this way just to not have a thread.sleep
+		    //	if (millisecondsLoop == 0 || (milliseconds - millisecondsLoop >= 3)){ //make this variable or a constant
+		   // 		millisecondsLoop = milliseconds;
+		    		
+			    	if (parent.isReadyToDraw()) {
+				        c = null;
+				        try {
+				            c = this.surfaceHolder.lockCanvas(null);
+				            synchronized (this.surfaceHolder) {
+				            //	this.parent.parent.captureTime("gamethread draw started");
+				            	 parent.drawFromThread(c); 
+				            	
+				            }  
+				        } 
+				        finally {
+				            // do this in a finally so that if an exception is thrown
+				            // during the above, we don't leave the Surface in an
+				            // inconsistent state
+				            if (c != null) {
+				                this.surfaceHolder.unlockCanvasAndPost(c);
+				            }
+				        }
+				      
+				        this.tickCount += 1;
+				    //   Log.d(TAG, "Game loop executed " + tickCount + " times");
+	
+			    	}
+		    //	}
 		    //	synchronized (pauseLock) {
           	//	    while (paused) {
           	//	        try {

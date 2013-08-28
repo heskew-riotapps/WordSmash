@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.riotapps.word"
-    android:versionCode="4"
-    android:versionName="1.003" >
+    android:versionCode="5"
+    android:versionName="1.004" >
 
     <!-- Google cloud messaging required version 8 or above. -->
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="14" />
