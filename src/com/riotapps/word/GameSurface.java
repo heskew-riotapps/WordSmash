@@ -971,33 +971,43 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
-		Logger.d(TAG, "onResume called");
-	//	this.captureTime("onResume starting");
-	//	Playtomic.Log().unfreeze();
-		super.onResume();
-	//	this.captureTime("unfreezeButtons starting");
-
-		GameActionType lastAction = this.postTurnAction;
-		if (lastAction == null){
-			lastAction = GameActionType.NO_TRANSLATION;
+		try{
+			// TODO Auto-generated method stub
+			Logger.d(TAG, "onResume called");
+		//	this.captureTime("onResume starting");
+		//	Playtomic.Log().unfreeze();
+			super.onResume();
+		//	this.captureTime("unfreezeButtons starting");
+	
+			GameActionType lastAction = this.postTurnAction;
+			if (lastAction == null){
+				lastAction = GameActionType.NO_TRANSLATION;
+			}
+			
+			switch (lastAction){
+				case CANCEL_GAME:
+				case DECLINE_GAME:
+				case RESIGN:
+					//do nothing for these options
+					break;
+				default:
+					this.unfreezeButtons();
+	    		 	Logger.d(TAG, "unfreeze onResume");
+					//	this.captureTime("gameSurfaceview resume starting");
+					this.gameSurfaceView.onResume();
+					//	this.captureTime("setup timer_ starting");
+	  
+			}
 		}
-		
-		switch (lastAction){
-			case CANCEL_GAME:
-			case DECLINE_GAME:
-			case RESIGN:
-				//do nothing for these options
-				break;
-			default:
-				this.unfreezeButtons();
-    		 	Logger.d(TAG, "unfreeze onResume");
-				//	this.captureTime("gameSurfaceview resume starting");
-				this.gameSurfaceView.onResume();
-				//	this.captureTime("setup timer_ starting");
-  
+		catch (Exception e){
+			Logger.d(TAG, "onResume error=" + e.getMessage());
+			
+			//if anything happens here let's just restart the activity from scratch
+			//occasionally a null error occurs, so let's just start over if that happens
+			Intent intent = new Intent(this, com.riotapps.word.GameSurface.class);
+    		this.startActivity(intent); 
+    		this.finish();
 		}
-			 
 
 	}
 
