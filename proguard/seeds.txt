@@ -5121,6 +5121,7 @@ com.riotapps.word.R$id: int header_wrapper
 com.riotapps.word.R$id: int hyphen1
 com.riotapps.word.R$id: int hyphen2
 com.riotapps.word.R$id: int img_close
+com.riotapps.word.R$id: int img_opponent
 com.riotapps.word.R$id: int ivHopperPeekPurchased
 com.riotapps.word.R$id: int ivNoAdsPurchased
 com.riotapps.word.R$id: int ivOpponent
@@ -5131,6 +5132,7 @@ com.riotapps.word.R$id: int ivWordnik
 com.riotapps.word.R$id: int llBottomBorder
 com.riotapps.word.R$id: int llButtons
 com.riotapps.word.R$id: int llDefs
+com.riotapps.word.R$id: int llHints
 com.riotapps.word.R$id: int llHopperPeekPriceWrapper
 com.riotapps.word.R$id: int llItem
 com.riotapps.word.R$id: int llNoAdsPriceWrapper
@@ -5355,6 +5357,8 @@ com.riotapps.word.R$layout: int store
 com.riotapps.word.R$layout: int swapdialog
 com.riotapps.word.R$layout: int toparealayout
 com.riotapps.word.R$layout: int twobuttondialog
+com.riotapps.word.R$layout: int wordhintdialog
+com.riotapps.word.R$layout: int wordhintitem
 com.riotapps.word.R$layout: R$layout()
 com.riotapps.word.R$raw
 com.riotapps.word.R$raw: int alphabet
@@ -6073,7 +6077,9 @@ com.riotapps.word.hooks.GameService: void play(boolean,com.riotapps.word.hooks.G
 com.riotapps.word.hooks.GameService: void skip(boolean,com.riotapps.word.hooks.Game)
 com.riotapps.word.hooks.GameService: void swap(boolean,com.riotapps.word.hooks.Game,java.util.List)
 com.riotapps.word.hooks.GameService: int calculateBonusScore(com.riotapps.word.hooks.PlayerGame)
-com.riotapps.word.hooks.GameService: void autoPlay(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List)
+com.riotapps.word.hooks.GameService: void autoPlayForPlayer(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,java.util.List)
+com.riotapps.word.hooks.GameService: void autoPlayForOpponent(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List)
+com.riotapps.word.hooks.GameService: void autoPlay(com.riotapps.word.hooks.PlayerGame,android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List)
 com.riotapps.word.hooks.GameService: java.util.List getBoardBaseTilesAndRemovePlacedTiles(java.util.List)
 com.riotapps.word.hooks.GameService: void resign(boolean,com.riotapps.word.hooks.Game)
 com.riotapps.word.hooks.GameService: void addGameToCompletedList(com.riotapps.word.hooks.Game)

@@ -8176,6 +8176,7 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int hyphen1 -> hyphen1
     int hyphen2 -> hyphen2
     int img_close -> img_close
+    int img_opponent -> img_opponent
     int ivHopperPeekPurchased -> ivHopperPeekPurchased
     int ivNoAdsPurchased -> ivNoAdsPurchased
     int ivOpponent -> ivOpponent
@@ -8186,6 +8187,7 @@ com.riotapps.word.R$id -> com.riotapps.word.R$id:
     int llBottomBorder -> llBottomBorder
     int llButtons -> llButtons
     int llDefs -> llDefs
+    int llHints -> llHints
     int llHopperPeekPriceWrapper -> llHopperPeekPriceWrapper
     int llItem -> llItem
     int llNoAdsPriceWrapper -> llNoAdsPriceWrapper
@@ -8408,6 +8410,8 @@ com.riotapps.word.R$layout -> com.riotapps.word.R$layout:
     int swapdialog -> swapdialog
     int toparealayout -> toparealayout
     int twobuttondialog -> twobuttondialog
+    int wordhintdialog -> wordhintdialog
+    int wordhintitem -> wordhintitem
 com.riotapps.word.R$raw -> com.riotapps.word.R$raw:
     int alphabet -> alphabet
     int opponent_groups -> opponent_groups
@@ -9292,44 +9296,46 @@ com.riotapps.word.hooks.GameService -> com.riotapps.word.hooks.GameService:
     335:400:void skip(boolean,com.riotapps.word.hooks.Game) -> skip
     403:461:void swap(boolean,com.riotapps.word.hooks.Game,java.util.List) -> swap
     464:470:int calculateBonusScore(com.riotapps.word.hooks.PlayerGame) -> calculateBonusScore
-    477:862:void autoPlay(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List) -> autoPlay
-    865:899:void invalidateConnectedPlacedResults(com.riotapps.word.hooks.Game,java.util.List,java.util.Set) -> a
-    906:1012:void findWordsToPlay(com.riotapps.word.hooks.Game,java.util.List,java.util.List,com.riotapps.word.hooks.WordService,android.content.Context,java.util.List,com.riotapps.word.hooks.TileLayout,long) -> a
-    1016:1067:void findConnectedPositionsByDirection(com.riotapps.word.hooks.Game,java.util.Set,java.lang.String,int) -> a
-    1072:1102:void pushPlacedResults(java.util.List,java.util.List) -> a
-    1109:1157:void findWordsAcrossExistingTiles(com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
-    1163:1235:void findWordsPerpendicularToPlayedWords(java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
-    1238:1249:java.util.List getAllLetterSetCombinations(com.riotapps.word.hooks.PlayerGame) -> a
-    1257:1523:void findPerpendicularMatchesBesidePlayedTile(java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
-    1533:1806:void findWordsUpOrDownSingleTile(java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,int,int,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
-    1816:1853:void findWordsFromExtensions(java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> b
-    1861:2100:void findWordsFromExtensionsByDirection(java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long,int) -> a
-    2107:2229:void addWordsToStartGame(java.util.List,com.riotapps.word.hooks.TileLayout,android.content.Context,com.riotapps.word.hooks.Game,java.util.List,com.riotapps.word.hooks.WordService,long) -> a
-    2232:2245:boolean maxAutoplayTimeElapsed(long) -> a
-    2250:2259:java.util.List getBoardBaseTilesAndRemovePlacedTiles(java.util.List) -> getBoardBaseTilesAndRemovePlacedTiles
-    2263:2276:java.util.List getBoardBaseTiles(java.util.List) -> a
-    2280:2289:java.util.List getSortedTrayLetters(java.util.List) -> b
-    2295:2305:java.util.List getLetterSetBase(java.util.List) -> c
-    2312:2358:void resign(boolean,com.riotapps.word.hooks.Game) -> resign
-    2362:2381:void addGameToCompletedList(com.riotapps.word.hooks.Game) -> addGameToCompletedList
-    2384:2396:java.util.List getCompletedGames() -> getCompletedGames
-    2401:2435:void loadScoreboard(android.support.v4.app.FragmentActivity,com.riotapps.word.hooks.Game) -> loadScoreboard
-    2442:2594:com.riotapps.word.ui.PlacedResult checkPlayRules(android.content.Context,com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> checkPlayRules
-    2600:2628:java.lang.String getInvalidWordsMessage(android.content.Context,java.util.List) -> a
-    2637:2645:boolean isMoveInValidStartPosition(com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> a
-    2650:2671:boolean isMoveFreeOfGaps(java.lang.String,java.util.SortedSet,java.util.SortedSet) -> a
-    2683:2713:boolean isWordConnectedToPlayedWords(java.util.List,java.util.List) -> b
-    2718:2746:java.lang.String getPlacedAxis(java.util.List) -> d
-    2751:2759:java.util.List getGameTiles(java.util.List) -> e
-    2768:2833:java.util.List getWords(com.riotapps.word.hooks.TileLayout,java.lang.String,java.util.List,java.util.List) -> a
-    2837:2840:boolean containsPlayedTileId(java.util.List,int) -> a
-    2844:2847:boolean containsGameTileId(java.util.List,int) -> b
-    2851:2854:com.riotapps.word.ui.GameTile getGameTile(java.util.List,int) -> c
-    2858:2861:com.riotapps.word.hooks.PlayedTile getPlayedTile(java.util.List,int) -> d
-    2868:2955:void getLettersAlongOnAxis(com.riotapps.word.ui.PlacedWord,java.lang.String,int,java.util.List,java.util.List,boolean,boolean,com.riotapps.word.hooks.TileLayout) -> a
-    2960:2967:int getTileValue(int,java.lang.String,java.util.List,com.riotapps.word.hooks.TileLayout) -> getTileValue
-    2972:2979:int getWordMultiplier(int,java.util.List,com.riotapps.word.hooks.TileLayout) -> getWordMultiplier
-    2985:3039:java.lang.String getPlacedWordsMessage(android.content.Context,java.util.List) -> getPlacedWordsMessage
+    475:476:void autoPlayForPlayer(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,java.util.List) -> autoPlayForPlayer
+    480:481:void autoPlayForOpponent(android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List) -> autoPlayForOpponent
+    486:870:void autoPlay(com.riotapps.word.hooks.PlayerGame,android.content.Context,com.riotapps.word.hooks.Game,java.util.List,boolean,java.util.List) -> autoPlay
+    873:907:void invalidateConnectedPlacedResults(com.riotapps.word.hooks.Game,java.util.List,java.util.Set) -> a
+    916:1020:void findWordsToPlay(com.riotapps.word.hooks.Game,com.riotapps.word.hooks.PlayerGame,java.util.List,java.util.List,com.riotapps.word.hooks.WordService,android.content.Context,java.util.List,com.riotapps.word.hooks.TileLayout,long) -> a
+    1024:1075:void findConnectedPositionsByDirection(com.riotapps.word.hooks.Game,java.util.Set,java.lang.String,int) -> a
+    1080:1110:void pushPlacedResults(java.util.List,java.util.List) -> a
+    1117:1165:void findWordsAcrossExistingTiles(com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
+    1171:1243:void findWordsPerpendicularToPlayedWords(com.riotapps.word.hooks.PlayerGame,java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
+    1246:1257:java.util.List getAllLetterSetCombinations(com.riotapps.word.hooks.PlayerGame) -> a
+    1265:1531:void findPerpendicularMatchesBesidePlayedTile(com.riotapps.word.hooks.PlayerGame,java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
+    1541:1814:void findWordsUpOrDownSingleTile(java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,java.util.List,int,int,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,int,long) -> a
+    1824:1861:void findWordsFromExtensions(java.util.List,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long) -> a
+    1869:2108:void findWordsFromExtensionsByDirection(java.util.List,java.lang.String,com.riotapps.word.hooks.PlayedTile,java.util.List,com.riotapps.word.hooks.WordService,java.util.List,android.content.Context,com.riotapps.word.hooks.Game,com.riotapps.word.hooks.TileLayout,long,int) -> a
+    2117:2237:void addWordsToStartGame(com.riotapps.word.hooks.PlayerGame,java.util.List,com.riotapps.word.hooks.TileLayout,android.content.Context,com.riotapps.word.hooks.Game,java.util.List,com.riotapps.word.hooks.WordService,long) -> a
+    2240:2253:boolean maxAutoplayTimeElapsed(long) -> a
+    2258:2267:java.util.List getBoardBaseTilesAndRemovePlacedTiles(java.util.List) -> getBoardBaseTilesAndRemovePlacedTiles
+    2271:2284:java.util.List getBoardBaseTiles(java.util.List) -> a
+    2288:2297:java.util.List getSortedTrayLetters(java.util.List) -> b
+    2303:2313:java.util.List getLetterSetBase(java.util.List) -> c
+    2320:2366:void resign(boolean,com.riotapps.word.hooks.Game) -> resign
+    2370:2389:void addGameToCompletedList(com.riotapps.word.hooks.Game) -> addGameToCompletedList
+    2392:2404:java.util.List getCompletedGames() -> getCompletedGames
+    2409:2443:void loadScoreboard(android.support.v4.app.FragmentActivity,com.riotapps.word.hooks.Game) -> loadScoreboard
+    2450:2602:com.riotapps.word.ui.PlacedResult checkPlayRules(android.content.Context,com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> checkPlayRules
+    2608:2636:java.lang.String getInvalidWordsMessage(android.content.Context,java.util.List) -> a
+    2645:2653:boolean isMoveInValidStartPosition(com.riotapps.word.hooks.TileLayout,com.riotapps.word.hooks.Game,java.util.List,boolean) -> a
+    2658:2679:boolean isMoveFreeOfGaps(java.lang.String,java.util.SortedSet,java.util.SortedSet) -> a
+    2691:2721:boolean isWordConnectedToPlayedWords(java.util.List,java.util.List) -> b
+    2726:2754:java.lang.String getPlacedAxis(java.util.List) -> d
+    2759:2767:java.util.List getGameTiles(java.util.List) -> e
+    2776:2841:java.util.List getWords(com.riotapps.word.hooks.TileLayout,java.lang.String,java.util.List,java.util.List) -> a
+    2845:2848:boolean containsPlayedTileId(java.util.List,int) -> a
+    2852:2855:boolean containsGameTileId(java.util.List,int) -> b
+    2859:2862:com.riotapps.word.ui.GameTile getGameTile(java.util.List,int) -> c
+    2866:2869:com.riotapps.word.hooks.PlayedTile getPlayedTile(java.util.List,int) -> d
+    2876:2963:void getLettersAlongOnAxis(com.riotapps.word.ui.PlacedWord,java.lang.String,int,java.util.List,java.util.List,boolean,boolean,com.riotapps.word.hooks.TileLayout) -> a
+    2968:2975:int getTileValue(int,java.lang.String,java.util.List,com.riotapps.word.hooks.TileLayout) -> getTileValue
+    2980:2987:int getWordMultiplier(int,java.util.List,com.riotapps.word.hooks.TileLayout) -> getWordMultiplier
+    2993:3047:java.lang.String getPlacedWordsMessage(android.content.Context,java.util.List) -> getPlacedWordsMessage
     49:49:int[] $SWITCH_TABLE$com$riotapps$word$hooks$Game$LastAction() -> a
 com.riotapps.word.hooks.Letter -> com.riotapps.word.hooks.Letter:
     java.lang.String C -> a

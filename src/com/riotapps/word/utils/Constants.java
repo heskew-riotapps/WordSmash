@@ -199,6 +199,7 @@ public class Constants {
 	public static final String USER_PREFS_PLAYER_JSON = "player_json";
 	public static final String USER_PREFS_WORD_DATABASE_VERSION = "wdb_v";
 	public static final String USER_PREFS_FREE_REMAINING_USES_HOPPER_PEEK = "fu_hp";
+	public static final String USER_PREFS_FREE_REMAINING_USES_WORD_HINTS = "fu_wh";
 	public static final String USER_PREFS_FREE_REMAINING_USES_WORD_DEFINITION = "fu_wd";
  	public static final String USER_PREFS_GAME_JSON = "game_json_%s";
  	public static final String USER_PREFS_GAME_LIST_JSON = "game_list_";
@@ -221,7 +222,7 @@ public class Constants {
  	public static final String FB_TOKEN = "fb_token";
 	public static final String FB_TOKEN_EXPIRES = "fb_token_expires";
  	
-	
+	public static final int FREE_USES_WORD_HINTS = 4;
 	public static final int FREE_USES_HOPPER_PEEK = 4;
 	public static final int FREE_USES_WORD_DEFINITION = 2;
 	

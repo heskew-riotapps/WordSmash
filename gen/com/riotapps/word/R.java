@@ -205,6 +205,7 @@ containing a value of this type.
         public static final int hyphen1=0x7f0b00b4;
         public static final int hyphen2=0x7f0b00b6;
         public static final int img_close=0x7f0b000f;
+        public static final int img_opponent=0x7f0b00f2;
         public static final int ivHopperPeekPurchased=0x7f0b00dd;
         public static final int ivNoAdsPurchased=0x7f0b00d1;
         public static final int ivOpponent=0x7f0b0014;
@@ -215,6 +216,7 @@ containing a value of this type.
         public static final int llBottomBorder=0x7f0b0018;
         public static final int llButtons=0x7f0b0087;
         public static final int llDefs=0x7f0b007d;
+        public static final int llHints=0x7f0b00f3;
         public static final int llHopperPeekPriceWrapper=0x7f0b00db;
         public static final int llItem=0x7f0b0012;
         public static final int llNoAdsPriceWrapper=0x7f0b00cf;
@@ -439,6 +441,8 @@ containing a value of this type.
         public static final int swapdialog=0x7f030012;
         public static final int toparealayout=0x7f030013;
         public static final int twobuttondialog=0x7f030014;
+        public static final int wordhintdialog=0x7f030015;
+        public static final int wordhintitem=0x7f030016;
     }
     public static final class raw {
         public static final int alphabet=0x7f040000;

@@ -188,7 +188,11 @@ public class PlayerService {
 		 return player;
 	}
 	
- 
+	public static int getRemainingFreeUsesWordHints(){
+		
+		  return PlayerData.getRemainingFreeUsesWordHints();
+	}
+	
 	public static int getRemainingFreeUsesHopperPeek(){
 		
 	  return PlayerData.getRemainingFreeUsesHopperPeek();
@@ -204,8 +208,8 @@ public class PlayerService {
 		return PlayerData.removeAFreeUseFromHopperPeek();
 	}
 	
-	public static int removeAFreeUseFromWordDefinition(){
-		return PlayerData.removeAFreeUseFromWordDefinition();
+	public static int removeAFreeUseFromWordHints(){
+		return PlayerData.removeAFreeUseFromWordHints();
 	}	
 	
 	

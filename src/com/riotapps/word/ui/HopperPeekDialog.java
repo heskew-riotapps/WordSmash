@@ -177,7 +177,7 @@ private Tracker tracker;
 			
 	private void trackEvent(String action, String label, long value){
 		try{
-			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_GAME_HINTS, action,label, value);
+			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_HOOPER_PEEK, action,label, value);
 		}
 		catch (Exception e){
   			Logger.d(TAG, "trackEvent action=" + (action == null ? "null" : action) 

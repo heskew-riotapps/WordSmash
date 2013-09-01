@@ -9,6 +9,8 @@ public class PlacedResult {
 	private List<PlacedWord> placedWords = new ArrayList<PlacedWord>();
 	private List<GameTile> placedTiles = new ArrayList<GameTile>();
 	
+	private String id;
+	
 	private List<GameTile> boardTiles = new ArrayList<GameTile>();
 	
 	private int matchType = 0;
@@ -77,6 +79,25 @@ public class PlacedResult {
 	}
 	public void setMatchType(int matchType) {
 		this.matchType = matchType;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void deriveId(){
+		String id = "";
+		
+		if (this.placedTiles.size() > 0 ) {
+			id += this.placedWords.get(0).getWord() + "."; 
+			for (GameTile tile : this.placedTiles){
+				id += tile.getId() + ".";				
+			}
+		}
+		
+		this.id = id;
 	}
 	
 }

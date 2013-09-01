@@ -130,11 +130,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	}
 
 	private boolean isPreAutoplayTaskRunning = false;
+	private boolean isWordHintTaskRunning = false;
 	 
 	 private AutoplayTask autoplayTask = null; 
 	 private PreAutoplayTask preAutoplayTask = null; 
+	 private WordHintTask wordHintTask = null; 
 	 private List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
+	 private List<PlacedResult> placedResultsForWordHints = new ArrayList<PlacedResult>();
 	 private boolean hasPreAutoPlayRunThisTurn = false;
+	 private boolean hasWordHintTaskRunThisTurn = false;
 	 
 //	 private RevMob revmob;
 //	 private RevMobAdsListener revmobListener;
@@ -1888,6 +1892,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	
 	    }
 	    
+	    public void handlePostWordHintTask(){
+	    	this.isWordHintTaskRunning = false;
+	    	this.wordHintTask = null;
+	    	this.hasWordHintTaskRunThisTurn = true;
+	    	 Logger.d(TAG, "handlePostWordHintTask placedResultsForWordHints derived=" + this.placedResultsForWordHints.size());
+	    	
+	    }
+	    
 	    public void handlePostAdServer(){
 	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
     		 	this.hasPostAdRun = true;
@@ -2818,7 +2830,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			 @Override
 			 protected Void doInBackground(Void... params) {
 				 GameSurface.this.lastPlayerActionBeforeAutoplay = GameSurface.this.game.getLastActionText(context);
-		    	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles(), true, GameSurface.this.placedResults);
+		    	 GameService.autoPlayForOpponent(GameSurface.this, GameSurface.this.game,  GameSurface.this.gameSurfaceView.getTiles(), true, GameSurface.this.placedResults);
 				
 		    	 
 		    	 return null;
@@ -2844,7 +2856,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				 GameSurface.this.hasPreAutoPlayRunThisTurn = false;
 				 //while player is thinking, let's gather possible plays for opponent to save time
 				 GameSurface.this.isPreAutoplayTaskRunning = true;
-		     	 GameService.autoPlay(GameSurface.this, GameSurface.this.game,  GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), false, GameSurface.this.placedResults);
+		     	 GameService.autoPlayForOpponent(GameSurface.this, GameSurface.this.game,  GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), false, GameSurface.this.placedResults);
 				
 		    	 
 		    	 return null;
@@ -2858,6 +2870,33 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		     protected void onPostExecute(Void param) {
 				 GameSurface.this.captureTime("PreAutoplayTask ENDING");
 		    	 GameSurface.this.handlePostPreAutoplay();
+		     }
+
+		 
+		 }
+		
+		 private class WordHintTask extends AsyncTask<Void, Void, Void> {
+			  
+			 @Override
+			 protected Void doInBackground(Void... params) {
+				 GameSurface.this.captureTime("PreAutoplayTask STARTING");
+				 GameSurface.this.hasWordHintTaskRunThisTurn = false;
+				 //while player is thinking, let's gather possible plays for opponent to save time
+				 GameSurface.this.isWordHintTaskRunning = true;
+		     	 GameService.autoPlayForPlayer(context, game, GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), GameSurface.this.placedResultsForWordHints);
+				
+		    	 
+		    	 return null;
+		    	 
+		    	 //return game; 
+		     }
+
+		   //  protected void onProgressUpdate(Integer... progress) {
+		   //      setProgressPercent(progress[0]);
+		   //  }
+		     protected void onPostExecute(Void param) {
+			//	 GameSurface.this.captureTime("PreAutoplayTask ENDING");
+		     	 GameSurface.this.handlePostWordHintTask();
 		     }
 
 		 

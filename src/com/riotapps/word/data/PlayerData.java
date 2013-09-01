@@ -75,7 +75,17 @@ public class PlayerData {
 	public static int getRemainingFreeUsesHopperPeek(){
 		
 	    SharedPreferences settings = Storage.getSharedPreferences();
-	    int uses = settings.getInt(Constants.USER_PREFS_FREE_REMAINING_USES_HOPPER_PEEK, Constants.FREE_USES_HOPPER_PEEK);
+	    int uses = settings.getInt(Constants.USER_PREFS_FREE_REMAINING_USES_HOPPER_PEEK, Constants.FREE_USES_WORD_HINTS);
+	    
+	    settings = null;
+	    
+	    return uses;
+	}
+	
+	public static int getRemainingFreeUsesWordHints(){
+		
+	    SharedPreferences settings = Storage.getSharedPreferences();
+	    int uses = settings.getInt(Constants.USER_PREFS_FREE_REMAINING_USES_WORD_HINTS, Constants.FREE_USES_HOPPER_PEEK);
 	    
 	    settings = null;
 	    
@@ -124,4 +134,19 @@ public class PlayerData {
 	    return uses;
 	}	
 	
+	public static int removeAFreeUseFromWordHints(){
+	    SharedPreferences settings = Storage.getSharedPreferences();
+	    int uses = settings.getInt(Constants.USER_PREFS_FREE_REMAINING_USES_WORD_HINTS, Constants.FREE_USES_WORD_HINTS);
+	    
+	    if (uses > 0){
+	    	uses -= 1;
+	    	SharedPreferences.Editor editor = settings.edit();
+		
+	  		editor.putInt(Constants.USER_PREFS_FREE_REMAINING_USES_WORD_HINTS, uses);
+	  		editor.apply();
+	    } 
+	    
+	    settings = null;
+	    return uses;
+	}
 }

@@ -471,7 +471,16 @@ public static void skip(boolean isOpponent, Game game){
 
 	}
 	
-	public static void autoPlay(Context context, Game game, List<GameTile> boardTiles, boolean followThroughWithPlay, List<PlacedResult> tempPlacedResults){
+	public static void autoPlayForPlayer(Context context, Game game, List<GameTile> boardTiles, List<PlacedResult> tempPlacedResults){
+		autoPlay(game.getPlayerGames().get(0), context, game, boardTiles, false, tempPlacedResults);
+	}
+	
+	
+	public static void autoPlayForOpponent(Context context, Game game, List<GameTile> boardTiles, boolean followThroughWithPlay, List<PlacedResult> tempPlacedResults){
+		autoPlay(game.getOpponentGame(), context, game, boardTiles, followThroughWithPlay, tempPlacedResults);
+	}
+	
+	public static void autoPlay(PlayerGame playerGame, Context context, Game game, List<GameTile> boardTiles, boolean followThroughWithPlay, List<PlacedResult> tempPlacedResults){
 		//remove previously placed tiles from boardTiles...this is usually done in resetGameAfterRefresh
   
 		ApplicationContext.captureTime(TAG, "autoplay started starting");
@@ -482,7 +491,7 @@ public static void skip(boolean isOpponent, Game game){
 		}
 		
 	    List<PlacedResult> placedResults = new ArrayList<PlacedResult>();
-		PlayerGame opponentGame = game.getPlayerGames().get(1);
+		//PlayerGame opponentGame = game.getPlayerGames().get(1);
 		
 		//following first play, will not be able to used pre autoplay moves.
 		if (followThroughWithPlay && game.getPlayedWords().size() == 1 && game.getLastAction() == LastAction.WORDS_PLAYED){
@@ -495,11 +504,9 @@ public static void skip(boolean isOpponent, Game game){
 			runningTime = System.currentTimeMillis();
 		}
 		
-		Logger.d(TAG, "autoplay - num derived placed results=" + tempPlacedResults.size() );
-		Logger.d(TAG, "autoplay = followThroughWithPlay=" + followThroughWithPlay + " opponentGame.getPlacedResults().size()=" + tempPlacedResults.size());
+		Logger.d(TAG, "autoplay - followThroughWithPlay=" + followThroughWithPlay + " num derived placed results=" + tempPlacedResults.size() );
 
 	    //concede if losing by 250? perhaps randomly
-
 	 
 	    List<String> swappedLetters = new ArrayList<String>();
 	    
@@ -519,32 +526,32 @@ public static void skip(boolean isOpponent, Game game){
 			//just to get a little low percentage logic out of the way
 			//if the player skips to start the game and the opponent has no vowels in his tray
 			//nothing can be done except to skip or swap.  in this case, let's swap 3 letters
-			if (game.getPlayedWords().size() ==0 && !opponentGame.doesTrayContainAVowel()){
+			if (game.getPlayedWords().size() ==0 && !playerGame.doesTrayContainAVowel()){
 	
 				Logger.d(TAG, "Autoplay, no vowels at beginning of game after a skip or swap.  swapping 3 letters");
 				//just grab first 3 letters for now
-				swappedLetters.add(opponentGame.getTrayLetters().get(0));
-				swappedLetters.add(opponentGame.getTrayLetters().get(1));
-				swappedLetters.add(opponentGame.getTrayLetters().get(2));
+				swappedLetters.add(playerGame.getTrayLetters().get(0));
+				swappedLetters.add(playerGame.getTrayLetters().get(1));
+				swappedLetters.add(playerGame.getTrayLetters().get(2));
 				GameService.swap(true, game, swappedLetters);
 				
 				return;
 			}
 
 			//randomly swap if there are no vowels or no consonants
-			if ((!opponentGame.doesTrayContainAVowel() || !opponentGame.doesTrayContainAConsonant())
+			if ((!playerGame.doesTrayContainAVowel() || !playerGame.doesTrayContainAConsonant())
 					&& game.getHopper().size() > 0 && Utils.coinFlip() == Constants.COIN_FLIP_HEADS){
 				Logger.d(TAG, "Autoplay, no vowels or no consonants.  swapping x letters, depending on hopper size");
 				
 				int randomVal = Utils.getRandomNumberFromRange(1, 7);
 				
-				swappedLetters.add(opponentGame.getTrayLetters().get(0));
-				if (randomVal > 1 && game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(1)); }
-				else if (randomVal > 2 && game.getHopper().size() > 2) { swappedLetters.add(opponentGame.getTrayLetters().get(2)); }
-				else if (randomVal > 3 && game.getHopper().size() > 3) { swappedLetters.add(opponentGame.getTrayLetters().get(3)); }
-				else if (randomVal > 4 && game.getHopper().size() > 4) { swappedLetters.add(opponentGame.getTrayLetters().get(4)); }
-				else if (randomVal > 5 && game.getHopper().size() > 5) { swappedLetters.add(opponentGame.getTrayLetters().get(5)); }
-				else if (randomVal > 6 && game.getHopper().size() > 6) { swappedLetters.add(opponentGame.getTrayLetters().get(6)); }
+				swappedLetters.add(playerGame.getTrayLetters().get(0));
+				if (randomVal > 1 && game.getHopper().size() > 1) { swappedLetters.add(playerGame.getTrayLetters().get(1)); }
+				else if (randomVal > 2 && game.getHopper().size() > 2) { swappedLetters.add(playerGame.getTrayLetters().get(2)); }
+				else if (randomVal > 3 && game.getHopper().size() > 3) { swappedLetters.add(playerGame.getTrayLetters().get(3)); }
+				else if (randomVal > 4 && game.getHopper().size() > 4) { swappedLetters.add(playerGame.getTrayLetters().get(4)); }
+				else if (randomVal > 5 && game.getHopper().size() > 5) { swappedLetters.add(playerGame.getTrayLetters().get(5)); }
+				else if (randomVal > 6 && game.getHopper().size() > 6) { swappedLetters.add(playerGame.getTrayLetters().get(6)); }
 	
 				GameService.swap(true, game, swappedLetters);
 				
@@ -572,7 +579,7 @@ public static void skip(boolean isOpponent, Game game){
 			
 					
 			
-						 List<String> sortedTray = GameService.getSortedTrayLetters(opponentGame.getTrayLetters());
+						 List<String> sortedTray = GameService.getSortedTrayLetters(playerGame.getTrayLetters());
 						 
 						 String trayLettersSorted = ""; 
 						 for (String s : sortedTray){
@@ -586,16 +593,16 @@ public static void skip(boolean isOpponent, Game game){
 						
 						//if (matches.size() > 0){
 							//for each match
-						GameService.addWordsToStartGame( boardTiles, defaultLayout, context, game, placedResults, wordService, runningTime );
+						GameService.addWordsToStartGame(playerGame, boardTiles, defaultLayout, context, game, placedResults, wordService, runningTime );
 			 
 						//}
 						if (placedResults.size() == 0) {
 							//Logger.d(TAG, "autoplay, no full words in tray, swapping letters");
 							//swap letters 
 							//just grab first 3 letters for now
-							swappedLetters.add(opponentGame.getTrayLetters().get(0));
-							if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(1)); }
-							if (game.getHopper().size() > 1) { swappedLetters.add(opponentGame.getTrayLetters().get(2)); }
+							swappedLetters.add(playerGame.getTrayLetters().get(0));
+							if (game.getHopper().size() > 1) { swappedLetters.add(playerGame.getTrayLetters().get(1)); }
+							if (game.getHopper().size() > 1) { swappedLetters.add(playerGame.getTrayLetters().get(2)); }
 							GameService.swap(true, game, swappedLetters);
 							
 							wordService.finish();
@@ -612,7 +619,7 @@ public static void skip(boolean isOpponent, Game game){
 							//these can be used for placement at the end or beginning of already played words
 							//these words can potentially be found and stored earlier
 						 
-							findWordsToPlay(game, game.getPlayedTiles(), placedResults, wordService, context, boardTiles, defaultLayout, runningTime);
+							findWordsToPlay(game, playerGame, game.getPlayedTiles(), placedResults, wordService, context, boardTiles, defaultLayout, runningTime);
 	
 						
 					 }
@@ -656,7 +663,7 @@ public static void skip(boolean isOpponent, Game game){
 						
 						Logger.d(TAG, "autoplay - tempPlacedResults after clearing invalidations tempPlacedResults=" + tempPlacedResults.size());
 						
-						findWordsToPlay(game, involvedTiles, tempPlacedResults, wordService, context, boardTiles, defaultLayout, runningTime);
+						findWordsToPlay(game, playerGame, involvedTiles, tempPlacedResults, wordService, context, boardTiles, defaultLayout, runningTime);
 						
 						Logger.d(TAG, "autoplay - tempPlacedResults after adding words tempPlacedResults=" + tempPlacedResults.size());
 						
@@ -704,6 +711,7 @@ public static void skip(boolean isOpponent, Game game){
 				int base = 1;
 				int randomBetterPlay = 0;
 				
+ 
 				if (numOptions > 9){
 					
 					switch (game.getOpponent().getSkillLevel()){
@@ -752,8 +760,8 @@ public static void skip(boolean isOpponent, Game game){
 							start = Math.round(numOptions / 2);
 							base = Math.round(numOptions / 10);
 							
-							//if semi=pro is losing, pull a word from upper part of his range
-							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_SEMI_PRO){
+							//if semi=pro opponent is losing, pull a word from upper part of his range
+							if (game.getPlayerGames().get(playerGame.isOpponent() ? 0 : 1).getScore() > playerGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_SEMI_PRO){
 								//from 75% to 90%
 								start = numOptions - Math.round(numOptions / 4); 
 								//Logger.d(TAG, "autoplay SKILL_LEVEL_SEMI_PRO losing...start=" + start + " end=" + (numOptions - base));
@@ -773,7 +781,7 @@ public static void skip(boolean isOpponent, Game game){
 							base = Math.round(numOptions / 4); 
 							
 							//if opponent is losing by 100 or more, play from the top 5% 
-							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL){
+							if (game.getPlayerGames().get(playerGame.isOpponent() ? 0 : 1).getScore() > playerGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_PROFESSIONAL){
 								base = Math.round(numOptions / 20); 
 								Logger.d(TAG, "autoplay SKILL_LEVEL_PROFESSIONAL losing...start=" + (numOptions - base) + " end=" + (numOptions - 1));
 								
@@ -794,7 +802,7 @@ public static void skip(boolean isOpponent, Game game){
 							randomIndex = Utils.getRandomNumberFromRange(numOptions - base, numOptions - 1);
 							
 							//if opponent is losing by 100 or more, play the highest score or second highest score 
-							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_EXPERT){
+							if (game.getPlayerGames().get(playerGame.isOpponent() ? 0 : 1).getScore() > playerGame.getScore() + Constants.SCORE_DIFFERENCE_TRIGGER_EXPERT){
 	 							randomIndex = (Utils.coinFlip() == Constants.COIN_FLIP_HEADS ? numOptions - 1 : numOptions - 2);
 							}
 							break;
@@ -803,7 +811,7 @@ public static void skip(boolean isOpponent, Game game){
  							randomIndex = (Utils.coinFlip() == Constants.COIN_FLIP_HEADS ? numOptions - 1 : numOptions - 2);
  							
  							//if opponent is losing, play the highest score  
-							if (game.getPlayerGames().get(0).getScore() > opponentGame.getScore()){
+							if (game.getPlayerGames().get(playerGame.isOpponent() ? 0 : 1).getScore() > playerGame.getScore()){
 								randomIndex = numOptions - 1;
 							}
 							break;
@@ -898,20 +906,20 @@ public static void skip(boolean isOpponent, Game game){
 		
 	}
 	
-	private static void findWordsToPlay(Game game, List<PlayedTile> playedTiles, List<PlacedResult> placedResults, WordService wordService, 
+	private static void findWordsToPlay(Game game, PlayerGame playerGame, List<PlayedTile> playedTiles, List<PlacedResult> placedResults, WordService wordService, 
 			Context context, List<GameTile> boardTiles, TileLayout defaultLayout, long runningTime){
 		//these lists can be done ahead of time as well
  
 		
-		PlayerGame opponentGame = game.getPlayerGames().get(1);
+		//PlayerGame opponentGame = game.getPlayerGames().get(1);
 		
-		List<List<String>> letterSets_7 = opponentGame.getSortedTrayLetterSets(7);
-		List<List<String>> letterSets_6 = opponentGame.getSortedTrayLetterSets(6);
-		List<List<String>> letterSets_5 = opponentGame.getSortedTrayLetterSets(5);
-		List<List<String>> letterSets_4 = opponentGame.getSortedTrayLetterSets(4);
-		List<List<String>> letterSets_3 = opponentGame.getSortedTrayLetterSets(3);
-		List<List<String>> letterSets_2 = opponentGame.getSortedTrayLetterSets(2);
-		List<List<String>> letterSets_1 = opponentGame.getSortedTrayLetterSets(1);
+		List<List<String>> letterSets_7 = playerGame.getSortedTrayLetterSets(7);
+		List<List<String>> letterSets_6 = playerGame.getSortedTrayLetterSets(6);
+		List<List<String>> letterSets_5 = playerGame.getSortedTrayLetterSets(5);
+		List<List<String>> letterSets_4 = playerGame.getSortedTrayLetterSets(4);
+		List<List<String>> letterSets_3 = playerGame.getSortedTrayLetterSets(3);
+		List<List<String>> letterSets_2 = playerGame.getSortedTrayLetterSets(2);
+		List<List<String>> letterSets_1 = playerGame.getSortedTrayLetterSets(1);
 		
 	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_7 num=" + letterSets_7.size());
 	//	Logger.d(TAG, "findWordsToPlay !!! letterSets_6 num=" + letterSets_6.size());
@@ -947,7 +955,7 @@ public static void skip(boolean isOpponent, Game game){
 		List<String> matches = wordService.getMatchingWordsFromIndexArray(lettersetArray);
 		 
 		String x = "";
-		for (String l : opponentGame.getTrayLetters()){
+		for (String l : playerGame.getTrayLetters()){
 			x += l + " ";
 		}
 		Logger.d(TAG, "findWordsToPlay tray=" + x);
@@ -991,7 +999,7 @@ public static void skip(boolean isOpponent, Game game){
 					Logger.d(TAG, "findWordsToPlay discoverCalls AUTOPLAY_DISCOVERY_PERPENDICULAR");
 					if (Constants.FIND_MATCHES_PERPENDICULAR){
 						if (!maxAutoplayTimeElapsed(runningTime)) {
-							findWordsPerpendicularToPlayedWords(matches, playedTile, placedResults, wordService, 
+							findWordsPerpendicularToPlayedWords(playerGame, matches, playedTile, placedResults, wordService, 
 									boardTiles, context, game, defaultLayout, runningTime);
 						}
 					}
@@ -1156,7 +1164,7 @@ public static void skip(boolean isOpponent, Game game){
 		Logger.d(TAG, "findWordsAcrossExistingTiles successfulAdditions=" + successfulAdditions);
 	}
 	
-	private static void findWordsPerpendicularToPlayedWords(List<String> matches, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
+	private static void findWordsPerpendicularToPlayedWords(PlayerGame playerGame, List<String> matches, PlayedTile playedTile, List<PlacedResult> placedResults, WordService wordService,  
 			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, long runningTime)
 	{
  
@@ -1187,7 +1195,7 @@ public static void skip(boolean isOpponent, Game game){
 					e.printStackTrace();
 				} 
 			}
-			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_LEFT, playedTile, placedResults, wordService,  
+			 findPerpendicularMatchesBesidePlayedTile(playerGame, matches, Constants.DIRECTION_LEFT, playedTile, placedResults, wordService,  
 				        boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 		
@@ -1200,7 +1208,7 @@ public static void skip(boolean isOpponent, Game game){
 					e.printStackTrace();
 				} 
 			}
-			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_RIGHT, playedTile, placedResults, wordService,  
+			 findPerpendicularMatchesBesidePlayedTile(playerGame, matches, Constants.DIRECTION_RIGHT, playedTile, placedResults, wordService,  
 						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 	
@@ -1213,7 +1221,7 @@ public static void skip(boolean isOpponent, Game game){
 					e.printStackTrace();
 				} 
 			}
-			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_ABOVE, playedTile, placedResults, wordService,  
+			 findPerpendicularMatchesBesidePlayedTile(playerGame, matches, Constants.DIRECTION_ABOVE, playedTile, placedResults, wordService,  
 						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 		 }
 		 
@@ -1226,7 +1234,7 @@ public static void skip(boolean isOpponent, Game game){
 					e.printStackTrace();
 				} 
 			}
-			 findPerpendicularMatchesBesidePlayedTile(matches, Constants.DIRECTION_BELOW, playedTile, placedResults, wordService,  
+			 findPerpendicularMatchesBesidePlayedTile(playerGame, matches, Constants.DIRECTION_BELOW, playedTile, placedResults, wordService,  
 						boardTiles, context, game, defaultLayout, successfulAdditions, runningTime);
 				
 		 }
@@ -1250,7 +1258,7 @@ public static void skip(boolean isOpponent, Game game){
 
 	}
 	
-	private static void findPerpendicularMatchesBesidePlayedTile(List<String> matches, String direction, PlayedTile playedTile, 
+	private static void findPerpendicularMatchesBesidePlayedTile(PlayerGame playerGame, List<String> matches, String direction, PlayedTile playedTile, 
 			List<PlacedResult> placedResults, WordService wordService,  
 			List<GameTile> boardTiles, Context context, Game game, TileLayout defaultLayout, int successfulAdditions, long runningTime){
 				
@@ -1316,7 +1324,7 @@ public static void skip(boolean isOpponent, Game game){
 				
 			//find played word based on direction and playedTile boardPosition
 			
-			PlayerGame opponentGame = game.getOpponentGame();
+			//PlayerGame opponentGame = game.getOpponentGame();
 			
 			//this is a valid option in which to attempt to extend the word
 			//now find all letters to the right so we can test the new word for validity
@@ -1331,7 +1339,7 @@ public static void skip(boolean isOpponent, Game game){
 			//then loop through valid word list that is returned
 			
 			List<String> distinctTrayLetters = new ArrayList<String>();
-			distinctTrayLetters.addAll(opponentGame.getDistinctTrayLetters());
+			distinctTrayLetters.addAll(playerGame.getDistinctTrayLetters());
 			
 			//build array to look for all words at once
 			String[] lookupWords = new String[distinctTrayLetters.size()];
@@ -2101,12 +2109,12 @@ public static void skip(boolean isOpponent, Game game){
 	
 	
 
-	private static void addWordsToStartGame(List<GameTile> boardTiles, 
+	private static void addWordsToStartGame(PlayerGame playerGame, List<GameTile> boardTiles, 
 			TileLayout defaultLayout, Context context, Game game, List<PlacedResult> placedResults, WordService wordService, long runningTime) {
 		
-		PlayerGame opponentGame = game.getPlayerGames().get(1);
-		
-		List<List<String>> letterSets = getAllLetterSetCombinations(opponentGame);
+		//PlayerGame opponentGame = game.getPlayerGames().get(1);
+		 
+		List<List<String>> letterSets = getAllLetterSetCombinations(playerGame);
 		
 		//these lists can be done ahead of time as well
 	//	letterSets.addAll(opponentGame.getSortedTrayLetterSets(7));
