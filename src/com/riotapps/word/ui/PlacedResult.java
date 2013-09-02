@@ -87,7 +87,7 @@ public class PlacedResult {
 		this.id = id;
 	}
 	
-	public void deriveId(){
+	public String getDerivedId(){
 		String id = "";
 		
 		if (this.placedTiles.size() > 0 ) {
@@ -98,6 +98,7 @@ public class PlacedResult {
 		}
 		
 		this.id = id;
+		return id;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import com.google.ads.Ad;
 import com.google.ads.AdListener;
@@ -32,6 +33,9 @@ import com.riotapps.word.ui.GameTile;
 import com.riotapps.word.ui.HopperPeekDialog;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.ui.PlacedResult;
+import com.riotapps.word.ui.PlacedResultComparator;
+import com.riotapps.word.ui.WordHint;
+import com.riotapps.word.ui.WordHintDialog;
 import com.riotapps.word.ui.WordLoaderThread;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.AsyncNetworkRequest;
@@ -96,6 +100,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	private PlacedResult placedResult = null;
 	private CustomButtonDialog customDialog = null;
 	private HopperPeekDialog hopperPeekdialog = null;
+	private WordHintDialog wordHintDialog = null;
 	private Chartboost cb;
 	private GameSurface context = this;
 	private GameSurfaceView gameSurfaceView;
@@ -139,6 +144,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private List<PlacedResult> placedResultsForWordHints = new ArrayList<PlacedResult>();
 	 private boolean hasPreAutoPlayRunThisTurn = false;
 	 private boolean hasWordHintTaskRunThisTurn = false;
+	 
+	 private List<WordHint> hints = new ArrayList<WordHint>();
 	 
 //	 private RevMob revmob;
 //	 private RevMobAdsListener revmobListener;
@@ -1369,12 +1376,32 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	break;
 			        case R.id.bHopperPeek:  
 			        	this.isButtonActive = true;
-			        	this.hopperPeekdialog = new HopperPeekDialog(this, this.game.getId());
+			        	
+			        	GameService.autoPlayForPlayer(context, game, this.gameSurfaceView.getTiles(), this.placedResultsForWordHints);
+			        	Collections.sort(this.placedResultsForWordHints, new PlacedResultComparator());
+			        	//create list of word hints
+			        	//this.hints.clear();
+			        	List<WordHint> hints = new ArrayList<WordHint>();
+			        	
+			        	for (int x = 0; x < 5; x++) { 
+			        		WordHint hint = new WordHint();
+			        		
+			        		PlacedResult placedResult = this.placedResultsForWordHints.get(x);
+			        		
+			        		hint.setId(placedResult.getDerivedId());
+			        		hint.setPoints(placedResult.getTotalPoints());
+			        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
+			        		
+			        		hints.add(hint);	
+			        	}
+			        	this.wordHintDialog = new WordHintDialog(this, hints);
+			        	this.wordHintDialog.show();
+			        	
+			        	//temp
+			     //   	this.hopperPeekdialog = new HopperPeekDialog(this, this.game.getId());
 			       	 
-				    	this.hopperPeekdialog.show();
-			        	//intent = new Intent(this, HopperPeek.class);
-			        	//intent.putExtra(Constants.EXTRA_GAME_ID, game.getId());
-						//startActivity(intent);
+				  //  	this.hopperPeekdialog.show();
+			         
 					 
 						break;
 			        case R.id.bPlayedWords:  

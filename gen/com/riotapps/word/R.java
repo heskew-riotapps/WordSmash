@@ -205,7 +205,6 @@ containing a value of this type.
         public static final int hyphen1=0x7f0b00b4;
         public static final int hyphen2=0x7f0b00b6;
         public static final int img_close=0x7f0b000f;
-        public static final int img_opponent=0x7f0b00f2;
         public static final int ivHopperPeekPurchased=0x7f0b00dd;
         public static final int ivNoAdsPurchased=0x7f0b00d1;
         public static final int ivOpponent=0x7f0b0014;
@@ -216,7 +215,7 @@ containing a value of this type.
         public static final int llBottomBorder=0x7f0b0018;
         public static final int llButtons=0x7f0b0087;
         public static final int llDefs=0x7f0b007d;
-        public static final int llHints=0x7f0b00f3;
+        public static final int llHints=0x7f0b00f2;
         public static final int llHopperPeekPriceWrapper=0x7f0b00db;
         public static final int llItem=0x7f0b0012;
         public static final int llNoAdsPriceWrapper=0x7f0b00cf;
@@ -380,6 +379,7 @@ containing a value of this type.
         public static final int tvOpponentScore=0x7f0b00be;
         public static final int tvPlayerName=0x7f0b00bf;
         public static final int tvPlayerScore=0x7f0b00c0;
+        public static final int tvPoints=0x7f0b00f3;
         public static final int tvPremiumUpgradeDescription=0x7f0b00cc;
         public static final int tvPremiumUpgradeTitle=0x7f0b00c8;
         public static final int tvPreviewMessage=0x7f0b007a;

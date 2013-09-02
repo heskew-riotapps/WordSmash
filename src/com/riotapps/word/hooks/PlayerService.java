@@ -212,6 +212,9 @@ public class PlayerService {
 		return PlayerData.removeAFreeUseFromWordHints();
 	}	
 	
+	public static int removeAFreeUseFromWordDefinition(){
+		return PlayerData.removeAFreeUseFromWordDefinition();
+	}	
 	
 	
 	public static String getBadgeDrawable__(int numWins){

@@ -43,7 +43,7 @@ import android.widget.TextView;
 public class WordHintDialog  extends Dialog implements View.OnClickListener{
 	private static final String TAG = HopperPeekDialog.class.getSimpleName();
 	
-	private Game game;
+	//private Game game;
 	private Context parent;
 	private View layout;
 	private TextView peek_description;
@@ -96,7 +96,7 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 
 		LinearLayout llOK = (LinearLayout) this.layout.findViewById(R.id.llOK);
 		TextView tvOK = (TextView) this.layout.findViewById(R.id.tvOK);
-		TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);
+		//TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);
 
 		Button bNoThanks = (Button)this.layout.findViewById(R.id.bNoThanks);
 		Button bStore = (Button)this.layout.findViewById(R.id.bStore);
@@ -105,26 +105,26 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 		tvOK.setTypeface(ApplicationContext.getMainFontTypeface());
 		bNoThanks.setTypeface(ApplicationContext.getMainFontTypeface());
 		bStore.setTypeface(ApplicationContext.getMainFontTypeface());
-		tvAlertTitle.setTypeface(ApplicationContext.getMainFontTypeface());
+		//tvAlertTitle.setTypeface(ApplicationContext.getMainFontTypeface());
 		
 		//Logger.d(TAG, "free hopper peeks=" + PlayerService.getRemainingFreeUsesHopperPeek());
 		
-		this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
-		this.peek_description.setTypeface(ApplicationContext.getMainFontTypeface());
+	//	this.peek_description = (TextView)this.layout.findViewById(R.id.peek_description);
+	//	this.peek_description.setTypeface(ApplicationContext.getMainFontTypeface());
+		this.loadHints();
+	 	if (!StoreService.isWordHintsPurchased() && PlayerService.getRemainingFreeUsesWordHints() == 0){
 		
-		if (!StoreService.isWordHintsPurchased() && PlayerService.getRemainingFreeUsesWordHints() == 0){
-		
-			this.peek_description.setText(this.parent.getString(R.string.hopper_peek_purchase_offer));
+		//	this.peek_description.setText(this.parent.getString(R.string.hopper_peek_purchase_offer));
 		 
-			this.llHints.setVisibility(View.GONE);
-			tvOK.setVisibility(View.GONE);
+		//	this.llHints.setVisibility(View.GONE);
+		//	tvOK.setVisibility(View.GONE);
 		}
 		else{
-			this.peek_description.setText(String.format(this.parent.getString(R.string.gameboard_hopper_peek_dialog_description), String.valueOf(this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray()), this.game.getOpponent().getName()));
+		//	this.peek_description.setText(String.format(this.parent.getString(R.string.gameboard_hopper_peek_dialog_description), String.valueOf(this.game.getTotalNumLetterCountLeftInHopperAndOpponentTray()), this.game.getOpponent().getName()));
 			
 			this.loadHints();	
 			
-			if (!StoreService.isHopperPeekPurchased()){
+			if (!StoreService.isWordHintsPurchased()){
 				tvOK.setVisibility(View.GONE);
 			
 			
@@ -149,7 +149,7 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 			}
 		}
 		 
-
+ 
 		ImageView close = (ImageView) this.layout.findViewById(R.id.img_close);
 		//if button is clicked, close the custom dialog
 		close.setOnClickListener(new View.OnClickListener() {
@@ -178,13 +178,13 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 		 
 		this.setContentView(this.layout);
 		 
-		this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, String.valueOf(this.game.getTurn()), this.game.getHopper().size());
+		//this.trackEvent(Constants.TRACKER_ACTION_WORD_HINT, String.valueOf(this.game.getTurn()), this.game.getHopper().size());
 	     
 	 }
 			
 	private void trackEvent(String action, String label, long value){
 		try{
-			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_GAME_HINTS, action,label, value);
+			this.getTracker().sendEvent(Constants.TRACKER_CATEGORY_WORD_HINTS, action,label, value);
 		}
 		catch (Exception e){
   			Logger.d(TAG, "trackEvent action=" + (action == null ? "null" : action) 
@@ -197,7 +197,7 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 	@Override
 	public void dismiss(){
 		
-		this.game = null;
+	//	this.game = null;
  		this.layout = null;
 		this.peek_description = null;
 		this.tracker = null;
