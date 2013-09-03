@@ -340,5 +340,6 @@
 		<string name="game_surface_first_time_alert_message">Drag letters from the tray onto the board to form words in a single axis.\n\nThe first word must be played on at least one smiley.\n\nLetters can be played on top of previously played letters.</string>
 		<string name="main_first_time_alert_title">Welcome!</string>
 		<string name="main_first_time_alert_message">To get started, just choose an opponent.  You can check out all of the rules and visit the store by tapping the 3 squares in the top right corner.\n\nEnjoy WordSmash!</string>
-					
+		<string name="word_hint_num_points">%s points</string>	
+		<string name="word_hint_dialog_title">Ethan\'s Hints</string>		
 </resources>

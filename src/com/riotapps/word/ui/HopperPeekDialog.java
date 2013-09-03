@@ -38,7 +38,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 
-public class HopperPeekDialog  extends Dialog implements View.OnClickListener{
+public class HopperPeekDialog  extends AlertDialog implements View.OnClickListener{
 	private static final String TAG = HopperPeekDialog.class.getSimpleName();
 	
 	private Game game;
@@ -88,7 +88,7 @@ private Tracker tracker;
 		 //loop through letters, filling the views
         
      //   this.setContentView(this.layout);
-
+        this.setCanceledOnTouchOutside(false);
 		LinearLayout llOK = (LinearLayout) this.layout.findViewById(R.id.llOK);
 		TextView tvOK = (TextView) this.layout.findViewById(R.id.tvOK);
 		TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);

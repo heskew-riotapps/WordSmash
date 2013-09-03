@@ -11,10 +11,12 @@ import com.riotapps.word.hooks.GameService;
 import com.riotapps.word.hooks.TileLayout;
 import com.riotapps.word.hooks.TileLayoutService;
 import com.riotapps.word.utils.ApplicationContext;
+import com.riotapps.word.utils.Check;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.DesignByContractException;
 import com.riotapps.word.utils.ImageHelper;
 import com.riotapps.word.utils.Logger;
+import com.riotapps.word.utils.PreconditionException;
 import com.riotapps.word.utils.Utils;
 
 import android.util.Log;
@@ -260,6 +262,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
  	private boolean shuffleRedraw = false;
 	private boolean afterPlayRedraw = false;
 	private boolean recallLettersRedraw = false;
+	private boolean wordHintRedraw = false;
+
+	
 	/*
 	private Bitmap bgTrayBaseScaled;
 	private Bitmap bgTrayEmptyScaled;
@@ -1834,7 +1839,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		 
 	//	long currentTouchTime = System.nanoTime();
 		
-		if (!this.shuffleRedraw && !this.recallLettersRedraw  && !this.afterPlayRedraw && !this.trayTileTapped ){
+		if (!this.shuffleRedraw && !this.recallLettersRedraw  && !this.afterPlayRedraw && !this.trayTileTapped && !wordHintRedraw){
 			//  if (this.touchMotion == MotionEvent.ACTION_MOVE ) {this.readyToDraw = false;} 
 			 if (this.currentTouchMotion == MotionEvent.ACTION_DOWN && 
 					 (this.getCurrentTrayTile() != null && !this.getCurrentTrayTile().isDragging())){ 
@@ -1904,7 +1909,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					 this.drawBoardOnMove(canvas, 0, 0);
 					 Logger.d(TAG, "onDraw a tray tile has been tapped down");
 				 }
-				 else if (this.shuffleRedraw || this.recallLettersRedraw || this.afterPlayRedraw || this.trayTileTapped){
+				 else if (this.shuffleRedraw || this.recallLettersRedraw || this.afterPlayRedraw || this.trayTileTapped || this.wordHintRedraw){
 					 //these actions just mean the board should be redrawn as is
 					 this.drawBoardOnMove(canvas, 0, 0);
 				//	 this.shuffleRedraw = false;
@@ -1970,17 +1975,18 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		    this.drawDraggingTile(canvas);
 		   
 		    //on a drop event (action_up) check to determine if shuffle and recall buttons need to be switched
-		    if (this.currentTouchMotion == MotionEvent.ACTION_UP || this.recallLettersRedraw){
+		    if (this.currentTouchMotion == MotionEvent.ACTION_UP || this.recallLettersRedraw || this.wordHintRedraw){
 		    	Logger.d(TAG, "onDraw MotionEvent.ACTION_UP about to call this.setButtonStates");
 		    	this.setButtonStates();
 		    }
 		    
-		    if (this.shuffleRedraw || this.recallLettersRedraw || this.afterPlayRedraw || this.trayTileTapped){
+		    if (this.shuffleRedraw || this.recallLettersRedraw || this.afterPlayRedraw || this.trayTileTapped || this.wordHintRedraw){
 		    	this.shuffleRedraw = false;
 		    	this.recallLettersRedraw = false;
 		    	this.afterPlayRedraw = false;
 		    	this.trayTileTapped = false;
 		    	this.readyToDraw = false;
+		    	this.wordHintRedraw = false;
 		    	
 		    }
 		    
@@ -2696,7 +2702,85 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		 }
 		
 	}
+	public void setHintLetters(PlacedResult placedResult) throws PreconditionException{
+		//clear out all placed letters
+		String x = "";
+		for (TrayTile trayTile : this.trayTiles){
+			x += trayTile.getCurrentLetter();
+		}
+		Logger.d(TAG, "setHintLetters before recall tiles= " + x);
+		
+		for(GameTile tile : this.tiles){
+			if (tile.getPlacedLetter().length() > 0){
+				this.parent.getGameState().returnLetterToTray(tile.getPlacedLetter(), tile.getId());
+			}
+			tile.recallLetter();
+		}
+
+		x= "";
+				
+		for (TrayTile trayTile : this.trayTiles){
+			x += trayTile.getCurrentLetter();
+		}
+		Logger.d(TAG, "setHintLetters after recall tiles= " + x);
+		
+		this.LoadTray();
+
+		x= "";
+		for (TrayTile trayTile : this.trayTiles){
+			x += trayTile.getCurrentLetter();
+		}
+		Logger.d(TAG, "setHintLetters after loadTray= " + x);
+		
+		for(GameTile tile : placedResult.getPlacedTiles()){
+			boolean trayLetterFound = false;
+			for (TrayTile trayTile : this.trayTiles){
+				//find first tray letter that match placedLetter and clear it from 
+				if (trayTile.getCurrentLetter().equals(tile.getPlacedLetter())){
+					trayTile.setCurrentLetter("");
+					trayLetterFound = true;
+					break;
+ 				}
+			}
+			
+			Check.Require(trayLetterFound, "setHintLetters letter not found=" + tile.getPlacedLetter());
+ 
+			this.tiles.get(tile.getId()).setPlacedLetter(tile.getPlacedLetter());
+		 }
+		
+		//set game state
+		x= "";
+		for (TrayTile trayTile : this.trayTiles){
+			x += trayTile.getCurrentLetter();
+		}
+		Logger.d(TAG, "setHintLetters after setTiles= " + x);
+ 		 //clear the active tiles
+ 		this.clearCurrentTrayTile();
 	 
+		this.clearDropTargetTrayTile();
+		this.clearTargetTile();
+	 
+		if (this.getDraggingTile() != null) {
+			this.getDraggingTile().setDragPending(false);
+		}
+		
+		this.clearDraggingTile();
+	
+		this.parent.getGameState().resetLettersFromCurrent(tiles, trayTiles);
+		///GameStateService.setGameState(this.context, this.parent.getGameState());
+		this.LoadTray(); //reloads from the latest game state
+		x= "";
+		for (TrayTile trayTile : this.trayTiles){
+			x += trayTile.getCurrentLetter();
+		}
+		Logger.d(TAG, "setHintLetters after loadTray= " + x);
+		
+		this.wordHintRedraw = true;
+		this.readyToDraw = true;
+		this.resetPointsView();
+	}
+	
+	
 	public void recallLetters(){
 		
 		//clear out all placed letters

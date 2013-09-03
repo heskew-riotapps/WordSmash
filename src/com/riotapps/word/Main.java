@@ -494,6 +494,12 @@ public class Main extends FragmentActivity implements View.OnClickListener, Popu
 
 		txtMainLabel.setTypeface(ApplicationContext.getMainFontTypeface());
 	}
+
+	@Override
+	public void dialogClose(int resultCode, String returnValue) {
+		// TODO Auto-generated method stub
+		
+	}
  	
 
     

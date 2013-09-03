@@ -96,6 +96,7 @@ public class Constants {
 	public static final String TRACKER_ACTION_GAME_DRAW = "game_draw";
 	public static final String TRACKER_ACTION_PURCHASE = "purchase";
 	public static final String TRACKER_ACTION_HOPPER_PEEK = "hopper_peek";
+ 
 	public static final String TRACKER_ACTION_WORD_HINT = "word_hints";
 	public static final String TRACKER_LABEL_OPPONENT = "opponent";
 
@@ -110,6 +111,9 @@ public class Constants {
 	public static final String TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE = "hopper_peek_go_to_store";
 	public static final String TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE = "hopper_peek_decline_store";
 	public static final String TRACKER_LABEL_HOPPER_PEEK_CLOSE = "hopper_peek_close";
+	public static final String TRACKER_LABEL_WORD_HINTS_GO_TO_STORE = "word_hints_go_to_store";
+	public static final String TRACKER_LABEL_WORD_HINTS_DECLINE_STORE = "word_hints_decline_store";
+	public static final String TRACKER_LABEL_WORD_HINTS_CLOSE = "word_hints_close";
 
 	public static final String TRACKER_LABEL_PLAY_INITIAL = "play_initial";
 	public static final String TRACKER_LABEL_PLAY_CANCEL = "play_cancel";
@@ -411,7 +415,8 @@ public class Constants {
 	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_OK_CLICKED = 116;	
 	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CLOSE_CLICKED = 117;
 	public static final int RETURN_CODE_CUSTOM_DIALOG_GAME_CONFIRMATION_CANCEL_CLICKED = 118;	
-
+	public static final int RETURN_CODE_WORD_HINT_DIALOG_CHOICE_MADE = 119;	
+	public static final int RETURN_CODE_WORD_HINT_CLOSE = 120;
 	
 	/**=============================================
 	 * directions 

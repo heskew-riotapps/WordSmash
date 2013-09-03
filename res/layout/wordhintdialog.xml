@@ -23,14 +23,16 @@
  		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 	 	android:id="@+id/header"
+	 	android:paddingBottom="5dp"
 	>
     <TextView
-         android:id="@+id/alert_title"
+         android:id="@+id/tvAlertTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		style="@style/TextStyle"
         android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dp"
+		android:text="@string/word_hint_dialog_title"
     />
    <ImageView
         android:id="@+id/img_close"
@@ -40,14 +42,25 @@
         android:layout_alignParentRight="true"
         android:paddingRight="3dp"
         android:paddingTop="3dp"
-		/>
+		/>  
    </RelativeLayout>
+   <ImageView
+        android:id="@+id/imgHost"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/group_1_skill_level_1_main"
+        android:layout_below="@id/header"
+        android:paddingRight="3dp"
+        android:layout_marginLeft="6dp"
+        
+		/>
     <LinearLayout
          android:layout_below="@id/header"
       	android:id="@+id/llHints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_toRightOf="@id/imgHost"
    	/>
      <RelativeLayout  
     android:layout_width="wrap_content"

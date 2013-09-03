@@ -39,11 +39,13 @@ import com.riotapps.word.ui.WordHintDialog;
 import com.riotapps.word.ui.WordLoaderThread;
 import com.riotapps.word.utils.ApplicationContext;
 import com.riotapps.word.utils.AsyncNetworkRequest;
+import com.riotapps.word.utils.Check;
 import com.riotapps.word.utils.Constants;
 import com.riotapps.word.utils.CustomProgressDialog;
 import com.riotapps.word.utils.ImageFetcher;
 import com.riotapps.word.utils.Logger;
 import com.riotapps.word.utils.NetworkTaskResult;
+import com.riotapps.word.utils.PreconditionException;
 import com.riotapps.word.utils.ServerResponse;
 import com.riotapps.word.utils.Utils;
 import com.riotapps.word.utils.WebClient;
@@ -1223,6 +1225,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		}
 	}
 	
+	private void dismissWordHintDialog(){
+		if (this.wordHintDialog != null){
+			if (this.wordHintDialog.isShowing()){
+				this.wordHintDialog.dismiss();
+			}
+			this.wordHintDialog = null;
+		}
+	}
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -1379,20 +1390,27 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	
 			        	GameService.autoPlayForPlayer(context, game, this.gameSurfaceView.getTiles(), this.placedResultsForWordHints);
 			        	Collections.sort(this.placedResultsForWordHints, new PlacedResultComparator());
+			        	
+			        	int numOptions = this.placedResultsForWordHints.size();
+			        	int numHints = numOptions >= 4 ? 4 : numOptions;
+			        	
+			        	
+			        	
 			        	//create list of word hints
 			        	//this.hints.clear();
 			        	List<WordHint> hints = new ArrayList<WordHint>();
-			        	
-			        	for (int x = 0; x < 5; x++) { 
-			        		WordHint hint = new WordHint();
-			        		
-			        		PlacedResult placedResult = this.placedResultsForWordHints.get(x);
-			        		
-			        		hint.setId(placedResult.getDerivedId());
-			        		hint.setPoints(placedResult.getTotalPoints());
-			        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
-			        		
-			        		hints.add(hint);	
+			        	if (numOptions > 0){
+				        	for (int x = numOptions - 1; x > numOptions - numHints - 1; x--) { 
+				        		WordHint hint = new WordHint();
+				        		
+				        		PlacedResult placedResult = this.placedResultsForWordHints.get(x);
+				        		
+				        		hint.setId(placedResult.getDerivedId());
+				        		hint.setPoints(placedResult.getTotalPoints());
+				        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
+				        		
+				        		hints.add(hint);	
+				        	}
 			        	}
 			        	this.wordHintDialog = new WordHintDialog(this, hints);
 			        	this.wordHintDialog.show();
@@ -1854,7 +1872,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 		spinner.dismiss();
 		 		spinner = null;
 		 	}*/
-	    	spinner.updateMessage(this.getString(R.string.progress_almost_ready));
+	    	
+	    	if (spinner != null){
+	    		spinner.updateMessage(this.getString(R.string.progress_almost_ready));
+	    	}
 	    	 String opponentAction = game.getLastActionText(context);
 	    	 
 	    	 if (this.game.getLastAction().equals(LastAction.TURN_SKIPPED)){
@@ -2734,15 +2755,16 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 		@Override
 		public void dialogClose(int resultCode) {
-			
-			
 			Logger.d(TAG, "dialogClose resultCode=" + resultCode);
 			 switch(resultCode) { 
 			   case Constants.RETURN_CODE_HOPPER_PEEK_CLOSE:
 				   this.unfreezeButtons();
 				   this.dismissHopperPeekDialog();
 				   break; 
-			   
+			   case Constants.RETURN_CODE_WORD_HINT_CLOSE:
+				   this.unfreezeButtons();
+				   this.dismissWordHintDialog();
+				   break; 			   
 			   case Constants.RETURN_CODE_CUSTOM_DIALOG_SKIP_CLICKED:
 				 	this.dismissCustomDialog();
 		 			this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
@@ -2829,6 +2851,49 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				    break;
 		 		}
 			
+		}
+		@Override
+		public void dialogClose(int resultCode, String returnValue) {
+			Logger.d(TAG, "dialogClose resultCode=" + resultCode);
+			 switch(resultCode) { 
+			   case Constants.RETURN_CODE_WORD_HINT_DIALOG_CHOICE_MADE:
+				   
+				   this.trackEvent(Constants.TRACKER_CATEGORY_GAMEBOARD, Constants.TRACKER_ACTION_BUTTON_TAPPED,
+		        			Constants.TRACKER_LABEL_CANCEL_CANCEL, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				   
+				   this.unfreezeButtons();
+				   this.dismissWordHintDialog();
+				   try {
+					this.setHintChoice(returnValue);
+				} catch (PreconditionException e) {
+					// TODO Auto-generated catch block
+					Logger.d(TAG, "dialogClose wordHints placedResult not found by id");
+				}
+				   break; 
+			 }
+		}
+		
+		private void setHintChoice(String placedResultId) throws PreconditionException{
+			PlacedResult hintChoice = null;
+			Logger.d(TAG, "setHintChoice placedResultId=" + placedResultId);
+			for (PlacedResult placedResult : this.placedResultsForWordHints){
+				if (placedResult != null && placedResult.getId() != null && placedResult.getId().equals(placedResultId)){
+					hintChoice = placedResult;
+					break;
+				}
+			}
+			
+			Check.Require(hintChoice != null, "no need to localize, wont be shown to user");
+			
+			//set the letters on the board and in the tray
+		    if (hintChoice != null){
+		    	try {
+					this.gameSurfaceView.setHintLetters(hintChoice);
+				} catch (PreconditionException e) {
+					// TODO Auto-generated catch block
+					Logger.d(TAG, "setHintChoice tray letter not found");
+				}
+		    }
 		}
 		
 		private void setupFonts(){

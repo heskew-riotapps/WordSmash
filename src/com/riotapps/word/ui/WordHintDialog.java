@@ -40,8 +40,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 
-public class WordHintDialog  extends Dialog implements View.OnClickListener{
-	private static final String TAG = HopperPeekDialog.class.getSimpleName();
+public class WordHintDialog  extends AlertDialog implements View.OnClickListener{
+	private static final String TAG = WordHintDialog.class.getSimpleName();
 	
 	//private Game game;
 	private Context parent;
@@ -64,13 +64,9 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 		super(context);
 		this.hints = hints;
 		this.parent = context;
-	
-	//	WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-	//	params.horizontalMargin = 10f;
-		
-	//	getWindow().setAttributes(params);
-	   getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-		//getWindow().setBackgroundDrawable(null);
+ 
+	//   getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+	 
 	}
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +90,11 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
         
      //   this.setContentView(this.layout);
 
+        this.setCanceledOnTouchOutside(false);
+        
 		LinearLayout llOK = (LinearLayout) this.layout.findViewById(R.id.llOK);
 		TextView tvOK = (TextView) this.layout.findViewById(R.id.tvOK);
-		//TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);
+		TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);
 
 		Button bNoThanks = (Button)this.layout.findViewById(R.id.bNoThanks);
 		Button bStore = (Button)this.layout.findViewById(R.id.bStore);
@@ -105,7 +103,7 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 		tvOK.setTypeface(ApplicationContext.getMainFontTypeface());
 		bNoThanks.setTypeface(ApplicationContext.getMainFontTypeface());
 		bStore.setTypeface(ApplicationContext.getMainFontTypeface());
-		//tvAlertTitle.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvAlertTitle.setTypeface(ApplicationContext.getMainFontTypeface());
 		
 		//Logger.d(TAG, "free hopper peeks=" + PlayerService.getRemainingFreeUsesHopperPeek());
 		
@@ -216,24 +214,25 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.llOK:
-				this.close();
+				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_WORD_HINT_CLOSE);
 				break;
 			case R.id.bStore:
 				this.dismiss(); 
 				Intent intent = new Intent(this.parent, com.riotapps.word.Store.class);
-				this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, Constants.TRACKER_LABEL_HOPPER_PEEK_GO_TO_STORE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				this.trackEvent(Constants.TRACKER_ACTION_WORD_HINT, Constants.TRACKER_LABEL_WORD_HINTS_GO_TO_STORE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 
 				this.parent.startActivity(intent); 
 				break;
 			case R.id.bNoThanks:
 				this.dismiss();
-				this.trackEvent(Constants.TRACKER_ACTION_HOPPER_PEEK, Constants.TRACKER_LABEL_HOPPER_PEEK_DECLINE_STORE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
+				this.trackEvent(Constants.TRACKER_ACTION_WORD_HINT, Constants.TRACKER_LABEL_WORD_HINTS_DECLINE_STORE, Constants.TRACKER_DEFAULT_OPTION_VALUE);
 
-				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_HOPPER_PEEK_CLOSE);
+				((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_WORD_HINT_CLOSE);
 				break;
 			default:
-				this.close();	
-				
+				 String placedResultId = v.getTag().toString();
+				 ((ICloseDialog)this.parent).dialogClose(Constants.RETURN_CODE_WORD_HINT_DIALOG_CHOICE_MADE, placedResultId);
+	
 				break;
 		}
 	}
@@ -241,9 +240,7 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 	private void loadHints(){
  		
 		 for (WordHint hint : this.hints){
- 
 			 this.llHints.addView(getHintView(hint));
-  
 		 }
 		
 	}
@@ -259,7 +256,7 @@ public class WordHintDialog  extends Dialog implements View.OnClickListener{
 	  	tvWord.setTypeface(ApplicationContext.getMainFontTypeface());
 	  	tvPoints.setTypeface(ApplicationContext.getMainFontTypeface());
 	  	 
-	  	tvPoints.setText(String.valueOf(hint.getPoints()));
+	  	tvPoints.setText(String.format(this.parent.getString(R.string.word_hint_num_points), String.valueOf(hint.getPoints())));
 	  	tvWord.setText(hint.getWord());
 	  	
 	  	view.setTag(hint.getId());

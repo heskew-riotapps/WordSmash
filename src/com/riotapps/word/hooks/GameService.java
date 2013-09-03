@@ -575,9 +575,7 @@ public static void skip(boolean isOpponent, Game game){
 		
 					 if (game.getPlayedWords().size() == 0){
 						 //player skipped first turn, 
-						 //determine full words from tray and make a play on a random starter tile
-			
-					
+						 //determine full words from tray and make a play on a random starter tile 
 			
 						 List<String> sortedTray = GameService.getSortedTrayLetters(playerGame.getTrayLetters());
 						 

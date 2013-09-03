@@ -302,9 +302,9 @@ public String getOriginalText() {
 		else{
 			this.isDraggable = false;
 		}
-		if (this.id == 196){
-			Logger.d(TAG, "setPlacedLetter=" + placedLetter + " draggable=" + (this.isDraggable == true) );
-		}
+	//	if (this.id == 196){
+	//		Logger.d(TAG, "setPlacedLetter=" + placedLetter + " draggable=" + (this.isDraggable == true) );
+	//	}
 	}
 	
 	public String getPlacedLetter() {

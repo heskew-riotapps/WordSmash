@@ -27,6 +27,7 @@
 
     <color name="content_area_font_color">#1874CD</color>
     <color name="content_area_background_color">#fff5ee</color>
+    <color name="content_area_background_pressed_color">#bbbdbd</color>
    
     <color name="content_font_color">#1874CD</color>
     <color name="form_border_color">#3366dd</color> <!-- previously 3366dd -->  
