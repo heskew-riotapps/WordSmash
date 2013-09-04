@@ -199,6 +199,7 @@ containing a value of this type.
         public static final int bonus4l=0x7f0b0060;
         public static final int bonus4l_img=0x7f0b0061;
         public static final int bottomBorder=0x7f0b00c5;
+        public static final int description=0x7f0b00f2;
         public static final int dialog_text=0x7f0b00bb;
         public static final int fullLogoArea=0x7f0b00ee;
         public static final int gameSurface=0x7f0b0086;
@@ -206,7 +207,7 @@ containing a value of this type.
         public static final int header_wrapper=0x7f0b0091;
         public static final int hyphen1=0x7f0b00b4;
         public static final int hyphen2=0x7f0b00b6;
-        public static final int imgHost=0x7f0b00f2;
+        public static final int imgHost=0x7f0b00f3;
         public static final int img_close=0x7f0b000f;
         public static final int ivHopperPeekPurchased=0x7f0b00dd;
         public static final int ivNoAdsPurchased=0x7f0b00d1;
@@ -218,7 +219,7 @@ containing a value of this type.
         public static final int llBottomBorder=0x7f0b0018;
         public static final int llButtons=0x7f0b0087;
         public static final int llDefs=0x7f0b007d;
-        public static final int llHints=0x7f0b00f3;
+        public static final int llHints=0x7f0b00f4;
         public static final int llHopperPeekPriceWrapper=0x7f0b00db;
         public static final int llItem=0x7f0b0012;
         public static final int llNoAdsPriceWrapper=0x7f0b00cf;
@@ -382,7 +383,7 @@ containing a value of this type.
         public static final int tvOpponentScore=0x7f0b00be;
         public static final int tvPlayerName=0x7f0b00bf;
         public static final int tvPlayerScore=0x7f0b00c0;
-        public static final int tvPoints=0x7f0b00f4;
+        public static final int tvPoints=0x7f0b00f5;
         public static final int tvPremiumUpgradeDescription=0x7f0b00cc;
         public static final int tvPremiumUpgradeTitle=0x7f0b00c8;
         public static final int tvPreviewMessage=0x7f0b007a;
@@ -700,11 +701,11 @@ containing a value of this type.
         public static final int progress_opponent_thinking=0x7f060023;
         public static final int progress_saving=0x7f060024;
         public static final int progress_wait=0x7f060021;
-        public static final int purchase_thanks_hide_interstitial=0x7f060109;
+        public static final int purchase_thanks_hide_interstitial=0x7f060108;
         public static final int purchase_thanks_hopper_peek=0x7f060105;
-        public static final int purchase_thanks_premium_upgrade=0x7f060108;
-        public static final int purchase_thanks_word_definitions=0x7f060107;
-        public static final int purchase_thanks_word_hints=0x7f060106;
+        public static final int purchase_thanks_premium_upgrade=0x7f060107;
+        public static final int purchase_thanks_word_definitions=0x7f060106;
+        public static final int purchase_thanks_word_hints=0x7f060109;
         public static final int scoreboard_1_letter_left=0x7f06007c;
         public static final int scoreboard_letters_left=0x7f06007b;
         public static final int scoreboard_num_points=0x7f06007d;
@@ -746,8 +747,15 @@ containing a value of this type.
         public static final int word_definition_no_previews_left=0x7f060104;
         public static final int word_definition_preview=0x7f060102;
         public static final int word_definition_purchase_offer=0x7f060101;
+        public static final int word_hint_1_preview_left=0x7f060122;
+        public static final int word_hint_description=0x7f060123;
+        public static final int word_hint_description_none_found=0x7f060124;
         public static final int word_hint_dialog_title=0x7f06011d;
+        public static final int word_hint_no_previews_left=0x7f060120;
         public static final int word_hint_num_points=0x7f06011c;
+        public static final int word_hint_preview=0x7f060121;
+        public static final int word_hint_previews_over=0x7f06011e;
+        public static final int word_hint_used_this_game=0x7f06011f;
         public static final int wordnik_apiKey=0x7f060007;
         public static final int yes=0x7f06001b;
     }

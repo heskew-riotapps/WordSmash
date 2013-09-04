@@ -72,6 +72,12 @@ public class Game implements Parcelable, Comparable<Game> {
 	
 	@SerializedName("t")
 	private int turn = 0;  	
+
+	@SerializedName("hu")
+	private int hintsUsed = 0;  	
+
+	@SerializedName("hu_t")
+	private int hintsLastUsedInTurn = 0;  	
 	
 	@SerializedName("opp")
 	private int opponentId;
@@ -115,6 +121,8 @@ public class Game implements Parcelable, Comparable<Game> {
 	public void setRandomConsonants(List<String> randomConsonants) {
 		this.randomConsonants = randomConsonants;
 	}
+	
+	
 
 	 /*
 	//only used for new games, to add opponent to the player for "client-side joins"
@@ -194,6 +202,26 @@ public class Game implements Parcelable, Comparable<Game> {
 	//do not serialize
  //	private String lastActionText = "";
 	
+	public int getHintsUsed() {
+		return hintsUsed;
+	}
+
+
+	public void setHintsUsed(int hintsUsed) {
+		this.hintsUsed = hintsUsed;
+	}
+
+
+	public int getHintsLastUsedInTurn() {
+		return hintsLastUsedInTurn;
+	}
+
+
+	public void setHintsLastUsedInTurn(int hintsLastUsedInTurn) {
+		this.hintsLastUsedInTurn = hintsLastUsedInTurn;
+	}
+
+
 	public int getLastTurnPoints() {
 		return this.getLastPlayedTurn().getPoints();
 	}

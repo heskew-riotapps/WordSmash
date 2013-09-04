@@ -2775,6 +2775,11 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 		}
 		Logger.d(TAG, "setHintLetters after loadTray= " + x);
 		
+		this.parent.switchToPlay();
+		this.parent.switchToRecall();
+		
+		this.isZoomed = false;
+		
 		this.wordHintRedraw = true;
 		this.readyToDraw = true;
 		this.resetPointsView();

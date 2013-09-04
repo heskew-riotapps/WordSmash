@@ -1388,31 +1388,77 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        case R.id.bHopperPeek:  
 			        	this.isButtonActive = true;
 			        	
-			        	GameService.autoPlayForPlayer(context, game, this.gameSurfaceView.getTiles(), this.placedResultsForWordHints);
-			        	Collections.sort(this.placedResultsForWordHints, new PlacedResultComparator());
-			        	
-			        	int numOptions = this.placedResultsForWordHints.size();
-			        	int numHints = numOptions >= 4 ? 4 : numOptions;
-			        	
-			        	
-			        	
-			        	//create list of word hints
-			        	//this.hints.clear();
-			        	List<WordHint> hints = new ArrayList<WordHint>();
-			        	if (numOptions > 0){
-				        	for (int x = numOptions - 1; x > numOptions - numHints - 1; x--) { 
-				        		WordHint hint = new WordHint();
-				        		
-				        		PlacedResult placedResult = this.placedResultsForWordHints.get(x);
-				        		
-				        		hint.setId(placedResult.getDerivedId());
-				        		hint.setPoints(placedResult.getTotalPoints());
-				        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
-				        		
-				        		hints.add(hint);	
-				        	}
+			        	int hintsUsed = this.game.getHintsUsed(); 
+			        	int hintsLastUsedInTurn = this.game.getHintsLastUsedInTurn();
+
+			        	if (!StoreService.isWordHintsPurchased() && 
+		        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
+		        				hintsUsed == 0){
+			        		//hints are not allowed
+				        	this.wordHintDialog = new WordHintDialog(this, 1);
+				        	
+				        	//add tracker here or in dialog class
 			        	}
-			        	this.wordHintDialog = new WordHintDialog(this, hints);
+			        	else { 
+				        	if (hintsUsed == 0 || hintsLastUsedInTurn != this.game.getTurn()) {
+				        		//keep track of hints used per game but allow hints to be used more than one time in a single turn without counting as 
+				        		//more than one usage of hints
+				        		this.game.setHintsLastUsedInTurn(this.game.getTurn());
+				        		this.game.setHintsUsed(this.game.getHintsUsed() + 1);
+				        		GameService.saveGame(this.game);
+				        	}
+				        	
+				        	if (hintsUsed == 0 && !StoreService.isWordHintsPurchased()){
+				        		//only do this at the game level, not usage level
+				        		PlayerService.removeAFreeUseFromWordHints();
+				        	}
+				        	
+				        	if (hintsUsed >= Constants.MAX_NUM_HINTS_PER_GAME && this.game.getHintsLastUsedInTurn() != this.game.getTurn()) {
+				        		//hints are used up for this game
+				        		this.placedResultsForWordHints.clear();
+					        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_MAX_USED_FOR_GAME);
+	
+				        	}
+				        	//upgrade has not been purchased and free uses are over
+				        	else if (!StoreService.isWordHintsPurchased() && 
+				        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
+				        				//this might have been the last game for free usage, this check will tell us that
+				        				//if the turn number has been 
+				        				(hintsLastUsedInTurn > 0 && hintsLastUsedInTurn != this.game.getTurn())){
+				        		this.placedResultsForWordHints.clear();
+					        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);	
+				        	}
+				        	else if (this.placedResultsForWordHints.size() == 0){
+				        		//wrap spinner around this.  this should only fire if the sync task did not finish for some reason
+				        		GameService.autoPlayForPlayer(context, game, this.gameSurfaceView.getTiles(), this.placedResultsForWordHints);
+				        		Collections.sort(this.placedResultsForWordHints, new PlacedResultComparator());
+				        		
+				        		int y = this.placedResultsForWordHints.size();
+				        		for (int x = Constants.NUM_HINTS_TO_DISPLAY; x < y - 1; x++){
+				        			this.placedResultsForWordHints.remove(x);     			
+				        			y -= 1;
+				        		}
+				        	
+				        	 	//create list of word hints
+					        	//this.hints.clear();
+					        	List<WordHint> hints = new ArrayList<WordHint>();
+					        	if (this.placedResultsForWordHints.size() > 0){
+						        	//for (int x = numOptions - 1; x > numOptions - numHints - 1; x--) { 
+						        	for (PlacedResult placedResult : this.placedResultsForWordHints) {
+						        		WordHint hint = new WordHint();
+						        		
+						        		//PlacedResult placedResult = this.placedResultsForWordHints.get(x);
+						        		
+						        		hint.setId(placedResult.getDerivedId());
+						        		hint.setPoints(placedResult.getTotalPoints());
+						        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
+						        		
+						        		hints.add(hint);	
+						        	}
+					        	}
+					        	this.wordHintDialog = new WordHintDialog(this, hints);
+				        	}		
+			        	}
 			        	this.wordHintDialog.show();
 			        	
 			        	//temp
@@ -1657,6 +1703,8 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    		this.preAutoplayTask = null;
 		    	}
 	     
+	    		
+	    		
 	    		GameService.play(false, game, placedResult);
 
 		       	this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_PLAY, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), this.game.getLastTurnPoints());
@@ -1950,7 +1998,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    
 	    public void handlePostAdServer(){
 	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
-    		 	this.hasPostAdRun = true;
+    		 	
+	    		//make sure the pre-primedhintlist is cleared
+	    		this.placedResultsForWordHints.clear();
+	    		
+	    		this.hasPostAdRun = true;
     		 	this.unfreezeButtons();
     		 	Logger.d(TAG, "unfreeze handlePostAdServer");
     		 	if (spinner != null) {

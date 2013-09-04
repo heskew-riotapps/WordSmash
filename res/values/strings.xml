@@ -313,10 +313,12 @@
 		<string name="word_definition_no_previews_left">To keep looking up word definitions, you\'ll need a Word Definition Lookups upgrade or a Premium Upgrade!</string>
 	
 		<string name="purchase_thanks_hopper_peek">We hope you enjoy your unlimited usage of Hopper Peeks!</string>	
-		<string name="purchase_thanks_word_hints">We hope you enjoy your unlimited usage of Word Hints!</string>
+	
 		<string name="purchase_thanks_word_definitions">We hope you enjoy your unlimited usage of Word Definitions!</string>			
 		<string name="purchase_thanks_premium_upgrade">We hope you enjoy your Premium Upgrade!</string>
-		<string name="purchase_thanks_hide_interstitial">No more ads between plays!</string>	
+		<string name="purchase_thanks_hide_interstitial">No more ads between plays!</string>
+		<string name="purchase_thanks_word_hints">We hope you enjoy your unlimited usage of Ethan\'s Hints!</string>
+			
 		<string name="header_title_store">STORE</string>		
 		<string name="header_title_about">ABOUT</string>
 		<string name="header_title_completed_games">GAMES</string>
@@ -342,4 +344,14 @@
 		<string name="main_first_time_alert_message">To get started, just choose an opponent.  You can check out all of the rules and visit the store by tapping the 3 squares in the top right corner.\n\nEnjoy WordSmash!</string>
 		<string name="word_hint_num_points">%s points</string>	
 		<string name="word_hint_dialog_title">Ethan\'s Hints</string>		
+		<string name="word_hint_previews_over">Now that the free previews are over, getting hints from Ethan requires an Ethan\'s Hints upgrage or a Premium Upgrade.  Just tap the button to go to the store to get 2 hints per game for unlimited games.  It\'s cheap and a great way to get an extra boost of brain power when you need it!\n</string>		
+		<string name="word_hint_used_this_game">You\'ve used your %s Ethan\'s hints for this game!</string>	
+		<string name="word_hint_no_previews_left">%s\n\nTo keep using Ethan\'s Hints after this game, you\'ll need an Ethan\'s Hints upgrade or a Premium Upgrade!</string>	
+		
+  		<string name="word_hint_preview">%1$s\n\nYou have %2$s more games in which to preview Ethan\'s hints before needing an Ethan\'s Hints upgrade or a Premium Upgrade.</string>
+		<string name="word_hint_1_preview_left">%1$s\n\nYou have 1 more game in which to preview Ethan\'s hints before needing an Ethan\'s Hints upgrade or a Premium Upgrade.</string>
+		<string name="word_hint_description">Just tap a word to place that word on the board.  Don\'t forget to tap the Play button after that if you decide to play the word.</string>
+
+		<string name="word_hint_description_none_found">Sorry, Ethan didn\'t find any word hints.  That doesn\'t mean all hope is lost though!  You may be able to play a word that Ethan didn\'t find.</string>
+							
 </resources>

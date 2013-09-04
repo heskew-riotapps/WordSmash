@@ -475,5 +475,12 @@ public class Constants {
 	public static final int SCREEN_SIZE_XLARGE = 4;
 	public static final int MAX_AUTOPLAY_MILLISECONDS = 8000;
 	
+	public static final int MAX_NUM_HINTS_PER_GAME = 2;
+	public static final int NUM_HINTS_TO_DISPLAY = 4;
+	
+	public static final int WORD_HINTS_ALLOWED = 0;
+	public static final int WORD_HINTS_NO_MORE_PREVIEWS = 1; 
+	public static final int WORD_HINTS_MAX_USED_FOR_GAME = 2;
+	
 }//end class Constants
  
