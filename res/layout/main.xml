@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
-    style="@style/LayoutThinStyle"
-    android:orientation="vertical" >
-    <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
+ >
+ 
 
 	<com.google.ads.AdView  
 	    
@@ -16,7 +16,13 @@
            ads:adSize="BANNER"
            ads:testDevices="TEST_EMULATOR"
            ads:loadAdOnCreate="false"/>
-  
+  <LinearLayout  
+    android:layout_above="@id/adView" 
+    style="@style/LayoutThinStyle"
+   
+    android:orientation="vertical" >
+   
+     <include android:id="@+id/topAreaLayout" layout="@layout/toparealayout" />
       <TextView
           android:layout_below="@id/topAreaLayout"
           android:background="@drawable/logo_bg"
@@ -45,5 +51,5 @@
 			    android:id="@+id/llOpponents"
 			  />	    
   	</ScrollView>
- 
+ </LinearLayout>
 </RelativeLayout>

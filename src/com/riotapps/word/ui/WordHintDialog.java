@@ -48,8 +48,10 @@ public class WordHintDialog  extends AlertDialog implements View.OnClickListener
 	private View layout;
 	private TextView description;
 	private Tracker tracker;
+	private ImageView imgHinter;
 	private List<WordHint> hints;
-
+	private TextView tvInstructions;
+	
 	private LinearLayout llOK;
 	private TextView tvOK;
 	private Button bNoThanks;
@@ -109,15 +111,20 @@ public class WordHintDialog  extends AlertDialog implements View.OnClickListener
 
         this.setCanceledOnTouchOutside(false);
         
+		this.imgHinter = (ImageView) this.layout.findViewById(R.id.imgHinter);
 		this.llOK = (LinearLayout) this.layout.findViewById(R.id.llOK);
 		this.tvOK = (TextView) this.layout.findViewById(R.id.tvOK);
 		TextView tvAlertTitle = (TextView) this.layout.findViewById(R.id.tvAlertTitle);
-
+		this.tvInstructions = (TextView)this.layout.findViewById(R.id.tvInstructions);
+		
+	//	this.imgHinter.setVisibility(View.GONE);
+		
 		this.bNoThanks = (Button)this.layout.findViewById(R.id.bNoThanks);
 		this.bStore = (Button)this.layout.findViewById(R.id.bStore);
 		this.llHints = (LinearLayout)this.layout.findViewById(R.id.llHints);
 		
 		tvOK.setTypeface(ApplicationContext.getMainFontTypeface());
+		tvInstructions.setTypeface(ApplicationContext.getMainFontTypeface());
 		
 		bNoThanks.setTypeface(ApplicationContext.getMainFontTypeface());
 		bStore.setTypeface(ApplicationContext.getMainFontTypeface());
@@ -134,18 +141,19 @@ public class WordHintDialog  extends AlertDialog implements View.OnClickListener
 		if (this.disallowCode == Constants.WORD_HINTS_NO_MORE_PREVIEWS){
 
 			this.description.setText(this.parent.getString(R.string.word_hint_previews_over));			
-
-			this.setPurchaseOfferViews(isPurchased, remainingFreeUses);
  
 			this.llHints.setVisibility(View.GONE);
+			this.tvOK.setVisibility(View.GONE);
+			this.imgHinter.setVisibility(View.GONE);
 		 	//tvOK.setVisibility(View.GONE);
 		}
 		else if (this.disallowCode == Constants.WORD_HINTS_MAX_USED_FOR_GAME){
-			this.description.setText(this.parent.getString(R.string.word_hint_used_this_game));					
+			this.description.setText(String.format(this.parent.getString(R.string.word_hint_used_this_game), Constants.MAX_NUM_HINTS_PER_GAME));					
 
 			this.setPurchaseOfferViews(isPurchased, remainingFreeUses);
 
 		 	this.llHints.setVisibility(View.GONE);
+		 	this.imgHinter.setVisibility(View.GONE);
 		 	//tvOK.setVisibility(View.GONE);	
 		}
 		else if (this.hints.size() == 0) {
@@ -197,7 +205,7 @@ public class WordHintDialog  extends AlertDialog implements View.OnClickListener
 	 }
 
 	private void setPurchaseOfferDescription(int remainingFreeUses){
-		if (remainingFreeUses > 1){
+		/*if (remainingFreeUses > 1){
 			this.description.setText(String.format(this.parent.getString(R.string.word_hint_preview), this.description.getText(), String.valueOf(remainingFreeUses)));
 		}
 		else if (remainingFreeUses == 1){
@@ -206,7 +214,16 @@ public class WordHintDialog  extends AlertDialog implements View.OnClickListener
 		else{
 			this.description.setText(String.format(this.parent.getString(R.string.word_hint_no_previews_left), this.description.getText()));					
 		}
-
+		*/
+		if (remainingFreeUses > 1){
+			this.tvInstructions.setText(String.format(this.parent.getString(R.string.word_hint_preview), String.valueOf(remainingFreeUses)));
+		}
+		else if (remainingFreeUses == 1){
+			this.tvInstructions.setText(this.parent.getString(R.string.word_hint_1_preview_left));					
+		}
+		else{
+			this.tvInstructions.setText(this.parent.getString(R.string.word_hint_no_previews_left));					
+		}
 	}
 	
 	private void setPurchaseOfferViews(boolean isPurchased, int remainingFreeUses){

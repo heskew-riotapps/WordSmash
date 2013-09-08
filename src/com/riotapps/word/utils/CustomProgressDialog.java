@@ -1,6 +1,8 @@
 package com.riotapps.word.utils;
 
 import com.riotapps.word.R;
+import com.riotapps.word.hooks.PlayerService;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class CustomProgressDialog extends AlertDialog{
-	
+	private static final String TAG = CustomProgressDialog.class.getSimpleName();
 	  private String dialogText = "";
 	  private TextView dialog_text;
 	  
@@ -61,7 +63,13 @@ public class CustomProgressDialog extends AlertDialog{
 	//	super.setMessage(message);
 		  this.dialogText = (String)message;
 	}  
-	  
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		Logger.d(TAG, "SHOW");
+		super.show();
+	}  
+	    
 	  
 	public void updateMessage(String message){
 		 this.dialogText = message;

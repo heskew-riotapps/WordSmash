@@ -2742,7 +2742,7 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					break;
  				}
 			}
-			
+		 
 			Check.Require(trayLetterFound, "setHintLetters letter not found=" + tile.getPlacedLetter());
  
 			this.tiles.get(tile.getId()).setPlacedLetter(tile.getPlacedLetter());
@@ -3212,9 +3212,9 @@ public class GameSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 					 }
 				 }
 				 
-				 if (id == 196){
-					 Logger.d(TAG, "LoadTiles NO playedTile 196 ");
-				 }
+				// if (id == 196){
+				//	 Logger.d(TAG, "LoadTiles NO playedTile 196 ");
+				// }
 
 				 if (this.parent.getGameState().getBoardLetter(tile.getId()).length() > 0){
 					 

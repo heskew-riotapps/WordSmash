@@ -34,6 +34,7 @@ import com.riotapps.word.ui.HopperPeekDialog;
 import com.riotapps.word.ui.MenuUtils;
 import com.riotapps.word.ui.PlacedResult;
 import com.riotapps.word.ui.PlacedResultComparator;
+import com.riotapps.word.ui.PlacedResultDescComparator;
 import com.riotapps.word.ui.WordHint;
 import com.riotapps.word.ui.WordHintDialog;
 import com.riotapps.word.ui.WordLoaderThread;
@@ -110,6 +111,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private RelativeLayout scoreboard;
 	 private SurfaceView surfaceView;
 	 private PopupMenu popupMenu;
+	 private String gameId = ""; 
 	 
 	 private Button bRecall;
 	 private Button bPlay;
@@ -127,6 +129,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 
 	 private String lastPlayerActionBeforeAutoplay = "";
 	 
+	 
 	 public String getLastPlayerActionBeforeAutoplay() {
 		return lastPlayerActionBeforeAutoplay;
 	}
@@ -138,6 +141,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 
 	private boolean isPreAutoplayTaskRunning = false;
 	private boolean isWordHintTaskRunning = false;
+	private boolean loadHintsAfterTaskCompletes = false;
 	 
 	 private AutoplayTask autoplayTask = null; 
 	 private PreAutoplayTask preAutoplayTask = null; 
@@ -240,7 +244,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	}
 
 	public Player getPlayer() {
-		return player;
+		//return player;
+		if (this.player == null){
+			this.player = ((ApplicationContext)this.getApplicationContext()).getPlayer(); //PlayerService.getPlayerFromLocal();
+		}
+		return this.player;
 	}
 
 	public void setPlayer(Player player) {
@@ -259,7 +267,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gamesurface);
 		//ApplicationContext appContext = (ApplicationContext)this.getApplicationContext();
-	    this.player = ((ApplicationContext)this.getApplicationContext()).getPlayer(); //PlayerService.getPlayerFromLocal(); 
+	    
+		
+		//this.player = ((ApplicationContext)this.getApplicationContext()).getPlayer(); //PlayerService.getPlayerFromLocal(); 
+		
+		
 		this.tvNumPoints = (TextView)findViewById(R.id.tvNumPoints);
  
 		 Display display = getWindowManager().getDefaultDisplay(); 
@@ -281,31 +293,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	// 		String value = extras.getString("gameId");
 	// 	}
 	 	 
-	 	//Logger.d(TAG, "Game about to be fetched from extra");
-	 	Intent i = getIntent();
-	 	//String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
-	 	boolean fromCompletedGameList = i.getBooleanExtra(Constants.EXTRA_FROM_COMPLETED_GAME_LIST, false);
-	 	
-	 	//do this so that back button does not get crazy if one navigates to game from completed game list continuously
-	 	if (fromCompletedGameList){
-	 		MenuUtils.hideMenu(this);
-	 	}
-	 	//this.game = (Game) i.getParcelableExtra(Constants.EXTRA_GAME);
-	 	
-	 	this.captureTime("get game from local starting");
-	 	
-	 	String gameId = this.player.getActiveGameId();
-	 	
-	 	if (fromCompletedGameList){
-	 		gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
-	 	}
-	 	
-	 	
-	 	if (gameId == null || gameId.equals("")){
-	 		//reroute player to main
-	 		Intent intent = new Intent(this, com.riotapps.word.Main.class);
-    		this.startActivity(intent); 
-	 	}
+	  	this.setGameId();
 	 	
 	 	this.game = GameService.getGame(gameId); //(Game) i.getParcelableExtra(Constants.EXTRA_GAME);
 		Logger.d(TAG, "onCreate game turn=" + game.getTurn());
@@ -359,7 +347,35 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
  
 	 }
 	
- 
+  private void setGameId(){
+		Intent i = getIntent();
+	 	//String gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
+	 	boolean fromCompletedGameList = i.getBooleanExtra(Constants.EXTRA_FROM_COMPLETED_GAME_LIST, false);
+	 	
+	 	//do this so that back button does not get crazy if one navigates to game from completed game list continuously
+	 	if (fromCompletedGameList){
+	 		MenuUtils.hideMenu(this);
+	 	}
+	 	//this.game = (Game) i.getParcelableExtra(Constants.EXTRA_GAME);
+	 	
+	 	this.captureTime("get game from local starting");
+	 	
+	 	this.gameId = this.getPlayer().getActiveGameId();
+	 	
+	 	if (fromCompletedGameList){
+	 		this.gameId = i.getStringExtra(Constants.EXTRA_GAME_ID);
+	 	}
+	 	
+	 	Logger.d(TAG, "setGameId=" + (this.gameId == null ? "null" : this.gameId));
+	 	
+	 	if (this.gameId == null || this.gameId.equals("")){
+	 		Logger.d(TAG, "setGameId starting over, sending user to main");
+	 		//reroute player to main
+	 		Intent intent = new Intent(this, com.riotapps.word.Main.class);
+    		this.startActivity(intent); 
+    		this.finish();
+	 	}
+  }
 
 	private void setupAdServer(){
 		Logger.d(TAG, "setupAdServer called");
@@ -509,6 +525,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			this.placedResults.clear();
 			this.preAutoplayTask = new PreAutoplayTask();
 			this.preAutoplayTask.execute();
+			
+	 		this.wordHintTask =  new WordHintTask();
+	 		this.wordHintTask.execute();
 		}
 	 	
 	 	this.isGamePopulating = false;
@@ -956,6 +975,12 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
     		this.preAutoplayTask = null;
     	}
 		
+		if (this.wordHintTask != null){
+			this.hasWordHintTaskRunThisTurn = false;
+			this.isWordHintTaskRunning = false;
+			this.wordHintTask = null;
+		}
+		
 		Logger.d(TAG, "onPause preAutoplayTask stopped");
 
 	///	this.stopTimer();
@@ -1084,6 +1109,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    		this.preAutoplayTask = null;
 		    	}
 				
+				if (this.wordHintTask != null){
+					this.isWordHintTaskRunning = false;
+					this.wordHintTask = null;
+				}
+				
 				this.gameSurfaceView.onStop();
 				this.game = null;
 				this.player = null;
@@ -1093,6 +1123,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 					//in this case the game was completed in this session so lets just send player to main activity
 					Intent intent = new Intent(this, com.riotapps.word.Main.class);
 		    		this.startActivity(intent); 
+		    		this.finish();
 				}	
 				else{
 					Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -1338,7 +1369,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			if (buttonsLoaded){ 
 				//reset buttons
 				Logger.d(TAG, "onRestart game being fetched from local");
-				if (!this.isGameReloaded) {this.game = GameService.getGame(game.getId());}
+				if (!this.isGameReloaded) {
+					this.setGameId();
+					this.game = GameService.getGame(this.gameId);
+				}
 				Logger.d(TAG, "onRestart game turn=" + game.getTurn());
 				this.fillGameState();
 				this.setupButtons();
@@ -1356,6 +1390,18 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			}
 			catch(Exception e){
 				Logger.d(TAG, "onrestart preautoplay e=" + e.getMessage());
+				
+			}
+			
+			try{
+				if (this.wordHintTask == null && !this.hasWordHintTaskRunThisTurn && this.game.isActive() && this.game.getPlayerGames().get(0).isTurn()){
+					this.placedResultsForWordHints.clear();
+					this.wordHintTask = new WordHintTask();
+					this.wordHintTask.execute();
+				}
+			}
+			catch(Exception e){
+				Logger.d(TAG, "onrestart wordHinttask e=" + e.getMessage());
 				
 			}
 			
@@ -1390,13 +1436,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	
 			        	int hintsUsed = this.game.getHintsUsed(); 
 			        	int hintsLastUsedInTurn = this.game.getHintsLastUsedInTurn();
-
-			        	if (!StoreService.isWordHintsPurchased() && 
+  
+			        	if (!StoreService.isWordHintsPurchased() &&  
 		        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
 		        				hintsUsed == 0){
 			        		//hints are not allowed
-				        	this.wordHintDialog = new WordHintDialog(this, 1);
-				        	
+				        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);
+				        	this.wordHintDialog.show();
 				        	//add tracker here or in dialog class
 			        	}
 			        	else { 
@@ -1410,14 +1456,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				        	
 				        	if (hintsUsed == 0 && !StoreService.isWordHintsPurchased()){
 				        		//only do this at the game level, not usage level
-				        		PlayerService.removeAFreeUseFromWordHints();
+				        		PlayerService.addToToWordHintsPreviewsUsed();
 				        	}
 				        	
-				        	if (hintsUsed >= Constants.MAX_NUM_HINTS_PER_GAME && this.game.getHintsLastUsedInTurn() != this.game.getTurn()) {
+				        	if (hintsUsed > Constants.MAX_NUM_HINTS_PER_GAME ||
+				        			(hintsUsed == Constants.MAX_NUM_HINTS_PER_GAME && hintsLastUsedInTurn != this.game.getTurn())) {
 				        		//hints are used up for this game
 				        		this.placedResultsForWordHints.clear();
 					        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_MAX_USED_FOR_GAME);
-	
+					        	this.wordHintDialog.show();
 				        	}
 				        	//upgrade has not been purchased and free uses are over
 				        	else if (!StoreService.isWordHintsPurchased() && 
@@ -1427,21 +1474,46 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 				        				(hintsLastUsedInTurn > 0 && hintsLastUsedInTurn != this.game.getTurn())){
 				        		this.placedResultsForWordHints.clear();
 					        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);	
+					        	this.wordHintDialog.show();
 				        	}
 				        	else if (this.placedResultsForWordHints.size() == 0){
+				        		if (this.wordHintTask != null){
+				        			this.isWordHintTaskRunning = false;
+				        			this.wordHintTask.cancel(true);
+				        			this.wordHintTask = null;
+				        		}
 				        		//wrap spinner around this.  this should only fire if the sync task did not finish for some reason
-				        		GameService.autoPlayForPlayer(context, game, this.gameSurfaceView.getTiles(), this.placedResultsForWordHints);
-				        		Collections.sort(this.placedResultsForWordHints, new PlacedResultComparator());
+				        		Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG!!!!");
+				        		spinner = new CustomProgressDialog(this);
+			 		 			spinner.setMessage(this.getString(R.string.progress_word_hint_is_thinking));
+			 		 			spinner.show(); 
+				        		GameService.autoPlayForPlayer(context, game, GameService.getBoardBaseTilesAndRemovePlacedTiles(this.gameSurfaceView.getTiles()), this.placedResultsForWordHints);
+				        	    this.hasWordHintTaskRunThisTurn = true;
+				        		this.loadHints();
+				         
+				        		/*
+				        		Collections.sort(this.placedResultsForWordHints, new PlacedResultDescComparator());
 				        		
-				        		int y = this.placedResultsForWordHints.size();
-				        		for (int x = Constants.NUM_HINTS_TO_DISPLAY; x < y - 1; x++){
-				        			this.placedResultsForWordHints.remove(x);     			
-				        			y -= 1;
+//				        		int y = this.placedResultsForWordHints.size();
+				        		//starting after the max number to display, let's remove all the others
+				    
+				        		
+				        		//for (int x = Constants.NUM_HINTS_TO_DISPLAY; this.placedResultsForWordHints.size() > Constants.NUM_HINTS_TO_DISPLAY; x++){
+				        		//	this.placedResultsForWordHints.remove(Constants.NUM_HINTS_TO_DISPLAY);     			
+				        		//	//y -= 1;
+				        		//}
+				        		
+				        		int limiterJustInCase = 0;
+				        		while(this.placedResultsForWordHints.size() > Constants.NUM_HINTS_TO_DISPLAY){
+				        			this.placedResultsForWordHints.remove(Constants.NUM_HINTS_TO_DISPLAY);     			
+				        			limiterJustInCase += 1;
+				        			
+				        			if (limiterJustInCase > 20) { break; }
 				        		}
 				        	
 				        	 	//create list of word hints
-					        	//this.hints.clear();
-					        	List<WordHint> hints = new ArrayList<WordHint>();
+					        	this.hints.clear();
+					        	this.hints = new ArrayList<WordHint>();
 					        	if (this.placedResultsForWordHints.size() > 0){
 						        	//for (int x = numOptions - 1; x > numOptions - numHints - 1; x--) { 
 						        	for (PlacedResult placedResult : this.placedResultsForWordHints) {
@@ -1453,13 +1525,34 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 						        		hint.setPoints(placedResult.getTotalPoints());
 						        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
 						        		
-						        		hints.add(hint);	
+						        		this.hints.add(hint);	
 						        	}
 					        	}
+					        	*/
+					        	if (spinner != null){
+					        		Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG DISMISS!!!!");
+									spinner.dismiss();
+								}
+					        	
 					        	this.wordHintDialog = new WordHintDialog(this, hints);
+					        	this.wordHintDialog.show();
 				        	}		
+				        	else {
+				        		
+				        		if (this.isWordHintTaskRunning){
+				        			this.loadHintsAfterTaskCompletes = true;
+				        			Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG 2!!!!");
+				        			spinner = new CustomProgressDialog(this);
+				 		 			spinner.setMessage(this.getString(R.string.progress_word_hint_is_thinking));
+				 		 			spinner.show(); 
+				        		}
+				        		else {
+				        			this.wordHintDialog = new WordHintDialog(this, this.hints);
+				        			this.wordHintDialog.show();
+				        		}
+				        	}
 			        	}
-			        	this.wordHintDialog.show();
+			        
 			        	
 			        	//temp
 			     //   	this.hopperPeekdialog = new HopperPeekDialog(this, this.game.getId());
@@ -1525,6 +1618,34 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    	}
 	    	}	
 	 }
+	 
+	 
+	 private void loadHints(){
+			Collections.sort(this.placedResultsForWordHints, new PlacedResultDescComparator());
+    		
+    		int limiterJustInCase = 0;
+    		while(this.placedResultsForWordHints.size() > Constants.NUM_HINTS_TO_DISPLAY){
+    			this.placedResultsForWordHints.remove(Constants.NUM_HINTS_TO_DISPLAY);     			
+    			limiterJustInCase += 1;
+    			
+    			if (limiterJustInCase > 20) { break; }
+    		}
+    	
+    	 	//create list of word hints
+        	this.hints.clear();
+        	this.hints = new ArrayList<WordHint>();
+        	if (this.placedResultsForWordHints.size() > 0){
+ 	        	for (PlacedResult placedResult : this.placedResultsForWordHints) {
+	        		WordHint hint = new WordHint();
+
+	        		hint.setId(placedResult.getDerivedId());
+	        		hint.setPoints(placedResult.getTotalPoints());
+	        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
+	        		
+	        		this.hints.add(hint);	
+	        	}
+        	}
+	 }
 	
 	 /*private void loadPlaySpinner(){
 		// Toast.makeText(this, "checking spinner loading", Toast.LENGTH_LONG).show();
@@ -1585,7 +1706,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	//stop thread first
 	    	this.gameSurfaceView.onStop();
 	     
-	    	GameService.cancel(this.player, this.game);
+	    	GameService.cancel(this.getPlayer(), this.game);
 	    	GameStateService.removeGameState(this.game.getId());
     		Intent intent = new Intent(this, com.riotapps.word.Main.class);
     		this.startActivity(intent); 
@@ -1702,9 +1823,15 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    		this.preAutoplayTask.cancel(true);
 		    		this.preAutoplayTask = null;
 		    	}
-	     
 	    		
-	    		
+	    		if (this.wordHintTask != null){
+		    		this.placedResultsForWordHints.clear();
+		    		this.hasPreAutoPlayRunThisTurn = false;
+		    		this.isWordHintTaskRunning = false;
+		    		this.wordHintTask.cancel(true);
+		    		this.wordHintTask = null;
+		    	}
+	 
 	    		GameService.play(false, game, placedResult);
 
 		       	this.trackEvent(Constants.TRACKER_ACTION_GAME_PLAYER_PLAY, String.format(Constants.TRACKER_LABEL_OPPONENT_WITH_ID, this.game.getOpponentId()), this.game.getLastTurnPoints());
@@ -1989,9 +2116,18 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    }
 	    
 	    public void handlePostWordHintTask(){
+	    	this.loadHints();
 	    	this.isWordHintTaskRunning = false;
 	    	this.wordHintTask = null;
 	    	this.hasWordHintTaskRunThisTurn = true;
+	    	if (this.loadHintsAfterTaskCompletes){
+	    		this.loadHintsAfterTaskCompletes = false;
+	    		if (this.spinner != null){
+	    			this.spinner.dismiss();
+	    		}
+	    		this.wordHintDialog = new WordHintDialog(this, hints);
+	        	this.wordHintDialog.show();
+	    	}
 	    	 Logger.d(TAG, "handlePostWordHintTask placedResultsForWordHints derived=" + this.placedResultsForWordHints.size());
 	    	
 	    }
@@ -1999,9 +2135,10 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    public void handlePostAdServer(){
 	    	if (!this.hasPostAdRun &&  this.postTurnMessage.length() > 0){  //chartboost dismiss and close both call this, lets make sure its not run twice
     		 	
-	    		//make sure the pre-primedhintlist is cleared
+	    		//make sure the pre-primed hintlist is cleared
 	    		this.placedResultsForWordHints.clear();
-	    		
+				this.hints.clear();
+
 	    		this.hasPostAdRun = true;
     		 	this.unfreezeButtons();
     		 	Logger.d(TAG, "unfreeze handlePostAdServer");
@@ -2015,6 +2152,14 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
     		 	if (this.game.isActive()){
     		 		this.preAutoplayTask = new PreAutoplayTask();
     		 		this.preAutoplayTask.execute();
+    		 		
+    		 		if(this.wordHintTask != null){
+    		 			this.isWordHintTaskRunning = false;
+    		 			this.wordHintTask.cancel(true);
+    		 			this.wordHintTask = null;
+    		 		}
+    		 		this.wordHintTask =  new WordHintTask();
+    		 		this.wordHintTask.execute();
     		 	}
     		 	else if (this.game.isCompleted()){
     		 		//save completed event
@@ -2929,6 +3074,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			PlacedResult hintChoice = null;
 			Logger.d(TAG, "setHintChoice placedResultId=" + placedResultId);
 			for (PlacedResult placedResult : this.placedResultsForWordHints){
+				Logger.d(TAG, "setHintChoice placedResult id=" + (placedResult == null ? "null" : placedResult.getId()));
 				if (placedResult != null && placedResult.getId() != null && placedResult.getId().equals(placedResultId)){
 					hintChoice = placedResult;
 					break;
@@ -2996,6 +3142,7 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			  
 			 @Override
 			 protected Void doInBackground(Void... params) {
+		 
 				 GameSurface.this.captureTime("PreAutoplayTask STARTING");
 				 GameSurface.this.hasPreAutoPlayRunThisTurn = false;
 				 //while player is thinking, let's gather possible plays for opponent to save time
@@ -3012,25 +3159,54 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		   //      setProgressPercent(progress[0]);
 		   //  }
 		     protected void onPostExecute(Void param) {
-				 GameSurface.this.captureTime("PreAutoplayTask ENDING");
-		    	 GameSurface.this.handlePostPreAutoplay();
+		    	 
+		    	GameSurface.this.captureTime("PreAutoplayTask ENDING");
+		    	GameSurface.this.handlePostPreAutoplay();
+		    	 
 		     }
 
 		 
 		 }
 		
-		 private class WordHintTask extends AsyncTask<Void, Void, Void> {
+		 private class WordHintTask extends AsyncTask<Void, Void, Boolean> {
 			  
 			 @Override
-			 protected Void doInBackground(Void... params) {
+			 protected Boolean doInBackground(Void... params) {
+				 
+				 int hintsUsed = GameSurface.this.game.getHintsUsed(); 
+		         int hintsLastUsedInTurn = GameSurface.this.game.getHintsLastUsedInTurn();
+ 
+		         GameSurface.this.placedResultsForWordHints.clear();
+				 GameSurface.this.hints.clear();
+		         
+				 //finish the if clause
+				 if (!StoreService.isWordHintsPurchased() &&  
+	        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
+	        				hintsUsed == 0){
+					 return false;
+				 }
+				/// if (hintsUsed >= Constants.MAX_NUM_HINTS_PER_GAME && hintsLastUsedInTurn != GameSurface.this.game.getTurn()){
+			///		 return false; 
+			///	 }
+	 
+				 if (hintsUsed > Constants.MAX_NUM_HINTS_PER_GAME ||
+		        			(hintsUsed == Constants.MAX_NUM_HINTS_PER_GAME && hintsLastUsedInTurn != GameSurface.this.game.getTurn())) {
+					 return false;
+				 }
+				 
 				 GameSurface.this.captureTime("PreAutoplayTask STARTING");
 				 GameSurface.this.hasWordHintTaskRunThisTurn = false;
+				 
+				
+				 
+		    		
 				 //while player is thinking, let's gather possible plays for opponent to save time
 				 GameSurface.this.isWordHintTaskRunning = true;
-		     	 GameService.autoPlayForPlayer(context, game, GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), GameSurface.this.placedResultsForWordHints);
+				 GameService.autoPlayForPlayer(GameSurface.this, GameSurface.this.game, GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), GameSurface.this.placedResultsForWordHints);
+		     	// GameService.autoPlayForPlayer(context, game, GameService.getBoardBaseTilesAndRemovePlacedTiles(GameSurface.this.gameSurfaceView.getTiles()), GameSurface.this.placedResultsForWordHints);
 				
 		    	 
-		    	 return null;
+		    	 return true;
 		    	 
 		    	 //return game; 
 		     }
@@ -3038,9 +3214,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		   //  protected void onProgressUpdate(Integer... progress) {
 		   //      setProgressPercent(progress[0]);
 		   //  }
-		     protected void onPostExecute(Void param) {
+		     protected void onPostExecute(Boolean param) {
 			//	 GameSurface.this.captureTime("PreAutoplayTask ENDING");
-		     	 GameSurface.this.handlePostWordHintTask();
+		    	 if (param) {
+		    		 GameSurface.this.handlePostWordHintTask();
+		    	 }
 		     }
 
 		 

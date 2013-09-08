@@ -82,16 +82,7 @@ public class PlayerData {
 	    return uses;
 	}
 	
-	public static int getRemainingFreeUsesWordHints(){
-		
-	    SharedPreferences settings = Storage.getSharedPreferences();
-	    int uses = settings.getInt(Constants.USER_PREFS_FREE_REMAINING_USES_WORD_HINTS, Constants.FREE_USES_HOPPER_PEEK);
-	    
-	    settings = null;
-	    
-	    return uses;
-	}
-	
+
 	public static int getRemainingFreeUsesWordDefinition(){
 		
 	    SharedPreferences settings = Storage.getSharedPreferences();
@@ -134,19 +125,30 @@ public class PlayerData {
 	    return uses;
 	}	
 	
-	public static int removeAFreeUseFromWordHints(){
+	public static int addToToWordHintsPreviewsUsed(){
 	    SharedPreferences settings = Storage.getSharedPreferences();
-	    int uses = settings.getInt(Constants.USER_PREFS_FREE_REMAINING_USES_WORD_HINTS, Constants.FREE_USES_WORD_HINTS);
+	    int uses = settings.getInt(Constants.USER_PREFS_FREE_USAGES_WORD_HINTS, 0);
 	    
-	    if (uses > 0){
-	    	uses -= 1;
+	//    if (uses > 0){
+	    	uses += 1;
 	    	SharedPreferences.Editor editor = settings.edit();
 		
-	  		editor.putInt(Constants.USER_PREFS_FREE_REMAINING_USES_WORD_HINTS, uses);
+	  		editor.putInt(Constants.USER_PREFS_FREE_USAGES_WORD_HINTS, uses);
 	  		editor.apply();
-	    } 
+	 //   } 
 	    
 	    settings = null;
-	    return uses;
+	    return Constants.FREE_USES_WORD_HINTS - uses <= 0 ? 0 : Constants.FREE_USES_WORD_HINTS - uses;
 	}
+	
+	public static int getRemainingFreeUsesWordHints(){
+		
+	    SharedPreferences settings = Storage.getSharedPreferences();
+	    int uses = settings.getInt(Constants.USER_PREFS_FREE_USAGES_WORD_HINTS, 0);
+	    
+	    settings = null;
+	    
+	    return Constants.FREE_USES_WORD_HINTS - uses <= 0 ? 0 : Constants.FREE_USES_WORD_HINTS - uses;
+	}
+	
 }

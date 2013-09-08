@@ -1503,7 +1503,8 @@ public static void skip(boolean isOpponent, Game game){
 						 for(PlacedResult loopResult : placedResults){
 							 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
 								 distinctScore = false;
-								 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score not distinct, word =" + match + " " + placedResult.getTotalPoints());
+								 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score NOT DISTINCT, word =" + match + " " + placedResult.getTotalPoints());
+								 break;
 							 }
 						 }
 						 if (distinctScore){
@@ -1511,7 +1512,7 @@ public static void skip(boolean isOpponent, Game game){
 							 placedResults.add(placedResult);
 							 successfulAdditions += 1;
 							
-							 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords word match points=" + match + " " + placedResult.getTotalPoints());
+							  Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords word match points=" + match + " " + placedResult.getTotalPoints());
 						 }
 				 
 					}
@@ -1784,6 +1785,7 @@ public static void skip(boolean isOpponent, Game game){
 										 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
 											 distinctScore = false;
 											 Logger.d(TAG, "autoplay findWordsPerpendicularToPlayedWords score not distinct, word =" + match + " " + placedResult.getTotalPoints());
+											 break;
 										 }
 									 }
 									 if (distinctScore){
@@ -2077,18 +2079,20 @@ public static void skip(boolean isOpponent, Game game){
 					
 					boolean distinctScore = true;
 					//check for unique score
-					 //check for already played score, doing this should provide a better spread across the sill levels
+					 //check for already played score, doing this should provide a better spread across the skill levels
 					 //since we won't get 42 "4 point" results, skewing the spread
 					 for(PlacedResult loopResult : placedResults){
 						 if (placedResult.getTotalPoints() == loopResult.getTotalPoints()){
 							 distinctScore = false;
-						//	 Logger.d(TAG, "autoplay findWordsFromExtensions score not distinct, word =" + match + " " + placedResult.getTotalPoints());
+							 Logger.d(TAG, "autoplay findWordsFromExtensions score NOT DISTINCT, word =" + match + " " + placedResult.getTotalPoints());
+							 break;
+						//	 
 						 }
 					 }
 					 if (distinctScore){
 						 placedResults.add(placedResult);
 						 successfulAdditions += 1;
-					//	 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
+						 Logger.d(TAG, "autoplay word match points=" + match + " " + placedResult.getTotalPoints());
 					 }
 				 
 				

@@ -181,6 +181,8 @@ public class GameState {
 					Logger.d(TAG, "returnLetterToTray letter " + letter + " is being recalled to tray location " + i);
 					this.locations.get(i).setBoardLocation(-1);
 					this.locations.get(i).setTrayLocation(i);
+					
+					////////////i = 8; //to also break out of outer loop
 					break;
 				}
 			}

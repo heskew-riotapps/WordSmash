@@ -208,8 +208,8 @@ public class PlayerService {
 		return PlayerData.removeAFreeUseFromHopperPeek();
 	}
 	
-	public static int removeAFreeUseFromWordHints(){
-		return PlayerData.removeAFreeUseFromWordHints();
+	public static int addToToWordHintsPreviewsUsed(){
+		return PlayerData.addToToWordHintsPreviewsUsed();
 	}	
 	
 	public static int removeAFreeUseFromWordDefinition(){
