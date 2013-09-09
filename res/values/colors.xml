@@ -44,6 +44,7 @@
     <color name="sub_text_color">#fff5ee</color> 
     <color name="progress_background_color">#3366dd</color>
     <color name="button_text_color">#fff5ee</color>
+    <color name="secondary_button_text_color">#fff5ee</color>
     <color name="field_button_text_color">#454545</color>
 	<color name="player_image_border_color">#000000</color>
 	<color name="player_image_background_color">#d2bfa6</color>

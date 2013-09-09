@@ -113,6 +113,11 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 private PopupMenu popupMenu;
 	 private String gameId = ""; 
 	 
+	 
+	 private Button bBackToMainOptions;
+	 private Button bHints;
+	 private Button bMoreOptions;
+	 
 	 private Button bRecall;
 	 private Button bPlay;
 	 private Button bSkip;
@@ -579,20 +584,28 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		    	else{
 			    	switch (this.activeButton){
 				    	case 1:
-				    		bRecall.setVisibility(View.GONE);
-						 	bShuffle.setVisibility(View.VISIBLE);
+				    		if (GameSurface.this.bMoreOptions.getVisibility() == View.VISIBLE){
+				    			bRecall.setVisibility(View.GONE);
+				    			bShuffle.setVisibility(View.VISIBLE);
+				    		}
 				    		break;
 				    	case 2:
-				    		bRecall.setVisibility(View.VISIBLE);
-						 	bShuffle.setVisibility(View.GONE);
+				    		if (GameSurface.this.bMoreOptions.getVisibility() == View.VISIBLE){
+				    			bRecall.setVisibility(View.VISIBLE);
+				    			bShuffle.setVisibility(View.GONE);
+				    		}
 				    		break;
 				    	case 3:
-				    		bPlay.setVisibility(View.VISIBLE);
-						 	bSkip.setVisibility(View.GONE);
+				    		if (GameSurface.this.bMoreOptions.getVisibility() == View.VISIBLE){
+				    			bPlay.setVisibility(View.VISIBLE);
+				    			bSkip.setVisibility(View.GONE);
+				    		}
 				    		break;
 				    	case 4:
-				    		bPlay.setVisibility(View.GONE);
-				    		bSkip.setVisibility(View.VISIBLE);
+				    		if (GameSurface.this.bMoreOptions.getVisibility() == View.VISIBLE){
+				    			bPlay.setVisibility(View.GONE);
+				    			bSkip.setVisibility(View.VISIBLE);
+				    		}
 				    		break;
 			    	}
 		    	}
@@ -674,13 +687,19 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		 */
 	 }
 	 
-	 
-	 
 	 private void setupButtons(){
+		 setupButtons(false);
+	 }
+	 
+	 private void setupButtons(boolean showSecondary){
 		this.isButtonActive = false;
 		buttonsLoaded = true;
 		//Logger.d(TAG,  "setupButtons called");
 
+		this.bBackToMainOptions = (Button) findViewById(R.id.bBackToMainOptions);
+		this.bHints = (Button) findViewById(R.id.bHints);
+		this.bMoreOptions = (Button) findViewById(R.id.bMoreOptions);
+		
 		this.bRecall = (Button) findViewById(R.id.bRecall);
 		this.bPlay = (Button) findViewById(R.id.bPlay);
 		this.bSkip = (Button) findViewById(R.id.bSkip);
@@ -691,87 +710,21 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 		Button bPlayedWords = (Button) findViewById(R.id.bPlayedWords);
 		Button bCancel = (Button) findViewById(R.id.bCancel);
 		Button bResign = (Button) findViewById(R.id.bResign);
-	 	this.bShuffle.setOnClickListener(this);
-	 
-	 	bHopperPeek.setOnClickListener(this);
-	 	this.bSkip.setOnClickListener(this);
-	 	bPlayedWords.setOnClickListener(this);
-	 	this.bRecall.setOnClickListener(this);
-	 	this.bPlay.setOnClickListener(this);
-	 	
+		
 	 	String btnTextColor = this.game.isContextPlayerTurn() ? this.getString(R.color.button_text_color_on) : this.getString(R.color.button_text_color_off);
-	 	
-	 	this.bPlay.setTextColor(Color.parseColor(btnTextColor));
-	 	this.bSkip.setTextColor(Color.parseColor(btnTextColor));
-	 	bCancel.setTextColor(Color.parseColor(btnTextColor));
-	 	bResign.setTextColor(Color.parseColor(btnTextColor));
-	 	bSwap.setTextColor(Color.parseColor(btnTextColor));
-	 	bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_on)));
-	 	
-	 	//bRecall.setVisibility(View.GONE);
-	 	bShuffle.setVisibility(View.VISIBLE);
-	 	
-	 	bPlay.setVisibility(View.GONE);
-	 	bSkip.setVisibility(View.VISIBLE);
-	 	
-	 	bPlay.setClickable(this.game.isContextPlayerTurn());
-	 	
-//	 	Logger.d(TAG, "getNumLettersLeft=" + this.game.getHopper().size());
-	 	
-	 	if (this.game.getPlayedWords().size() > 0){
-	 		bPlayedWords.setOnClickListener(this);
-	 		bPlayedWords.setClickable(true);	 		
-	 	}
-	 	else{
-	 		bPlayedWords.setClickable(false);
-	 		bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));	 		
-	 	}
-	  	if (this.game.getHopper().size() > 0){
-	 		bSwap.setOnClickListener(this);
-	 		bSwap.setClickable(this.game.isContextPlayerTurn());
- 		//	Logger.d(TAG, "bSwap clickable");
-	  	}
- 		else{
- 			//Logger.d(TAG, "bSwap NOT clickable");
- 			bSwap.setClickable(false);
- 			bSwap.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));
- 		}
-	  	
-	  	//based on store purchase
-	  	bHopperPeek.setClickable(true);
-	  	
-	 	bSkip.setClickable(this.game.isContextPlayerTurn());
-	 	bResign.setClickable(this.game.isContextPlayerTurn());
 
-	 	
-	 	//by default recall button will be hidden, it will be switched with shuffle button when a letter is dropped on the board
-	 	this.bRecall.setVisibility(View.GONE); 
-	 	
-	 	//set cancel button area mode:
-	 	//if it's the first play of the game by starting player, it should be "CANCEL" mode
-	 	//if it's not the first play of the game, it should be in "RESIGN" mode
-	 	
-	 	Logger.d(TAG, "setupButtons game status=" + this.game.getStatus());
-	 	
-	 	if (this.game.getStatus() == 1) { //active
-
-		 	//the starting player gets one chance (one turn) to cancel
-		 	if (this.game.getTurn() == 1){
-		 		bCancel.setOnClickListener(this);	
-		 		bResign.setVisibility(View.GONE);
-		 	}
-		 	else{
-	 			//else we are past each opponents first turn, therefore show the resign button 
-	 			bCancel.setVisibility(View.GONE);	
-		 		bResign.setOnClickListener(this);
-		 		bResign.setVisibility(View.VISIBLE);
-		 		bResign.setClickable(this.game.isContextPlayerTurn());
-		 	}
-		 	
-
-	 	}
-	 	else if(this.game.isCompleted()){  
-	 		bHopperPeek.setVisibility(View.GONE);
+		if (showSecondary){
+	 		
+	 		bPlayedWords.setVisibility(View.VISIBLE);
+	 		bHints.setVisibility(View.VISIBLE);
+	 		bBackToMainOptions.setVisibility(View.VISIBLE);
+			bHopperPeek.setVisibility(View.VISIBLE);
+			
+			bPlayedWords.setOnClickListener(this);
+			bHopperPeek.setOnClickListener(this);
+			this.bBackToMainOptions.setOnClickListener(this);
+			this.bHints.setOnClickListener(this);
+			
 	 		bRecall.setVisibility(View.GONE);
 	 		bSwap.setVisibility(View.GONE);
 	 		bSkip.setVisibility(View.GONE);
@@ -779,25 +732,152 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	 		bResign.setVisibility(View.GONE);
 	 		bCancel.setVisibility(View.GONE);
 	 		bShuffle.setVisibility(View.GONE);
-	 		if (this.game.getPlayedWords().size() == 0){ 
-	 			bPlayedWords.setVisibility(View.GONE);
+	 		bMoreOptions.setVisibility(View.GONE);
+	 		
+	 		bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_on)));
+	 		if (this.game.getPlayedWords().size() > 0){
+		 		bPlayedWords.setOnClickListener(this);
+		 		bPlayedWords.setClickable(true);	 		
+		 	}
+		 	else{
+		 		bPlayedWords.setClickable(false);
+		 		bPlayedWords.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));	 		
+		 	}
+	 		if (this.game.getTurn() == 1){
+		 		bCancel.setOnClickListener(this);	
+		 		bCancel.setVisibility(View.VISIBLE);
+		 		bResign.setVisibility(View.GONE);
+		 	}
+		 	else{
+	 			//else we are past each opponents first turn, therefore show the resign button 
+		 	 
+	 			bCancel.setVisibility(View.GONE);	
+		 		bResign.setOnClickListener(this);
+		 		bResign.setVisibility(View.VISIBLE);
+		 		bResign.setClickable(this.game.isContextPlayerTurn());
+		 	}
+	 		bCancel.setTextColor(Color.parseColor(btnTextColor));
+		 	bResign.setTextColor(Color.parseColor(btnTextColor));
+		 
+		  	//based on store purchase
+		  	//bHopperPeek.setClickable(true);
+		}
+		else {
+			bMoreOptions.setVisibility(View.VISIBLE);
+			bResign.setVisibility(View.GONE);
+			bCancel.setVisibility(View.GONE);
+			bHopperPeek.setVisibility(View.GONE);
+			bPlayedWords.setVisibility(View.GONE);
+			bBackToMainOptions.setVisibility(View.GONE);
+			bHints.setVisibility(View.GONE);
+			 
+			bSwap.setVisibility(View.VISIBLE);
+			//bCancel.setVisibility(View.VISIBLE);
+		 	this.bShuffle.setOnClickListener(this);
+		 	this.bMoreOptions.setOnClickListener(this);
+		 	
+		 	this.bSkip.setOnClickListener(this);
+		 	
+		 	this.bRecall.setOnClickListener(this);
+		 	this.bPlay.setOnClickListener(this);
+		 	
+			 	
+		 	this.bPlay.setTextColor(Color.parseColor(btnTextColor));
+		 	this.bSkip.setTextColor(Color.parseColor(btnTextColor));
+		  	bSwap.setTextColor(Color.parseColor(btnTextColor));
+		 	
+		 	
+		 	//bRecall.setVisibility(View.GONE);
+		 	bShuffle.setVisibility(View.VISIBLE);
+		 	
+		 	bPlay.setVisibility(View.GONE);
+		 	bSkip.setVisibility(View.VISIBLE);
+		 	
+		 	bPlay.setClickable(this.game.isContextPlayerTurn());
+		 	
+	//	 	Logger.d(TAG, "getNumLettersLeft=" + this.game.getHopper().size());
+		 	
+		 
+		  	if (this.game.getHopper().size() > 0){
+		 		bSwap.setOnClickListener(this);
+		 		bSwap.setClickable(this.game.isContextPlayerTurn());
+	 		//	Logger.d(TAG, "bSwap clickable");
+		  	}
+	 		else{
+	 			//Logger.d(TAG, "bSwap NOT clickable");
+	 			bSwap.setClickable(false);
+	 			bSwap.setTextColor(Color.parseColor(this.getString(R.color.button_text_color_off)));
 	 		}
-	 		else {
-	 			//LinearLayout llButtons = (LinearLayout)this.findViewById(R.id.llButtons);
-	 			
-	 			// LinearLayout.LayoutParams llParams = (LinearLayout.LayoutParams)llButtons.getLayoutParams();
-	 			 LinearLayout.LayoutParams buttonParams = (LinearLayout.LayoutParams)bPlayedWords.getLayoutParams();
-	 			
-	 		    // buttonParams.width = R.integer.gameboard_lookup_words_width;
-	 		   //  buttonParams.height = R.integer.gameboard_lookup_words_height;
-	 		   //  buttonParams.weight = 0.5f;
-	 		     buttonParams.setMargins(30, 0, 30, 0);
-	 		    
-
-	 		   
-	 			 bPlayedWords.setLayoutParams(buttonParams);
-	 			 //bPlayedWords.setLayoutParams(new LinearLayout.LayoutParams(R.integer.gameboard_lookup_words_width, R.integer.gameboard_lookup_words_height));
-	 		}
+		  	
+	
+		  	
+		 	bSkip.setClickable(this.game.isContextPlayerTurn());
+		 	
+	
+		 	
+		 	//by default recall button will be hidden, it will be switched with shuffle button when a letter is dropped on the board
+		 	this.bRecall.setVisibility(View.GONE); 
+		 	
+		 	//set cancel button area mode:
+		 	//if it's the first play of the game by starting player, it should be "CANCEL" mode
+		 	//if it's not the first play of the game, it should be in "RESIGN" mode
+		 	
+		 	Logger.d(TAG, "setupButtons game status=" + this.game.getStatus());
+		 	
+		 	//if (this.game.getStatus() == 1) { //active
+		 		
+			 	//the starting player gets one chance (one turn) to cancel
+		 		/*
+			 	if (this.game.getTurn() == 1){
+			 		bCancel.setOnClickListener(this);	
+			 		bCancel.setVisibility(View.VISIBLE);
+			 		bResign.setVisibility(View.GONE);
+			 	}
+			 	else{
+		 			//else we are past each opponents first turn, therefore show the resign button 
+			 	 
+		 			bCancel.setVisibility(View.GONE);	
+			 		bResign.setOnClickListener(this);
+			 		bResign.setVisibility(View.VISIBLE);
+			 		bResign.setClickable(this.game.isContextPlayerTurn());
+			 	}
+			 	*/
+	
+		 	}
+		 	//else 
+		 	if(this.game.isCompleted()){  
+		 		bBackToMainOptions.setVisibility(View.GONE);
+		 		bHints.setVisibility(View.GONE);
+		 		bMoreOptions.setVisibility(View.GONE);
+		 		bHopperPeek.setVisibility(View.GONE);
+		 		bRecall.setVisibility(View.GONE);
+		 		bSwap.setVisibility(View.GONE);
+		 		bSkip.setVisibility(View.GONE);
+		 		bPlay.setVisibility(View.GONE);
+		 		bResign.setVisibility(View.GONE);
+		 		bCancel.setVisibility(View.GONE);
+		 		bShuffle.setVisibility(View.GONE);
+		 		if (this.game.getPlayedWords().size() == 0){ 
+		 			bPlayedWords.setVisibility(View.GONE);
+		 		}
+		 		else {
+		 			bPlayedWords.setVisibility(View.VISIBLE);
+		 			//LinearLayout llButtons = (LinearLayout)this.findViewById(R.id.llButtons);
+		 			
+		 			// LinearLayout.LayoutParams llParams = (LinearLayout.LayoutParams)llButtons.getLayoutParams();
+		 			 LinearLayout.LayoutParams buttonParams = (LinearLayout.LayoutParams)bPlayedWords.getLayoutParams();
+		 			
+		 		    // buttonParams.width = R.integer.gameboard_lookup_words_width;
+		 		   //  buttonParams.height = R.integer.gameboard_lookup_words_height;
+		 		   //  buttonParams.weight = 0.5f;
+		 		     buttonParams.setMargins(30, 0, 30, 0);
+		 		    
+	
+		 		   
+		 			 bPlayedWords.setLayoutParams(buttonParams);
+		 			 //bPlayedWords.setLayoutParams(new LinearLayout.LayoutParams(R.integer.gameboard_lookup_words_width, R.integer.gameboard_lookup_words_height));
+		 		}
+		 	//}
 	 	}
 	 	
 	 //	if (!StoreService.isHopperPeekPurchased() && PlayerService.getRemainingFreeUsesHopperPeek() == 0){
@@ -1419,6 +1499,13 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	}
 	    	else {		
 		    	switch(v.getId()){  
+		    		case R.id.bMoreOptions:
+		    			this.setupButtons(true);
+		    			break;
+		    		case R.id.bBackToMainOptions:
+		    			this.setupButtons();
+		    			this.gameSurfaceView.setInitialButtonStates();
+		    			break;
 			    	case R.id.options:
 				 		popupMenu.show();
 				 		break;
@@ -1431,135 +1518,17 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			        	this.unfreezeButtons();
 		    		 	Logger.d(TAG, "unfreeze shuffle");
 			        	break;
+			        case R.id.bHints:  
+			        	this.isButtonActive = true;
+			        	this.handleLoadHints();
+ 
+						break;
 			        case R.id.bHopperPeek:  
 			        	this.isButtonActive = true;
-			        	
-			        	int hintsUsed = this.game.getHintsUsed(); 
-			        	int hintsLastUsedInTurn = this.game.getHintsLastUsedInTurn();
-  
-			        	if (!StoreService.isWordHintsPurchased() &&  
-		        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
-		        				hintsUsed == 0){
-			        		//hints are not allowed
-				        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);
-				        	this.wordHintDialog.show();
-				        	//add tracker here or in dialog class
-			        	}
-			        	else { 
-				        	if (hintsUsed == 0 || hintsLastUsedInTurn != this.game.getTurn()) {
-				        		//keep track of hints used per game but allow hints to be used more than one time in a single turn without counting as 
-				        		//more than one usage of hints
-				        		this.game.setHintsLastUsedInTurn(this.game.getTurn());
-				        		this.game.setHintsUsed(this.game.getHintsUsed() + 1);
-				        		GameService.saveGame(this.game);
-				        	}
-				        	
-				        	if (hintsUsed == 0 && !StoreService.isWordHintsPurchased()){
-				        		//only do this at the game level, not usage level
-				        		PlayerService.addToToWordHintsPreviewsUsed();
-				        	}
-				        	
-				        	if (hintsUsed > Constants.MAX_NUM_HINTS_PER_GAME ||
-				        			(hintsUsed == Constants.MAX_NUM_HINTS_PER_GAME && hintsLastUsedInTurn != this.game.getTurn())) {
-				        		//hints are used up for this game
-				        		this.placedResultsForWordHints.clear();
-					        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_MAX_USED_FOR_GAME);
-					        	this.wordHintDialog.show();
-				        	}
-				        	//upgrade has not been purchased and free uses are over
-				        	else if (!StoreService.isWordHintsPurchased() && 
-				        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
-				        				//this might have been the last game for free usage, this check will tell us that
-				        				//if the turn number has been 
-				        				(hintsLastUsedInTurn > 0 && hintsLastUsedInTurn != this.game.getTurn())){
-				        		this.placedResultsForWordHints.clear();
-					        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);	
-					        	this.wordHintDialog.show();
-				        	}
-				        	else if (this.placedResultsForWordHints.size() == 0){
-				        		if (this.wordHintTask != null){
-				        			this.isWordHintTaskRunning = false;
-				        			this.wordHintTask.cancel(true);
-				        			this.wordHintTask = null;
-				        		}
-				        		//wrap spinner around this.  this should only fire if the sync task did not finish for some reason
-				        		Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG!!!!");
-				        		spinner = new CustomProgressDialog(this);
-			 		 			spinner.setMessage(this.getString(R.string.progress_word_hint_is_thinking));
-			 		 			spinner.show(); 
-				        		GameService.autoPlayForPlayer(context, game, GameService.getBoardBaseTilesAndRemovePlacedTiles(this.gameSurfaceView.getTiles()), this.placedResultsForWordHints);
-				        	    this.hasWordHintTaskRunThisTurn = true;
-				        		this.loadHints();
-				         
-				        		/*
-				        		Collections.sort(this.placedResultsForWordHints, new PlacedResultDescComparator());
-				        		
-//				        		int y = this.placedResultsForWordHints.size();
-				        		//starting after the max number to display, let's remove all the others
-				    
-				        		
-				        		//for (int x = Constants.NUM_HINTS_TO_DISPLAY; this.placedResultsForWordHints.size() > Constants.NUM_HINTS_TO_DISPLAY; x++){
-				        		//	this.placedResultsForWordHints.remove(Constants.NUM_HINTS_TO_DISPLAY);     			
-				        		//	//y -= 1;
-				        		//}
-				        		
-				        		int limiterJustInCase = 0;
-				        		while(this.placedResultsForWordHints.size() > Constants.NUM_HINTS_TO_DISPLAY){
-				        			this.placedResultsForWordHints.remove(Constants.NUM_HINTS_TO_DISPLAY);     			
-				        			limiterJustInCase += 1;
-				        			
-				        			if (limiterJustInCase > 20) { break; }
-				        		}
-				        	
-				        	 	//create list of word hints
-					        	this.hints.clear();
-					        	this.hints = new ArrayList<WordHint>();
-					        	if (this.placedResultsForWordHints.size() > 0){
-						        	//for (int x = numOptions - 1; x > numOptions - numHints - 1; x--) { 
-						        	for (PlacedResult placedResult : this.placedResultsForWordHints) {
-						        		WordHint hint = new WordHint();
-						        		
-						        		//PlacedResult placedResult = this.placedResultsForWordHints.get(x);
-						        		
-						        		hint.setId(placedResult.getDerivedId());
-						        		hint.setPoints(placedResult.getTotalPoints());
-						        		hint.setWord(placedResult.getPlacedWords().get(0).getWord());
-						        		
-						        		this.hints.add(hint);	
-						        	}
-					        	}
-					        	*/
-					        	if (spinner != null){
-					        		Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG DISMISS!!!!");
-									spinner.dismiss();
-								}
-					        	
-					        	this.wordHintDialog = new WordHintDialog(this, hints);
-					        	this.wordHintDialog.show();
-				        	}		
-				        	else {
-				        		
-				        		if (this.isWordHintTaskRunning){
-				        			this.loadHintsAfterTaskCompletes = true;
-				        			Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG 2!!!!");
-				        			spinner = new CustomProgressDialog(this);
-				 		 			spinner.setMessage(this.getString(R.string.progress_word_hint_is_thinking));
-				 		 			spinner.show(); 
-				        		}
-				        		else {
-				        			this.wordHintDialog = new WordHintDialog(this, this.hints);
-				        			this.wordHintDialog.show();
-				        		}
-				        	}
-			        	}
-			        
-			        	
-			        	//temp
-			     //   	this.hopperPeekdialog = new HopperPeekDialog(this, this.game.getId());
-			       	 
-				  //  	this.hopperPeekdialog.show();
-			         
-					 
+ 		        	 
+			        	this.hopperPeekdialog = new HopperPeekDialog(this, this.game.getId());
+				  	 	this.hopperPeekdialog.show();
+ 
 						break;
 			        case R.id.bPlayedWords:  
 			        	this.isButtonActive = true;
@@ -1619,6 +1588,90 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 	    	}	
 	 }
 	 
+	 private void handleLoadHints(){
+			int hintsUsed = this.game.getHintsUsed(); 
+        	int hintsLastUsedInTurn = this.game.getHintsLastUsedInTurn();
+
+        	if (!StoreService.isWordHintsPurchased() &&  
+    				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
+    				hintsUsed == 0){
+        		//hints are not allowed
+	        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);
+	        	this.wordHintDialog.show();
+	        	//add tracker here or in dialog class
+        	}
+        	else { 
+	        	if (hintsUsed == 0 || hintsLastUsedInTurn != this.game.getTurn()) {
+	        		//keep track of hints used per game but allow hints to be used more than one time in a single turn without counting as 
+	        		//more than one usage of hints
+	        		this.game.setHintsLastUsedInTurn(this.game.getTurn());
+	        		this.game.setHintsUsed(this.game.getHintsUsed() + 1);
+	        		GameService.saveGame(this.game);
+	        	}
+	        	
+	        	if (hintsUsed == 0 && !StoreService.isWordHintsPurchased()){
+	        		//only do this at the game level, not usage level
+	        		PlayerService.addToToWordHintsPreviewsUsed();
+	        	}
+	        	
+	        	if (hintsUsed > Constants.MAX_NUM_HINTS_PER_GAME ||
+	        			(hintsUsed == Constants.MAX_NUM_HINTS_PER_GAME && hintsLastUsedInTurn != this.game.getTurn())) {
+	        		//hints are used up for this game
+	        		this.placedResultsForWordHints.clear();
+		        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_MAX_USED_FOR_GAME);
+		        	this.wordHintDialog.show();
+	        	}
+	        	//upgrade has not been purchased and free uses are over
+	        	else if (!StoreService.isWordHintsPurchased() && 
+	        				PlayerService.getRemainingFreeUsesWordHints() == 0 && 
+	        				//this might have been the last game for free usage, this check will tell us that
+	        				//if the turn number has been 
+	        				(hintsLastUsedInTurn > 0 && hintsLastUsedInTurn != this.game.getTurn())){
+	        		this.placedResultsForWordHints.clear();
+		        	this.wordHintDialog = new WordHintDialog(this, Constants.WORD_HINTS_NO_MORE_PREVIEWS);	
+		        	this.wordHintDialog.show();
+	        	}
+	        	else if (this.placedResultsForWordHints.size() == 0){
+	        		if (this.wordHintTask != null){
+	        			this.isWordHintTaskRunning = false;
+	        			this.wordHintTask.cancel(true);
+	        			this.wordHintTask = null;
+	        		}
+	        		//wrap spinner around this.  this should only fire if the sync task did not finish for some reason
+	        		Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG!!!!");
+	        		//the spinner is no showing, not sure why yet!!!
+	        		spinner = new CustomProgressDialog(this);
+ 		 			spinner.setMessage(this.getString(R.string.progress_word_hint_is_thinking));
+ 		 			spinner.show(); 
+	        		GameService.autoPlayForPlayer(context, game, GameService.getBoardBaseTilesAndRemovePlacedTiles(this.gameSurfaceView.getTiles()), this.placedResultsForWordHints);
+	        	    this.hasWordHintTaskRunThisTurn = true;
+	        		this.loadHints();
+	         
+		        	if (spinner != null){
+		        		Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG DISMISS!!!!");
+						spinner.dismiss();
+					}
+		        	
+		        	this.wordHintDialog = new WordHintDialog(this, hints);
+		        	this.wordHintDialog.show();
+	        	}		
+	        	else {
+	        		
+	        		if (this.isWordHintTaskRunning){
+	        			this.loadHintsAfterTaskCompletes = true;
+	        			Logger.d(TAG, "HINTS CUSTOM PROGRESS DIALOG 2!!!!");
+	        			spinner = new CustomProgressDialog(this);
+	 		 			spinner.setMessage(this.getString(R.string.progress_word_hint_is_thinking));
+	 		 			spinner.show(); 
+	        		}
+	        		else {
+	        			this.wordHintDialog = new WordHintDialog(this, this.hints);
+	        			this.wordHintDialog.show();
+	        		}
+	        	}
+        	}
+		 
+	 }
 	 
 	 private void loadHints(){
 			Collections.sort(this.placedResultsForWordHints, new PlacedResultDescComparator());
@@ -3103,6 +3156,9 @@ public class GameSurface extends FragmentActivity implements View.OnClickListene
 			Button bCancel = (Button) findViewById(R.id.bCancel);
 			Button bResign = (Button) findViewById(R.id.bResign);
 			
+			this.bBackToMainOptions.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			this.bHints.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
+			this.bMoreOptions.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
 			this.bRecall.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
 			this.bPlay.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());
 			this.bSkip.setTypeface(ApplicationContext.getScoreboardButtonFontTypeface());

@@ -20,22 +20,16 @@
 	<LinearLayout
 	     android:id="@+id/llButtons"
         style="@style/GameBoardButtonAreaStyle">
+
 	<Button 
   	    style="@style/GameBoardButtonStyle"
-  	    android:id="@+id/bPlayedWords"
+  	    android:id="@+id/bMoreOptions"
         android:layout_width="0dp" 
         android:layout_weight="1.0"
-        android:text="@string/gameboard_played_words_button_text"
+        android:text="@string/gameboard_more_button_text"
         
     />
- 	<Button 
-  	    style="@style/GameBoardButtonStyle"
-  	    android:id="@+id/bHopperPeek"
-        android:layout_width="0dp" 
-        android:layout_weight="1.0"
-        android:text="@string/gameboard_hopper_peek_button_text"
-     
-    />
+
 	  <Button 
   	    style="@style/GameBoardButtonStyle"
   	    android:id="@+id/bRecall"
@@ -71,8 +65,41 @@
         android:layout_weight="1.0"
         android:text="@string/gameboard_skip_button_text"
     />
+  
+   
+ 
     <Button 
-        style="@style/GameBoardButtonStyle"
+        style="@style/GameBoardSecondaryButtonStyle"
+        android:id="@+id/bBackToMainOptions"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_back_button_text"
+    />
+    <Button 
+  	    style="@style/GameBoardSecondaryButtonStyle"
+  	    android:id="@+id/bPlayedWords"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_played_words_button_text"
+        
+    />
+    <Button 
+  	    style="@style/GameBoardSecondaryButtonStyle"
+  	    android:id="@+id/bHints"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_hints_button_text"
+    />
+    <Button 
+  	    style="@style/GameBoardSecondaryButtonStyle"
+  	    android:id="@+id/bHopperPeek"
+        android:layout_width="0dp" 
+        android:layout_weight="1.0"
+        android:text="@string/gameboard_hopper_peek_button_text"
+     
+    />
+      <Button 
+        style="@style/GameBoardSecondaryButtonStyle"
         android:id="@+id/bCancel"
         android:layout_width="0dp"
         android:layout_weight="1.0"
@@ -80,7 +107,7 @@
     />
 
    <Button
-        style="@style/GameBoardButtonStyle"
+        style="@style/GameBoardSecondaryButtonStyle"
         android:id="@+id/bResign"
         android:layout_width="0dp"
         android:layout_weight="1.0"

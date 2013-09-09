@@ -168,6 +168,9 @@
  	<string name="gameboard_recall_button_text">RECALL</string>
  	<string name="gameboard_shuffle_button_text">SHUFFLE</string>
  	<string name="gameboard_play_button_text">PLAY</string>
+ 	<string name="gameboard_more_button_text">MORE &gt;&gt;</string>
+ 	<string name="gameboard_back_button_text">&lt;&lt; BACK</string>
+ 	<string name="gameboard_hints_button_text">ETHAN\'S\nHINTS</string>
  	<string name="gameboard_resign_button_text">CONCEDE</string>
  	<string name="gameboard_skip_button_text">SKIP</string>
  	<string name="gameboard_cancel_button_text">CANCEL</string>
